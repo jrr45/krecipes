@@ -89,7 +89,7 @@ void KrePropertyActionsHandler::saveElement( const QModelIndex & topLeft,
 	Q_UNUSED( bottomRight )
 
 	if ( topLeft.column() == 3 ) {
-		KConfigGroup config = KGlobal::config()->group("Formatting");
+        KConfigGroup config = KSharedConfig::openConfig()->group("Formatting");
 	
 		config.sync();
 		QStringList hiddenList = config.readEntry("HiddenProperties", QStringList());

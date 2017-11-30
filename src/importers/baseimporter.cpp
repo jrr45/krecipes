@@ -94,8 +94,8 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 	if ( direct ) {
 		m_database = db;
 
-		m_progress_dialog = new KProgressDialog( kapp->mainWidget(), i18n( "Importing selected recipes" ), QString(), Qt::Dialog );
-		m_progress_dialog->setModal( true );
+        m_progress_dialog = new KProgressDialog( kapp->activeWindow(), i18n( "Importing selected recipes" ), QString(), Qt::Dialog );
+        m_progress_dialog->setModal( true );
 		m_progress_dialog->progressBar()->setRange( 0, 0 );
 	
 		for ( QStringList::const_iterator file_it = m_filenames.constBegin(); file_it != m_filenames.constEnd(); ++file_it ) {
@@ -117,7 +117,7 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 		m_recipe_list->empty();
 		//db->blockSignals(true);
 
-		m_progress_dialog = new KProgressDialog( kapp->mainWidget(), i18n( "Importing selected recipes" ), QString(), Qt::Dialog );
+        m_progress_dialog = new KProgressDialog( kapp->activeWindow(), i18n( "Importing selected recipes" ), QString(), Qt::Dialog );
 		m_progress_dialog->setModal( true );
 		m_progress_dialog->progressBar()->setRange( 0, m_recipe_list->count() );
 		m_progress_dialog->progressBar()->setFormat( i18n( "%v/%m Recipes" ) );
@@ -213,7 +213,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 	for ( recipe_it = selected_recipes.begin(); recipe_it != recipe_list_end; ++recipe_it ) {
 		if ( !direct ) {
 			if ( progress_dialog->wasCancelled() ) {
-				KMessageBox::information( kapp->mainWidget(), i18n( "All recipes up unto this point have been successfully imported." ) );
+                KMessageBox::information( kapp->activeWindow(), i18n( "All recipes up unto this point have been successfully imported." ) );
 				//db->blockSignals(false);
 				db->enableTransactions();
 				db->commit();

@@ -15,7 +15,6 @@
 //Added by qt3to4:
 #include <QHBoxLayout>
 #include <QGridLayout>
-#include <Q3ValueList>
 #include <QList>
 #include <QVBoxLayout>
 
@@ -267,8 +266,8 @@ QStringList letterPairs(const QString& str) {
 }
 
 /** @return an ArrayList of 2-character Strings. */
-Q3ValueList<QStringList> wordLetterPairs(const QString &str) {
-	Q3ValueList<QStringList> allPairs;
+QList<QStringList> wordLetterPairs(const QString &str) {
+    QList<QStringList> allPairs;
 	// Tokenize the string and put the tokens/words into an array
 	QStringList words;
    if(str.isEmpty())
@@ -289,8 +288,8 @@ Q3ValueList<QStringList> wordLetterPairs(const QString &str) {
 
 /** @return lexical similarity value in the range [0,1] */
 double compareStrings(const QString &str1, const QString &str2) {
-	Q3ValueList<QStringList> pairs1 = wordLetterPairs(str1.toUpper());
-	Q3ValueList<QStringList> pairs2 = wordLetterPairs(str2.toUpper());
+    QList<QStringList> pairs1 = wordLetterPairs(str1.toUpper());
+    QList<QStringList> pairs2 = wordLetterPairs(str2.toUpper());
 	int intersection = 0;
 	int size_union = pairs1.count() + pairs2.count();
 	for (int i=0; i<pairs1.count(); i++) {

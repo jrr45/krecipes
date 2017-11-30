@@ -158,9 +158,9 @@ void SetupDisplay::loadHTMLView( const QString &templateFile, const QString &sty
 	}
 	file.close();
 
-	KUrl url;
-	url.setPath( tmp_filename );
-	kDebug() << "Opening URL: " << Qt::escape(url.prettyUrl()) ;
+    QUrl url;
+    url.fromLocalFile( tmp_filename );
+    kDebug() << "Opening URL: " << Qt::escape( QUrl::prettyUrl(url) ) ;
 
 	//KDE4 port
 	KParts::OpenUrlArguments argsUrl ( arguments() );

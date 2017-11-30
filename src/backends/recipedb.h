@@ -421,7 +421,7 @@ private:
 	QIODevice * m_dumpFile;
 	bool haltOperation;
 	bool m_operationHalted;
-	KProcess * process;
+    KProcess * process;
 	bool m_processStarted;
 	bool m_processFinished;
 	bool m_processError;

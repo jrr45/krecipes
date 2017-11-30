@@ -30,7 +30,6 @@
 
 #include <KAction>
 #include <KLocale>
-#include <KFileDialog>
 #include <KMessageBox>
 #include <KTempDir>
 #include <KStandardDirs>
@@ -43,6 +42,7 @@
 #include <QWebFrame>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
+#include <QFileDialog>
 
 
 
@@ -261,8 +261,8 @@ void KreRecipeActionsHandler::collapseAll()
 
 void KreRecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString & caption, const QString &selection, RecipeDB *database )
 {
-	KFileDialog * fd = new KFileDialog( KUrl(),
-		QString( "*.kre|%1 (*.kre)\n"
+    QFileDialog * fd = new QFileDialog::getSaveFileName(Q_NULLPTR, caption, QUrl(),
+      QString( "*.kre|%1 (*.kre)\n"
 		"*.kreml|Krecipes (*.kreml)\n"
 		"*.txt|%3 (*.txt)\n"
 		//"*.cml|CookML (*.cml)\n"
@@ -277,13 +277,10 @@ void KreRecipeActionsHandler::exportRecipes( const QList<int> &ids, const QStrin
 		.arg( i18n("Plain Text") )
 		.arg( i18n("Web Book") ),
 	0 );
-	fd->setObjectName( "export_dlg" );
-	fd->setModal( true );
-	fd->setCaption( caption );
-	fd->setOperationMode( KFileDialog::Saving );
-	fd->setSelection( selection );
-	fd->setMode( KFile::File | KFile::Directory );
-	if ( fd->exec() == KFileDialog::Accepted ) {
+    fd->setObjectName( "export_dlg" );
+    fd->setModal( true );
+    fd->setFileMode( QFileDialog::AnyFile | QFileDialog::Directory );
+    if ( fd->exec() == QFileDialog::Accepted ) {
 		QString fileName = fd->selectedFile();
 		if ( !fileName.isEmpty() ) {
 			BaseExporter * exporter;
@@ -337,7 +334,7 @@ void KreRecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *dat
 	QString tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
 	//Export to HTML in the temporary directory.
 	XSLTExporter html_generator( tmp_filename, "html" );
-	KConfigGroup config(KGlobal::config(), "Page Setup" );
+    KConfigGroup config(KSharedConfig::openConfig(), "Page Setup" );
 	QString styleFile = config.readEntry( "PrintLayout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
 	if ( !styleFile.isEmpty() && QFile::exists( styleFile ) )
 		html_generator.setStyle( styleFile );
@@ -349,7 +346,7 @@ void KreRecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *dat
 	//Load the generated HTML. When loaded, RecipeActionsHandlerView::print(...) will be called.
 	m_printPage = new KWebPage;
 	connect(m_printPage, SIGNAL(loadFinished(bool)), SLOT(print(bool)));
-	m_printPage->mainFrame()->load( KUrl(tmp_filename) );
+    m_printPage->mainFrame()->load( QUrl::fromLocalFile(tmp_filename) );
 }
 
 void KreRecipeActionsHandler::print(bool ok)
@@ -383,7 +380,7 @@ void KreRecipeActionsHandler::recipesToClipboard()
 		return;
 	}
 
-	KConfigGroup config = KGlobal::config()->group("Export");
+    KConfigGroup config = KSharedConfig::openConfig()->group("Export");
 	QString formatFilter = config.readEntry("ClipboardFormat");
 
 	BaseExporter * exporter;

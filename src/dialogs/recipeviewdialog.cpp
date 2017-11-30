@@ -143,11 +143,11 @@ bool RecipeViewDialog::showRecipes( const QList<int> &ids )
 		return false;
 	}
 
-	KUrl url;
-	url.setPath( tmp_filename );
+    QUrl url;
+    url.fromLocalFile( tmp_filename );
 	recipeView->openUrl( url );
 	recipeView->show();
-	kDebug() << "Opening URL: " << Qt::escape(url.prettyUrl()) ;
+    kDebug() << "Opening URL: " << Qt::escape( QUrl::toDisplayString(url) ) ;
 
 	delete progress_dialog;
 	return true;

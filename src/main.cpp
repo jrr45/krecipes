@@ -23,6 +23,12 @@
 #include "convert_sqlite3.h"
 #include "datablocks/elementlist.h"
 
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#ifdef Q_OS_ANDROID
+#include "./3rdparty/kirigami/src/kirigamiplugin.h"
+#endif
+
 
 static KCmdLineOptions options;
 

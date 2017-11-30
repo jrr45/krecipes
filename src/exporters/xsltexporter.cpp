@@ -25,7 +25,6 @@
 #include <khtmlview.h>
 #include <kprogressdialog.h>
 #include <kstandarddirs.h>
-#include <kurl.h>
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -61,7 +60,7 @@ const char* i18n_strings[] = {
 XSLTExporter::XSLTExporter( const QString& filename, const QString &format ) :
 		BaseExporter( filename, format )
 {
-	KConfigGroup config = KGlobal::config()->group( "Page Setup" );
+    KConfigGroup config = KGlobal::config()->group( "Page Setup" );
 
 	//let's do everything we can to be sure at least some layout is loaded
 	QString template_filename = config.readEntry( "Template", KStandardDirs::locate( "appdata", "layouts/Default.xsl" ) );

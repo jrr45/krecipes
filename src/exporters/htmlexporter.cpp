@@ -21,12 +21,8 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <kglobal.h>
-#include <khtml_part.h>
-#include <khtmlview.h>
 #include <kprogressdialog.h>
 #include <kstandarddirs.h>
-#include <kurl.h>
 #include <kiconloader.h>
 
 #include "datablocks/mixednumber.h"
@@ -120,13 +116,11 @@ QString HTMLExporter::createHeader( const RecipeList & )
 	dir.mkdir( fi.absolutePath() + '/' + fi.baseName() + "_photos" );
 
 	RecipeList::const_iterator recipe_it;
-
-	KLocale*loc = KGlobal::locale();
-	QString encoding = loc->encoding();
+    QString language_code = QLocale().name().left(2);
 
 	QString output = "<html>";
 	output += "<head>";
-	output += "<meta name=\"lang\" content=\"" + loc->language() + "\">\n";
+    output += "<meta name=\"lang\" content=\"" + language_code + "\">\n";
 	output += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
 	output += QString( "<title>%1</title>" ).arg( i18n( "Krecipes Recipes" ) );
 
@@ -249,7 +243,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 
 	//=======================INGREDIENTS======================//
 	QString ingredients_html;
-	KConfigGroup config = KGlobal::config()->group( "Formatting" );
+    KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
 	bool useAbbreviations = config.readEntry("AbbreviateUnits", false);
 
 	int cols = 2;
@@ -314,7 +308,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 				else if ( ( *sub_it ).amount <= 1e-10 )
 					amount_str = "";
 	
-				QString unit = ( *sub_it ).units.determineName( ( *sub_it ).amount + ( *sub_it ).amount_offset, config.readEntry("AbbreviateUnits", false) );
+                QString unit = ( *sub_it ).units.determineName( ( *sub_it ).amount + ( *sub_it ).amount_offset, useAbbreviations );
 
 				QString tmp_format;
 				tmp_format += "<span class=\"ingredient-amount\">"+amount_str+" </span>";
@@ -350,7 +344,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 			visibleProperties.append( *prop_it );
 	}
 
-	cols = 3;
+    cols = 3;
 	per_col = visibleProperties.count() / cols;
 	if ( visibleProperties.count() % cols != 0 ) //round up if division is not exact
 		per_col++;
@@ -367,7 +361,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 		double prop_amount = (*prop_it).amount;
 		if ( prop_amount > 0 ) { //TODO: make the precision configuratble
 			prop_amount = double( qRound( prop_amount * 10.0 ) ) / 10.0; //not a "chemistry experiment" ;)  Let's only have one decimal place
-			amount_str = beautify( KGlobal::locale() ->formatNumber( prop_amount, 5 ) );
+            amount_str = beautify( QLocale().toString(prop_amount, 'g', 5) );
 		}
 		else
 			amount_str = '0';

@@ -21,7 +21,7 @@
 #include <q3ptrlist.h>
 #include <QSlider>
 #include <qspinbox.h>
-#include <q3valuelist.h>
+#include <QList.h>
 
 #include <QStackedWidget>
 //Added by qt3to4:
@@ -108,7 +108,7 @@ private slots:
 	void createDiet( void );
 	void clear();
 	void createShoppingList( void );
-	void populateIteratorList( RecipeList &rl, Q3ValueList <RecipeList::Iterator> *il );
+    void populateIteratorList( RecipeList &rl, QList <RecipeList::Iterator> *il );
 signals:
 	void dietReady( void );
 };

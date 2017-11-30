@@ -53,8 +53,6 @@ QSqlRecipeDB::QSqlRecipeDB( const QString &host, const QString &user, const QStr
 
 	dbOK = false; //it isn't ok until we've connect()'ed
 	++m_refCount;
-
-	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
 }
 
 QSqlRecipeDB::~QSqlRecipeDB()
@@ -2170,7 +2168,7 @@ QString QSqlRecipeDB::escapeAndEncode( const QString &s ) const
 
         QSqlField field( "dummyfield", QVariant::String );
         field.setValue( QVariant(result) );
-        result = this->currentDriver()->formatValue( field );
+        result = this->database->driver()->formatValue( field );
         result.remove(0,1);
         result.chop(1);
 

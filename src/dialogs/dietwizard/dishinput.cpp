@@ -23,7 +23,6 @@
 #include <KVBox>
 
 #include <q3header.h>
-#include <Q3ValueList>
 #include <QLabel>
 #include <QFrame>
 #include <QVBoxLayout>

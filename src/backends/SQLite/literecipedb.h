@@ -15,7 +15,7 @@
 #include "backends/qsqlrecipedb.h"
 
 #include <QString>
-#include <KDebug>
+#include <QDebug>
 
 #define SQLITE_DRIVER "QSQLITE"
 

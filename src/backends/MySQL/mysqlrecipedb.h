@@ -22,7 +22,6 @@
 */
 class MySQLRecipeDB : public QSqlRecipeDB
 {
-
 	Q_OBJECT
 
 private:

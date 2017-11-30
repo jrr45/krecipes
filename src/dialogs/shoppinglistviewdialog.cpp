@@ -94,7 +94,7 @@ void ShoppingListViewDialog::display( const IngredientList &ingredientList )
 
 
 	// Display
-	shoppingListView->begin( KUrl( "file:/tmp/" ) ); // Initialize to /tmp, where photos and logos are stored
+    shoppingListView->begin( QUrl::fromLocalFile( "file:/tmp/" ) ); // Initialize to /tmp, where photos and logos are stored
 	shoppingListView->write( recipeHTML );
 	shoppingListView->end();
 

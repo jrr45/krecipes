@@ -22,8 +22,7 @@
 #include <q3header.h>
 #include <QPainter>
 #include <QPointer>
-//Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 #include <QLabel>
 #include <QFrame>
 #include <QVBoxLayout>
@@ -213,7 +212,7 @@ void DietWizardDialog::createDiet( void )
 
 	// temporal iterator list so elements can be removed without reloading them again from the DB
 	// this list prevents the same meal from showing up in the same day twice
-	Q3ValueList <RecipeList::Iterator> tempRList;
+    QList <RecipeList::Iterator> tempRList;
 
 	bool alert = false;
 
@@ -226,10 +225,10 @@ void DietWizardDialog::createDiet( void )
 
 			for ( int dish = 0;dish < dishNo;dish++ ) {
 				bool found = false;
-				Q3ValueList <RecipeList::Iterator> tempDishRList = tempRList;
+                QList <RecipeList::Iterator> tempDishRList = tempRList;
 				while ( ( !found ) && !tempDishRList.empty() ) {
 					int random_index = ( int ) ( ( float ) ( KRandom::random() ) / ( float ) RAND_MAX * tempDishRList.count() );
-					Q3ValueList<RecipeList::Iterator>::Iterator iit = tempDishRList.at( random_index ); // note that at() retrieves an iterator to the iterator list, so we need to use * in order to get the RecipeList::Iterator
+                    QList<RecipeList::Iterator>::Iterator iit = tempDishRList.at( random_index ); // note that at() retrieves an iterator to the iterator list, so we need to use * in order to get the RecipeList::Iterator
 
 					RecipeList::Iterator rit = *iit;
 					if ( found = ( ( ( !categoryFiltering( meal, dish ) ) || checkCategories( *rit, meal, dish ) ) && checkConstraints( *rit, meal, dish ) ) )  // Check that the recipe is inside the constraint limits and in the categories specified
@@ -276,7 +275,7 @@ void DietWizardDialog::createDiet( void )
 }
 
 
-void DietWizardDialog::populateIteratorList( RecipeList &rl, Q3ValueList <RecipeList::Iterator> *il )
+void DietWizardDialog::populateIteratorList( RecipeList &rl, QList <RecipeList::Iterator> *il )
 {
 	il->clear();
 	RecipeList::Iterator it;

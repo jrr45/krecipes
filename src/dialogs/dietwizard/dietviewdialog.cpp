@@ -16,6 +16,8 @@
 #include <KStandardGuiItem>
 #include <KVBox>
 
+#include <QDir>
+
 DietViewDialog::DietViewDialog( QWidget *parent, const RecipeList &recipeList, int dayNumber, int mealNumber, const QList <int> &dishNumbers )
 		: KDialog( parent )
 {
@@ -123,7 +125,7 @@ void DietViewDialog::showDiet( const RecipeList &recipeList, int dayNumber, int 
 	resize( QSize( 600, 400 ) );
 
 	// Display it
-	dietView->begin( KUrl( KStandardDirs::locateLocal( "tmp", "/" ) ) ); // Initialize to tmp dir, where photos and logos can be stored
+    dietView->begin( QUrl::fromLocalFile( QDir::tempPath() ) ); // Initialize to tmp dir, where photos and logos can be stored
 	dietView->write( htmlCode );
 	dietView->end();
 }

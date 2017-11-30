@@ -14,7 +14,6 @@
 
 #include <kio/netaccess.h>
 #include <KMessageBox>
-#include <KUrl>
 
 #include <QDragEnterEvent>
 #include <QDropEvent>
@@ -73,9 +72,9 @@ void ImageDropLabel::dropEvent( QDropEvent* event )
 		if ( urlList.count() == 1 ) {
 
 			//Find out the file name
-			KUrl url = urlList.first();
+            QUrl url = urlList.first();
 			QString filename;
-			if (!url.isLocalFile()) {
+            if (!url.isLocalFile()) {
 				if (!KIO::NetAccess::download(url,filename,this)) {
 					KMessageBox::error(this, KIO::NetAccess::lastErrorString() );
 					return;

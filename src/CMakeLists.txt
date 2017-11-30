@@ -1,6 +1,15 @@
 find_package(LibXml2 REQUIRED)
 find_package(LibXslt REQUIRED)
-include_directories( ${KDE4_INCLUDES} ${KDE4_INCLUDE_DIR} ${QT_INCLUDES}
+find_package(Qt5DBus)
+
+find_package(ECM REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH})
+include(ECMMarkAsTest)
+include(ECMAddTests)
+include(ECMAddAppIcon)
+include(ECMInstallIcons)
+
+include_directories( ${KDE5_INCLUDES} ${KDE5_INCLUDE_DIR} ${QT_INCLUDES}
    ${LIBXML2_INCLUDE_DIR} ${LIBXSLT_INCLUDE_DIR}
    ${CMAKE_CURRENT_SOURCE_DIR}/backends/
    ${CMAKE_CURRENT_SOURCE_DIR}/threadedqueries
@@ -43,7 +52,7 @@ set(krecipesdbs_SRCS
    backends/usda_ingredient_data.cpp
    backends/usda_unit_data.cpp)
 
-qt4_add_dbus_adaptor(krecipesdbs_SRCS backends/org.kde.krecipesdb.xml recipedb.h RecipeDB)
+qt5_add_dbus_adaptor(krecipesdbs_SRCS backends/org.kde.krecipesdb.xml recipedb.h RecipeDB)
 
 ############## models ################
 
@@ -134,7 +143,7 @@ set(krecipeswidgets_SRCS
 
 )
 
-kde4_add_ui_files(krecipeswidgets_SRCS
+qt5_wrap_ui(krecipeswidgets_SRCS
    widgets/kregenericlistwidget.ui
 )
 
@@ -223,7 +232,7 @@ set(krecipesdialogs_SRCS
    dialogs/preferences/spellcheckingprefs.cpp
    )
 
-kde4_add_ui_files(krecipesdialogs_SRCS
+qt5_wrap_ui(krecipesdialogs_SRCS
    dialogs/recipeinput/recipegeneralinfoeditor.ui
    dialogs/recipeinput/resizerecipedialog.ui
    dialogs/recipeinput/ratingdisplaywidget.ui
@@ -232,7 +241,7 @@ kde4_add_ui_files(krecipesdialogs_SRCS
    dialogs/recipeinput/nutrientinfodetailsdialog.ui
    )
 
-qt4_add_resources(krecipesdialogs_SRCS
+qt5_add_resources(krecipesdialogs_SRCS
    ../pics/resources.qrc
    )
 
@@ -253,7 +262,7 @@ set (krecipesexporters_SRCS
    exporters/mx2exporter.cpp
    )
 
-qt4_add_resources(krecipesexporters_SRCS
+qt5_add_resources(krecipesexporters_SRCS
    ../pics/resources.qrc
    )
 
@@ -296,7 +305,7 @@ set(validators_SRCS
 # once for *all* executables in this project.
 # (i.e. I want to save CPU time when compiling with test programs)
 
-kde4_add_library(krecipescommon STATIC
+add_library(krecipescommon STATIC
    ${krecipesdtos_SRCS}
    ${mysql_SRCS} ${postgresql_SRCS} ${sqlite_SRCS} ${krecipesdbs_SRCS}
    ${krecipesmodels_SRCS}
@@ -310,10 +319,16 @@ kde4_add_library(krecipescommon STATIC
 
 
 target_link_libraries(krecipescommon
-   ${KDE4_KDECORE_LIBS} ${KDE4_KDE3SUPPORT_LIBS}
-   ${QT_QTSQL_LIBRARY}
+   KF5::CoreAddons
+   KF5::ConfigCore
+   KF5::KDELibs4Support
+   KF5::Archive
+   KF5::KHtml
+
+   #${KDE5_KDECORE_LIBS} #${KDE4_KDE3SUPPORT_LIBS}
+   Qt5::Sql
    ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES}
-   ${QT_QTWEBKIT_LIBRARY} ${KDE4_KDEWEBKIT_LIBS}
+   #${QT_QTWEBKIT_LIBRARY}# ${KDE5_KDEWEBKIT_LIBS}
    )
 
 ############### tests ################
@@ -355,8 +370,8 @@ if(TESTS_POSTGRESQL)
 endif()
 
 macro(add_import_export_test _TEST)
-    if(KDE4_BUILD_TESTS)
-        kde4_add_executable(krecipes-import-export-${_TEST} tests/import-export/${_TEST}.cpp)
+    if(KDE5_BUILD_TESTS)
+        kde5_add_executable(krecipes-import-export-${_TEST} tests/import-export/${_TEST}.cpp)
         target_link_libraries(krecipes-import-export-${_TEST} ${UNIT_TEST_LIBRARIES})
 
         set(_TEST_DATA
@@ -365,31 +380,41 @@ macro(add_import_export_test _TEST)
 
         add_test(NAME krecipes-import-export-${_TEST}
             COMMAND $<TARGET_FILE:krecipes-import-export-${_TEST}> ${_TEST_DATA})
-    endif(KDE4_BUILD_TESTS)
+    endif(KDE5_BUILD_TESTS)
 endmacro(add_import_export_test)
 
 macro(add_datablocks_test _TEST)
-    kde4_add_unit_test(krecipes-datablocks-${_TEST} tests/datablocks/${_TEST}.cpp)
+    #kde4_add_unit_test(krecipes-datablocks-${_TEST} tests/datablocks/${_TEST}.cpp)
+    add_executable(krecipes-datablocks-${_TEST} tests/datablocks/${_TEST}.cpp)
+    add_test(krecipes-datablocks krecipes-datablocks-${_TEST})
+    ecm_mark_as_test(krecipes-datablocks-${_TEST})
     target_link_libraries(krecipes-datablocks-${_TEST} ${UNIT_TEST_LIBRARIES})
 endmacro(add_datablocks_test)
 
 macro(add_database_test _TEST)
     set(krecipes-database-${_TEST}_SRCS
         tests/database/${_TEST}.cpp)
-    qt4_add_resources(krecipes-database-${_TEST}_SRCS
+    qt5_add_resources(krecipes-database-${_TEST}_SRCS
         tests/database/dbconfigs.qrc)
-    kde4_add_unit_test(krecipes-database-${_TEST}
-         ${krecipes-database-${_TEST}_SRCS})
+    #kde4_add_unit_test(krecipes-database-${_TEST}
+    #     ${krecipes-database-${_TEST}_SRCS})
+    add_executable(krecipes-database-${_TEST} ${krecipes-database-${_TEST}_SRCS})
+    add_test(krecipes-database krecipes-database-${_TEST})
+    ecm_mark_as_test(krecipes-database-${_TEST})
     target_link_libraries(krecipes-database-${_TEST} ${UNIT_TEST_LIBRARIES})
 endmacro(add_database_test)
 
 macro(add_ui_test _TEST)
-    kde4_add_unit_test(krecipes-ui-${_TEST} tests/ui/${_TEST}.cpp)
+    add_executable(krecipes-ui-${_TEST} tests/ui/${_TEST}.cpp)
+    add_test(krecipes-ui krecipes-ui-${_TEST})
+    ecm_mark_as_test(krecipes-ui-${_TEST})
+
+    #kde4_add_unit_test(krecipes-ui-${_TEST} tests/ui/${_TEST}.cpp)
     target_link_libraries(krecipes-ui-${_TEST} ${UNIT_TEST_LIBRARIES})
 endmacro(add_ui_test)
 
 set(UNIT_TEST_LIBRARIES krecipescommon
-    ${KDE4_KDECORE_LIBS} ${KDE4_KDE3SUPPORT_LIBS}
+    KF5::KDELibs4Support
     ${QT_QTSQL_LIBRARY}  ${QT_QTTEST_LIBRARY}
     ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES}
     )
@@ -417,12 +442,12 @@ if(BUILD_NUKEDB)
       nukedb/nukeconfigwidget.cpp
    )
 
-   kde4_add_ui_files(nukedb_SRCS
+   qt5_wrap_ui(nukedb_SRCS
       nukedb/nukeconfigwidget.ui
    )
 
-   kde4_add_executable(nukedb ${nukedb_SRCS})
-   target_link_libraries(nukedb krecipescommon ${KDE4_KDEUI_LIBS})
+   add_executable(nukedb ${nukedb_SRCS})
+   target_link_libraries(nukedb krecipescommon KF5::WidgetsAddons)
 
    install(TARGETS nukedb ${INSTALL_TARGETS_DEFAULT_ARGS})
 endif(BUILD_NUKEDB)
@@ -441,15 +466,21 @@ set(krecipes_SRCS
    #klomanager.cpp
 )
 
-qt4_add_dbus_adaptor(krecipes_SRCS org.kde.krecipes.xml krecipesview.h KrecipesView)
+qt5_add_dbus_adaptor(krecipes_SRCS org.kde.krecipes.xml krecipesview.h KrecipesView)
 
-kde4_add_app_icon(krecipes_SRCS "${CMAKE_CURRENT_SOURCE_DIR}/hi*-app-krecipes.png")
+ecm_add_app_icon(krecipes_SRCS ICONS
+    16-apps-krecipes.png
+    22-apps-krecipes.png
+    32-apps-krecipes.png
+    48-apps-krecipes.png
+    64-apps-krecipes.png
+    128-apps-krecipes.png )
 
-kde4_add_executable(krecipes
+add_executable(krecipes
    ${krecipes_SRCS}
    )
 
-target_link_libraries(krecipes krecipescommon ${KDE4_KHTML_LIBS} ${KDE4_KDEUI_LIBS} ${KDE4_KDE3SUPPORT_LIBS} ${QT_QTSQL_LIBRARY} ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES} ${QT_QTWEBKIT_LIBRARY} ${KDE4_KDEWEBKIT_LIBS})
+target_link_libraries(krecipes krecipescommon ${KDE4_KHTML_LIBS} KF5::WidgetsAddons ${QT_QTSQL_LIBRARY} ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES} ${QT_QTWEBKIT_LIBRARY} ${KDE4_KDEWEBKIT_LIBS})
 
 
 install(TARGETS krecipes ${INSTALL_TARGETS_DEFAULT_ARGS})
@@ -460,6 +491,11 @@ install(TARGETS krecipes ${INSTALL_TARGETS_DEFAULT_ARGS})
 install( FILES  krecipesui.rc DESTINATION ${DATA_INSTALL_DIR}/krecipes )
 install( PROGRAMS  krecipes.desktop DESTINATION ${XDG_APPS_INSTALL_DIR} )
 
-kde4_install_icons( ${ICON_INSTALL_DIR} )
-
-
+ecm_install_icons(ICONS
+    16-apps-krecipes.png
+    22-apps-krecipes.png
+    32-apps-krecipes.png
+    48-apps-krecipes.png
+    64-apps-krecipes.png
+    128-apps-krecipes.png
+    DESTINATION ${ICON_INSTALL_DIR}/ )

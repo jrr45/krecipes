@@ -100,11 +100,11 @@ void RecipeActionsHandler::setRemoveFromCategoryAction( KAction * action )
 void RecipeActionsHandler::exec( ItemType type, const QPoint &p )
 {
 	if ( type == Recipe ) {
-		if ( kpop->idAt( 0 ) != -1 )
+        if ( kpop->idAt( 0 ) != -1 )
 			kpop->exec( p );
 	}
 	else if ( type == Category ) {
-		if ( catPop->idAt( 0 ) != -1 )
+        if ( catPop->idAt( 0 ) != -1 )
 			catPop->exec( p );
 	}
 }
@@ -226,13 +226,13 @@ void RecipeActionsHandler::edit()
 {
 	QList<Q3ListViewItem *> items = parentListView->selectedItems();
 	if ( items.count() > 1 )
-		KMessageBox::sorry( kapp->mainWidget(), i18n("Please select only one recipe."), i18n("Edit Recipe") );
+        KMessageBox::sorry( kapp->activeWindow(), i18n("Please select only one recipe."), i18n("Edit Recipe") );
 	else if ( items.count() == 1 && items.at(0)->rtti() == 1000 ) {
 		RecipeListItem * recipe_it = ( RecipeListItem* ) items.at(0);
 		emit recipeSelected( recipe_it->recipeID(), 1 );
 	}
 	else //either nothing was selected or a category was selected
-		KMessageBox::sorry( kapp->mainWidget(), i18n("No recipes selected."), i18n("Edit Recipe") );
+        KMessageBox::sorry( kapp->activeWindow(), i18n("No recipes selected."), i18n("Edit Recipe") );
 }
 
 void RecipeActionsHandler::recipeExport()
@@ -255,7 +255,7 @@ void RecipeActionsHandler::recipeExport()
 	{
 		QList<int> ids = getAllVisibleItems();
 		if ( ids.count() > 0 ) {
-			switch ( KMessageBox::questionYesNo( kapp->mainWidget(), i18n("No recipes are currently selected.\nWould you like to export all recipes in the current view?")) )
+            switch ( KMessageBox::questionYesNo( kapp->activeWindow(), i18n("No recipes are currently selected.\nWould you like to export all recipes in the current view?")) )
 			{
 			case KMessageBox::Yes:
 				exportRecipes( ids, i18n( "Export Recipes" ), i18n( "Recipes" ), database );
@@ -264,7 +264,7 @@ void RecipeActionsHandler::recipeExport()
 			}
 		}
 		else
-			KMessageBox::sorry( kapp->mainWidget(), i18n("No recipes selected."), i18n("Export") );
+            KMessageBox::sorry( kapp->activeWindow(), i18n("No recipes selected."), i18n("Export") );
 	}
 }
 
@@ -279,7 +279,7 @@ void RecipeActionsHandler::recipePrint()
 	{
 		QList<int> ids = getAllVisibleItems();
 		if ( !ids.isEmpty() ) {
-			switch ( KMessageBox::questionYesNo( kapp->mainWidget(),
+            switch ( KMessageBox::questionYesNo( kapp->activeWindow(),
 			i18n("No recipes are currently selected.\n"
 			"Would you like to print all recipes in the current view?")) )
 			{
@@ -290,7 +290,7 @@ void RecipeActionsHandler::recipePrint()
 			}
 		}
 		else
-			KMessageBox::sorry( kapp->mainWidget(), i18n("No recipes selected."), i18n("Print") );
+            KMessageBox::sorry( kapp->activeWindow(), i18n("No recipes selected."), i18n("Print") );
 	}
 }
 
@@ -465,7 +465,7 @@ void RecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *databa
 	//Load the generated HTML. When loaded, RecipeActionsHandlerView::print(...) will be called.
 	m_printPage = new KWebPage;
 	connect(m_printPage, SIGNAL(loadFinished(bool)), SLOT(print(bool)));
-	m_printPage->mainFrame()->load( KUrl(tmp_filename) );
+    m_printPage->mainFrame()->load( QUrl::fromLocalFile(tmp_filename) );
 }
 
 void RecipeActionsHandler::print(bool ok)

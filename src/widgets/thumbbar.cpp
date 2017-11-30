@@ -337,6 +337,7 @@ void ThumbBarView::viewportPaintEvent(QPaintEvent* e)
                     int x = (tile.width() -item->d->pixmap->width())/2;
                     int y = (tile.height()-item->d->pixmap->height())/2;
                     bitBlt(&tile, x, y, item->d->pixmap);
+
                 }
 
                 bitBlt(&bgPix, 0, item->d->pos - cy, &tile);

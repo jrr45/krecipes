@@ -26,7 +26,7 @@
 #include <QPointer>
 //Added by qt3to4:
 #include <QHBoxLayout>
-#include <Q3ValueList>
+#include <QList>
 #include <QLabel>
 #include <QVBoxLayout>
 
@@ -111,7 +111,7 @@ IngredientMatcherDialog::IngredientMatcherDialog( QWidget *parent, RecipeDB *db 
 
 	recipeListView->listView() ->addColumn( i18nc( "@title:column Recipe Title", "Title" ) );
 
-	KConfigGroup config( KGlobal::config(), "Advanced" );
+    KConfigGroup config( KGlobal::config(), "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	recipeListView->listView() ->addColumn( "Id" , show_id ? -1 : 0 );
 
@@ -277,7 +277,7 @@ void IngredientMatcherDialog::findRecipes( void )
 	// of ingredients
 	RecipeList incompleteRecipes;
 	QList <int> missingNumbers;
-	Q3ValueList <IngredientList> missingIngredients;
+    QList <IngredientList> missingIngredients;
 
 	RecipeList::Iterator it;
 	for ( it = rlist.begin();it != rlist.end();++it ) {
@@ -316,7 +316,7 @@ void IngredientMatcherDialog::findRecipes( void )
 
 	// Classify recipes with missing ingredients in different lists by amount
 	QList<int>::Iterator nit;
-	Q3ValueList<IngredientList>::Iterator ilit;
+    QList<IngredientList>::Iterator ilit;
 	int missingNoAllowed = missingNumberSpinBox->value();
 
 	if ( missingNoAllowed == -1 )  // "Any"

@@ -16,7 +16,6 @@
 #include <qdom.h>
 #include <qwidget.h>
 #include <qmap.h>
-//Added by qt3to4:
 #include <QLabel>
 
 #include "datablocks/recipe.h"

@@ -90,9 +90,8 @@ QString SQLiteSetupPage::dbFile( void ) const
 
 void SQLiteSetupPage::selectFile()
 {
-	QPointer<KFileDialog> dialog = new KFileDialog( KUrl(), "*.*|All Files", this );
-	dialog->setObjectName( "dialog" );
-	dialog->setCaption( i18n( "Select SQLite database file") );
+    QPointer<QFileDialog> dialog = new QFileDialog(this, i18n( "Select SQLite database file"), QUrl(), "*.*|All Files");
+    dialog->setObjectName( "dialog" );
 	dialog->setModal( true );
 	if ( dialog->exec() == QDialog::Accepted ) {
 		fileEdit->setText( dialog->selectedFile() );

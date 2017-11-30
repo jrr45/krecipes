@@ -163,10 +163,6 @@ void BaseExporter::saveToFile( const QList<int> &ids, RecipeDB *database )
 
 QString BaseExporter::krecipes_version() const
 {
-	const KComponentData * this_instance = &KGlobal::mainComponent();
-	if ( this_instance && this_instance->aboutData() )
-		return this_instance->aboutData() ->version();
-
-	return QString(); //Oh, well.  We couldn't get the version.
+    return QCoreApplication::applicationVersion();
 }
 

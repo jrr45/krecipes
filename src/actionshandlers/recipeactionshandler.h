@@ -14,7 +14,7 @@
 
 #include <QObject>
 #include <qpoint.h>
-#include <q3valuelist.h>
+#include <QList>
 #include <q3ptrlist.h>
 
 class Q3ListViewItem;

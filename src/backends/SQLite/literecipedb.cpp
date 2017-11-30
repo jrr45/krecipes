@@ -12,25 +12,22 @@
 #include "literecipedb.h"
 
 #include <QBuffer>
-//Added by qt3to4:
 #include <QSqlQuery>
 #include <QSqlField>
+#include <QImageWriter>
+#include <QDebug>
 
-#include <kdebug.h>
-#include <kconfig.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include <KConfigGroup>
-#include <QImageWriter>
-#include <KCodecs>
-
+#include <kconfiggroup.h>
+#include <kcodecs.h>
 
 //keep this around for porting old databases
 int sqlite_decode_binary( const unsigned char *in, unsigned char *out );
 
 LiteRecipeDB::LiteRecipeDB( const QString &_dbFile ) : QSqlRecipeDB( QString(), QString(), QString(), _dbFile )
 {
-	kDebug();
+    qDebug();
 /*	KConfig * config = KGlobal::config();
 	config->setGroup( "Server" );
 
@@ -70,7 +67,7 @@ void LiteRecipeDB::createDB()
 
 void LiteRecipeDB::createTable( const QString &tableName )
 {
-	kDebug()<<" tableName :"<<tableName;
+    qDebug()<<" tableName :"<<tableName;
 	QStringList commands;
 
 	if ( tableName == "recipes" )
@@ -759,7 +756,7 @@ void LiteRecipeDB::portOldDatabases( float version )
 
 		database->exec( "UPDATE db_info SET ver='0.86',generated_by='Krecipes SVN (20050928)'" );
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.86 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.86 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 87 ) {
@@ -822,7 +819,7 @@ void LiteRecipeDB::portOldDatabases( float version )
 
 		database->exec("UPDATE db_info SET ver='0.92',generated_by='Krecipes SVN (20060609)'");
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.92 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.92 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 93 ) {
@@ -935,11 +932,11 @@ void LiteRecipeDB::addColumn( const QString &new_table_sql, const QString &new_c
 	QString command;
 
 	command = QString(new_table_sql).arg(table_name+"_copy").arg(QString());
-	kDebug()<<"calling: "<<command;
+    qDebug()<<"calling: "<<command;
 	database->exec( command );
 
 	command = "SELECT * FROM "+table_name;
-	kDebug()<<"calling: "<<command;
+    qDebug()<<"calling: "<<command;
 	QSqlQuery copyQuery = database->exec( command );
 	if ( copyQuery.isActive() ) {
 		while ( copyQuery.next() ) {
@@ -953,7 +950,7 @@ void LiteRecipeDB::addColumn( const QString &new_table_sql, const QString &new_c
 				dataList << '\''+escape(data)+'\'';
 			}
 			command = "INSERT INTO "+table_name+"_copy VALUES("+dataList.join(",")+");";
-			kDebug()<<"calling: "<<command;
+            qDebug()<<"calling: "<<command;
 			database->exec( command );
 
 			emit progress();
@@ -977,7 +974,7 @@ void LiteRecipeDB::addColumn( const QString &new_table_sql, const QString &new_c
 				dataList << '\''+escape(data)+'\'';
 			}
 			command = "INSERT INTO "+table_name+" VALUES(" +dataList.join(",")+')';
-			kDebug()<<"calling: "<<command;
+            qDebug()<<"calling: "<<command;
 			database->exec( command );
 
 			emit progress();
@@ -1036,7 +1033,7 @@ QString LiteRecipeDB::escape( const QString &s ) const
 {
 	QSqlField field( "dummyfield", QVariant::String );
 	field.setValue( QVariant(s) );
-	QString result = this->currentDriver()->formatValue( field );
+    QString result = this->database->driver()->formatValue( field );
 	result.remove(0,1);
 	result.chop(1);
 	return result;

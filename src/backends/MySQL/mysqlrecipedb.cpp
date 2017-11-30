@@ -14,9 +14,9 @@
 #include <kdebug.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
-#include <KConfigGroup>
 #include <klocale.h>
 #include <kconfig.h>
+#include <kconfiggroup.h>
 #include <kglobal.h>
 #include <QSqlQuery>
 #include <QSqlError>

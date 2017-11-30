@@ -50,7 +50,7 @@ void PSqlRecipeDB::createDB()
 
 QStringList PSqlRecipeDB::backupCommand() const
 {
-	KConfigGroup config = KGlobal::config()->group("Server");
+    KConfigGroup config = KGlobal::config()->group("Server");
 
 	QStringList command;
 	command<<config.readEntry( "PgDumpPath", "pg_dump" )<<"--inserts"<<database->databaseName()
@@ -65,7 +65,7 @@ QStringList PSqlRecipeDB::backupCommand() const
 
 QStringList PSqlRecipeDB::restoreCommand() const
 {
-	KConfigGroup config = KGlobal::config()->group("Server");
+    KConfigGroup config = KGlobal::config()->group("Server");
 
 	QStringList command;
 	command<<config.readEntry( "PsqlPath", "psql" )<<database->databaseName()

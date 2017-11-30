@@ -293,7 +293,7 @@ KreMenuButton::KreMenuButton( KreMenu *parent, KrePanel _panel, MenuId id ):
 	highlighted = false;
 	text.clear();
 
-	if ( id == Q3ValueList <Menu>::Iterator() ) // KDE4 port to be check
+    if ( id == QList <Menu>::Iterator() ) // KDE4 port to be check
 	{
 		menuId = parent->mainMenu();
 	}

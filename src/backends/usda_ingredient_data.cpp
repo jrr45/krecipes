@@ -11,14 +11,14 @@
 
 #include "usda_ingredient_data.h"
 
-#include <q3valuelist.h>
+#include <QList>
 #include <QFile>
-
-#include <klocale.h>
-#include <kglobal.h>
-#include <kstandarddirs.h>
-#include <kdebug.h>
 #include <QTextStream>
+
+#include <KLocale>
+#include <KGlobal>
+#include <KStandardDirs>
+#include <KDebug>
 
 namespace USDA {
 
@@ -27,9 +27,9 @@ namespace USDA {
 		return !KStandardDirs::locate( "appdata", "data/ingredient-data-" + KGlobal::locale() ->language() + ".txt" ).isEmpty();
 	}
 
-	Q3ValueList<IngredientData> loadIngredients()
+    QList<IngredientData> loadIngredients()
 	{
-		Q3ValueList<IngredientData> result;
+        QList<IngredientData> result;
 
 		QString dataFilename = KStandardDirs::locate( "appdata", "data/ingredient-data-" + KGlobal::locale() ->language() + ".txt" );
 		if ( dataFilename.isEmpty() ) {

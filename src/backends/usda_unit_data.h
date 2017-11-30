@@ -13,7 +13,7 @@
 #include <klocale.h>
 
 #include <QString>
-#include <q3valuelist.h>
+#include <QList>
 
 namespace USDA {
 
@@ -29,8 +29,8 @@ struct PrepData {
 	QString translation;
 };
 
-typedef Q3ValueList<UnitData> UnitDataList;
-typedef Q3ValueList<PrepData> PrepDataList;
+typedef QList<UnitData> UnitDataList;
+typedef QList<PrepData> PrepDataList;
 
 UnitDataList loadUnits();
 PrepDataList loadPrepMethods();

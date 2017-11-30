@@ -20,8 +20,6 @@
 
 #include <q3header.h>
 #include <q3dict.h>
-//Added by qt3to4:
-#include <Q3ValueList>
 
 #include "datablocks/recipe.h"
 

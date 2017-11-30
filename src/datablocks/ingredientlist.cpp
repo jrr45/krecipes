@@ -12,11 +12,11 @@
 
 #include "backends/recipedb.h"
 //Added by qt3to4:
-#include <Q3ValueList>
+#include <QList>
 
 #include <QDebug>
 
-IngredientList::IngredientList() : Q3ValueList<Ingredient>()
+IngredientList::IngredientList() : QList<Ingredient>()
 {}
 
 IngredientList::~IngredientList()
@@ -94,7 +94,7 @@ int IngredientList::find( int id ) const // Search by id (which uses search by i
 {
 	Ingredient i;
 	i.ingredientID = id;
-	return findIndex( i );
+    return this->findIndex( i );
 }
 
 Ingredient IngredientList::findByName( const QString &ing ) const
@@ -133,23 +133,26 @@ Ingredient IngredientList::findByName( const QRegExp &rx ) const
 	return el;
 }
 
-IngredientList::const_iterator IngredientList::find( IngredientList::const_iterator it, int id ) const // Search by id (which uses search by item, with comparison defined on header)
+// Search by id (which uses search by item, with comparison defined on header)
+IngredientList::const_iterator IngredientList::find( IngredientList::const_iterator it, int id ) const
 {
 	Ingredient i;
 	i.ingredientID = id;
-	return Q3ValueList<Ingredient>::find( it, i );
+    return IngredientList::find( it, i );
 }
 
-IngredientList::iterator IngredientList::find( IngredientList::iterator it, int id )  // Search by id (which uses search by item, with comparison defined on header)
+// Search by id (which uses search by item, with comparison defined on header)
+IngredientList::iterator IngredientList::find( IngredientList::iterator it, int id )
 {
 	Ingredient i;
 	i.ingredientID = id;
-	return Q3ValueList<Ingredient>::find( it, i );
+    return find( it, i );
 }
 
-IngredientData& IngredientList::findSubstitute( const Ingredient &i )  // Search by id (which uses search by item, with comparison defined on header)
+// Search by id (which uses search by item, with comparison defined on header)
+IngredientData& IngredientList::findSubstitute( const Ingredient &i )
 {
-	Q3ValueList<Ingredient>::iterator result = Q3ValueList<Ingredient>::find(i);
+    IngredientList::iterator result = IngredientList::find(i);
 	if ( result == end() ) {
 		for ( IngredientList::iterator it = begin(); it != end(); ++it ) {
 			Ingredient::SubstitutesList::iterator result = (*it).substitutes.find(i);
@@ -162,7 +165,7 @@ IngredientData& IngredientList::findSubstitute( const Ingredient &i )  // Search
 
 void IngredientList::removeSubstitute( const Ingredient &i )
 {
-	Q3ValueList<Ingredient>::iterator result = Q3ValueList<Ingredient>::find(i);
+    IngredientList::iterator result = IngredientList::find(i);
 	if ( result == end() ) {
 		for ( IngredientList::iterator it = begin(); it != end(); ++it ) {
 			Ingredient::SubstitutesList::iterator result = (*it).substitutes.find(i);
@@ -170,41 +173,17 @@ void IngredientList::removeSubstitute( const Ingredient &i )
 				(*it).substitutes.erase(result);
 				return;
 			}
-		}
+        }
 	}
-	remove(result);
+    remove(result);
 }
 
-void IngredientList::move( int index1, int index2 )  //moves element in pos index1, to pos after index2
+//moves element in pos index1 and the following count1 items, to pos after index2
+void IngredientList::move( int index1, int count1, int index2 )
 {
-	IngredientList::iterator tmp_it = at( index1 );
-	Ingredient tmp_ing( *tmp_it );
-
-	remove( tmp_it );
-
-	if (index2 < size()) {
-		tmp_it = at( index2 );
-		insert( tmp_it, tmp_ing );
-	} else {
-		append( tmp_ing );
-	}
-}
-
-void IngredientList::move( int index1, int count1, int index2 )  //moves element in pos index1 and the following count1 items, to pos after index2
-{
-	IngredientList::iterator tmp_it = at( index1 );
-	IngredientList::iterator after_it = at( index2 + 1 );
-
 	for ( int i = 0; i < count1; ++i )
 	{
-		Ingredient tmp_ing( *tmp_it );
-
-		IngredientList::iterator remove_me_it = tmp_it;
-		++tmp_it;
-		remove
-			( remove_me_it );
-
-		insert( after_it, tmp_ing );
+        move(index1 < index2 ? index1 : index1+i, index2+i);
 	}
 }
 
