@@ -29,17 +29,16 @@
 #include "backends/recipedb.h"
 
 #include <KAction>
-#include <KLocale>
 #include <KMessageBox>
 #include <KTempDir>
 #include <KStandardDirs>
-#include <KWebPage>
 #include <KMenu>
+#include <KLocale>
 
+#include <QtWebEngineWidgets/QWebEnginePage>
 #include <QClipboard>
 #include <QPointer>
 #include <QModelIndex>
-#include <QWebFrame>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
 #include <QFileDialog>
@@ -261,61 +260,69 @@ void KreRecipeActionsHandler::collapseAll()
 
 void KreRecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString & caption, const QString &selection, RecipeDB *database )
 {
-    QFileDialog * fd = new QFileDialog::getSaveFileName(Q_NULLPTR, caption, QUrl(),
-      QString( "*.kre|%1 (*.kre)\n"
-		"*.kreml|Krecipes (*.kreml)\n"
-		"*.txt|%3 (*.txt)\n"
-		//"*.cml|CookML (*.cml)\n"
-		"*|%4\n"
-		"*.html|%2 (*.html)\n"
-		"*.mmf|Meal-Master (*.mmf)\n"
-		"*.xml|RecipeML (*.xml)\n"
-		"*.mx2|MasterCook (*.mx2)\n"
-		"*.rk|Rezkonv (*.rk)"
-		).arg( i18n( "Compressed Krecipes format" ) )
-		.arg( i18n( "Web page" ) )
-		.arg( i18n("Plain Text") )
-		.arg( i18n("Web Book") ),
-	0 );
+    QFileDialog * fd = new QFileDialog(Q_NULLPTR, caption);
+
+    QStringList filters;
+    filters << i18n( "Compressed Krecipes format" ) + " (*.kre)"
+            << "Krecipes (*.kreml)"
+            << i18n("Plain Text") + " (*.txt)"
+            << "CookML (*.cml)\n"
+            << i18n("Web Book") + "(*)"
+            << i18n( "Web page" ) + " (*.html)"
+            << "Meal-Master (*.mmf)"
+            << "RecipeML (*.xml)"
+            << "MasterCook (*.mx2)"
+            << "Rezkonv (*.rk)";
+
+    // set dialog properties
+    fd->setNameFilters(filters);
+    fd->setAcceptMode(QFileDialog::AcceptSave);
     fd->setObjectName( "export_dlg" );
     fd->setModal( true );
-    fd->setFileMode( QFileDialog::AnyFile | QFileDialog::Directory );
+    fd->setFileMode( QFileDialog::AnyFile );
+
+    // select file
     if ( fd->exec() == QFileDialog::Accepted ) {
-		QString fileName = fd->selectedFile();
-		if ( !fileName.isEmpty() ) {
+        if ( !fd->selectedFiles().isEmpty() ) {
+            QFileInfo fileInfo = QFileInfo( fd->selectedFiles().first() );
+            QString suffix = fileInfo.suffix();
+
+            // select exporter based on file extension
 			BaseExporter * exporter;
-			if ( fd->currentFilter() == "*.xml" )
-				exporter = new RecipeMLExporter( fileName, fd->currentFilter() );
-			else if ( fd->currentFilter() == "*.mx2" )
-			    exporter = new MX2Exporter( fileName, fd->currentFilter() );
-			else if ( fd->currentFilter() == "*.mmf" )
-				exporter = new MMFExporter( fileName, fd->currentFilter() );
-			else if ( fd->currentFilter() == "*" ) {
+            if ( suffix == "xml" )
+                exporter = new RecipeMLExporter( fileInfo.absoluteFilePath(), "xml" );
+            else if ( suffix == "mx2" )
+                exporter = new MX2Exporter( fileInfo.absoluteFilePath(), "mx2" );
+            else if ( suffix == "mmf" )
+                exporter = new MMFExporter( fileInfo.absoluteFilePath(), "mmf" );
+            else if ( suffix == "" ) {
 				CategoryTree *cat_structure = new CategoryTree;
 				database->loadCategories( cat_structure );
-				exporter = new HTMLBookExporter( cat_structure, fd->baseUrl().path(), "*.html" );
+                exporter = new HTMLBookExporter( cat_structure, fileInfo.absoluteFilePath(), "*.html" );
+            }
+            else if ( suffix == "html" ) {
+                exporter = new HTMLExporter( fileInfo.absoluteFilePath(), "html" );
+                XSLTExporter exporter_junk( fileInfo.absoluteFilePath(), "*.html" ); // AGH, i don't get build systems...
 			}
-			else if ( fd->currentFilter() == "*.html" ) {
-				exporter = new HTMLExporter( fileName, fd->currentFilter() );
-				XSLTExporter exporter_junk( fileName, "*.html" ); // AGH, i don't get build systems...
-			}
-			else if ( fd->currentFilter() == "*.cml" )
-				exporter = new CookMLExporter( fileName, fd->currentFilter() );
-			else if ( fd->currentFilter() == "*.txt" )
-				exporter = new PlainTextExporter( fileName, fd->currentFilter() );
-			else if ( fd->currentFilter() == "*.rk" )
-				exporter = new RezkonvExporter( fileName, fd->currentFilter() );
+            else if ( suffix == "cml" )
+                exporter = new CookMLExporter( fileInfo.absoluteFilePath(), "cml" );
+            else if ( suffix == "txt" )
+                exporter = new PlainTextExporter( fileInfo.absoluteFilePath(), "txt" );
+            else if ( suffix == "rk" )
+                exporter = new RezkonvExporter( fileInfo.absoluteFilePath(), "rk" );
 			else {
 				CategoryTree *cat_structure = new CategoryTree;
 				database->loadCategories( cat_structure );
-				exporter = new KreExporter( cat_structure, fileName, fd->currentFilter() );
+                exporter = new KreExporter( cat_structure, fileInfo.absoluteFilePath(), suffix );
 			}
 
+            // prompt if we should overwrite
 			int overwrite = -1;
 			if ( QFile::exists( exporter->fileName() ) ) {
 				overwrite = KMessageBox::warningYesNo( 0, i18n( "File \"%1\" exists.  Are you sure you want to overwrite it?" , exporter->fileName()), i18nc( "@title:window", "Saving recipe" ) );
 			}
 
+            // export recipes to file
 			if ( overwrite == KMessageBox::Yes || overwrite == -1 ) {
 				KProgressDialog progress_dialog( 0, QString(), i18nc( "@info:progress", "Saving recipes..." ) );
 				progress_dialog.setObjectName("export_progress_dialog");
@@ -344,9 +351,9 @@ void KreRecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *dat
 		html_generator.setTemplate( templateFile );
 	html_generator.exporter( ids, database );
 	//Load the generated HTML. When loaded, RecipeActionsHandlerView::print(...) will be called.
-	m_printPage = new KWebPage;
+    m_printPage = new QWebEnginePage;
 	connect(m_printPage, SIGNAL(loadFinished(bool)), SLOT(print(bool)));
-    m_printPage->mainFrame()->load( QUrl::fromLocalFile(tmp_filename) );
+    m_printPage->load( QUrl::fromLocalFile(tmp_filename) );
 }
 
 void KreRecipeActionsHandler::print(bool ok)
@@ -356,7 +363,7 @@ void KreRecipeActionsHandler::print(bool ok)
 	QPointer<QPrintPreviewDialog> previewdlg = new QPrintPreviewDialog(&printer);
 	//Show the print preview dialog.
 	connect(previewdlg, SIGNAL(paintRequested(QPrinter *)),
-		m_printPage->mainFrame(), SLOT(print(QPrinter *)));
+        m_printPage, SLOT(print(QPrinter *)));
 	previewdlg->exec();
 	delete previewdlg;
 	//Remove the temporary directory which stores the HTML and free memory.

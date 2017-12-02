@@ -90,11 +90,12 @@ bool IngredientList::containsAny( const IngredientList &list, bool compareAmount
 	return false;
 }
 
-int IngredientList::find( int id ) const // Search by id (which uses search by item, with comparison defined on header)
+// Search by id (which uses search by item, with comparison defined on header)
+int IngredientList::find( int id ) const
 {
 	Ingredient i;
 	i.ingredientID = id;
-    return this->findIndex( i );
+    return indexOf( i );
 }
 
 Ingredient IngredientList::findByName( const QString &ing ) const
@@ -133,6 +134,7 @@ Ingredient IngredientList::findByName( const QRegExp &rx ) const
 	return el;
 }
 
+/*
 // Search by id (which uses search by item, with comparison defined on header)
 IngredientList::const_iterator IngredientList::find( IngredientList::const_iterator it, int id ) const
 {
@@ -183,9 +185,10 @@ void IngredientList::move( int index1, int count1, int index2 )
 {
 	for ( int i = 0; i < count1; ++i )
 	{
-        move(index1 < index2 ? index1 : index1+i, index2+i);
+        QList<Ingredient>::move(index1 < index2 ? index1 : index1+i, index2+i);
 	}
 }
+*/
 
 IngredientList IngredientList::groupMembers( int id, IngredientList::const_iterator begin ) const
 {
@@ -204,12 +207,13 @@ IngredientList IngredientList::groupMembers( int id, IngredientList::const_itera
 	return matches;
 }
 
+// returns a list of iterators for all the members with groupID equal to id
 QList<IngredientList::const_iterator> IngredientList::_groupMembers( int id, IngredientList::const_iterator begin ) const
 {
 	bool first_found = false;
 
 	QList<IngredientList::const_iterator> matches;
-	for ( IngredientList::const_iterator it = begin; it != end(); ++it ) {
+    for ( IngredientList::const_iterator it = begin; it != end(); ++it ) {
 		if ( ( *it ).groupID == id ) {
 			matches << it;
 			first_found = true;
@@ -239,17 +243,18 @@ IngredientList IngredientList::firstGroup()
 
 IngredientList IngredientList::nextGroup()
 {
-	for ( IngredientList::const_iterator it = begin(); it != end(); ++it ) {
+/*	for ( IngredientList::const_iterator it = begin(); it != end(); ++it ) {
 		if ( usedGroups.find( it ) == usedGroups.end() ) {
 			QList<IngredientList::const_iterator> members = _groupMembers( ( *it ).groupID, it );
 
-			for ( QList<IngredientList::const_iterator>::const_iterator members_it = members.begin(); members_it != members.end(); ++members_it ) {
+            for ( QList<IngredientList::const_iterator>::const_iterator members_it = members.begin();
+                  members_it != members.end(); ++members_it ) {
 				usedGroups << *members_it;
 			}
 
 			return groupMembers( ( *it ).groupID, it );
 		}
-	}
+    }*/ //FIXME
 	return IngredientList();
 }
 

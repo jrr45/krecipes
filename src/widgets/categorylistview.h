@@ -11,8 +11,9 @@
 #ifndef CATEGORYLISTVIEW_H
 #define CATEGORYLISTVIEW_H
 
-#include <qmap.h>
+#include <QMap>
 #include <QPixmap>
+#include <QTreeWidget>
 
 #include "dblistviewbase.h"
 
@@ -57,12 +58,12 @@ private:
 	bool populated;
 };
 
-class CategoryCheckListItem : public Q3CheckListItem, public CategoryItemInfo
+class CategoryCheckListItem : public QTreeWidgetItem, public CategoryItemInfo
 {
 public:
 	CategoryCheckListItem( CategoryCheckListView* klv, const Element &category, bool exclusive = true );
-	CategoryCheckListItem( Q3ListViewItem* it, const Element &category, bool exclusive = true );
-	CategoryCheckListItem( CategoryCheckListView* klv, Q3ListViewItem* it, const Element &category, bool exclusive = true );
+    CategoryCheckListItem( QTreeWidgetItem* it, const Element &category, bool exclusive = true );
+    CategoryCheckListItem( CategoryCheckListView* klv, QTreeWidgetItem* it, const Element &category, bool exclusive = true );
 
 	virtual QString text( int column ) const;
 	virtual void setText( int column, const QString &text );
@@ -85,12 +86,14 @@ private:
 };
 
 
-class CategoryListItem : public Q3ListViewItem, public CategoryItemInfo
+class CategoryListItem : public QTreeWidgetItem, public CategoryItemInfo
 {
+    Q_OBJECT
+
 public:
-	CategoryListItem( Q3ListView* klv, const Element &category );
-	CategoryListItem( Q3ListViewItem* it, const Element &category );
-	CategoryListItem( Q3ListView* klv, Q3ListViewItem* it, const Element &category );
+    CategoryListItem( QTreeWidget* klv, const Element &category );
+    CategoryListItem( QTreeWidgetItem* it, const Element &category );
+    CategoryListItem( QTreeWidget* klv, QTreeWidgetItem* it, const Element &category );
 
 	virtual QString text( int column ) const;
 	virtual void setText( int column, const QString &text );
@@ -111,13 +114,13 @@ public:
 	CategoryListView( QWidget *parent, RecipeDB * );
 	~CategoryListView(){}
 
-	void populateAll( Q3ListViewItem *parent = 0 );
+    void populateAll( QTreeWidgetItem *parent = 0 );
 
 public slots:
-	void open( Q3ListViewItem *item );
+    void open( QTreeWidgetItem *item );
 
 protected:
-	QMap<int, Q3ListViewItem*> items_map;
+    QMap<int, QTreeWidgetItem*> items_map;
 
 	virtual void load( int limit, int offset );
 
@@ -125,14 +128,15 @@ protected:
 	  * subchildren that aren't expandable.  The code is taken from KDE's K3ListView with
 	  * one line commented out.
 	  */
-	void findDrop( const QPoint &pos, Q3ListViewItem *&parent, Q3ListViewItem *&after )
+    /*
+    void findDrop( const QPoint &pos, QTreeWidgetItem *&parent, QTreeWidgetItem *&after )
 	{
 		QPoint p ( contentsToViewport( pos ) );
 
 		// Get the position to put it in
-		Q3ListViewItem *atpos = itemAt( p );
+        QTreeWidgetItem *atpos = itemAt( p );
 
-		Q3ListViewItem *above;
+        QTreeWidgetItem *above;
 		if ( !atpos )  // put it at the end
 			above = lastItem();
 		else {
@@ -169,8 +173,8 @@ protected:
 
 			// Ok, there's one more level of complexity. We may want to become a new
 			// sibling, but of an upper-level group, rather than the "above" item
-			Q3ListViewItem * betterAbove = above->parent();
-			Q3ListViewItem * last = above;
+            QTreeWidgetItem * betterAbove = above->parent();
+            QTreeWidgetItem * last = above;
 			while ( betterAbove ) {
 				// We are allowed to become a sibling of "betterAbove" only if we are
 				// after its last child
@@ -189,9 +193,9 @@ protected:
 		// set as sibling
 		after = above;
 		parent = after ? after->parent() : 0L ;
-	}
+    }*/
 
-	virtual void movableDropEvent( Q3ListViewItem * parent, Q3ListViewItem * afterme );
+    virtual void movableDropEvent( QTreeWidgetItem * parent, QTreeWidgetItem * afterme );
 
 protected slots:
 	virtual void removeCategory( int id ) = 0;
@@ -201,11 +205,11 @@ protected slots:
 	virtual void mergeCategories( int id1, int id2 );
 
 	virtual void checkCreateCategory( const Element &, int parent_id );
-	virtual void populate( Q3ListViewItem *item );
+    virtual void populate( QTreeWidgetItem *item );
 
 
 private:
-	Q3ListViewItem *m_item_to_delete;
+    QTreeWidgetItem *m_item_to_delete;
 };
 
 
@@ -252,11 +256,11 @@ private:
 };
 
 
-class PseudoListItem : public Q3ListViewItem
+class PseudoListItem : public QTreeWidgetItem
 {
 public:
-	PseudoListItem( Q3ListView* lv ) : Q3ListViewItem(lv){}
-	PseudoListItem( Q3ListViewItem* it ) : Q3ListViewItem(it){}
+    PseudoListItem( QTreeWidget* lv ) : QTreeWidgetItem(lv){}
+    PseudoListItem( QTreeWidgetItem* it ) : QTreeWidgetItem(it){}
 
 protected:
 	int rtti() const { return PSEUDOLISTITEM_RTTI; }

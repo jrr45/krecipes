@@ -33,12 +33,13 @@ public:
 
 	IngredientList groupMembers( int id, IngredientList::const_iterator begin ) const;
 
+    void move( int index1, int index2 );
 	void move( int index1, int count, int index2 );
 	int find( int id ) const;
 	Ingredient findByName( const QString & ) const;
 	Ingredient findByName( const QRegExp & ) const;
-    const_iterator find( IngredientList::const_iterator, int id ) const;
-    iterator find( IngredientList::iterator, int id );
+    IngredientList::const_iterator find( IngredientList::const_iterator, int id ) const;
+    IngredientList::iterator find( IngredientList::iterator, int id );
 
 	/** Warning, returns an invalid reference if no ingredient is found.  Must check prior
 	  * to calling this function if the ingredient exists.

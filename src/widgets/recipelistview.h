@@ -11,14 +11,12 @@
 #ifndef RECIPELISTVIEW_H
 #define RECIPELISTVIEW_H
 
-#include <q3dragobject.h>
-//Added by qt3to4:
+#include <QMimeData>
 #include <QDropEvent>
 
 #include "categorylistview.h"
 #include "datablocks/recipe.h"
 
-class Q3DragObject;
 class QDropEvent;
 
 class KProgressDialog;
@@ -29,30 +27,30 @@ class RecipeDB;
 
 #define RECIPEITEMMIMETYPE "data/x-kde.recipe.item"
 
-class RecipeListItem : public Q3ListViewItem
+class RecipeListItem : public QTreeWidgetItem
 {
 public:
-	RecipeListItem( Q3ListView* qlv, const Recipe &r ) : Q3ListViewItem( qlv )
+    RecipeListItem( QTreeWidget* qlv, const Recipe &r ) : QTreeWidgetItem( qlv )
 	{
 		init( r );
 	}
 
-	RecipeListItem( Q3ListView* qlv, Q3ListViewItem *after, const Recipe &r ) : Q3ListViewItem( qlv, after )
+    RecipeListItem( QTreeWidget* qlv, QTreeWidgetItem *after, const Recipe &r ) : QTreeWidgetItem( qlv, after )
 	{
 		init( r );
 	}
 
-	RecipeListItem( CategoryListItem* it, const Recipe &r ) : Q3ListViewItem( it )
+    RecipeListItem( CategoryListItem* it, const Recipe &r ) : QTreeWidgetItem( it )
 	{
 		init( r );
 	}
 
-	RecipeListItem( CategoryListItem* it, Q3ListViewItem *after, const Recipe &r ) : Q3ListViewItem( it, after )
+    RecipeListItem( CategoryListItem* it, QTreeWidgetItem *after, const Recipe &r ) : QTreeWidgetItem( it, after )
 	{
 		init( r );
 	}
 
-	RecipeListItem( Q3ListViewItem* it, const Recipe &r ) : Q3ListViewItem( it )
+    RecipeListItem( QTreeWidgetItem* it, const Recipe &r ) : QTreeWidgetItem( it )
 	{
 		init( r );
 	}
@@ -114,13 +112,14 @@ private:
 	}
 };
 
-class RecipeItemDrag : public Q3StoredDrag
+/*
+class RecipeItemDrag : public QMimeData
 {
 public:
 	explicit RecipeItemDrag( RecipeListItem *recipeItem, QWidget *dragSource = 0, const char *name = 0 );
 	static bool canDecode( QMimeSource* e );
 	static bool decode( const QMimeSource* e, RecipeListItem& item );
-};
+};*/
 
 class RecipeListView : public StdCategoryListView
 {
@@ -130,7 +129,7 @@ public:
 	explicit RecipeListView( QWidget *parent, RecipeDB *db );
 
 public slots:
-	void populateAll( Q3ListViewItem *parent = 0 );
+    void populateAll( QTreeWidgetItem *parent = 0 );
 
 protected slots:
 	virtual void createRecipe( const Recipe &, int parent_id );
@@ -140,23 +139,23 @@ protected slots:
 	virtual void removeRecipe( int, int );
 
 protected:
-	virtual void createElement( Q3ListViewItem * );
+    virtual void createElement( QTreeWidgetItem * );
 	virtual void removeCategory( int id );
-	virtual Q3DragObject *dragObject();
+    //virtual Q3DragObject *dragObject();
 	virtual bool acceptDrag( QDropEvent *event ) const;
-	virtual void populate( Q3ListViewItem *item );
-	virtual QString tooltip(Q3ListViewItem *item, int column) const;
+    virtual void populate( QTreeWidgetItem *item );
+    virtual QString tooltip(QTreeWidgetItem *item, int column) const;
 
 	friend class RecipeListToolTip;
 
 	void load(int limit, int offset);
 
 private:
-	void moveChildrenToRoot( Q3ListViewItem * );
+    void moveChildrenToRoot( QTreeWidgetItem * );
 
 	bool flat_list;
-	Q3ListViewItem *m_uncat_item;
-	Q3ListViewItem *lastElementCurrLevel;
+    QTreeWidgetItem *m_uncat_item;
+    QTreeWidgetItem *lastElementCurrLevel;
 
 	KProgressDialog *m_progress_dlg;
 };

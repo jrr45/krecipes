@@ -63,7 +63,7 @@ private:
 
 private slots:
 	void enableCategories( bool enable );
-	void insertConstraintsEditBoxes( Q3ListViewItem* it );
+    void insertConstraintsEditBoxes( QListWidgetItem* it );
 	void hideConstraintInputs();
 	void setMinValue( double minValue );
 	void setMaxValue( double maxValue );

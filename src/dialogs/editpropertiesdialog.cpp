@@ -11,11 +11,9 @@
 
 #include <QPushButton>
 #include <QLabel>
-#include <q3header.h>
 #include <QPointer>
-//Added by qt3to4:
 #include <QHBoxLayout>
-#include <Q3ValueList>
+#include <QList>
 #include <QVBoxLayout>
 #include <QTextStream>
 #include <KMessageBox>
@@ -51,10 +49,10 @@
 #include "backends/usda_property_data.h"
 #include "backends/usda_unit_data.h"
 
-class WeightListItem : public Q3ListViewItem
+class WeightListItem : public QListWidgetItem
 {
 public:
-	WeightListItem( Q3ListView *listview, Q3ListViewItem *item, const Weight &w ) : Q3ListViewItem(listview,item), m_weight(w){}
+    WeightListItem( QListWidget *listview, QListWidgetItem *item, const Weight &w ) : QListWidgetItem(listview,item), m_weight(w){}
 
 	void setWeight( const Weight &w ) { m_weight = w; }
 	Weight weight() const { return m_weight; }
@@ -224,7 +222,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 	connect( weightRemoveButton, SIGNAL( clicked() ), this, SLOT( removeWeight() ) );
 	connect( propertyAddButton, SIGNAL( clicked() ), this, SLOT( addPropertyToIngredient() ) );
 	connect( propertyRemoveButton, SIGNAL( clicked() ), this, SLOT( removePropertyFromIngredient() ) );
-	connect( propertyListView, SIGNAL( executed( Q3ListViewItem* ) ), this, SLOT( insertPropertyEditBox( Q3ListViewItem* ) ) );
+    connect( propertyListView, SIGNAL( executed( QListWidgetItem* ) ), this, SLOT( insertPropertyEditBox( QListWidgetItem* ) ) );
 	connect( propertyListView, SIGNAL( selectionChanged() ), inputBox, SLOT( hide() ) );
 
 	removeEventFilter( inputBox );
@@ -233,7 +231,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 	connect( inputBox, SIGNAL( returnPressed( const QString & ) ),
 		inputBox, SLOT( hide() ) );
 
-	connect( weightListView, SIGNAL( doubleClicked( Q3ListViewItem*, const QPoint &, int ) ), SLOT( itemRenamed( Q3ListViewItem*, const QPoint &, int ) ) );
+    connect( weightListView, SIGNAL( doubleClicked( QListWidgetItem*, const QPoint &, int ) ), SLOT( itemRenamed( QListWidgetItem*, const QPoint &, int ) ) );
 
 	connect( loadButton, SIGNAL( clicked() ), this, SLOT( loadUSDAData() ) );
 
@@ -273,7 +271,7 @@ void EditPropertiesDialog::addWeight()
 		w.setIngredientId(ingredientID);
 		db->addIngredientWeight( w );
 
-		Q3ListViewItem * lastElement = weightListView->lastItem();
+        QListWidgetItem * lastElement = weightListView->lastItem();
 
 		WeightListItem *weight_it = new WeightListItem( weightListView, lastElement, w );
 		weight_it->setAmountUnit( w.perAmount(), db->unitName(w.perAmountUnitId()),
@@ -286,7 +284,7 @@ void EditPropertiesDialog::addWeight()
 
 void EditPropertiesDialog::removeWeight()
 {
-	Q3ListViewItem *it = weightListView->selectedItem();
+    QListWidgetItem *it = weightListView->selectedItem();
 	if ( it ) {
 		     switch ( KMessageBox::warningContinueCancel(this, i18nc("@info", "Recipes may require this information for nutrient analysis. Are you sure you want to delete this entry?"), QString(), KStandardGuiItem::cont(), KStandardGuiItem::cancel(), "DeleteIngredientWeight") ) {
 		case KMessageBox::Continue:
@@ -298,7 +296,7 @@ void EditPropertiesDialog::removeWeight()
 	}
 }
 
-void EditPropertiesDialog::itemRenamed( Q3ListViewItem* item, const QPoint &, int col )
+void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, int col )
 {
 	WeightListItem *weight_it = (WeightListItem*)item;
 	Weight w = weight_it->weight();
@@ -380,9 +378,9 @@ void EditPropertiesDialog:: reloadPropertyList( void )
 	IngredientPropertyList propertiesList;
 	db->loadProperties( &propertiesList, ingredientID ); // load the list for this ingredient
 	for ( IngredientPropertyList::const_iterator prop_it = propertiesList.constBegin(); prop_it != propertiesList.constEnd(); ++prop_it ) {
-		Q3ListViewItem * lastElement = propertyListView ->lastItem();
+        QListWidgetItem * lastElement = propertyListView ->lastItem();
 		//Insert property after the last one (it's important to keep the order in the case of the properties to be able to identify the per_units ID later on).
-		( void ) new Q3ListViewItem( propertyListView, lastElement, (*prop_it).name, QString::number( (*prop_it).amount ), (*prop_it).units + QString( "/" ) + (*prop_it).perUnit.name(), QString::number( (*prop_it).id ) );
+        ( void ) new QListWidgetItem( propertyListView, lastElement, (*prop_it).name, QString::number( (*prop_it).amount ), (*prop_it).units + QString( "/" ) + (*prop_it).perUnit.name(), QString::number( (*prop_it).id ) );
 		// Store the perUnits with the ID for using later
 		Element perUnitEl;
 		perUnitEl.id = (*prop_it).perUnit.id();
@@ -398,7 +396,7 @@ void EditPropertiesDialog::reloadWeightList( void )
 
 	WeightList list = db->ingredientWeightUnits( ingredientID ); // load the list for this ingredient
 	for ( WeightList::const_iterator weight_it = list.constBegin(); weight_it != list.constEnd(); ++weight_it ) {
-		Q3ListViewItem * lastElement = weightListView ->lastItem();
+        QListWidgetItem * lastElement = weightListView ->lastItem();
 
 		Weight w = *weight_it;
 		WeightListItem *weight = new WeightListItem( weightListView, lastElement, w );
@@ -444,7 +442,7 @@ void EditPropertiesDialog::removePropertyFromIngredient( void )
 {
 
 	// Find selected ingredient/property item combination
-	Q3ListViewItem * it;
+    QListWidgetItem * it;
 	int propertyID = -1;
 	int perUnitsID = -1;
 	if ( ( it = propertyListView ->selectedItem() ) )
@@ -462,7 +460,7 @@ void EditPropertiesDialog::removePropertyFromIngredient( void )
 	}
 }
 
-void EditPropertiesDialog::insertPropertyEditBox( Q3ListViewItem* it )
+void EditPropertiesDialog::insertPropertyEditBox( QListWidgetItem* it )
 {
 	QRect r = propertyListView ->header() ->sectionRect( 1 );
 
@@ -482,7 +480,7 @@ void EditPropertiesDialog::setPropertyAmount( const QString & amount )
 
 void EditPropertiesDialog::setPropertyAmount( double amount )
 {
-	Q3ListViewItem *prop_it = propertyListView ->selectedItem();
+    QListWidgetItem *prop_it = propertyListView ->selectedItem();
 
 	if ( prop_it ) // Appart from property, Check if an ingredient is selected first, just in case
 	{
@@ -493,11 +491,11 @@ void EditPropertiesDialog::setPropertyAmount( double amount )
 	}
 }
 
-int EditPropertiesDialog::findPropertyNo( Q3ListViewItem * /*it*/ )
+int EditPropertiesDialog::findPropertyNo( QListWidgetItem * /*it*/ )
 {
 	bool found = false;
 	int i = 0;
-	Q3ListViewItem* item = propertyListView ->firstChild();
+    QListWidgetItem* item = propertyListView ->firstChild();
 	while ( i < propertyListView ->childCount() && !found ) {
 		if ( item == propertyListView ->currentItem() )
 			found = true;
@@ -541,7 +539,7 @@ void EditPropertiesDialog::loadDataFromFile()
 
 		QString ing_id = fields[ 0 ].mid( 1, fields[ 1 ].length() - 2 );
 		QString ing_name = fields[ 1 ].mid( 1, fields[ 1 ].length() - 2 );
-		( void ) new Q3ListViewItem( usdaListView->listView(), ing_name, QString::number( index ) ); //using an index instead of the actual id will help find the data later
+        ( void ) new QListWidgetItem( usdaListView->listView(), ing_name, QString::number( index ) ); //using an index instead of the actual id will help find the data later
 
 		index++;
 	}
@@ -549,7 +547,7 @@ void EditPropertiesDialog::loadDataFromFile()
 
 void EditPropertiesDialog::loadUSDAData()
 {
-	Q3ListViewItem * item = usdaListView->listView()->selectedItem();
+    QListWidgetItem * item = usdaListView->listView()->selectedItem();
 	if ( item ) {
 		int index = item->text( 1 ).toInt();
 		const QStringList data = loaded_data[ index ];
@@ -574,11 +572,11 @@ void EditPropertiesDialog::loadUSDAData()
 		IngredientPropertyList existing_ing_props;
 		db->loadProperties( &existing_ing_props, ingredientID );
 
-		Q3ValueList<USDA::PropertyData> property_data_list = USDA::loadProperties();
+        QList<USDA::PropertyData> property_data_list = USDA::loadProperties();
 		USDA::PrepDataList prep_data_list =  USDA::loadPrepMethods();
 		USDA::UnitDataList unit_data_list =  USDA::loadUnits();
 		 
-		Q3ValueList<USDA::PropertyData>::const_iterator propertyIt = property_data_list.constBegin();
+        QList<USDA::PropertyData>::const_iterator propertyIt = property_data_list.constBegin();
 		for ( QStringList::const_iterator it = data.constBegin()+2; propertyIt != property_data_list.constEnd(); ++it, ++propertyIt ) {
 			int property_id = property_list.findByName( (*propertyIt).name );
 			if ( property_id == -1 ) {

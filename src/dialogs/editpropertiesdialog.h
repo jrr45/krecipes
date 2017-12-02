@@ -24,7 +24,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QLabel;
 class K3ListView;
-class Q3ListViewItem;
+class QListWidgetItem;
 class QPushButton;
 class QSplitter;
 class QGroupBox;
@@ -71,17 +71,17 @@ private slots:
 	void updateLists( void );
 	void addPropertyToIngredient( void );
 	void removePropertyFromIngredient( void );
-	void insertPropertyEditBox( Q3ListViewItem* it );
+    void insertPropertyEditBox( QListWidgetItem* it );
 	void setPropertyAmount( const QString & amount );
 	void setPropertyAmount( double amount );
 	void loadUSDAData( void );
-	void itemRenamed( Q3ListViewItem*, const QPoint &, int col );
+    void itemRenamed( QListWidgetItem*, const QPoint &, int col );
 	void loadDataFromFile();
 
 private:
 	void reloadPropertyList( void );
 	void reloadWeightList( void );
-	int findPropertyNo( Q3ListViewItem *it );
+    int findPropertyNo( QListWidgetItem *it );
 
 	KLineEdit* inputBox;
 

@@ -16,6 +16,7 @@ set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR})
 find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Widgets
     Sql
+    WebEngine
     )
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons

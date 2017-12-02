@@ -19,7 +19,6 @@
 #include "backends/recipedb.h"
 #include "dietviewdialog.h"
 
-#include <q3header.h>
 #include <QPainter>
 #include <QPointer>
 #include <QList>

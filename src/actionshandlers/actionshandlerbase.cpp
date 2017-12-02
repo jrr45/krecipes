@@ -10,13 +10,12 @@
 #include "actionshandlerbase.h"
 
 #include <KLocale>
-#include <K3ListView>
+#include <QListWidget>
 #include <KMenu>
 #include <KAction>
 #include <KIcon>
 #include <QPointer>
 #include <KMessageBox>
-class Q3ListViewItem;
 
 #include "widgets/dblistviewbase.h"
 
@@ -34,22 +33,22 @@ ActionsHandlerBase::ActionsHandlerBase( DBListViewBase *_parentListView, RecipeD
 
 	kpop = new KMenu( parentListView );
 	connect( parentListView,
-		SIGNAL( contextMenu( K3ListView *, Q3ListViewItem *, const QPoint & ) ),
-		SLOT( showPopup( K3ListView *, Q3ListViewItem *, const QPoint & ) )
+        SIGNAL( contextMenu( QListWidget *, QListWidgetItem *, const QPoint & ) ),
+        SLOT( showPopup( QListWidget *, QListWidgetItem *, const QPoint & ) )
 	);
 	connect( parentListView,
-		SIGNAL( doubleClicked( Q3ListViewItem*, const QPoint &, int ) ),
-		SLOT( renameElement( Q3ListViewItem*, const QPoint &, int ) )
+        SIGNAL( doubleClicked( QListWidgetItem*, const QPoint &, int ) ),
+        SLOT( renameElement( QListWidgetItem*, const QPoint &, int ) )
 	);
 	connect( parentListView,
-		SIGNAL( itemRenamed( Q3ListViewItem* ) ),
-		SLOT( saveElement( Q3ListViewItem* ) )
+        SIGNAL( itemRenamed( QListWidgetItem* ) ),
+        SLOT( saveElement( QListWidgetItem* ) )
 	);
 }
 
 void ActionsHandlerBase::rename()
 {
-	Q3ListViewItem * item = parentListView->currentItem();
+    QListWidgetItem * item = parentListView->currentItem();
 
 	if ( item )
 		parentListView->rename( item, 0 );
@@ -60,14 +59,14 @@ void ActionsHandlerBase::addAction( KAction * action )
 	kpop->addAction( action );
 }
 
-void ActionsHandlerBase::showPopup( K3ListView * /*l*/, Q3ListViewItem *i, const QPoint &p )
+void ActionsHandlerBase::showPopup( QListWidget * /*l*/, QListWidgetItem *i, const QPoint &p )
 {
 	if ( i )
 		kpop->exec( p );
 }
 
 
-void ActionsHandlerBase::renameElement( Q3ListViewItem* i, const QPoint &/*p*/, int c )
+void ActionsHandlerBase::renameElement( QListWidgetItem* i, const QPoint &/*p*/, int c )
 {
 	if ( i )
 		parentListView->rename( i, c );

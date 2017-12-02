@@ -17,7 +17,7 @@
 
 class KAction;
 class KTempDir;
-class KWebPage;
+class QWebEnginePage;
 class KreRecipesListWidget;
 
 class KreRecipeActionsHandler : public KreGenericActionsHandler
@@ -106,7 +106,7 @@ private:
 	KAction * m_removeFromCategoryAction;
 
 	KTempDir * m_tempdir;
-	KWebPage * m_printPage;
+    QWebEnginePage * m_printPage;
 };
 
 #endif //KRERECIPEACTIONSHANDLER_H

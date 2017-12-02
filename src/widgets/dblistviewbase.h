@@ -10,11 +10,10 @@
 #ifndef DBLISTVIEWBASE_H
 #define DBLISTVIEWBASE_H
 
-#include <qmap.h>
-//Added by qt3to4:
+#include <QMap>
 #include <QKeyEvent>
-
-#include <k3listview.h>
+#include <QListWidget>
+#include <QListWidgetItem>
 
 #define PREVLISTITEM_RTTI 1002
 #define NEXTLISTITEM_RTTI 1003
@@ -29,7 +28,7 @@ enum ReloadFlags {
 	ForceReload		/** Load/reload the list regardless of whether or not it's been loaded */
 };
 
-class DBListViewBase : public K3ListView
+class DBListViewBase : public QListWidget
 {
 Q_OBJECT
 
@@ -53,11 +52,11 @@ protected:
 	virtual void load(int limit, int offset) = 0;
 	virtual void keyPressEvent( QKeyEvent *e );
 	bool handleElement( const QString & );
-	virtual void createElement( Q3ListViewItem * );
-	void removeElement( Q3ListViewItem *, bool delete_item = true );
+    virtual void createElement( QListWidgetItem * );
+    void removeElement( QListWidgetItem *, bool delete_item = true );
 
 	bool reloading(){ return bulk_load; }
-	void setSorting(int c,bool order=true){K3ListView::setSorting(c,order);} //don't do sorting, the database comes sorted from the database anyways
+    void setSorting(int c,bool order=true){QListWidget::setSortingEnabled(false);} //don't do sorting, the database comes sorted from the database anyways
 	void setTotalItems(int);
 
 	RecipeDB *database;
@@ -65,13 +64,13 @@ protected:
 	int curr_offset;
 
 	//make this protected because the data should always be synced with the database
-	void clear(){K3ListView::clear();}
+    void clear(){QListWidget::clear();}
 
 public slots:
-	void rename( Q3ListViewItem *, int c );
+    void rename( QListWidgetItem *, int c );
 
 protected slots:
-	void slotDoubleClicked( Q3ListViewItem * );
+    void slotDoubleClicked( QListWidgetItem * );
 
 private:
 	void activatePrev();
@@ -81,8 +80,8 @@ private:
 	
 	bool bulk_load;
 
-	QMap<Q3ListViewItem*,Q3ListViewItem*> lastElementMap;
-	Q3ListViewItem *delete_me_later;
+    QMap<QListWidgetItem*,QListWidgetItem*> lastElementMap;
+    QListWidgetItem *delete_me_later;
 
 	KProgressDialog *m_progress;
 	int m_totalSteps;

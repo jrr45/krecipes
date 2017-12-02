@@ -13,21 +13,20 @@
 #define RECIPEACTIONSHANDLER_H
 
 #include <QObject>
-#include <qpoint.h>
+#include <QPoint>
 #include <QList>
-#include <q3ptrlist.h>
+#include <QtWebEngineWidgets/QWebEnginePage>
 
-class Q3ListViewItem;
-class K3ListView;
+class QTreeWidgetItem;
+class QTreeWidget;
 class KMenu;
 class RecipeDB;
 class KAction;
 class KTempDir;
-class KWebPage;
 
 /** @brief A class that centralizes common actions for recipes such as saving and editing.
   * 
-  * It acts upon a given K3ListView that is assumed to be a list of recipes.  It 
+  * It acts upon a given QTreeWidget that is assumed to be a list of recipes.  It
   * automagically enables this list view with a popup menu for user access to 
   * the provided actions.
   *
@@ -40,7 +39,7 @@ class RecipeActionsHandler : public QObject
 public:
 	enum ItemType { Category, Recipe };
 
-	RecipeActionsHandler( K3ListView *parentListView, RecipeDB *db );
+    RecipeActionsHandler( QTreeWidget *parentListView, RecipeDB *db );
 	~RecipeActionsHandler()
 	{}
 
@@ -63,7 +62,7 @@ signals:
 
 public slots:
 	void exec( ItemType type, const QPoint &p );
-	void showPopup( K3ListView *, Q3ListViewItem *, const QPoint & );
+    void showPopup( QTreeWidget *, QTreeWidgetItem *, const QPoint & );
 
 	void categorize();
 
@@ -118,17 +117,17 @@ private:
 	KMenu *kpop;
 	KMenu *catPop;
 
-	K3ListView *parentListView;
+    QTreeWidget *parentListView;
 	RecipeDB *database;
 
 	KAction * categorizeAction;
 	KAction * removeFromCategoryAction;
 
 	QList<int> getAllVisibleItems();
-	QList<int> recipeIDs( const QList<Q3ListViewItem *> &items ) const;
+    QList<int> recipeIDs( const QList<QTreeWidgetItem *> &items ) const;
 
 	KTempDir * m_tempdir;
-	KWebPage * m_printPage;
+    QWebEnginePage * m_printPage;
 };
 
 #endif //RECIPEACTIONSHANDLER_H

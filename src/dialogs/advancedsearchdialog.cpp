@@ -14,29 +14,26 @@
 #include "actionshandlers/krerecipeactionshandler.h"
 #include "datablocks/recipelist.h"
 
-#include <KPushButton>
-#include <qwidget.h>
+#include <QWidget>
 #include <QCheckBox>
-#include <qframe.h>
-#include <KComboBox>
-#include <q3header.h>
-#include <q3listview.h>
-#include <qspinbox.h>
+#include <QFrame>
+#include <QListWidget>
+#include <QSpinBox>
 #include <QDateTimeEdit>
 #include <QScrollArea>
 #include <QSplitter>
-//Added by qt3to4:
 #include <QHBoxLayout>
 #include <QGridLayout>
 #include <QVBoxLayout>
 #include <QFormLayout>
-#include <kpushbutton.h>
 #include <QLabel>
-#include <KLineEdit>
-
 #include <QGroupBox>
 #include <QRadioButton>
 
+#include <KPushButton>
+#include <KLineEdit>
+#include <KPushButton>
+#include <KComboBox>
 #include <kapplication.h>
 #include <kcursor.h>
 #include <kdebug.h>
@@ -924,8 +921,8 @@ void AdvancedSearchDialog::search()
 				}
 			}
 
-			for ( Q3ListViewItem *item = criteriaListView->firstChild(); item; item = item->nextSibling() ) {
-				Ingredient i; i.setAmount( item->text(1) );
+            for ( QListWidgetItem *item = criteriaListView->firstChild(); item; item = item->nextSibling() ) {
+                Ingredient i; i.setAmount( item->setText(1) );
 				double stars = i.amount;
 				double stars_offset = i.amount_offset;
 
@@ -935,7 +932,7 @@ void AdvancedSearchDialog::search()
 					stars_offset = 1.0;
 				}
 
-				int id = item->text(2).toInt();
+                int id = item->setText(2).toInt();
 
 				QMap< int, double >::iterator sum_it = idSumMap.find(id);
 				if ( sum_it != idSumMap.end() ) {
@@ -1007,7 +1004,7 @@ QStringList AdvancedSearchDialog::split( const QString &text, bool sql_wildcards
 
 void AdvancedSearchDialog::slotAddRatingCriteria()
 {
-	Q3ListViewItem * it = new Q3ListViewItem(criteriaListView,criteriaComboBox->currentText());
+    setTextItem * it = new setTextItem(criteriaListView,criteriaComboBox->currentText());
 
 	MixedNumber stars;
 	double stars_offset;

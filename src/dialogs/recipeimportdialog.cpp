@@ -18,7 +18,6 @@
 #include <kvbox.h>
 
 
-#include <q3header.h>
 #include <q3dict.h>
 
 #include "datablocks/recipe.h"
@@ -146,7 +145,7 @@ RecipeList RecipeImportDialog::getSelectedRecipes()
 	return selected_recipes;
 }
 
-CustomCheckListItem::CustomCheckListItem( Q3ListView *parent, const QString & s, Type t )
+CustomCheckListItem::CustomCheckListItem( QListWidget *parent, const QString & s, Type t )
 		: Q3CheckListItem( parent, s, t ), m_locked( false )
 {}
 
@@ -167,7 +166,7 @@ void CustomCheckListItem::stateChange( bool on )
 	}
 
 	if ( !on ) {
-		Q3ListViewItem * parent = this->parent();
+        QListWidgetItem * parent = this->parent();
 		if ( parent && ( parent->rtti() == 1 ) ) {
 			CustomCheckListItem * item = static_cast<CustomCheckListItem*>( parent );
 			item->setLocked( true );
@@ -177,7 +176,7 @@ void CustomCheckListItem::stateChange( bool on )
 	}
 
 	QString thisText = text(0);
-	Q3ListViewItemIterator it( listView() );
+    QListWidgetItemIterator it( listView() );
 	while ( it.current() ) {
 		if ( it.current()->rtti() == 1 && it.current()->text(0) == thisText ) {
 			CustomCheckListItem * item = static_cast<CustomCheckListItem*>( it.current() );

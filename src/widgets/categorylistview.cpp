@@ -25,27 +25,33 @@
 #include "dialogs/dependanciesdialog.h"
 #include <QPixmap>
 
-CategoryCheckListItem::CategoryCheckListItem( CategoryCheckListView* klv, const Element &category, bool _exclusive ) : Q3CheckListItem( klv, QString(), Q3CheckListItem::CheckBox ), CategoryItemInfo( category ),
+CategoryCheckListItem::CategoryCheckListItem( CategoryCheckListView* klv, const Element &category, bool _exclusive ) :
+    QTreeWidgetItem( QString(), klv ), CategoryItemInfo( category ),
 		locked( false ),
 		exclusive( _exclusive ),
 		m_listview(klv)
 {
-	setOn( false ); // Set unchecked by default
+    setCheckState( Qt::CheckState::ItemIsUserCheckable );
+    setOn( false ); // Set unchecked by default
 }
 
-CategoryCheckListItem::CategoryCheckListItem( Q3ListViewItem* it, const Element &category, bool _exclusive ) : Q3CheckListItem( it, QString(), Q3CheckListItem::CheckBox ), CategoryItemInfo( category ),
+CategoryCheckListItem::CategoryCheckListItem( QTreeWidgetItem* it, const Element &category, bool _exclusive ) :
+    QTreeWidgetItem( Qstring, it ), CategoryItemInfo( category ),
 		locked( false ),
 		exclusive( _exclusive ),
 		m_listview((CategoryCheckListView*)it->listView())
 {
+    setCheckState( Qt::CheckState::ItemIsUserCheckable );
 	setOn( false ); // Set unchecked by default
 }
 
-CategoryCheckListItem::CategoryCheckListItem( CategoryCheckListView* klv, Q3ListViewItem* it, const Element &category, bool _exclusive ) : Q3CheckListItem( klv, it, QString(), Q3CheckListItem::CheckBox ), CategoryItemInfo( category ),
+CategoryCheckListItem::CategoryCheckListItem( CategoryCheckListView* klv, QTreeWidgetItem* it, const Element &category, bool _exclusive ) :
+    QTreeWidgetItem( QString(), klv ), CategoryItemInfo( category ),
 		locked( false ),
 		exclusive( _exclusive ),
 		m_listview(klv)
 {
+    setCheckState( Qt::CheckState::ItemIsUserCheckable );
 	setOn( false ); // Set unchecked by default
 }
 
@@ -108,15 +114,15 @@ void CategoryCheckListItem::setParentsState( bool on )
 
 
 
-CategoryListItem::CategoryListItem( Q3ListView* klv, const Element &category ) : Q3ListViewItem( klv ),
+CategoryListItem::CategoryListItem( QTreeWidget* klv, const Element &category ) : QTreeWidgetItem( klv ),
 	CategoryItemInfo(category)
 {}
 
-CategoryListItem::CategoryListItem( Q3ListViewItem* it, const Element &category ) : Q3ListViewItem( it ),
+CategoryListItem::CategoryListItem( QTreeWidgetItem* it, const Element &category ) : QTreeWidgetItem( it ),
 	CategoryItemInfo(category)
 {}
 
-CategoryListItem::CategoryListItem( Q3ListView* klv, Q3ListViewItem* it, const Element &category ) : Q3ListViewItem( klv, it ),
+CategoryListItem::CategoryListItem( QTreeWidget* klv, QTreeWidgetItem* it, const Element &category ) : QTreeWidgetItem( klv, it ),
 	CategoryItemInfo(category)
 {}
 
@@ -143,11 +149,11 @@ CategoryListView::CategoryListView( QWidget *parent, RecipeDB *db ) : DBListView
 	//connect( this, SIGNAL( returnPressed(QListViewItem*) ), SLOT( open(QListViewItem*) ) );
 	//connect( this, SIGNAL( executed(QListViewItem*) ), SLOT( open(QListViewItem*) ) );
 
-	connect( this, SIGNAL( expanded(Q3ListViewItem*) ), SLOT( open(Q3ListViewItem*) ) );
+    connect( this, SIGNAL( expanded(QTreeWidgetItem*) ), SLOT( open(QTreeWidgetItem*) ) );
 
 	setRootIsDecorated( true );
 	setAllColumnsShowFocus( true );
-	setDefaultRenameAction( Q3ListView::Reject );
+    setDefaultRenameAction( QTreeWidget::Reject );
 
 	connect( database, SIGNAL( categoryCreated( const Element &, int ) ), SLOT( checkCreateCategory( const Element &, int ) ) );
 	connect( database, SIGNAL( categoryRemoved( int ) ), SLOT( removeCategory( int ) ) );
@@ -172,7 +178,7 @@ void CategoryListView::load( int limit, int offset )
 	}
 }
 
-void CategoryListView::movableDropEvent( Q3ListViewItem * parent, Q3ListViewItem * afterme )
+void CategoryListView::movableDropEvent( QTreeWidgetItem * parent, QTreeWidgetItem * afterme )
 {
 	if ( parent )
 		if ( (parent->rtti() == PREVLISTITEM_RTTI) ||
@@ -184,7 +190,7 @@ void CategoryListView::movableDropEvent( Q3ListViewItem * parent, Q3ListViewItem
 	K3ListView::movableDropEvent( parent, afterme );
 }
 
-void CategoryListView::populate( Q3ListViewItem *item )
+void CategoryListView::populate( QTreeWidgetItem *item )
 {
 	CategoryItemInfo *cat_item = dynamic_cast<CategoryItemInfo*>(item);
 	if ( !cat_item || cat_item->isPopulated() ) return;
@@ -205,19 +211,19 @@ void CategoryListView::populate( Q3ListViewItem *item )
 	}
 }
 
-void CategoryListView::populateAll( Q3ListViewItem *parent )
+void CategoryListView::populateAll( QTreeWidgetItem *parent )
 {
 	if ( !parent )
 		parent = firstChild();
 
-	for ( Q3ListViewItem *item = parent; item; item = item->nextSibling() ) {
+    for ( QTreeWidgetItem *item = parent; item; item = item->nextSibling() ) {
 		populate( item );
 		if ( item->firstChild() )
 			populateAll( item->firstChild() );
 	}
 }
 
-void CategoryListView::open( Q3ListViewItem *item )
+void CategoryListView::open( QTreeWidgetItem *item )
 {
 	Q_ASSERT( item );
 	if ( !item->firstChild() || item->firstChild()->rtti() != PSEUDOLISTITEM_RTTI ) return;
@@ -236,7 +242,7 @@ void CategoryListView::checkCreateCategory( const Element &el, int parent_id )
 
 void CategoryListView::modifyCategory( const Element &category )
 {
-	Q3ListViewItem * item = items_map[ category.id ];
+    QTreeWidgetItem * item = items_map[ category.id ];
 
 	if ( item )
 		item->setText( 0, category.name );
@@ -244,9 +250,9 @@ void CategoryListView::modifyCategory( const Element &category )
 
 void CategoryListView::modifyCategory( int id, int parent_id )
 {
-	QMap<int,Q3ListViewItem*>::iterator item_it = items_map.find(id);
+    QMap<int,QTreeWidgetItem*>::iterator item_it = items_map.find(id);
 	if ( item_it != items_map.end() ) {
-		Q3ListViewItem *item = *item_it;
+        QTreeWidgetItem *item = *item_it;
 		Q_ASSERT( item );
 
 		removeElement(item,false);
@@ -260,7 +266,7 @@ void CategoryListView::modifyCategory( int id, int parent_id )
 			createElement(item);
 		}
 		else {
-			QMap<int,Q3ListViewItem*>::iterator parent_item_it = items_map.find(parent_id);
+            QMap<int,QTreeWidgetItem*>::iterator parent_item_it = items_map.find(parent_id);
 			if ( parent_item_it != items_map.end() &&
 			dynamic_cast<CategoryItemInfo*>(*parent_item_it)->isPopulated() ) {
 				(*parent_item_it)->insertItem( item );
@@ -281,15 +287,15 @@ void CategoryListView::modifyCategory( int id, int parent_id )
 
 void CategoryListView::mergeCategories( int id1, int id2 )
 {
-	Q3ListViewItem * to_item = items_map[ id1 ];
-	Q3ListViewItem *from_item = items_map[ id2 ];
+    QTreeWidgetItem * to_item = items_map[ id1 ];
+    QTreeWidgetItem *from_item = items_map[ id2 ];
 
 	CategoryItemInfo *info_item = dynamic_cast<CategoryItemInfo*>(to_item);
 
 	if ( to_item && info_item->isPopulated() && from_item ) {
 		//note that this takes care of any recipes that may be children as well
-		Q3ListViewItem *next_sibling;
-		for ( Q3ListViewItem * it = from_item->firstChild(); it; it = next_sibling ) {
+        QTreeWidgetItem *next_sibling;
+        for ( QTreeWidgetItem * it = from_item->firstChild(); it; it = next_sibling ) {
 			next_sibling = it->nextSibling(); //get the sibling before we move the item
 
 			removeElement(it,false);
@@ -330,7 +336,7 @@ void StdCategoryListView::setPixmap( const QPixmap &icon )
 
 void StdCategoryListView::removeCategory( int id )
 {
-	Q3ListViewItem * item = items_map[ id ];
+    QTreeWidgetItem * item = items_map[ id ];
 
 	items_map.remove( id );
 	removeElement(item);
@@ -386,7 +392,7 @@ CategoryListView( parent, db ), exclusive( _exclusive )
 
 void CategoryCheckListView::removeCategory( int id )
 {
-	Q3ListViewItem * item = items_map[ id ];
+    QTreeWidgetItem * item = items_map[ id ];
 
 	items_map.remove( id );
 	removeElement(item);
@@ -399,7 +405,7 @@ void CategoryCheckListView::createCategory( const Element &category, int parent_
 		new_item = new CategoryCheckListItem( this, category, exclusive );
 	}
 	else {
-		Q3ListViewItem *parent = items_map[ parent_id ];
+        QTreeWidgetItem *parent = items_map[ parent_id ];
 		if ( parent )
 			new_item = new CategoryCheckListItem( parent, category, exclusive );
 	}
@@ -437,7 +443,7 @@ void CategoryCheckListView::load( int limit, int offset )
 	populateAll();
 
 	for ( ElementList::const_iterator it = m_selections.constBegin(); it != m_selections.constEnd(); ++it ) {
-		Q3CheckListItem * item = ( Q3CheckListItem* ) findItem( QString::number( (*it).id ), 1 );
+        QTreeWidgetItem * item = ( QTreeWidgetItem* ) findItem( QString::number( (*it).id ), 1 );
 		if ( item ) {
 			item->setOn(true);
 		}

@@ -14,11 +14,11 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QButtonGroup>
 
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class Q3ButtonGroup;
 class QRadioButton;
 class QStackedWidget;
 class QWidget;
@@ -44,7 +44,7 @@ public:
 
 private:
 	// Widgets
-	Q3ButtonGroup* dbButtonGroup;
+    QButtonGroup* dbButtonGroup;
 	QRadioButton* liteRadioButton;
 	QRadioButton* mysqlRadioButton;
 	QRadioButton* psqlRadioButton;

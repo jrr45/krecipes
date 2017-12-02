@@ -19,14 +19,13 @@
 
 #include <kapplication.h>
 #include <kfiledialog.h>
-#include <k3listview.h>
+#include <QTreeWidget>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmenu.h>
 #include <KAction>
 #include <kprogressdialog.h>
-#include <QWebFrame>
-#include <KWebPage>
+#include <QtWebEngineWidgets/QWebEnginePage>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
 #include <KTempDir>
@@ -50,7 +49,7 @@
 
 #include "backends/recipedb.h"
 
-RecipeActionsHandler::RecipeActionsHandler( K3ListView *_parentListView, RecipeDB *db ) :
+RecipeActionsHandler::RecipeActionsHandler( QTreeWidget *_parentListView, RecipeDB *db ) :
 		QObject( _parentListView ),
 		parentListView( _parentListView ),
 		database( db ),
@@ -61,11 +60,11 @@ RecipeActionsHandler::RecipeActionsHandler( K3ListView *_parentListView, RecipeD
 	catPop = new KMenu( parentListView );
 
 	connect( parentListView,
-		SIGNAL( contextMenu( K3ListView *, Q3ListViewItem *, const QPoint & ) ),
-		SLOT( showPopup( K3ListView *, Q3ListViewItem *, const QPoint & ) )
+        SIGNAL( contextMenu( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) ),
+        SLOT( showPopup( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) )
 	);
 	connect( parentListView,
-		SIGNAL( doubleClicked( Q3ListViewItem*, const QPoint &, int ) ),
+        SIGNAL( doubleClicked( QTreeWidgetItem*, const QPoint &, int ) ),
 		SLOT( open() )
 	);
 	connect( parentListView,
@@ -109,7 +108,7 @@ void RecipeActionsHandler::exec( ItemType type, const QPoint &p )
 	}
 }
 
-void RecipeActionsHandler::showPopup( K3ListView * /*l*/, Q3ListViewItem *i, const QPoint &p )
+void RecipeActionsHandler::showPopup( QTreeWidget * /*l*/, QTreeWidgetItem *i, const QPoint &p )
 {
 	if ( i ) { // Check if the QListViewItem actually exists
 		if ( i->rtti() == 1000 ) {
@@ -124,12 +123,12 @@ void RecipeActionsHandler::showPopup( K3ListView * /*l*/, Q3ListViewItem *i, con
 	}
 }
 
-QList<int> RecipeActionsHandler::recipeIDs( const QList<Q3ListViewItem *> &items ) const
+QList<int> RecipeActionsHandler::recipeIDs( const QList<QTreeWidgetItem *> &items ) const
 {
 	QList<int> ids;
 
-	QListIterator<Q3ListViewItem *> it(items);
-	const Q3ListViewItem *item;
+    QListIterator<QTreeWidgetItem *> it(items);
+    const QTreeWidgetItem *item;
 	while ( it.hasNext() ) {
 		item = it.next();
 		if ( item->rtti() == 1000 ) { //RecipeListItem
@@ -154,7 +153,7 @@ QList<int> RecipeActionsHandler::recipeIDs( const QList<Q3ListViewItem *> &items
 
 void RecipeActionsHandler::open()
 {
-	const QList<Q3ListViewItem*> items = parentListView->selectedItems();
+    const QList<QTreeWidgetItem*> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
 		QList<int> ids = recipeIDs(items);
 		if ( ids.count() == 1 )
@@ -167,8 +166,8 @@ void RecipeActionsHandler::open()
 			QList<int> ids;
 
 			//do this to only iterate over children of 'it'
-			Q3ListViewItem *pEndItem = NULL;
-			Q3ListViewItem *pStartItem = it;
+            QTreeWidgetItem *pEndItem = NULL;
+            QTreeWidgetItem *pStartItem = it;
 			do
 			{
 				if ( pStartItem->nextSibling() )
@@ -178,7 +177,7 @@ void RecipeActionsHandler::open()
 			}
 			while ( pStartItem && !pEndItem );
 
-			Q3ListViewItemIterator iterator( it );
+            QTreeWidgetItemIterator iterator( it );
 			while ( iterator.current() != pEndItem )
 			{
 				if ( iterator.current() ->rtti() == 1000 ) {
@@ -197,7 +196,7 @@ void RecipeActionsHandler::open()
 
 void RecipeActionsHandler::categorize()
 {
-	QList<Q3ListViewItem*> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem*> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
 		ElementList categoryList;
 		QPointer<SelectCategoriesDialog> editCategoriesDialog = new SelectCategoriesDialog( parentListView, categoryList, database );
@@ -205,8 +204,8 @@ void RecipeActionsHandler::categorize()
 		if ( editCategoriesDialog->exec() == QDialog::Accepted ) { // user presses Ok
 			editCategoriesDialog->getSelectedCategories( &categoryList ); // get the category list chosen
 			
-			QListIterator<Q3ListViewItem *> it(items);
-			Q3ListViewItem *item;
+            QListIterator<QTreeWidgetItem *> it(items);
+            QTreeWidgetItem *item;
 			while ( it.hasNext() ) {
 				item = it.next();
 				if ( item->parent() != 0 ) {
@@ -224,7 +223,7 @@ void RecipeActionsHandler::categorize()
 
 void RecipeActionsHandler::edit()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 1 )
         KMessageBox::sorry( kapp->activeWindow(), i18n("Please select only one recipe."), i18n("Edit Recipe") );
 	else if ( items.count() == 1 && items.at(0)->rtti() == 1000 ) {
@@ -237,7 +236,7 @@ void RecipeActionsHandler::edit()
 
 void RecipeActionsHandler::recipeExport()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
 		QList<int> ids = recipeIDs( items );
 
@@ -270,7 +269,7 @@ void RecipeActionsHandler::recipeExport()
 
 void RecipeActionsHandler::recipePrint()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( !items.isEmpty() ) {
 		QList<int> ids = recipeIDs( items );
 		printRecipes( ids, database );
@@ -296,10 +295,10 @@ void RecipeActionsHandler::recipePrint()
 
 void RecipeActionsHandler::removeFromCategory()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
-		QListIterator<Q3ListViewItem *> it(items);
-		Q3ListViewItem *item;
+        QListIterator<QTreeWidgetItem *> it(items);
+        QTreeWidgetItem *item;
 		while ( it.hasNext() ) {
 			item = it.next();
 			if ( item->parent() != 0 ) {
@@ -315,11 +314,11 @@ void RecipeActionsHandler::removeFromCategory()
 
 void RecipeActionsHandler::remove()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
 		QList<int> recipe_ids;
-		QListIterator<Q3ListViewItem*> it(items);
-		Q3ListViewItem *item;
+        QListIterator<QTreeWidgetItem*> it(items);
+        QTreeWidgetItem *item;
 		while ( it.hasNext() ) {
 			item = it.next();
 			if ( item->rtti() == RECIPELISTITEM_RTTI ) {
@@ -333,10 +332,10 @@ void RecipeActionsHandler::remove()
 
 void RecipeActionsHandler::addToShoppingList()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
-		QListIterator<Q3ListViewItem *> it(items);
-		Q3ListViewItem *item;
+        QListIterator<QTreeWidgetItem *> it(items);
+        QTreeWidgetItem *item;
 		while ( it.hasNext() ) {
 			item = it.next();
 			if ( item->parent() != 0 ) {
@@ -349,9 +348,9 @@ void RecipeActionsHandler::addToShoppingList()
 
 void RecipeActionsHandler::expandAll()
 {
-	Q3ListViewItemIterator it( parentListView );
+    QTreeWidgetItemIterator it( parentListView );
 	while ( it.current() ) {
-		Q3ListViewItem * item = it.current();
+        QTreeWidgetItem * item = it.current();
 		item->setOpen( true );
 		++it;
 	}
@@ -359,9 +358,9 @@ void RecipeActionsHandler::expandAll()
 
 void RecipeActionsHandler::collapseAll()
 {
-	Q3ListViewItemIterator it( parentListView );
+    QTreeWidgetItemIterator it( parentListView );
 	while ( it.current() ) {
-		Q3ListViewItem * item = it.current();
+        QTreeWidgetItem * item = it.current();
 		item->setOpen( false );
 		++it;
 	}
@@ -463,9 +462,9 @@ void RecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *databa
 		html_generator.setTemplate( templateFile );
 	html_generator.exporter( ids, database );
 	//Load the generated HTML. When loaded, RecipeActionsHandlerView::print(...) will be called.
-	m_printPage = new KWebPage;
+    m_printPage = new QWebEnginePage;
 	connect(m_printPage, SIGNAL(loadFinished(bool)), SLOT(print(bool)));
-    m_printPage->mainFrame()->load( QUrl::fromLocalFile(tmp_filename) );
+    m_printPage->load( QUrl::fromLocalFile(tmp_filename) );
 }
 
 void RecipeActionsHandler::print(bool ok)
@@ -475,7 +474,7 @@ void RecipeActionsHandler::print(bool ok)
 	QPointer<QPrintPreviewDialog> previewdlg = new QPrintPreviewDialog(&printer);
 	//Show the print preview dialog.
 	connect(previewdlg, SIGNAL(paintRequested(QPrinter *)),
-		m_printPage->mainFrame(), SLOT(print(QPrinter *)));
+        m_printPage, SLOT(print(QPrinter *)));
 	previewdlg->exec();
 	delete previewdlg;
 	//Remove the temporary directory which stores the HTML and free memory.
@@ -527,7 +526,7 @@ void RecipeActionsHandler::recipesToClipboard( const QList<int> &ids, RecipeDB *
 
 void RecipeActionsHandler::recipesToClipboard()
 {
-	QList<Q3ListViewItem *> items = parentListView->selectedItems();
+    QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 0 ) {
 		QList<int> ids = recipeIDs( items );
 
@@ -539,7 +538,7 @@ QList<int> RecipeActionsHandler::getAllVisibleItems()
 {
 	QList<int> ids;
 
-	Q3ListViewItemIterator iterator( parentListView );
+    QTreeWidgetItemIterator iterator( parentListView );
 	while ( iterator.current() ) {
 		if ( iterator.current() ->isVisible() ) {
 			if ( iterator.current() ->rtti() == RECIPELISTITEM_RTTI ) {
@@ -570,15 +569,15 @@ QList<int> RecipeActionsHandler::getAllVisibleItems()
 
 QList<int> RecipeActionsHandler::recipeIDs() const
 {
-	const QList<Q3ListViewItem*> items = parentListView->selectedItems();
+    const QList<QTreeWidgetItem*> items = parentListView->selectedItems();
 	QList<int> ids = recipeIDs(items);
 	return ids;
 }
 
 void RecipeActionsHandler::selectionChangedSlot()
 {
-	const QList<Q3ListViewItem*> items = parentListView->selectedItems();
-	if ( (items.count() == 1) && (items.first()->rtti() == 1000) ) {
+    const QList<QTreeWidgetItem*> items = parentListView->selectedItems();
+    if ( (items.count() == 1) && (items.first()->rtti() == 1000) ) {
 		// We have a single recipe as our selection
 		RecipeListItem * recipe_it = ( RecipeListItem* ) items.first();
 		emit recipeSelected( recipe_it->recipeID(), 4 );

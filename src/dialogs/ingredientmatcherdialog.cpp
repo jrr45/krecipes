@@ -61,7 +61,7 @@ IngredientMatcherDialog::IngredientMatcherDialog( QWidget *parent, RecipeDB *db 
 
 	allIngListView = new KreListView( this, QString(), true, 0 );
 	StdIngredientListView *list_view = new StdIngredientListView(allIngListView,database);
-	list_view->setSelectionMode( Q3ListView::Multi );
+    list_view->setSelectionMode( QListWidget::Multi );
 	allIngListView->setListView(list_view);
 	layout2->addWidget( allIngListView );
 	allIngListView->setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Preferred );
@@ -145,14 +145,14 @@ IngredientMatcherDialog::IngredientMatcherDialog( QWidget *parent, RecipeDB *db 
 	connect ( actionHandler, SIGNAL( recipeSelected( int, int ) ), SIGNAL( recipeSelected( int, int ) ) );
 	connect( addButton, SIGNAL( clicked() ), this, SLOT( addIngredient() ) );
 	connect( removeButton, SIGNAL( clicked() ), this, SLOT( removeIngredient() ) );
-	connect( ingListView->listView(), SIGNAL( doubleClicked( Q3ListViewItem*, const QPoint &, int ) ), SLOT( itemRenamed( Q3ListViewItem*, const QPoint &, int ) ) );
+    connect( ingListView->listView(), SIGNAL( doubleClicked( QListWidgetItem*, const QPoint &, int ) ), SLOT( itemRenamed( QListWidgetItem*, const QPoint &, int ) ) );
 }
 
 IngredientMatcherDialog::~IngredientMatcherDialog()
 {
 }
 
-void IngredientMatcherDialog::itemRenamed( Q3ListViewItem* item, const QPoint &, int col )
+void IngredientMatcherDialog::itemRenamed( QListWidgetItem* item, const QPoint &, int col )
 {
 	if ( col == 1 ) {
 		QPointer<KDialog> amountEditDialog = new KDialog(this);
@@ -209,11 +209,11 @@ void IngredientMatcherDialog::itemRenamed( Q3ListViewItem* item, const QPoint &,
 
 void IngredientMatcherDialog::addIngredient()
 {
-	QList<Q3ListViewItem *> items = allIngListView->listView()->selectedItems();
+    QList<QListWidgetItem *> items = allIngListView->listView()->selectedItems();
 	if ( !items.isEmpty() ) {
 		for (int i = 0; i < items.size(); ++i) {
 			bool dup = false;
-			for ( Q3ListViewItem *exists_it = ingListView->listView()->firstChild(); exists_it; exists_it = exists_it->nextSibling() ) {
+            for ( QListWidgetItem *exists_it = ingListView->listView()->firstChild(); exists_it; exists_it = exists_it->nextSibling() ) {
 				if ( exists_it->text( 0 ) == items[i]->text( 0 ) ) {
 					dup = true;
 					break;
@@ -221,7 +221,7 @@ void IngredientMatcherDialog::addIngredient()
 			}
 
 			if ( !dup ) {
-				Q3ListViewItem * new_item = new Q3CheckListItem( ingListView->listView(), items[i]->text( 0 ), Q3CheckListItem::CheckBox );
+                QListWidgetItem * new_item = new Q3CheckListItem( ingListView->listView(), items[i]->text( 0 ), Q3CheckListItem::CheckBox );
 
 				ingListView->listView() ->setSelected( new_item, true );
 				ingListView->listView() ->ensureItemVisible( new_item );
@@ -236,7 +236,7 @@ void IngredientMatcherDialog::addIngredient()
 
 void IngredientMatcherDialog::removeIngredient()
 {
-	Q3ListViewItem * item = ingListView->listView() ->selectedItem();
+    QListWidgetItem * item = ingListView->listView() ->selectedItem();
 	if ( item ) {
 		for ( IngredientList::iterator it = m_ingredientList.begin(); it != m_ingredientList.end(); ++it ) {
 			if ( *m_item_ing_map.find( item ) == it ) {
@@ -252,7 +252,7 @@ void IngredientMatcherDialog::removeIngredient()
 void IngredientMatcherDialog::unselectIngredients()
 {
 	ingListView->listView()->clear();
-	for ( Q3ListViewItem *it = allIngListView->listView()->firstChild(); it; it = it->nextSibling() )
+    for ( QListWidgetItem *it = allIngListView->listView()->firstChild(); it; it = it->nextSibling() )
 		allIngListView->listView()->setSelected(it,false);
 	m_ingredientList.clear();
 	m_item_ing_map.clear();
@@ -309,7 +309,7 @@ void IngredientMatcherDialog::findRecipes( void )
 	START_TIMER("Ingredient Matcher: searching for and displaying partial matches");
 
 	IngredientList requiredIngredients;
-	for ( Q3ListViewItem *it = ingListView->listView()->firstChild(); it; it = it->nextSibling() ) {
+    for ( QListWidgetItem *it = ingListView->listView()->firstChild(); it; it = it->nextSibling() ) {
 		if ( ((Q3CheckListItem*)it)->isOn() )
 			requiredIngredients << *m_item_ing_map[it];
 	}

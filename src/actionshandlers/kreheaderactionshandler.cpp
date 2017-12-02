@@ -11,8 +11,6 @@
 
 #include "kreheaderactionshandler.h"
 
-//#include <kdebug.h>
-
 #include <KLocale>
 #include <QPointer>
 #include <KMessageBox>

@@ -19,7 +19,7 @@
 
 #include <QSplitter>
 #include <QLabel>
-#include <q3listview.h>
+#include <QListWidget>
 #include <KPushButton>
 
 #include <kstringhandler.h>
@@ -39,7 +39,7 @@ class KAction;
 class CustomRecipeListItem : public RecipeListItem
 {
 public:
-	CustomRecipeListItem( Q3ListView* qlv, const Recipe &r, const IngredientList &il ) : RecipeListItem( qlv, r )
+    CustomRecipeListItem( QListWidget* qlv, const Recipe &r, const IngredientList &il ) : RecipeListItem( qlv, r )
 	{
 		ingredientListStored = new QStringList();
 		IngredientList::ConstIterator ili;
@@ -58,7 +58,7 @@ public:
 
 		moveItem( qlv->lastItem() );
 	}
-	CustomRecipeListItem( Q3ListView* qlv, const Recipe &r ) : RecipeListItem( qlv, r )
+    CustomRecipeListItem( QListWidget* qlv, const Recipe &r ) : RecipeListItem( qlv, r )
 	{
 		ingredientListStored = 0;
 
@@ -83,10 +83,10 @@ public:
 	}
 };
 
-class SectionItem: public Q3ListViewItem
+class SectionItem: public QListWidgetItem
 {
 public:
-	SectionItem( Q3ListView* qlv, QString sectionText ) : Q3ListViewItem( qlv, qlv->lastItem() )
+    SectionItem( QListWidget* qlv, QString sectionText ) : QListWidgetItem( qlv, qlv->lastItem() )
 	{
 		mText = sectionText;
 	}
@@ -145,14 +145,14 @@ private:
 	KPushButton *removeButton;
 
 	IngredientList m_ingredientList;
-	QMap<Q3ListViewItem*, IngredientList::iterator> m_item_ing_map;
+    QMap<QListWidgetItem*, IngredientList::iterator> m_item_ing_map;
 
 private slots:
 	void findRecipes( void );
 	void unselectIngredients();
 	void addIngredient();
 	void removeIngredient();
-	void itemRenamed( Q3ListViewItem*, const QPoint &, int col );
+    void itemRenamed( QListWidgetItem*, const QPoint &, int col );
 
 public slots:
 	void haveSelectedItems();

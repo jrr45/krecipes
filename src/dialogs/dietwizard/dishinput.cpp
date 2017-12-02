@@ -79,7 +79,7 @@ DishInput::DishInput( QWidget* parent, RecipeDB *db, const QString &title ) : QW
 
 
 	// Connect Signals & Slots
-	connect( constraintsView, SIGNAL( executed( Q3ListViewItem* ) ), this, SLOT( insertConstraintsEditBoxes( Q3ListViewItem* ) ) );
+    connect( constraintsView, SIGNAL( executed( QListWidgetItem* ) ), this, SLOT( insertConstraintsEditBoxes( QListWidgetItem* ) ) );
 	connect( constraintsView, SIGNAL( selectionChanged() ), this, SLOT( hideConstraintInputs() ) );
 	connect( constraintsEditBox1, SIGNAL( valueChanged( double ) ), this, SLOT( setMinValue( double ) ) );
 	connect( constraintsEditBox2, SIGNAL( valueChanged( double ) ), this, SLOT( setMaxValue( double ) ) );
@@ -91,7 +91,7 @@ DishInput::~DishInput()
 
 void DishInput::clear()
 {
-	Q3ListViewItemIterator it( categoriesView );
+    QListWidgetItemIterator it( categoriesView );
 	while ( it.current() ) {
 		if (it.current()->rtti() == CATEGORYCHECKLISTITEM_RTTI) {
 			CategoryCheckListItem * item = ( CategoryCheckListItem* ) it.current();
@@ -121,7 +121,7 @@ void DishInput::reload( ReloadFlags flag )
 	categoriesView->reload(flag);
 }
 
-void DishInput::insertConstraintsEditBoxes( Q3ListViewItem* it )
+void DishInput::insertConstraintsEditBoxes( QListWidgetItem* it )
 {
 	QRect r;
 

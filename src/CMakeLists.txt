@@ -327,8 +327,9 @@ target_link_libraries(krecipescommon
 
    #${KDE5_KDECORE_LIBS} #${KDE4_KDE3SUPPORT_LIBS}
    Qt5::Sql
+   Qt5::WebEngine
    ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES}
-   #${QT_QTWEBKIT_LIBRARY}# ${KDE5_KDEWEBKIT_LIBS}
+   ${QT_QTWEBKIT_LIBRARY} ${KDE5_KDEWEBKIT_LIBS}
    )
 
 ############### tests ################

@@ -17,7 +17,8 @@ class K3ListView;
 class KMenu;
 class KAction;
 class RecipeDB;
-class Q3ListViewItem;
+class QListWidgetItem;
+class QListWidget;
 class QPoint;
 
 class ActionsHandlerBase : public QObject
@@ -40,9 +41,9 @@ protected:
 	RecipeDB *database;
 
 protected slots:
-	virtual void renameElement( Q3ListViewItem* i, const QPoint &p, int c );
-	virtual void saveElement( Q3ListViewItem* i ) = 0;
-	virtual void showPopup( K3ListView *, Q3ListViewItem *, const QPoint &);
+    virtual void renameElement( QListWidgetItem* i, const QPoint &p, int c );
+    virtual void saveElement( QListWidgetItem* i ) = 0;
+    virtual void showPopup( QListWidget *, QListWidgetItem *, const QPoint &);
 };
 
 #endif //ACTIONSHANDLERBASE_H
