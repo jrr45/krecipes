@@ -110,7 +110,7 @@ KreUnitActionsHandler* UnitsDialog::getActionsHandler() const
 		return 0;
 }
 
-void UnitsDialog::addAction( KAction * action )
+void UnitsDialog::addAction( QAction * action )
 {
 	unitActionsHandler->addAction( action );
 }

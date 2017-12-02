@@ -21,7 +21,7 @@ class QTreeWidgetItem;
 class QTreeWidget;
 class KMenu;
 class RecipeDB;
-class KAction;
+class QAction;
 class KTempDir;
 
 /** @brief A class that centralizes common actions for recipes such as saving and editing.
@@ -43,10 +43,10 @@ public:
 	~RecipeActionsHandler()
 	{}
 
-	void addRecipeAction( KAction * action );
-	void addCategoryAction( KAction * action );
-	void setCategorizeAction( KAction * action );
-	void setRemoveFromCategoryAction( KAction * action );
+	void addRecipeAction( QAction * action );
+	void addCategoryAction( QAction * action );
+	void setCategorizeAction( QAction * action );
+	void setRemoveFromCategoryAction( QAction * action );
 
 	static void exportRecipes( const QList<int> &ids, const QString & caption, const QString &selection, RecipeDB *db );
 	static void exportRecipe( int id, const QString & caption, const QString &selection, RecipeDB *db );
@@ -120,8 +120,8 @@ private:
     QTreeWidget *parentListView;
 	RecipeDB *database;
 
-	KAction * categorizeAction;
-	KAction * removeFromCategoryAction;
+	QAction * categorizeAction;
+	QAction * removeFromCategoryAction;
 
 	QList<int> getAllVisibleItems();
     QList<int> recipeIDs( const QList<QTreeWidgetItem *> &items ) const;

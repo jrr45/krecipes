@@ -11,7 +11,7 @@
 
 #include <KMenu>
 #include <QModelIndex>
-#include <KAction>
+#include <QAction>
 /*#include <KLocale>
 #include <KIcon>
 #include <QPointer>
@@ -51,7 +51,7 @@ void KreGenericActionsHandler::rename()
 		m_listWidget->edit( row, parent );
 }
 
-void KreGenericActionsHandler::addAction( KAction * action )
+void KreGenericActionsHandler::addAction( QAction * action )
 {
 	m_contextMenu->addAction( action );
 }

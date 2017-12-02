@@ -22,7 +22,7 @@ class KPushButton;
 class RecipeDB;
 class KrePropertyListWidget;
 class KreGenericActionsHandler;
-class KAction;
+class QAction;
 class KrePropertyActionsHandler;
 
 /**
@@ -36,7 +36,7 @@ public:
 	~PropertiesDialog();
 	void reload( void );
 	KreGenericActionsHandler* getActionsHandler() const;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 private:
 	// Variables

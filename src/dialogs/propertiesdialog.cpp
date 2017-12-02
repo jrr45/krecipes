@@ -75,7 +75,7 @@ KreGenericActionsHandler* PropertiesDialog::getActionsHandler() const
 	return propertyActionsHandler;
 }
 
-void PropertiesDialog::addAction( KAction * action )
+void PropertiesDialog::addAction( QAction * action )
 {
 	propertyActionsHandler->addAction( action );
 }

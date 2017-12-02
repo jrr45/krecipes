@@ -22,7 +22,7 @@ class RecipeDB;
 class KreConversionTable;
 class KreUnitListWidget;
 class KreUnitActionsHandler;
-class KAction;
+class QAction;
 class KPushButton;
 class KTabWidget;
 
@@ -40,7 +40,7 @@ public:
 		return QSize( 300, 200 );
 	}
 	KreUnitActionsHandler* getActionsHandler() const;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 public slots:
 	void reload( ReloadFlags flag = Load );

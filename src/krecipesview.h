@@ -17,7 +17,6 @@
 #include <qwidget.h>
 #include <QList>
 
-#include <kparts/part.h>
 #include <kstyle.h>
 #include <ktextbrowser.h>
 #include <kvbox.h>
@@ -43,7 +42,7 @@ class SelectRecipeDialog;
 class ShoppingListDialog;
 class UnitsDialog;
 class QFrame;
-class KAction;
+class QAction;
 typedef QLinkedList <Menu>::Iterator MenuId;
 
 
@@ -128,16 +127,16 @@ public:
 	void exportRecipes( const QList<int> &ids );
 
 	// actions
-	void addSelectRecipeAction( KAction * action );
-	void addFindRecipeAction( KAction * action );
-	void addCategoryAction( KAction * action );
-	void addIngredientMatcherAction( KAction * action );
-	void setCategorizeAction( KAction * action );
-	void setRemoveFromCategoryAction( KAction * action );
-	void addElementAction( KAction * action ); /* Element is anything except a recipe */
-	void addCategoriesPanelAction( KAction * action );
-	void setCategoryPasteAction( KAction * action );
-	void setPasteAsSubcategoryAction( KAction * action );
+	void addSelectRecipeAction( QAction * action );
+	void addFindRecipeAction( QAction * action );
+	void addCategoryAction( QAction * action );
+	void addIngredientMatcherAction( QAction * action );
+	void setCategorizeAction( QAction * action );
+	void setRemoveFromCategoryAction( QAction * action );
+	void addElementAction( QAction * action ); /* Element is anything except a recipe */
+	void addCategoriesPanelAction( QAction * action );
+	void setCategoryPasteAction( QAction * action );
+	void setPasteAsSubcategoryAction( QAction * action );
 
 private:
 
@@ -174,7 +173,7 @@ private:
 	QWidget *recipeWidget;
 
 	// Actions
-	KAction * showRecipeAction;
+	QAction * showRecipeAction;
 
 	// Internal variables
 	QString dbType;

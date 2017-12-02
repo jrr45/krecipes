@@ -12,7 +12,7 @@
 #include <KLocale>
 #include <QListWidget>
 #include <KMenu>
-#include <KAction>
+#include <QAction>
 #include <KIcon>
 #include <QPointer>
 #include <KMessageBox>
@@ -54,7 +54,7 @@ void ActionsHandlerBase::rename()
 		parentListView->rename( item, 0 );
 }
 
-void ActionsHandlerBase::addAction( KAction * action )
+void ActionsHandlerBase::addAction( QAction * action )
 {
 	kpop->addAction( action );
 }

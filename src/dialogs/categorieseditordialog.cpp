@@ -73,17 +73,17 @@ KreCategoryActionsHandler* CategoriesEditorDialog::getActionsHandler () const
 	return categoryActionsHandler;
 }
 
-void CategoriesEditorDialog::addAction( KAction * action )
+void CategoriesEditorDialog::addAction( QAction * action )
 {
 	categoryActionsHandler->addAction( action );
 }
 
-void CategoriesEditorDialog::setCategoryPasteAction( KAction * action )
+void CategoriesEditorDialog::setCategoryPasteAction( QAction * action )
 {
 	categoryActionsHandler->setCategoryPasteAction( action );
 }
 
-void CategoriesEditorDialog::setPasteAsSubcategoryAction( KAction * action )
+void CategoriesEditorDialog::setPasteAsSubcategoryAction( QAction * action )
 {
 	categoryActionsHandler->setPasteAsSubcategoryAction( action );
 }

@@ -719,37 +719,37 @@ void KrecipesView::exportRecipes( const QList<int> &ids )
 		RecipeActionsHandler::exportRecipes( ids, i18n( "Export Recipe" ), i18n( "Recipes" ), database );
 }
 
-void KrecipesView::addSelectRecipeAction( KAction * action )
+void KrecipesView::addSelectRecipeAction( QAction * action )
 {
 	selectPanel->addSelectRecipeAction( action );
 }
 
-void KrecipesView::addFindRecipeAction( KAction * action )
+void KrecipesView::addFindRecipeAction( QAction * action )
 {
 	selectPanel->addFindRecipeAction( action );
 }
 
-void KrecipesView::addCategoryAction( KAction * action )
+void KrecipesView::addCategoryAction( QAction * action )
 {
 	selectPanel->addCategoryAction( action );
 }
 
-void KrecipesView::addIngredientMatcherAction( KAction * action )
+void KrecipesView::addIngredientMatcherAction( QAction * action )
 {
 	ingredientMatcherPanel->addAction( action );
 }
 
-void KrecipesView::setCategorizeAction( KAction * action )
+void KrecipesView::setCategorizeAction( QAction * action )
 {
 	selectPanel->setCategorizeAction( action );
 }
 
-void KrecipesView::setRemoveFromCategoryAction( KAction * action )
+void KrecipesView::setRemoveFromCategoryAction( QAction * action )
 {
 	selectPanel->setRemoveFromCategoryAction( action );
 }
 
-void KrecipesView::addElementAction( KAction * action )
+void KrecipesView::addElementAction( QAction * action )
 {
 	ingredientsPanel->addAction( action );
 	propertiesPanel->addAction( action );
@@ -759,17 +759,17 @@ void KrecipesView::addElementAction( KAction * action )
 	authorsPanel->addAction( action ); 
 }
 
-void KrecipesView::addCategoriesPanelAction( KAction * action )
+void KrecipesView::addCategoriesPanelAction( QAction * action )
 {
 	categoriesPanel->addAction( action );
 }
 
-void KrecipesView::setCategoryPasteAction( KAction * action )
+void KrecipesView::setCategoryPasteAction( QAction * action )
 {
 	categoriesPanel->setCategoryPasteAction( action );
 }
 
-void KrecipesView::setPasteAsSubcategoryAction( KAction * action )
+void KrecipesView::setPasteAsSubcategoryAction( QAction * action )
 {
 	categoriesPanel->setPasteAsSubcategoryAction( action );
 }

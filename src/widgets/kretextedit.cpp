@@ -18,7 +18,7 @@
 #include <QKeyEvent>
 #include <KStandardShortcut>
 
-#include <kaction.h>
+#include <QAction>
 #include <kdebug.h>
 
 #include <sonnet/highlighter.h>

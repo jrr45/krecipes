@@ -12,7 +12,7 @@
 #define KRECIPES_H
 
 #include <kapplication.h>
-#include <kaction.h>
+#include <QAction>
 
 #include "krecipesview.h" //for KrePanel
 #include <QDragEnterEvent>
@@ -111,40 +111,40 @@ private:
 
 private:
 	// Internal variables
-	KAction *saveAction;
-	KAction *exportAction;
-	KAction *editAction;
-	KAction *printAction;
-	KAction *reloadAction;
-	KAction *copyToClipboardAction;
-	KAction *converterAction;
-	KAction *mergeCategoriesAction;
-	KAction *mergeIngredientsAction;
-	KAction *importAction;
-	KAction *importDBAction;
-	KAction *pageSetupAction;
-	KAction *printSetupAction;
-	KAction *backupAction;
-	KAction *restoreAction;
-	KAction *addToShoppingListAction;
-	KAction *removeFromCategoryAction;
-	KAction *deleteAction;
-	KAction *showRecipeAction;
-	KAction *categorizeAction;
-	KAction *expandAllAction;
-	KAction *collapseAllAction;
-	KAction *createAction;
-	KAction *renameAction;
-	KAction *cutAction;
-	KAction *pasteAction;
-	KAction *pasteAsSubcategoryAction;
+	QAction *saveAction;
+	QAction *exportAction;
+	QAction *editAction;
+	QAction *printAction;
+	QAction *reloadAction;
+	QAction *copyToClipboardAction;
+	QAction *converterAction;
+	QAction *mergeCategoriesAction;
+	QAction *mergeIngredientsAction;
+	QAction *importAction;
+	QAction *importDBAction;
+	QAction *pageSetupAction;
+	QAction *printSetupAction;
+	QAction *backupAction;
+	QAction *restoreAction;
+	QAction *addToShoppingListAction;
+	QAction *removeFromCategoryAction;
+	QAction *deleteAction;
+	QAction *showRecipeAction;
+	QAction *categorizeAction;
+	QAction *expandAllAction;
+	QAction *collapseAllAction;
+	QAction *createAction;
+	QAction *renameAction;
+	QAction *cutAction;
+	QAction *pasteAction;
+	QAction *pasteAsSubcategoryAction;
 
 	QLabel * statusLabel;
 	
 	KDialog *parsing_file_dlg;
 	ConversionDialog *convertDialog;
 
-	QList<KAction*> recipe_actions;
+	QList<QAction *> recipe_actions;
 
 private slots:
 	void enableSaveOption( bool en = true );

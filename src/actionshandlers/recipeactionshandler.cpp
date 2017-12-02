@@ -23,7 +23,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kmenu.h>
-#include <KAction>
+#include <QAction>
 #include <kprogressdialog.h>
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QPrintPreviewDialog>
@@ -74,23 +74,23 @@ RecipeActionsHandler::RecipeActionsHandler( QTreeWidget *_parentListView, Recipe
 		this, SLOT( printDoneSlot() ), Qt::QueuedConnection );
 }
 
-void RecipeActionsHandler::addRecipeAction( KAction * action )
+void RecipeActionsHandler::addRecipeAction( QAction * action )
 {
 	kpop->addAction( action );
 }
 
-void RecipeActionsHandler::addCategoryAction( KAction * action )
+void RecipeActionsHandler::addCategoryAction( QAction * action )
 {
 	catPop->addAction( action );
 }
 
-void RecipeActionsHandler::setCategorizeAction( KAction * action )
+void RecipeActionsHandler::setCategorizeAction( QAction * action )
 {
 	categorizeAction = action;
 	kpop->addAction( action );
 }
 
-void RecipeActionsHandler::setRemoveFromCategoryAction( KAction * action )
+void RecipeActionsHandler::setRemoveFromCategoryAction( QAction * action )
 {
 	removeFromCategoryAction = action;
 	kpop->addAction( action );

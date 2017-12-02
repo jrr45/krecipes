@@ -23,7 +23,7 @@
 class RecipeDB;
 class KreGenericActionsHandler;
 class KrePrepMethodActionsHandler;
-class KAction;
+class QAction;
 class PrepMethodActionsHandler;
 class KrePrepMethodListWidget;
 class KPushButton;
@@ -43,7 +43,7 @@ public:
 	~PrepMethodsDialog();
 	void reload( ReloadFlags flag = Load );
 	KreGenericActionsHandler * getActionsHandler() const;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 private:
 	// Internal data

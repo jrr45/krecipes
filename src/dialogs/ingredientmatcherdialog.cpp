@@ -364,7 +364,7 @@ RecipeActionsHandler* IngredientMatcherDialog::getActionsHandler() const
 	return actionHandler;
 }
 
-void IngredientMatcherDialog::addAction( KAction * action )
+void IngredientMatcherDialog::addAction( QAction * action )
 {
 	actionHandler->addRecipeAction( action );
 }

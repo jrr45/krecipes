@@ -23,7 +23,7 @@
 
 class RecipeDB;
 class KreCategoriesListWidget;
-class KAction;
+class QAction;
 class KreGenericActionsHandler;
 class KreCategoryActionsHandler;
 class KPushButton;
@@ -44,9 +44,9 @@ public:
 	void reload( ReloadFlags flag = Load );
 
 	KreCategoryActionsHandler* getActionsHandler() const;
-	void addAction( KAction * action );
-	void setCategoryPasteAction( KAction * action );
-	void setPasteAsSubcategoryAction( KAction * action );
+	void addAction( QAction * action );
+	void setCategoryPasteAction( QAction * action );
+	void setPasteAsSubcategoryAction( QAction * action );
 
 private:
 	// Internal data

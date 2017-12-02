@@ -175,27 +175,27 @@ KreRecipeActionsHandler* SelectRecipeDialog::getActionsHandler() const
 	}
 }
 
-void SelectRecipeDialog::addSelectRecipeAction( KAction * action )
+void SelectRecipeDialog::addSelectRecipeAction( QAction * action )
 {
 	actionHandler->addRecipeAction( action );
 }
 
-void SelectRecipeDialog::addFindRecipeAction( KAction * action )
+void SelectRecipeDialog::addFindRecipeAction( QAction * action )
 {
 	advancedSearch->addAction( action );
 }
 
-void SelectRecipeDialog::addCategoryAction( KAction * action )
+void SelectRecipeDialog::addCategoryAction( QAction * action )
 {
 	actionHandler->addCategoryAction( action );
 }
 
-void SelectRecipeDialog::setCategorizeAction( KAction * action )
+void SelectRecipeDialog::setCategorizeAction( QAction * action )
 {
 	actionHandler->setCategorizeAction( action );
 }
 
-void SelectRecipeDialog::setRemoveFromCategoryAction( KAction * action )
+void SelectRecipeDialog::setRemoveFromCategoryAction( QAction * action )
 {
 	actionHandler->setRemoveFromCategoryAction( action );
 }

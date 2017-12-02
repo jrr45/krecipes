@@ -611,7 +611,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 AdvancedSearchDialog::~AdvancedSearchDialog()
 {}
 
-void AdvancedSearchDialog::addAction( KAction * action )
+void AdvancedSearchDialog::addAction( QAction * action )
 {
 	actionHandler->addRecipeAction( action );
 }

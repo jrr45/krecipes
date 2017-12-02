@@ -25,7 +25,7 @@
 #include <kiconloader.h>
 #include <kmessagebox.h>
 #include <kstandarddirs.h>
-#include <kaction.h>
+#include <QAction>
 #include <kconfig.h>
 #include <kstandardaction.h>
 #include <ktoolbar.h>

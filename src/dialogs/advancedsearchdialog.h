@@ -33,7 +33,7 @@ class KPushButton;
 class KreSearchResultListWidget;
 class QRadioButton;
 class QGroupBox;
-class KAction;
+class QAction;
 
 class KDateEdit;
 class RecipeDB;
@@ -51,7 +51,7 @@ public:
 	~AdvancedSearchDialog();
 
 	KreRecipeActionsHandler *actionHandler;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 public slots:
 	void haveSelectedItems();

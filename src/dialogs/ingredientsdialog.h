@@ -27,7 +27,7 @@ class KreGenericActionsHandler;
 class KreIngredientActionsHandler;
 class KreIngredientListWidget;
 class KTabWidget;
-class KAction;
+class QAction;
 class QHBoxLayout;
 class QVBoxLayout;
 
@@ -40,7 +40,7 @@ public:
 	~IngredientsDialog();
 	void reload( ReloadFlags flag = Load );
 	KreGenericActionsHandler *getActionsHandler() const;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 private slots:
 	void showPropertyEdit();

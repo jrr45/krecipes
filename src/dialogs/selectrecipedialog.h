@@ -31,7 +31,7 @@ class KHBox;
 class QFrame;
 class KPushButton;
 class KTabWidget;
-class KAction;
+class QAction;
 class QShowEvent;
 class QVBoxLayout;
 
@@ -73,11 +73,11 @@ public:
 	void getCurrentRecipe( Recipe *recipe );
 
 	KreRecipeActionsHandler * getActionsHandler() const;
-	void addSelectRecipeAction( KAction * action );
-	void addFindRecipeAction( KAction * action );
-	void addCategoryAction( KAction * action );
-	void setCategorizeAction( KAction * action );
-	void setRemoveFromCategoryAction( KAction * action );
+	void addSelectRecipeAction( QAction * action );
+	void addFindRecipeAction( QAction * action );
+	void addCategoryAction( QAction * action );
+	void setCategorizeAction( QAction * action );
+	void setRemoveFromCategoryAction( QAction * action );
 
 private:
 

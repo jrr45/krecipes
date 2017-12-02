@@ -19,7 +19,7 @@
 
 #include <KLocale>
 #include <KMenu>
-#include <KAction>
+#include <QAction>
 #include <KMessageBox>
 
 #include <QPointer>
@@ -36,13 +36,13 @@ KreCategoryActionsHandler::KreCategoryActionsHandler( KreCategoriesListWidget * 
 	connect( m_contextMenu, SIGNAL( aboutToShow() ), SLOT( preparePopup() ) );
 }
 
-void KreCategoryActionsHandler::setCategoryPasteAction( KAction * action )
+void KreCategoryActionsHandler::setCategoryPasteAction( QAction * action )
 {
 	m_contextMenu->addAction( action );
 	m_pasteAction = action;
 }
 
-void KreCategoryActionsHandler::setPasteAsSubcategoryAction( KAction * action )
+void KreCategoryActionsHandler::setPasteAsSubcategoryAction( QAction * action )
 {
 	m_contextMenu->addAction( action );
 	m_pasteAsSubAction = action;

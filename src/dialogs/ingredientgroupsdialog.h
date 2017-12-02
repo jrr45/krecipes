@@ -17,7 +17,7 @@
 class KreHeaderListWidget;
 class KreGenericActionsHandler;
 class KreHeaderActionsHandler;
-class KAction;
+class QAction;
 class RecipeDB;
 
 class IngredientGroupsDialog : public QWidget
@@ -29,7 +29,7 @@ public:
 
 	KreGenericActionsHandler* getActionsHandler() const;
 
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 private:
 	KreHeaderListWidget *headerListWidget;

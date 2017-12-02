@@ -22,7 +22,7 @@ class RecipeDB;
 class KreAuthorListWidget;
 class KreGenericActionsHandler;
 class KreAuthorActionsHandler;
-class KAction;
+class QAction;
 class KPushButton;
 
 /**
@@ -41,7 +41,7 @@ public:
 	void reload( ReloadFlags flag = Load );
 
 	KreGenericActionsHandler* getActionsHandler() const;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 private:
 	// Internal data

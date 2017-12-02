@@ -75,7 +75,7 @@ KreGenericActionsHandler* PrepMethodsDialog::getActionsHandler() const
 	return prepMethodActionsHandler;
 }
 
-void PrepMethodsDialog::addAction( KAction * action )
+void PrepMethodsDialog::addAction( QAction * action )
 {
 	prepMethodActionsHandler->addAction( action );
 }

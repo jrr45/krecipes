@@ -28,7 +28,7 @@
 #include "exporters/rezkonvexporter.h"
 #include "backends/recipedb.h"
 
-#include <KAction>
+#include <QAction>
 #include <KMessageBox>
 #include <KTempDir>
 #include <KStandardDirs>
@@ -64,23 +64,23 @@ KreRecipeActionsHandler::KreRecipeActionsHandler( KreRecipesListWidget * listWid
 		this, SLOT( printDoneSlot() ), Qt::QueuedConnection );
 }
 
-void KreRecipeActionsHandler::addRecipeAction( KAction * action )
+void KreRecipeActionsHandler::addRecipeAction( QAction * action )
 {
 	m_recipesMenu->addAction( action );
 }
 
-void KreRecipeActionsHandler::addCategoryAction( KAction * action )
+void KreRecipeActionsHandler::addCategoryAction( QAction * action )
 {
 	m_categoriesMenu->addAction( action );
 }
 
-void KreRecipeActionsHandler::setCategorizeAction( KAction * action )
+void KreRecipeActionsHandler::setCategorizeAction( QAction * action )
 {
 	m_categorizeAction = action;
 	m_recipesMenu->addAction( action );
 }
 
-void KreRecipeActionsHandler::setRemoveFromCategoryAction( KAction * action )
+void KreRecipeActionsHandler::setRemoveFromCategoryAction( QAction * action )
 {
 	m_removeFromCategoryAction = action;
 	m_recipesMenu->addAction( action );

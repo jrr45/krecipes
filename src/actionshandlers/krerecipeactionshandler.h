@@ -15,7 +15,7 @@
 
 #include "kregenericactionshandler.h"
 
-class KAction;
+class QAction;
 class KTempDir;
 class QWebEnginePage;
 class KreRecipesListWidget;
@@ -28,10 +28,10 @@ public:
 	KreRecipeActionsHandler( KreRecipesListWidget * listWidget, RecipeDB * db );
 	~KreRecipeActionsHandler(){}
 
-	void addRecipeAction( KAction * action );
-	void addCategoryAction( KAction * action );
-	void setCategorizeAction( KAction * action );
-	void setRemoveFromCategoryAction( KAction * action );
+	void addRecipeAction( QAction * action );
+	void addCategoryAction( QAction * action );
+	void setCategorizeAction( QAction * action );
+	void setRemoveFromCategoryAction( QAction * action );
 
 	static void exportRecipes( const QList<int> &ids, const QString & caption, const QString &selection, RecipeDB *db );
 
@@ -102,8 +102,8 @@ private:
 	KMenu * m_recipesMenu;
 	KMenu * m_categoriesMenu;
 
-	KAction * m_categorizeAction;
-	KAction * m_removeFromCategoryAction;
+	QAction * m_categorizeAction;
+	QAction * m_removeFromCategoryAction;
 
 	KTempDir * m_tempdir;
     QWebEnginePage * m_printPage;

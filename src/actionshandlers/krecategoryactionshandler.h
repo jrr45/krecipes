@@ -17,7 +17,7 @@
 #include "recipedb.h"
 #include <QList>
 
-class KAction;
+class QAction;
 class KreCategoriesListWidget;
 class QStandardItem;
 
@@ -30,8 +30,8 @@ public:
 	KreCategoryActionsHandler( KreCategoriesListWidget * listWidget, RecipeDB *db );
 	~KreCategoryActionsHandler();
 
-	void setCategoryPasteAction( KAction * action );
-	void setPasteAsSubcategoryAction( KAction * action );
+	void setCategoryPasteAction( QAction * action );
+	void setPasteAsSubcategoryAction( QAction * action );
 
 public slots:
 	void createNew();
@@ -48,8 +48,8 @@ private slots:
 private:
 	bool checkBounds( const QString &name );
 	RecipeDB::IdType m_clipboard_id;
-	KAction * m_pasteAction;
-	KAction * m_pasteAsSubAction;
+	QAction * m_pasteAction;
+	QAction * m_pasteAsSubAction;
 
 };
 

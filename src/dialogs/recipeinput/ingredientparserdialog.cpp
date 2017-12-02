@@ -25,7 +25,7 @@
 #include <k3listview.h>
 #include <kpushbutton.h>
 #include <kmessagebox.h>
-#include <kaction.h>
+#include <QAction>
 #include <KVBox>
 #include <kmenu.h>
 #include <kvbox.h>

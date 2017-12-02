@@ -15,7 +15,7 @@
 class DBListViewBase;
 class K3ListView;
 class KMenu;
-class KAction;
+class QAction;
 class RecipeDB;
 class QListWidgetItem;
 class QListWidget;
@@ -32,7 +32,7 @@ public slots:
 	virtual void createNew() = 0;
 	virtual void rename();
 	virtual void remove() = 0;
-	void addAction( KAction * action );
+	void addAction( QAction * action );
 
 protected:
 	KMenu *kpop;

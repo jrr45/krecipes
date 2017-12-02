@@ -74,7 +74,7 @@ KreGenericActionsHandler* AuthorsDialog::getActionsHandler() const
 	return authorActionsHandler;
 }
 
-void AuthorsDialog::addAction( KAction * action )
+void AuthorsDialog::addAction( QAction * action )
 {
 	authorActionsHandler->addAction( action );
 }

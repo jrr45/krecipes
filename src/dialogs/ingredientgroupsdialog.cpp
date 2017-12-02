@@ -61,7 +61,7 @@ KreGenericActionsHandler* IngredientGroupsDialog::getActionsHandler() const
 	return headerActionsHandler;
 }
 
-void IngredientGroupsDialog::addAction( KAction * action )
+void IngredientGroupsDialog::addAction( QAction * action )
 {
 	headerActionsHandler->addAction( action );
 }
