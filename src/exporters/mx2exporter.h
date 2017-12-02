@@ -14,7 +14,6 @@
 
 #include <qdom.h>
 
-class IngredientData;
 
 /**
   * Export class for the mx2 file format (see MasterCook mx2.dtd)

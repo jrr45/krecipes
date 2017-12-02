@@ -19,7 +19,6 @@
 
 class QAction;
 class KreCategoriesListWidget;
-class QStandardItem;
 
 
 class KreCategoryActionsHandler : public KreGenericActionsHandler

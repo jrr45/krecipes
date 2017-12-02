@@ -17,13 +17,10 @@
 #include "widgets/dblistviewbase.h"
 
 class DishInput;
-class DishTitle;
 class MealInput;
 class RecipeDB;
 
-class KDoubleNumInput;
 class KPushButton;
-class KTabWidget;
 class KHBox;
 
 class QSpinBox;

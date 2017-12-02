@@ -13,7 +13,6 @@
 #include <QObject>
 
 class DBListViewBase;
-class K3ListView;
 class KMenu;
 class QAction;
 class RecipeDB;

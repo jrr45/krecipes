@@ -14,7 +14,6 @@
 #include <QObject>
 #include <QProcess>
 
-class KProcess;
 class QString;
 class QEventLoop;
 

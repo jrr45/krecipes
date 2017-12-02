@@ -18,7 +18,6 @@
 #include <QList>
 
 class RecipeDB;
-class KMenu;
 class IngredientCheckListView;
 
 /**

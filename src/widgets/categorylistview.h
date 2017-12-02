@@ -19,7 +19,6 @@
 
 #include "datablocks/elementlist.h"
 
-class KMenu;
 
 class RecipeDB;
 class CategoryCheckListView;

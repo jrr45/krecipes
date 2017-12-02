@@ -17,7 +17,6 @@
 #include "datablocks/constraintlist.h"
 
 class RecipeDB;
-class KMenu;
 
 class PropertyCheckListItem : public Q3CheckListItem
 {

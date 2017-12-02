@@ -18,7 +18,6 @@ class K3ListView;
 class QFormLayout;
 class QVBoxLayout;
 class QHBoxLayout;
-class QGridLayout;
 class QSpacerItem;
 class QScrollArea;
 class KPushButton;

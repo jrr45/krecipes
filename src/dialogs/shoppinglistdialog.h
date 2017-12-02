@@ -18,8 +18,6 @@
 #include "widgets/dblistviewbase.h"
 
 class RecipeDB;
-class ShoppingListViewDialog;
-class RecipeActionsHandler;
 class RecipeListView;
 
 class KreRecipesListWidget;

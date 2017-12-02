@@ -17,7 +17,6 @@
 #include "dblistviewbase.h"
 
 class KPixmapSequenceWidget;
-class KLocalizedString;
 
 class QAbstractItemModel;
 class QStandardItemModel;
@@ -28,7 +27,6 @@ class QModelIndex;
 class QPoint;
 class QModelIndex;
 
-class Element;
 class RecipeDB;
 
 namespace Ui {

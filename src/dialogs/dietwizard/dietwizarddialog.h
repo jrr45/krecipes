@@ -39,17 +39,12 @@
 
 #include "widgets/dblistviewbase.h"
 
-class KDoubleNumInput;
 class KPushButton;
 class QGroupBox;
 class KTabWidget;
 
-class DishInput;
-class DishTitle;
 class MealInput;
 class RecipeDB;
-class CategoryCheckListView;
-class PropertyConstraintListView;
 
 /**
 @author Unai Garro

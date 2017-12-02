@@ -24,7 +24,6 @@
 class RecipeDB;
 class KreCategoriesListWidget;
 class QAction;
-class KreGenericActionsHandler;
 class KreCategoryActionsHandler;
 class KPushButton;
 
