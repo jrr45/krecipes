@@ -27,7 +27,7 @@
 #include <kvbox.h>
 
 class KreListView;
-class KIntSpinBox;
+class QSpinBox;
 class RecipeDB;
 class RecipeActionsHandler;
 class QAction;
@@ -137,7 +137,7 @@ private:
 	KreListView *recipeListView;
 	KHBox *missingBox;
 	QLabel *missingNumberLabel;
-	KIntSpinBox *missingNumberSpinBox;
+	QSpinBox *missingNumberSpinBox;
 
 	KPushButton *okButton;
 	KPushButton *clearButton;
