@@ -28,6 +28,7 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <KSharedConfig>
 
 
 DependanciesDialog::DependanciesDialog( QWidget *parent, const QList<ListInfo> &lists, bool deps_are_deleted )
@@ -100,7 +101,7 @@ void DependanciesDialog::init( const QList<ListInfo> &lists )
 
 void DependanciesDialog::loadList( QListWidget* listBox, const ElementList &list )
 {
-	KConfigGroup config( KGlobal::config(), "Advanced" );
+	KConfigGroup config( KSharedConfig::openConfig(), "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 
 	for ( ElementList::const_iterator el_it = list.begin(); el_it != list.end(); ++el_it ) {

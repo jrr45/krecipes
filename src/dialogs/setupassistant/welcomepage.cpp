@@ -12,12 +12,13 @@
 #include "welcomepage.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 
 #include <QGridLayout>
 #include <QSpacerItem>
 #include <QPixmap>
 #include <QLabel>
+#include <QStandardPaths>
 
 WelcomePage::WelcomePage( QWidget *parent ) : QWidget( parent )
 {
@@ -29,7 +30,7 @@ WelcomePage::WelcomePage( QWidget *parent ) : QWidget( parent )
 	layout->addItem( spacer_top, 0, 1 );
 	QSpacerItem *spacer_left = new QSpacerItem( 10, 10, QSizePolicy::Fixed, QSizePolicy::Minimum );
 	layout->addItem( spacer_left, 1, 0 );
-	QPixmap logoPixmap ( KStandardDirs::locate( "data", "krecipes/pics/wizard.png" ) );
+	QPixmap logoPixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/wizard.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( logoPixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );

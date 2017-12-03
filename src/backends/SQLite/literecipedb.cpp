@@ -21,6 +21,8 @@
 #include <klocale.h>
 #include <kconfiggroup.h>
 #include <kcodecs.h>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 //keep this around for porting old databases
 int sqlite_decode_binary( const unsigned char *in, unsigned char *out );
@@ -28,11 +30,11 @@ int sqlite_decode_binary( const unsigned char *in, unsigned char *out );
 LiteRecipeDB::LiteRecipeDB( const QString &_dbFile ) : QSqlRecipeDB( QString(), QString(), QString(), _dbFile )
 {
     qDebug();
-/*	KConfig * config = KGlobal::config();
+/*	KConfig * config = KSharedConfig::openConfig();
 	config->setGroup( "Server" );
 
 	if ( dbFile.isNull() )
-		dbFile = config->readEntry( "DBFile", KStandardDirs::locateLocal ( "appdata", DB_FILENAME ) );
+		dbFile = config->readEntry( "DBFile", QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + DB_FILENAME ) ;
 */
 }
 
@@ -42,7 +44,7 @@ LiteRecipeDB::~LiteRecipeDB()
 
 QStringList LiteRecipeDB::backupCommand() const
 {
-	KConfigGroup config( KGlobal::config(), "Server" );
+	KConfigGroup config( KSharedConfig::openConfig(), "Server" );
 	QString binary = config.readEntry( "SQLitePath", "sqlite3" );
 
 	QStringList command;
@@ -52,7 +54,7 @@ QStringList LiteRecipeDB::backupCommand() const
 
 QStringList LiteRecipeDB::restoreCommand() const
 {
-	KConfigGroup config( KGlobal::config(), "Server" );
+	KConfigGroup config( KSharedConfig::openConfig(), "Server" );
 	QString binary = config.readEntry( "SQLitePath", "sqlite3" );
 
 	QStringList command;

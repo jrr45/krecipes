@@ -21,6 +21,7 @@
 
 #include <QVBoxLayout>
 #include <QFormLayout>
+#include <KSharedConfig>
 
 MySQLServerPrefs::MySQLServerPrefs( QWidget *parent ) : QWidget( parent )
 {
@@ -66,7 +67,7 @@ MySQLServerPrefs::MySQLServerPrefs( QWidget *parent ) : QWidget( parent )
 	layout->addWidget( backupGBox );
 
 	// Load Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Server" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
 	serverEdit->setText( config.readEntry( "Host", "localhost" ) );
 	usernameEdit->setText( config.readEntry( "Username", "" ) );
 	passwordEdit->setText( config.readEntry( "Password", "" ) );
@@ -81,7 +82,7 @@ MySQLServerPrefs::MySQLServerPrefs( QWidget *parent ) : QWidget( parent )
 void MySQLServerPrefs::saveOptions( void )
 {
 	// Save Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Server" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
 	config.writeEntry( "Host", serverEdit->text() );
 	config.writeEntry( "Username", usernameEdit->text() );
 	config.writeEntry( "Password", passwordEdit->text() );

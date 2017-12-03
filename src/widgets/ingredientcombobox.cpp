@@ -16,6 +16,7 @@
 #include <kapplication.h>
 #include <kglobal.h>
 #include <kconfiggroup.h>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "datablocks/elementlist.h"
@@ -81,7 +82,7 @@ void IngredientComboBox::startLoad()
 	//don't receive ingredient created/removed events from the database
 	database->disconnect( this );
 
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	load_limit = config.readEntry( "Limit", -1 );
 	if ( load_limit == -1 ) {
 		reload();

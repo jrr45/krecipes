@@ -31,7 +31,7 @@
 #include <QAction>
 #include <KMessageBox>
 #include <KTempDir>
-#include <KStandardDirs>
+
 #include <QMenu>
 #include <KLocale>
 
@@ -42,6 +42,8 @@
 #include <QPrintPreviewDialog>
 #include <QPrinter>
 #include <QFileDialog>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 
 
@@ -337,16 +339,16 @@ void KreRecipeActionsHandler::exportRecipes( const QList<int> &ids, const QStrin
 void KreRecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *database )
 {
 	//Create the temporary directory.
-	m_tempdir = new KTempDir(KStandardDirs::locateLocal("tmp", "krecipes-data-print"));
+    m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-print");
 	QString tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
 	//Export to HTML in the temporary directory.
 	XSLTExporter html_generator( tmp_filename, "html" );
     KConfigGroup config(KSharedConfig::openConfig(), "Page Setup" );
-	QString styleFile = config.readEntry( "PrintLayout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
+	QString styleFile = config.readEntry( "PrintLayout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
 	if ( !styleFile.isEmpty() && QFile::exists( styleFile ) )
 		html_generator.setStyle( styleFile );
 
-	QString templateFile = config.readEntry( "PrintTemplate", KStandardDirs::locate( "appdata", "layouts/Default.xsl" ) );
+	QString templateFile = config.readEntry( "PrintTemplate", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/Default.xsl" ) );
 	if ( !templateFile.isEmpty() && QFile::exists( templateFile ) )
 		html_generator.setTemplate( templateFile );
 	html_generator.exporter( ids, database );

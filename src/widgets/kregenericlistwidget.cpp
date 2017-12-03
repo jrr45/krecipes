@@ -22,6 +22,7 @@
 #include <QStandardItemModel>
 #include <QGridLayout>
 #include <QTimer>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 
@@ -45,7 +46,7 @@ KreGenericListWidget::KreGenericListWidget( QWidget *parent, RecipeDB *db ):
 	ui->m_treeView->setModel( m_proxyModel );
 
 	//The QTreeView
-	KConfigGroup configAdvanced( KGlobal::config(), "Advanced" );
+	KConfigGroup configAdvanced( KSharedConfig::openConfig(), "Advanced" );
 	if ( !configAdvanced.readEntry( "ShowID", false ) ) {
 		ui->m_treeView->hideColumn( 0 );
 	}
@@ -65,7 +66,7 @@ KreGenericListWidget::KreGenericListWidget( QWidget *parent, RecipeDB *db ):
 	ui->m_titleLabel->setVisible( false );
 
 	//The filter text box.
-	KConfigGroup configPerformance( KGlobal::config(), "Performance" );
+	KConfigGroup configPerformance( KSharedConfig::openConfig(), "Performance" );
 	setSearchAsYouType( configPerformance.readEntry( "SearchAsYouType", true ) );
 
 	//Navigation buttons

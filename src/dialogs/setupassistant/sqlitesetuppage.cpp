@@ -12,7 +12,7 @@
 #include "sqlitesetuppage.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 #include <QLineEdit>
 #include <KHBox>
 #include <KFileDialog>
@@ -20,6 +20,7 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
+#include <QStandardPaths>
 
 
 SQLiteSetupPage::SQLiteSetupPage( QWidget *parent ) : QWidget( parent )
@@ -36,7 +37,7 @@ SQLiteSetupPage::SQLiteSetupPage( QWidget *parent ) : QWidget( parent )
 
 	// Image
 
-	QPixmap serverSetupPixmap ( KStandardDirs::locate( "data", "krecipes/pics/network.png" ) );
+	QPixmap serverSetupPixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/network.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( serverSetupPixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );
@@ -65,7 +66,7 @@ SQLiteSetupPage::SQLiteSetupPage( QWidget *parent ) : QWidget( parent )
 	( void ) new QLabel( i18n( "Database file:" ), hbox );
 
 	fileEdit = new QLineEdit( hbox );
-	fileEdit->setText( KStandardDirs::locateLocal ( "appdata", "krecipes.krecdb" ) );
+	fileEdit->setText( QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "krecipes.krecdb" ) ;
 	hbox->setStretchFactor( fileEdit, 2 );
 
 	KIconLoader *il = KIconLoader::global();

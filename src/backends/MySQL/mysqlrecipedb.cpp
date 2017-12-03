@@ -12,7 +12,7 @@
 #include "mysqlrecipedb.h"
 
 #include <kdebug.h>
-#include <kstandarddirs.h>
+
 #include <ktemporaryfile.h>
 #include <klocale.h>
 #include <kconfig.h>
@@ -20,6 +20,7 @@
 #include <kglobal.h>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <KSharedConfig>
 
 MySQLRecipeDB::MySQLRecipeDB( const QString &host, const QString &user, const QString &pass, const QString &DBname, int port ) : QSqlRecipeDB( host, user, pass, DBname, port )
 {}
@@ -51,7 +52,7 @@ void MySQLRecipeDB::createDB()
 
 QStringList MySQLRecipeDB::backupCommand() const
 {
-	KConfigGroup config( KGlobal::config(), "Server");
+	KConfigGroup config( KSharedConfig::openConfig(), "Server");
 
 	QStringList command;
 	command<<config.readEntry( "MySQLDumpPath", "mysqldump" )<<"-q";
@@ -75,7 +76,7 @@ QStringList MySQLRecipeDB::backupCommand() const
 
 QStringList MySQLRecipeDB::restoreCommand() const
 {
-	KConfigGroup config( KGlobal::config(), "Server");
+	KConfigGroup config( KSharedConfig::openConfig(), "Server");
 
 	QStringList command;
 	command<<config.readEntry( "MySQLPath", "mysql" );

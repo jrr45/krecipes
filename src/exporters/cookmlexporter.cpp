@@ -20,7 +20,7 @@
 #include <ktemporaryfile.h>
 #include <kcodecs.h>
 #include <kglobal.h>
-#include <kstandarddirs.h>
+
 
 #include "backends/recipedb.h"
 

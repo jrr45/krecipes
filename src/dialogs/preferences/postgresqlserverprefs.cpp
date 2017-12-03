@@ -21,6 +21,7 @@
 
 #include <QVBoxLayout>
 #include <QFormLayout>
+#include <KSharedConfig>
 
 PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( parent )
 {
@@ -66,7 +67,7 @@ PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( paren
 	layout->addWidget( backupGBox );
 
 	// Load & Save Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Server" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
 	serverEdit->setText( config.readEntry( "Host", "localhost" ) );
 	usernameEdit->setText( config.readEntry( "Username", "" ) );
 	passwordEdit->setText( config.readEntry( "Password", "" ) );
@@ -80,7 +81,7 @@ PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( paren
 
 void PostgreSQLServerPrefs::saveOptions( void )
 {
-	KConfigGroup config = KGlobal::config()->group( "Server" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
 	config.writeEntry( "Host", serverEdit->text() );
 	config.writeEntry( "Username", usernameEdit->text() );
 	config.writeEntry( "Password", passwordEdit->text() );

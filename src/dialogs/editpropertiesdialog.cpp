@@ -30,12 +30,14 @@
 #include <kapplication.h>
 #include <kcursor.h>
 #include <kdebug.h>
-#include <kstandarddirs.h>
+
 #include <kvbox.h>
 #include <KDoubleValidator>
 #include <QLineEdit>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 #include "widgets/weightinput.h"
 #include "widgets/krelistview.h"
@@ -179,7 +181,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 	propertyListView->addColumn( i18nc( "@title:column", "Property" ) );
 	propertyListView->addColumn( i18nc( "@title:column", "Amount" ) );
 	propertyListView->addColumn( i18nc( "@title:column", "Unit" ) );
-	KConfigGroup config = KGlobal::config()->group( "Advanced" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	propertyListView->addColumn( "Id" , show_id ? -1 : 0 );
 	layout7->addWidget( propertyListView );
@@ -542,7 +544,7 @@ int EditPropertiesDialog::findPropertyNo( QListWidgetItem * /*it*/ )
 
 void EditPropertiesDialog::loadDataFromFile()
 {
-	QString abbrev_file = KStandardDirs::locate( "appdata", "data/abbrev.txt" );
+	QString abbrev_file = QStandardPaths::locate(QStandardPaths::DataLocation, "data/abbrev.txt" );
 	if ( abbrev_file.isEmpty() ) {
 		kDebug() << "Unable to find abbrev.txt data file." ;
 		return ;

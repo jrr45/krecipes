@@ -17,11 +17,13 @@
 #include <KConfigGroup>
 #include <KLocale>
 #include <KFileDialog>
-#include <KStandardDirs>
+
 
 #include <QVBoxLayout>
 #include <QFormLayout>
 #include <QLabel>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 
 SQLiteServerPrefs::SQLiteServerPrefs( QWidget *parent ) : QWidget( parent )
@@ -70,8 +72,8 @@ SQLiteServerPrefs::SQLiteServerPrefs( QWidget *parent ) : QWidget( parent )
 
 
 	// Load Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Server" );
-	fileRequester = new KUrlRequester( config.readEntry( "DBFile", KStandardDirs::locateLocal( "appdata", "krecipes.krecdb" ) ), hbox );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
+	fileRequester = new KUrlRequester( config.readEntry( "DBFile", QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "krecipes.krecdb" ) ), hbox ;
 	fileRequester->fileDialog()->setWindowTitle( i18n( "Select SQLite database file" ) );
 	hbox->setStretchFactor( fileRequester, 2 );
 	dumpPathRequester->setUrl( config.readEntry( "SQLitePath", sqliteBinary ) );
@@ -84,7 +86,7 @@ SQLiteServerPrefs::SQLiteServerPrefs( QWidget *parent ) : QWidget( parent )
 
 void SQLiteServerPrefs::saveOptions( void )
 {
-	KConfigGroup config = KGlobal::config()->group( "Server" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
 	config.writeEntry( "DBFile", fileRequester->text() );
 	config.writeEntry( "SQLitePath", dumpPathRequester->text() );
 	config.writeEntry( "SQLiteOldVersionPath", oldPathRequester->text() );

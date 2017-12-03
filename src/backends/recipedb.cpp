@@ -26,7 +26,7 @@
 #include "datablocks/weight.h"
 
 #include <KConfigGroup>
-#include <KStandardDirs>
+
 #include <KProgressDialog>
 #include <KGlobal>
 #include <KLocale>
@@ -34,7 +34,7 @@
 #include <KProcess>
 #include <KFilterDev>
 #include <KMessageBox>
-#include <KStandardDirs>
+
 
 #include <QApplication>
 #include <QDebug>
@@ -47,6 +47,8 @@
 #include <QTextStream>
 
 #include <map>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 #define DB_FILENAME "krecipes.krecdb"
 
@@ -95,7 +97,7 @@ void RecipeDB::cancelOperation()
 
 RecipeDB* RecipeDB::createDatabase()
 {
-    KConfigGroup config = KGlobal::config()->group( "DBType" );
+    KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 	QString dbType = config.readEntry( "Type", "" );
 	return createDatabase( dbType );
 }
@@ -103,7 +105,7 @@ RecipeDB* RecipeDB::createDatabase()
 RecipeDB* RecipeDB::createDatabase( const QString &dbType, const QString &file )
 {
     qDebug()<<" type :"<<dbType<<" file :"<<file;
-    KConfigGroup config = KGlobal::config()->group( "Server" );
+    KConfigGroup config = KSharedConfig::openConfig()->group( "Server" );
 	QString host = config.readEntry( "Host", "localhost" );
 	QString user = config.readEntry( "Username", QString() );
 	QString pass = config.readEntry( "Password", QString() );
@@ -112,7 +114,7 @@ RecipeDB* RecipeDB::createDatabase( const QString &dbType, const QString &file )
 
 	QString f = file;
 	if ( f.isEmpty() )
-		f = config.readEntry( "DBFile", KStandardDirs::locateLocal ( "appdata", DB_FILENAME ) );
+		f = config.readEntry( "DBFile", QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + DB_FILENAME ) ;
     qDebug()<<" f :"<<f;
 	return createDatabase( dbType, host, user, pass, dbname, port, f );
 }
@@ -290,7 +292,7 @@ bool RecipeDB::backup( const QString &backup_file, QString *errMsg )
 		return false;
 	}
 
-    KConfigGroup config = KGlobal::config()->group( "DBType" );
+    KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 
 	QString dbVersionString = QString::number(latestDBVersion());
 	m_dumpFile->write(QByteArray("-- Generated for Krecipes v")); 
@@ -422,11 +424,11 @@ void RecipeDB::initializeData( void )
 	// Populate with data
 
 	// Read the commands form the data file
-	QString dataFilename =  KStandardDirs::locate( "appdata", "data/data-" + KGlobal::locale() ->language() + ".sql" );
+	QString dataFilename =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/data-" + KGlobal::locale() ->language() + ".sql" );
 	if ( dataFilename.isEmpty() ) {
         qDebug() << "NOTICE: Sample data (categories, units, etc.) for the language \"" << KGlobal::locale() ->language() << "\" is not available.  However, if you would like samples data for this language included in future releases of Krecipes, we invite you to submit your own. Contact me at jkivlighn@gmail.com for details." ;
 
-		dataFilename =  KStandardDirs::locate( "appdata", "data/data-en_US.sql" ); //default to English
+		dataFilename =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/data-en_US.sql" ); //default to English
 	}
 
 	QFile dataFile( dataFilename );
@@ -456,7 +458,7 @@ bool RecipeDB::restore( const QString &file, QString *errMsg )
 			return false;
 		}
 
-        KConfigGroup config = KGlobal::config()->group( "DBType" );
+        KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 		QString dbType = QString::fromUtf8(m_dumpFile->readLine()).trimmed();
 		dbType = dbType.right( dbType.length() - dbType.indexOf(":") - 2 );
 		if ( dbType.isEmpty() || !firstLine.startsWith("-- Generated for Krecipes") ) {
@@ -641,12 +643,12 @@ int RecipeDB::ingredientGroupCount()
 void RecipeDB::importSamples()
 {
     qDebug();
-	QString sample_recipes =  KStandardDirs::locate( "appdata", "data/samples-" +  KGlobal::locale() ->language() + ".kreml" );
+	QString sample_recipes =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/samples-" +  KGlobal::locale() ->language() + ".kreml" );
 	if ( sample_recipes.isEmpty() ) {
 		//TODO: Make this a KMessageBox??
         qDebug() << "NOTICE: Samples recipes for the language \"" << KGlobal::locale() ->language() << "\" are not available.  However, if you would like samples recipes for this language included in future releases of Krecipes, we invite you to submit your own.  Just save your favorite recipes in the kreml format and e-mail them to jkivlighn@gmail.com." ;
 
-		sample_recipes =  KStandardDirs::locate( "appdata", "data/samples-en_US.kreml" ); //default to English
+		sample_recipes =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/samples-en_US.kreml" ); //default to English
 	}
 	if ( !sample_recipes.isEmpty() ) {
 		KreImporter importer;
@@ -842,7 +844,7 @@ void RecipeDB::importUSDADatabase()
 {
     qDebug();
 	//check if the data file even exists before we do anything
-	QString abbrev_file =  KStandardDirs::locate( "appdata", "data/abbrev.txt" );
+	QString abbrev_file =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/abbrev.txt" );
 	if ( abbrev_file.isEmpty() ) {
         qDebug() << "Unable to find abbrev.txt data file." ;
 		return ;

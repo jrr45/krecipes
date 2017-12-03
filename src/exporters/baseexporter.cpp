@@ -12,6 +12,7 @@
 
 #include <QFile>
 #include <QFileInfo>
+#include <QDir>
 
 #include <kaboutdata.h>
 #include <kdebug.h>
@@ -19,7 +20,7 @@
 #include <kglobal.h>
 #include <kmessagebox.h>
 #include <ktar.h>
-#include <kstandarddirs.h>
+
 #include <KComponentData>
 
 #include "backends/recipedb.h"
@@ -86,7 +87,7 @@ bool BaseExporter::createFile()
 		if ( compress ) {
 			tar_file = new KTar( filename, "application/x-gzip" );
 			QFileInfo fi( filename );
-			file = new QFile( KStandardDirs::locateLocal( "tmp",fi.fileName()+"ml" ) );
+            file = new QFile( QDir::tempPath() + QLatin1Char('/') + fi.fileName()+"ml" );
 		}
 		else
 			file = new QFile(filename);

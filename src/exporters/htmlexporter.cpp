@@ -22,7 +22,7 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kprogressdialog.h>
-#include <kstandarddirs.h>
+
 #include <kiconloader.h>
 
 #include "datablocks/mixednumber.h"
@@ -30,6 +30,7 @@
 #include "dialogs/setupdisplay.h"
 
 #include <cmath> //for ceil()
+#include <KSharedConfig>
 
 HTMLExporter::HTMLExporter( const QString& filename, const QString &format ) :
 		BaseExporter( filename, format )

@@ -20,6 +20,7 @@
 
 #include <QIntValidator>
 #include <QDoubleValidator>
+#include <KSharedConfig>
 
 
 QString beautify( const QString &num )
@@ -362,7 +363,7 @@ QString MixedNumber::toString( bool locale_aware ) const
 
 MixedNumber::Format MixedNumber::configuredFormat()
 {
-	KConfigGroup config = KGlobal::config()->group( "Formatting" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
 	bool useFraction = config.readEntry( "Fraction", false );
 	MixedNumber::Format result;
 	if ( useFraction ) {

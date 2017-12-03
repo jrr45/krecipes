@@ -14,13 +14,14 @@
 #include "widgets/clickablelabel.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 #include <KHBox>
 
 #include <QGridLayout>
 #include <QLabel>
 #include <QCheckBox>
 #include <QGroupBox>
+#include <QStandardPaths>
 
 DataInitializePage::DataInitializePage( QWidget *parent ) : QWidget( parent )
 {
@@ -47,7 +48,7 @@ DataInitializePage::DataInitializePage( QWidget *parent ) : QWidget( parent )
 	layout->addWidget( initializeText, 1, 3 );
 
 	// Logo
-	QPixmap dataInitializePixmap ( KStandardDirs::locate( "data", "krecipes/pics/recipes.png" ) );
+	QPixmap dataInitializePixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/recipes.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( dataInitializePixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );

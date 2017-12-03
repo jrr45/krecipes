@@ -20,6 +20,7 @@
 #include <KGlobal>
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "datablocks/ingredientpropertylist.h"
@@ -60,7 +61,7 @@ void KrePropertyListWidget::load(int limit, int offset)
 	int numberOfProps = m_database->loadProperties( &propList );
 	m_sourceModel->setRowCount( numberOfProps );
 
-	KConfigGroup config( KGlobal::config(), "Formatting");
+	KConfigGroup config( KSharedConfig::openConfig(), "Formatting");
 	QStringList hiddenList = config.readEntry("HiddenProperties", QStringList());
 
 	//PropDisplayedDelegate * propDisplayedDelegate = new PropDisplayedDelegate;

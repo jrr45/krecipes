@@ -57,7 +57,7 @@
 #include <QAction>
 #include <kfiledialog.h>
 #include <kconfig.h>
-#include <kstandarddirs.h>
+
 #include <kcursor.h>
 
 #include <ktoolbar.h>
@@ -74,6 +74,8 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QFileDialog>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 
 Krecipes::Krecipes(): KXmlGuiWindow( 0 )
@@ -215,7 +217,7 @@ void Krecipes::setupActions()
 	actionCollection()->addAction( "converter_action" , converterAction );
 	connect( converterAction, SIGNAL(triggered(bool)), this , SLOT( conversionToolSlot() ) );
 
-	KConfigGroup grp(KGlobal::config(),"Advanced");
+	KConfigGroup grp(KSharedConfig::openConfig(),"Advanced");
 
 	if ( grp.readEntry("UnhideMergeTools",false) ) { //FIXME: Please review it, not used yet
 
@@ -557,7 +559,7 @@ void Krecipes::import()
 		parsing_file_dlg->hide();
 		KApplication::restoreOverrideCursor();
 
-		KConfigGroup grp(KGlobal::config(),"Import");
+		KConfigGroup grp(KSharedConfig::openConfig(),"Import");
 		bool direct = grp.readEntry( "DirectImport", false );
 		if ( !direct ) {
 			QPointer<RecipeImportDialog> import_dialog = new RecipeImportDialog( importer->recipeList() );
@@ -631,7 +633,7 @@ void Krecipes::kreDBImport()
 		parsing_file_dlg->hide();
 		KApplication::restoreOverrideCursor();
 
-		KConfigGroup grp(KGlobal::config(),"Import");
+		KConfigGroup grp(KSharedConfig::openConfig(),"Import");
 		bool direct = grp.readEntry( "DirectImport", false );
 		if ( !direct ) {
 			QPointer<RecipeImportDialog> import_dialog = new RecipeImportDialog( importer.recipeList() );
@@ -662,9 +664,9 @@ void Krecipes::pageSetupSlot()
 	Recipe recipe;
 	m_view->selectPanel->getCurrentRecipe( &recipe );
 
-	KConfigGroup grp(KGlobal::config(),"Page Setup");
-	QString layout = grp.readEntry( "Layout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
-	QString printLayout = grp.readEntry( "PrintLayout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
+	KConfigGroup grp(KSharedConfig::openConfig(),"Page Setup");
+	QString layout = grp.readEntry( "Layout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
+	QString printLayout = grp.readEntry( "PrintLayout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
 
 	if ( layout == printLayout ) {
 		KMessageBox::information( this, i18n("The recipe print and view layouts use the same file for their style, meaning changing one view's look changes them both.  If this is not the behavior you desire, load one style and save it under a different name."),
@@ -681,9 +683,9 @@ void Krecipes::printSetupSlot()
 	Recipe recipe;
 	m_view->selectPanel->getCurrentRecipe( &recipe );
 
-        KConfigGroup grp(KGlobal::config(),"Page Setup");
-	QString layout = grp.readEntry( "Layout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
-	QString printLayout = grp.readEntry( "PrintLayout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
+        KConfigGroup grp(KSharedConfig::openConfig(),"Page Setup");
+	QString layout = grp.readEntry( "Layout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
+	QString printLayout = grp.readEntry( "PrintLayout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
 
 	if ( layout == printLayout ) {
 		KMessageBox::information( this, i18n("The recipe print and view layouts use the same file for their style, meaning changing one view's look changes them both.  If this is not the behavior you desire, load one style and save it under a different name."),
@@ -835,7 +837,7 @@ void Krecipes::optionsConfigureKeys()
 void Krecipes::optionsConfigureToolbars()
 {
 	// use the standard toolbar editor
-	saveMainWindowSettings( KConfigGroup(KGlobal::config(), autoSaveGroup() ));
+	saveMainWindowSettings( KConfigGroup(KSharedConfig::openConfig(), autoSaveGroup() ));
 
 	QPointer<KEditToolBar> dlg = new KEditToolBar( actionCollection() );
 	connect( dlg, SIGNAL( newToolbarConfig() ), this, SLOT( newToolbarConfig() ) );
@@ -849,7 +851,7 @@ void Krecipes::newToolbarConfig()
 	// recreate our GUI, and re-apply the settings (e.g. "text under icons", etc.)
 	createGUI();
 
-	applyMainWindowSettings( KConfigGroup(KGlobal::config(), autoSaveGroup() ));
+	applyMainWindowSettings( KConfigGroup(KSharedConfig::openConfig(), autoSaveGroup() ));
 }
 
 void Krecipes::optionsPreferences()

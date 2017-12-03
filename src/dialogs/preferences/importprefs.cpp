@@ -21,13 +21,14 @@
 #include <QGroupBox>
 #include <QCheckBox>
 #include <QLabel>
+#include <KSharedConfig>
 
 
 ImportPrefs::ImportPrefs( QWidget *parent )
 		: QWidget( parent )
 {
 	// Load Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Import" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Import" );
 
 	bool overwrite = config.readEntry( "OverwriteExisting", false );
 	bool direct = config.readEntry( "DirectImport", false );
@@ -70,7 +71,7 @@ ImportPrefs::ImportPrefs( QWidget *parent )
 	//clipBoardFormatComboBox->insertItem("CookML (*.cml)");
 	exportGroupLayout->addWidget( clipBoardFormatComboBox, 0, 1 ); 
 
-	config = KGlobal::config()->group( "Export" );
+	config = KSharedConfig::openConfig()->group( "Export" );
 	QString clipboardFormat = config.readEntry("ClipboardFormat");
 	if ( clipboardFormat == "*.kreml" )
 		clipBoardFormatComboBox->setCurrentIndex(1);
@@ -98,12 +99,12 @@ ImportPrefs::ImportPrefs( QWidget *parent )
 
 void ImportPrefs::saveOptions()
 {
-	KConfigGroup config = KGlobal::config()->group( "Import" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Import" );
 
 	config.writeEntry( "OverwriteExisting", overwriteCheckbox->isChecked() );
 	config.writeEntry( "DirectImport", !directImportCheckbox->isChecked() );
 
-	config = KGlobal::config()->group( "Export" );
+	config = KSharedConfig::openConfig()->group( "Export" );
 	QString ext = clipBoardFormatComboBox->currentText().mid(clipBoardFormatComboBox->currentText().indexOf("(")+1,clipBoardFormatComboBox->currentText().length()-clipBoardFormatComboBox->currentText().indexOf("(")-2);
 	config.writeEntry( "ClipboardFormat", ext );
 }

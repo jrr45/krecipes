@@ -12,6 +12,7 @@
 #include "ui_kregenericlistwidget.h"
 
 #include <QStandardItemModel>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 
@@ -26,7 +27,7 @@ KrePrepMethodListWidget::KrePrepMethodListWidget( QWidget *parent, RecipeDB *db 
 	m_sourceModel->setHorizontalHeaderLabels( horizontalLabels );
 
 	//The maximum number of elements to show in the author list.
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	setCurrentLimit( config.readEntry( "Limit", -1 ) );
 
 	connect( m_database, SIGNAL( prepMethodCreated( const Element & ) ), SLOT( createPrepMethod( const Element & ) ) );

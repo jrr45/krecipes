@@ -43,6 +43,7 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <KSharedConfig>
 
 #include "profiling.h"
 
@@ -114,7 +115,7 @@ IngredientMatcherDialog::IngredientMatcherDialog( QWidget *parent, RecipeDB *db 
 
 	recipeListView->listView() ->addColumn( i18nc( "@title:column Recipe Title", "Title" ) );
 
-    KConfigGroup config( KGlobal::config(), "Advanced" );
+    KConfigGroup config( KSharedConfig::openConfig(), "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	recipeListView->listView() ->addColumn( "Id" , show_id ? -1 : 0 );
 

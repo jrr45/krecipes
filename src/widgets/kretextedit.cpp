@@ -9,7 +9,7 @@
 
 #include "kretextedit.h"
 
-#include <KStandardDirs>
+
 #include <KCmdLineArgs>
 #include <KAboutData>
 #include <KConfigGroup>
@@ -22,6 +22,8 @@
 #include <kdebug.h>
 
 #include <sonnet/highlighter.h>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 KreTextEdit::KreTextEdit( QWidget *parent ):
 	KTextEdit( parent )//, KCompletionBase()
@@ -40,11 +42,11 @@ KreTextEdit::KreTextEdit( QWidget *parent ):
 	//If we don't have our local configuration for spell checking, fall back to
 	//user's global configuration.
 	if ( !localConfig.hasGroup( "Spelling" ) ) {
-		KConfig globalSonnetConfig( KStandardDirs::locateLocal( "config", "sonnetrc" ) );
+		KConfig globalSonnetConfig( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "sonnetrc" ) ;
 		KConfigGroup globalGroup( &globalSonnetConfig, "Spelling" );
 		globalGroup.copyTo( &localGroup );
 		localConfig.sync();
-		KConfigGroup group( KGlobal::config(), "Spelling" );
+		KConfigGroup group( KSharedConfig::openConfig(), "Spelling" );
 		globalGroup.copyTo( &group );
 	}
 

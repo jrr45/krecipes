@@ -28,6 +28,7 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <KSharedConfig>
 
 
 KrecipesPreferences::KrecipesPreferences( QWidget *parent )
@@ -50,7 +51,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
 	mainLayout->addWidget(buttonBox);
 	okButton->setDefault(true);
 
-	KConfigGroup config = KGlobal::config()->group( "DBType" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 
 	KIconLoader *il = KIconLoader::global();
 

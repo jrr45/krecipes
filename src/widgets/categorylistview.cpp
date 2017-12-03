@@ -24,6 +24,7 @@
 #include "dialogs/createcategorydialog.h"
 #include "dialogs/dependanciesdialog.h"
 #include <QPixmap>
+#include <KSharedConfig>
 
 CategoryCheckListItem::CategoryCheckListItem( CategoryCheckListView* klv, const Element &category, bool _exclusive ) :
     QTreeWidgetItem( QString(), klv ), CategoryItemInfo( category ),
@@ -317,7 +318,7 @@ StdCategoryListView::StdCategoryListView( QWidget *parent, RecipeDB *db, bool ed
 
 	//FIXME: for some reason when I have "ShowID=true" this code results in
 	//krecipes eating 100% of my cpu time.
-	//KConfigGroup config = KGlobal::config()->group( "Advanced" );
+	//KConfigGroup config = KSharedConfig::openConfig()->group( "Advanced" );
 	//bool show_id = config.readEntry( "ShowID", false );
 	//addColumn( i18nc( "@title:column", "Id" ) , show_id ? -1 : 0 );
 	addColumn( i18nc( "@title:column", "Id" ) , 0 );
@@ -382,7 +383,7 @@ CategoryListView( parent, db ), exclusive( _exclusive )
 {
 	addColumn( i18nc( "@title:column", "Category" ) );
 
-	KConfigGroup config = KGlobal::config()->group( "Advanced" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	addColumn( i18nc( "@title:column", "Id" ) , show_id ? -1 : 0 );
 

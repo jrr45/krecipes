@@ -17,6 +17,7 @@
 #include <KLocale>
 #include <KConfigGroup>
 #include <QDebug>
+#include <KSharedConfig>
 
 #include "mixednumberrange.h"
 
@@ -127,7 +128,7 @@ void Ingredient::setAmount( const QString &range, bool *ok )
 
 QString Ingredient::amountString( bool forceFloatFormat ) const
 {
-	KConfigGroup config(KGlobal::config(),"Formatting");
+	KConfigGroup config(KSharedConfig::openConfig(),"Formatting");
 	bool useFractions = !forceFloatFormat && config.readEntry("Fraction", false);
 	QString result;
 	if ( useFractions ) {
@@ -150,7 +151,7 @@ QString Ingredient::amountString( bool forceFloatFormat ) const
 
 QString Ingredient::amountUnitString() const
 {
-	KConfigGroup config(KGlobal::config(),"Formatting");
+	KConfigGroup config(KSharedConfig::openConfig(),"Formatting");
 	bool useAbrev = config.readEntry("AbbreviateUnits", false);
 	return units.determineName( amount+amount_offset, useAbrev );
 }

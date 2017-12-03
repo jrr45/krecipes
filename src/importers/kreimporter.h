@@ -11,7 +11,7 @@
 #define KREIMPORTER_H
 
 #include <klocale.h>
-#include <kstandarddirs.h>
+
 #include <kcodecs.h>
 #include <ktar.h>
 #include <ktemporaryfile.h>

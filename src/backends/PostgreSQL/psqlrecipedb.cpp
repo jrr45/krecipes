@@ -12,7 +12,7 @@
 #include "psqlrecipedb.h"
 
 #include <kdebug.h>
-#include <kstandarddirs.h>
+
 #include <ktemporaryfile.h>
 #include <klocale.h>
 #include <kconfiggroup.h>
@@ -20,6 +20,7 @@
 #include <QVariant>
 #include <QSqlQuery>
 #include <QSqlError>
+#include <KSharedConfig>
 
 //Note: PostgreSQL's database names are always lowercase
 PSqlRecipeDB::PSqlRecipeDB( const QString& host, const QString& user, const QString& pass, const QString& DBname, int port ) : QSqlRecipeDB( host, user, pass, DBname.toLower(), port )
@@ -50,7 +51,7 @@ void PSqlRecipeDB::createDB()
 
 QStringList PSqlRecipeDB::backupCommand() const
 {
-    KConfigGroup config = KGlobal::config()->group("Server");
+    KConfigGroup config = KSharedConfig::openConfig()->group("Server");
 
 	QStringList command;
 	command<<config.readEntry( "PgDumpPath", "pg_dump" )<<"--inserts"<<database->databaseName()
@@ -65,7 +66,7 @@ QStringList PSqlRecipeDB::backupCommand() const
 
 QStringList PSqlRecipeDB::restoreCommand() const
 {
-    KConfigGroup config = KGlobal::config()->group("Server");
+    KConfigGroup config = KSharedConfig::openConfig()->group("Server");
 
 	QStringList command;
 	command<<config.readEntry( "PsqlPath", "psql" )<<database->databaseName()

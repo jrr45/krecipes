@@ -12,7 +12,7 @@
 
 #include <KHTMLView>
 #include <KLocale>
-#include <KStandardDirs>
+
 #include <KStandardGuiItem>
 #include <KVBox>
 

@@ -24,6 +24,7 @@
 #include <QPointer>
 
 #include <kglobalsettings.h>
+#include <KSharedConfig>
 
 #include "dialogs/preferences/krecipespreferences.h"
 
@@ -40,7 +41,7 @@ void ConvertSQLite3::convert()
 {
 	kDebug() << "converting";
 	QString file = db_file;
-	KConfigGroup config = KGlobal::config()->group("Server");
+	KConfigGroup config = KSharedConfig::openConfig()->group("Server");
 	if ( file.isEmpty() ) {
 		file = config.readEntry("DBFile");
 	}

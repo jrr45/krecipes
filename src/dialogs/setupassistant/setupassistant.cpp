@@ -28,6 +28,7 @@
 #include <KGlobal>
 
 #include <kdebug.h>
+#include <KSharedConfig>
 
 
 SetupAssistant::SetupAssistant( QWidget *parent, Qt::WFlags f ) : KAssistantDialog(parent, f )
@@ -139,12 +140,12 @@ void SetupAssistant::accept( void )
 		break;
 	}
 
-	KConfigGroup config = KGlobal::config()->group( "DBType" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 	config.writeEntry( "Type", sDBType );
 	kDebug() << "DB type set in kconfig was... " << sDBType ;
 	// Save the server data if needed
 	if ( !( dbTypeSetupPage->dbType() == SQLite ) ) {
-		config = KGlobal::config()->group( "Server" );
+		config = KSharedConfig::openConfig()->group( "Server" );
 		config.writeEntry( "Host", serverSetupPage->server() );
 		config.writeEntry( "Username", serverSetupPage->user() );
 		config.writeEntry( "Password", serverSetupPage->password() );
@@ -153,13 +154,13 @@ void SetupAssistant::accept( void )
 		kDebug() << "Finished setting the database parameters for MySQL or PostgreSQL (non SQLite)..." ;
 	}
 	else {
-		config = KGlobal::config()->group( "Server" );
+		config = KSharedConfig::openConfig()->group( "Server" );
 		config.writeEntry( "DBFile", sqliteSetupPage->dbFile() );
 	}
 
 	// Indicate that settings were already made
 
-	config = KGlobal::config()->group( "Wizard" );
+	config = KSharedConfig::openConfig()->group( "Wizard" );
 	config.writeEntry( "SystemSetup", true );
 	config.writeEntry( "Version", "0.9" );
 	kDebug() << "Setting in kconfig the lines to disable wizard startup..." << sDBType ;

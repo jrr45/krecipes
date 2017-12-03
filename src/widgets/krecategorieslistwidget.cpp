@@ -17,6 +17,7 @@
 
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>
+#include <KSharedConfig>
 
 #include "datablocks/categorytree.h"
 #include "backends/recipedb.h"
@@ -39,7 +40,7 @@ KreCategoriesListWidget::KreCategoriesListWidget( QWidget *parent, RecipeDB *db,
 	//The QTreeView.
 	ui->m_treeView->setRootIsDecorated( true );
 	ui->m_treeView->showColumn( 0 );
-	KConfigGroup configAdvanced( KGlobal::config(), "Advanced" );
+	KConfigGroup configAdvanced( KSharedConfig::openConfig(), "Advanced" );
 	if ( !configAdvanced.readEntry( "ShowID", false ) ) {
 		ui->m_treeView->hideColumn( 1 );
 	}
@@ -53,7 +54,7 @@ KreCategoriesListWidget::KreCategoriesListWidget( QWidget *parent, RecipeDB *db,
 	m_sourceModel->setHorizontalHeaderLabels( horizontalLabels );
 
 	//The maximum number of elements to show in the author list.
-	KConfigGroup configPerformance = KGlobal::config()->group( "Performance" );
+	KConfigGroup configPerformance = KSharedConfig::openConfig()->group( "Performance" );
 	setCurrentLimit( configPerformance.readEntry( "CategoryLimit", -1 ) );
 
 	connect( m_database, SIGNAL( categoryCreated( const Element &, int) ), 

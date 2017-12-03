@@ -14,11 +14,12 @@
 #include <kdebug.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kstandarddirs.h>
+
 
 #include <QFile>
 #include <QString>
 #include <QTextStream>
+#include <QStandardPaths>
 
 namespace USDA {
 
@@ -26,11 +27,11 @@ QList<PropertyData> loadProperties()
 {
 	QList<PropertyData> result;
 
-	QString dataFilename = KStandardDirs::locate( "appdata", "data/property-data-" + KGlobal::locale() ->language() + ".txt" );
+	QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/property-data-" + KGlobal::locale() ->language() + ".txt" );
 	if ( dataFilename.isEmpty() ) {
 		kDebug() << "No localized property data available for " << KGlobal::locale() ->language() ;
 
-		dataFilename = KStandardDirs::locate( "appdata", "data/property-data-en_US.txt" ); //default to English
+		dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/property-data-en_US.txt" ); //default to English
 	}
 
 	QFile dataFile( dataFilename );

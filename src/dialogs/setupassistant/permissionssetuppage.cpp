@@ -14,7 +14,7 @@
 #include "widgets/clickablelabel.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 #include <QLineEdit>
 #include <KHBox>
 
@@ -24,6 +24,7 @@
 #include <QCheckBox>
 #include <QFormLayout>
 #include <QGroupBox>
+#include <QStandardPaths>
 
 
 PermissionsSetupPage::PermissionsSetupPage( QWidget *parent ) : QWidget( parent )
@@ -38,7 +39,7 @@ PermissionsSetupPage::PermissionsSetupPage( QWidget *parent ) : QWidget( parent 
 	layout->addItem( spacer_left, 1, 0 );
 
 	// Logo
-	QPixmap permissionsSetupPixmap ( KStandardDirs::locate( "data", "krecipes/pics/dbpermissions.png" ) );
+	QPixmap permissionsSetupPixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/dbpermissions.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( permissionsSetupPixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );

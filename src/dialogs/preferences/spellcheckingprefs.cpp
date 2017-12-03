@@ -16,11 +16,13 @@
 #include <KConfigGroup>
 #include <KConfig>
 #include <KGlobal>
-#include <KStandardDirs>
+
 #include <KCmdLineArgs>
 #include <KAboutData>
 
 #include <QHBoxLayout>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 
 SpellCheckingPrefs::SpellCheckingPrefs( QWidget *parent )
@@ -37,15 +39,15 @@ SpellCheckingPrefs::SpellCheckingPrefs( QWidget *parent )
 	//user's global configuration.
 	if ( !localConfig.hasGroup( "Spelling" ) ) {
 		KConfigGroup localGroup( &localConfig, "Spelling" );
-		KConfig globalSonnetConfig( KStandardDirs::locateLocal( "config", "sonnetrc" ) );
+		KConfig globalSonnetConfig( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "sonnetrc" ) ;
 		KConfigGroup globalGroup( &globalSonnetConfig, "Spelling" );
 		globalGroup.copyTo( &localGroup );
 		localConfig.sync();
-		KConfigGroup group( KGlobal::config(), "Spelling" );
+		KConfigGroup group( KSharedConfig::openConfig(), "Spelling" );
 		globalGroup.copyTo( &group );
 	}
 
-	m_confPage = new Sonnet::ConfigWidget(&( *KGlobal::config() ), this );
+	m_confPage = new Sonnet::ConfigWidget(&( *KSharedConfig::openConfig() ), this );
 	lay->addWidget( m_confPage );
 	setLayout( lay );
 }

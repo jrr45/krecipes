@@ -23,6 +23,7 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QCheckBox>
+#include <KSharedConfig>
 
 
 ServerPrefs::ServerPrefs( QWidget *parent )
@@ -32,7 +33,7 @@ ServerPrefs::ServerPrefs( QWidget *parent )
 	Form1Layout->setMargin( 11 );
 	Form1Layout->setSpacing( 6 );
 
-	KConfigGroup config = KGlobal::config()->group( "DBType" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 	QString DBtype = config.readEntry( "Type" );
 	if ( DBtype == "MySQL" )
 		serverWidget = new MySQLServerPrefs( this );
@@ -49,7 +50,7 @@ ServerPrefs::ServerPrefs( QWidget *parent )
 
 	wizard_button = new QCheckBox( i18n( "Re-run wizard on next startup" ), this );
 	wizard_button->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Minimum );
-	config = KGlobal::config()->group( "Wizard" );
+	config = KSharedConfig::openConfig()->group( "Wizard" );
 	wizard_button->setChecked( !config.readEntry( "SystemSetup", false ) );
 	Form1Layout->addWidget( wizard_button );
 
@@ -63,7 +64,7 @@ ServerPrefs::ServerPrefs( QWidget *parent )
 // Save Server settings
 void ServerPrefs::saveOptions( void )
 {
-	KConfigGroup config = KGlobal::config()->group( "DBType" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 	QString DBtype = config.readEntry( "Type" );
 	if ( DBtype == "MySQL" )
 		( ( MySQLServerPrefs* ) serverWidget ) ->saveOptions();
@@ -72,7 +73,7 @@ void ServerPrefs::saveOptions( void )
 	else
 		( ( SQLiteServerPrefs* ) serverWidget ) ->saveOptions();
 
-	config = KGlobal::config()->group( "Wizard" );
+	config = KSharedConfig::openConfig()->group( "Wizard" );
 	config.writeEntry( "SystemSetup", !(wizard_button->isChecked()) );
 }
 

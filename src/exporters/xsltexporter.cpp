@@ -24,7 +24,7 @@
 #include <khtml_part.h>
 #include <khtmlview.h>
 #include <kprogressdialog.h>
-#include <kstandarddirs.h>
+
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -34,6 +34,8 @@
 #include <libxslt/xsltutils.h>
 
 #include <cmath> //round
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "dialogs/setupdisplay.h"
@@ -60,22 +62,22 @@ const char* i18n_strings[] = {
 XSLTExporter::XSLTExporter( const QString& filename, const QString &format ) :
 		BaseExporter( filename, format )
 {
-    KConfigGroup config = KGlobal::config()->group( "Page Setup" );
+    KConfigGroup config = KSharedConfig::openConfig()->group( "Page Setup" );
 
 	//let's do everything we can to be sure at least some layout is loaded
-	QString template_filename = config.readEntry( "Template", KStandardDirs::locate( "appdata", "layouts/Default.xsl" ) );
+	QString template_filename = config.readEntry( "Template", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/Default.xsl" ) );
 	if ( template_filename.isEmpty() || !QFile::exists( template_filename )
      || template_filename.endsWith(".template") ) //handle the transition to xslt
-		template_filename = KStandardDirs::locate( "appdata", "layouts/Default.xsl" );
+		template_filename = QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/Default.xsl" );
 
 	kDebug() << "Using template file: " << template_filename ;
 
 	setTemplate( template_filename );
 
 	//let's do everything we can to be sure at least some layout is loaded
-	m_layoutFilename = config.readEntry( "Layout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
+	m_layoutFilename = config.readEntry( "Layout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
 	if ( m_layoutFilename.isEmpty() || !QFile::exists( m_layoutFilename ) )
-		m_layoutFilename = KStandardDirs::locate( "appdata", "layouts/None.klo" );
+		m_layoutFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" );
 }
 
 XSLTExporter::~XSLTExporter()

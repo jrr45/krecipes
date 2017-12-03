@@ -21,6 +21,7 @@
 #include "backends/recipedb.h"
 
 #include <kdebug.h>
+#include <KSharedConfig>
 
 #include "threadedqueries/loadingauthorsthread.h"
 
@@ -37,7 +38,7 @@ KreAuthorListWidget::KreAuthorListWidget( QWidget *parent, RecipeDB *db ):
 	m_sourceModel->setHorizontalHeaderLabels( horizontalLabels );
 
 	//The maximum number of elements to show in the author list.
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	setCurrentLimit( config.readEntry( "Limit", -1 ) );
 
 	connect( m_database, SIGNAL( authorCreated( const Element & ) ), 

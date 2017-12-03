@@ -19,6 +19,7 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <KSharedConfig>
 
 SelectUnitDialog::SelectUnitDialog( QWidget* parent, const UnitList &unitList, OptionFlag showEmpty )
 		: QDialog( parent), m_showEmpty(showEmpty)
@@ -49,7 +50,7 @@ SelectUnitDialog::SelectUnitDialog( QWidget* parent, const UnitList &unitList, O
 
 	unitChooseView = new K3ListView( box );
 
-	KConfigGroup config( KGlobal::config(), "Advanced" );
+	KConfigGroup config( KSharedConfig::openConfig(), "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	unitChooseView->addColumn( i18nc( "@title:column", "Id" ) , show_id ? -1 : 0 );
 

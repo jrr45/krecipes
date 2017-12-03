@@ -16,6 +16,7 @@
 #include <klocale.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "backends/progressinterface.h"
@@ -47,7 +48,7 @@ void CategoryComboBox::reload()
 {
 	QString remember_cat_filter = currentText();
 
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	int limit = config.readEntry( "CategoryLimit", -1 );
 
 	//ProgressInterface pi(this);
@@ -83,7 +84,7 @@ void CategoryComboBox::loadCategories( CategoryTree *categoryTree, int &row )
 
 void CategoryComboBox::loadNextGroup()
 {
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	int limit = config.readEntry( "CategoryLimit", -1 );
 
 	m_offset += limit;
@@ -93,7 +94,7 @@ void CategoryComboBox::loadNextGroup()
 
 void CategoryComboBox::loadPrevGroup()
 {
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	int limit = config.readEntry( "CategoryLimit", -1 );
 
 	m_offset -= limit;

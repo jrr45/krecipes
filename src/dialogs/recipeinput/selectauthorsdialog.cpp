@@ -30,6 +30,7 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 
@@ -95,7 +96,7 @@ SelectAuthorsDialog::SelectAuthorsDialog( QWidget *parent, const ElementList &cu
 	authorListProxyModel->setDynamicSortFilter( true );
 	authorListView->setModel( authorListProxyModel );
 	
-	KConfigGroup config( KGlobal::config(), "Advanced" );
+	KConfigGroup config( KSharedConfig::openConfig(), "Advanced" );
 	if ( !config.readEntry( "ShowID", false ) ) {
 		authorListView->hideColumn( 0 );
 		authorListView->header()->hide();

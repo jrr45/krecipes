@@ -18,6 +18,7 @@
 #include <kprogressdialog.h>
 //Added by qt3to4:
 #include <QKeyEvent>
+#include <KSharedConfig>
 
 
 //These two classes are used to identify the "Next" and "Prev" items, which are identified through rtti().  This also prevents renaming, even if it is enabled.
@@ -66,7 +67,7 @@ DBListViewBase::DBListViewBase( QWidget *parent, RecipeDB *db, int t ) : K3ListV
 	setSorting(-1);
 
 	if ( curr_limit == -1 ) { //only use the default limit if a subclass hasn't given curr_limit its own value
-		KConfigGroup config = KGlobal::config()->group( "Performance" );
+		KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 		curr_limit = config.readEntry( "Limit", -1 );
 	}
 

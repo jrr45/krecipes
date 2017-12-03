@@ -39,6 +39,8 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QFileDialog>
+#include <QStandardPaths>
+#include <KSharedConfig>
 #include "setupdisplay.h"
 
 PageSetupDialog::PageSetupDialog( QWidget *parent, const Recipe &sample, const QString &configEntry )
@@ -106,18 +108,18 @@ PageSetupDialog::PageSetupDialog( QWidget *parent, const Recipe &sample, const Q
 	connect( okButton, SIGNAL( clicked() ), SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), SLOT( reject() ) );
 
-	KConfigGroup config = KGlobal::config()->group( "Page Setup" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Page Setup" );
 	QSize defaultSize(722,502);
 	resize(config.readEntry( "WindowSize", defaultSize ));
 
 	//let's do everything we can to be sure at least some layout is loaded
-	QString layoutFile = config.readEntry( m_configEntry+"Layout", KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
+	QString layoutFile = config.readEntry( m_configEntry+"Layout", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
 	if ( layoutFile.isEmpty() || !QFile::exists( layoutFile ) )
-		layoutFile = KStandardDirs::locate( "appdata", "layouts/None.klo" );
+		layoutFile = QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" );
 
-	QString tmpl = config.readEntry( m_configEntry+"Template", KStandardDirs::locate( "appdata", "layouts/Default.xsl" ) );
+	QString tmpl = config.readEntry( m_configEntry+"Template", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/Default.xsl" ) );
 	if ( tmpl.isEmpty() || !QFile::exists( tmpl ) )
-		tmpl = KStandardDirs::locate( "appdata", "layouts/Default.xsl" );
+		tmpl = QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/Default.xsl" );
 	kDebug()<<"tmpl: "<<tmpl;
 	active_template = tmpl;
 	loadLayout( layoutFile );
@@ -132,7 +134,7 @@ void PageSetupDialog::accept()
 	if ( m_htmlPart->hasChanges() )
 		saveLayout();
 
-	KConfigGroup config( KGlobal::config(), "Page Setup" );
+	KConfigGroup config( KSharedConfig::openConfig(), "Page Setup" );
 	config.writeEntry( m_configEntry+"Layout", active_filename );
 
 	if ( !active_template.isEmpty() ) {
@@ -201,7 +203,7 @@ void PageSetupDialog::setItemShown( int id )
 
 void PageSetupDialog::loadFile()
 {
-	QString file = QFileDialog::getOpenFileName(QString("*.klo *.xsl|%1").arg(i18n("Krecipes style or template file")), this,  KStandardDirs::locateLocal( "appdata", "layouts/" ));
+	QString file = QFileDialog::getOpenFileName(QString("*.klo *.xsl|%1").arg(i18n("Krecipes style or template file")), this,  QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "layouts/" );
 
 	if ( file.endsWith(".klo") )
 		loadLayout( file );
@@ -285,7 +287,7 @@ void PageSetupDialog::saveAsLayout()
 
 QString PageSetupDialog::getIncludedLayoutDir() const
 {
-	QFileInfo file_info( KStandardDirs::locate( "appdata", "layouts/None.klo" ) );
+	QFileInfo file_info( QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/None.klo" ) );
 	return file_info.absolutePath();
 }
 

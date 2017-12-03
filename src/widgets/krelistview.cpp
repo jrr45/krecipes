@@ -20,6 +20,7 @@
 #include <QLabel>
 #include <QFrame>
 #include <kvbox.h>
+#include <KSharedConfig>
 
 #include "widgets/dblistviewbase.h"
 
@@ -72,7 +73,7 @@ KreListView::KreListView( QWidget *parent, const QString &title, bool filter, in
 	if ( filter ) {
 		connect( filterEdit, SIGNAL( textChanged( const QString& ) ), SIGNAL( textChanged(const QString&) ) );
 		connect( filterEdit, SIGNAL( returnPressed( const QString& ) ), SIGNAL( returnPressed(const QString&) ) );
-		KConfigGroup config (KGlobal::config(), "Performance" );
+		KConfigGroup config (KSharedConfig::openConfig(), "Performance" );
 		if ( config.readEntry("SearchAsYouType",true) )
 			connect( this, SIGNAL( textChanged( const QString& ) ), SLOT( filter( const QString& ) ) );
 		else
@@ -116,7 +117,7 @@ void KreListView::refilter()
 
 void KreListView::setCustomFilter( QObject *receiver, const char *slot )
 {
-	KConfigGroup config (KGlobal::config(), "Performance" );
+	KConfigGroup config (KSharedConfig::openConfig(), "Performance" );
 	if ( config.readEntry("SearchAsYouType",true) ) {
 		disconnect( this, SIGNAL( textChanged( const QString& ) ), this, SLOT( filter( const QString& ) ) );
 		connect( this, SIGNAL( textChanged( const QString& ) ), receiver, slot );

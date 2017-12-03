@@ -21,12 +21,13 @@
 #include <QVBoxLayout>
 #include <QCheckBox>
 #include <QLabel>
+#include <KSharedConfig>
 
 PerformancePrefs::PerformancePrefs( QWidget *parent )
 		: QWidget( parent )
 {
 	// Load Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 
 	int cat_limit = config.readEntry( "CategoryLimit", -1 );
 	int limit = config.readEntry( "Limit", -1 );
@@ -76,7 +77,7 @@ PerformancePrefs::PerformancePrefs( QWidget *parent )
 
 void PerformancePrefs::saveOptions()
 {
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 
 	int catLimit = ( catLimitInput->value() == 0 ) ? -1 : catLimitInput->value();
 	config.writeEntry( "CategoryLimit", catLimit );

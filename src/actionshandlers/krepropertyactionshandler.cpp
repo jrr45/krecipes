@@ -18,6 +18,7 @@
 
 #include <QModelIndex>
 #include <QStandardItemModel>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 

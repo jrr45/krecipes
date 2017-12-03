@@ -22,6 +22,7 @@
 #include "dialogs/dependanciesdialog.h"
 //Added by qt3to4:
 #include <QList>
+#include <KSharedConfig>
 
 IngredientCheckListItem::IngredientCheckListItem( IngredientCheckListView* qlv, const Element &ing ) : Q3CheckListItem( qlv, QString(), Q3CheckListItem::CheckBox ),
 	m_listview(qlv)
@@ -106,7 +107,7 @@ StdIngredientListView::StdIngredientListView( QWidget *parent, RecipeDB *db, boo
 {
 	addColumn( i18nc( "@title:column", "Ingredient" ) );
 
-	KConfigGroup config = KGlobal::config()->group( "Advanced" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	addColumn( i18nc( "@title:column", "Id" ) , show_id ? -1 : 0 );
 
@@ -131,7 +132,7 @@ IngredientCheckListView::IngredientCheckListView( QWidget *parent, RecipeDB *db 
 {
 	addColumn( i18nc( "@title:column", "Ingredient" ) );
 
-	KConfigGroup config = KGlobal::config()->group( "Advanced" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	addColumn( i18nc( "@title:column", "Id" ) , show_id ? -1 : 0 );
 }

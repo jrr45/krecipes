@@ -14,6 +14,7 @@
 #include <KGlobal>
 #include <QModelIndex>
 #include <QStandardItemModel>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 
@@ -29,7 +30,7 @@ KreHeaderListWidget::KreHeaderListWidget( QWidget * parent, RecipeDB *db ):
 
 	//The maximum number of elements to show in the author list.
 	//FIXME: The database doesn't support limit and offset for headers
-	//KConfigGroup config = KGlobal::config()->group( "Performance" );
+	//KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	//setCurrentLimit( config.readEntry( "Limit", -1 ) );
 
 	//Connect signals and slots.

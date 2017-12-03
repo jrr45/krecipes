@@ -25,6 +25,7 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "widgets/krelistview.h"
@@ -211,7 +212,7 @@ void RefineShoppingListDialog::itemRenamed( Q3ListViewItem* item, const QString 
 		else { //revert back to the valid amount string
 			QString amount_str;
 			if ( ( *found_it ).amount > 0 ) {
-		                     KConfigGroup config( KGlobal::config(), "Formatting" );
+		                     KConfigGroup config( KSharedConfig::openConfig(), "Formatting" );
 
 				if ( !config.readEntry( "Fraction" ).isEmpty() )
 					amount_str = MixedNumber( ( *found_it ).amount ).toString();

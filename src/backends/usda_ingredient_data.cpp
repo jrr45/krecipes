@@ -17,25 +17,26 @@
 
 #include <KLocale>
 #include <KGlobal>
-#include <KStandardDirs>
+
 #include <KDebug>
+#include <QStandardPaths>
 
 namespace USDA {
 
 	bool localizedIngredientsAvailable()
 	{
-		return !KStandardDirs::locate( "appdata", "data/ingredient-data-" + KGlobal::locale() ->language() + ".txt" ).isEmpty();
+		return !QStandardPaths::locate(QStandardPaths::DataLocation, "data/ingredient-data-" + KGlobal::locale() ->language() + ".txt" ).isEmpty();
 	}
 
     QList<IngredientData> loadIngredients()
 	{
         QList<IngredientData> result;
 
-		QString dataFilename = KStandardDirs::locate( "appdata", "data/ingredient-data-" + KGlobal::locale() ->language() + ".txt" );
+		QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/ingredient-data-" + KGlobal::locale() ->language() + ".txt" );
 		if ( dataFilename.isEmpty() ) {
 			kDebug() << "No localized property data available for " << KGlobal::locale() ->language() ;
 	
-			dataFilename = KStandardDirs::locate( "appdata", "data/ingredient-data-en_US.txt" ); //default to English
+			dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/ingredient-data-en_US.txt" ); //default to English
 		}
 
 		QFile dataFile( dataFilename );

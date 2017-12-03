@@ -16,6 +16,7 @@
 #include <kprogressdialog.h>
 #include <kmessagebox.h>
 #include <kglobal.h>
+#include <KSharedConfig>
 
 #include "datablocks/recipe.h"
 #include "backends/recipedb.h"
@@ -29,7 +30,7 @@ BaseImporter::BaseImporter() :
 		m_cat_structure( 0 ),
 		file_recipe_count( 0 )
 {
-	KConfigGroup config = KGlobal::config()->group( "Import" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Import" );
 
 	direct = config.readEntry( "DirectImport", false );
 }
@@ -205,7 +206,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 	db->disableTransactions();
 
 	// Load Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Import" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Import" );
 	bool overwrite = config.readEntry( "OverwriteExisting", false );
 
 	RecipeList::iterator recipe_it; RecipeList::iterator recipe_list_end( selected_recipes.end() );

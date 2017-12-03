@@ -12,12 +12,13 @@
 #include "dbtypesetuppage.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 
 #include <QGridLayout>
 #include <QLabel>
 #include <QGroupBox>
 #include <QRadioButton>
+#include <QStandardPaths>
 
 
 DBTypeSetupPage::DBTypeSetupPage( QWidget *parent ) : QWidget( parent )
@@ -34,7 +35,7 @@ DBTypeSetupPage::DBTypeSetupPage( QWidget *parent ) : QWidget( parent )
 
 	// Image
 
-	QPixmap serverSetupPixmap ( KStandardDirs::locate( "data", "krecipes/pics/network.png" ) );
+	QPixmap serverSetupPixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/network.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( serverSetupPixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );

@@ -27,6 +27,7 @@
 #include <QDialogButtonBox>
 #include <KGuiItem>
 #include <QVBoxLayout>
+#include <KSharedConfig>
 
 ShoppingListViewDialog::ShoppingListViewDialog( QWidget *parent, const IngredientList &ingredientList )
 		: QDialog( parent )
@@ -88,7 +89,7 @@ void ShoppingListViewDialog::display( const IngredientList &ingredientList )
 	recipeHTML += "<div STYLE=\"border:medium solid blue; width:95%\"><table cellspacing=0px width=100%><tbody>";
 	bool counter = true;
 
-	KConfigGroup config = KGlobal::config()->group( "Formatting" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
 
 	bool useAbbreviations = config.readEntry("AbbreviateUnits", false );
 

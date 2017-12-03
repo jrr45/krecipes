@@ -15,13 +15,15 @@
 
 #include <KApplication>
 #include <KGlobal>
-#include <KStandardDirs>
+
 #include <KConfigGroup>
 #include <KSharedConfigPtr>
 
 #include <QtTest/QTest>
 
 #include <QDebug>
+#include <QStandardPaths>
+#include <KSharedConfig>
 
 
 RecipeDB * TestDatabaseEncoding::createDatabase(const QString & configFilename )
@@ -33,19 +35,19 @@ RecipeDB * TestDatabaseEncoding::createDatabase(const QString & configFilename )
 
 	QStringList strList;
 	strList << configFilePath;
-	KGlobal::config()->addConfigSources( strList );
+	KSharedConfig::openConfig()->addConfigSources( strList );
 
-	KConfigGroup dbtypeGroup = KGlobal::config()->group( "DBType" );
+	KConfigGroup dbtypeGroup = KSharedConfig::openConfig()->group( "DBType" );
 	QString dbType = dbtypeGroup.readEntry( "Type", "" );
 
-	KConfigGroup serverGroup = KGlobal::config()->group( "Server" );
+	KConfigGroup serverGroup = KSharedConfig::openConfig()->group( "Server" );
 	QString host = serverGroup.readEntry( "Host", "localhost" );
 	QString user = serverGroup.readEntry( "Username", QString() );
 	QString pass = serverGroup.readEntry( "Password", QString() );
 	QString dbname = serverGroup.readEntry( "DBName", "Krecipes" );
 	int port = serverGroup.readEntry( "Port", 0 );
 	QString dbfile = serverGroup.readEntry( "DBFile",
-		KStandardDirs::locateLocal ( "appdata", "krecipes.krecdb" ) );
+		QStandardPaths::writableLocation(QStandardPaths::DataLocation) + QLatin1Char('/') + "krecipes.krecdb" ) ;
 
 	database = RecipeDB::createDatabase( dbType, host, user, pass, dbname, port, dbfile );
 

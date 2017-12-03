@@ -13,6 +13,7 @@
 #include <kconfiggroup.h>
 #include <kglobal.h>
 #include <kdebug.h>
+#include <KSharedConfig>
 
 #include "datablocks/unit.h"
 #include "datablocks/mixednumber.h"
@@ -91,7 +92,7 @@ void IngListViewItem::setAmount( double amount, double amount_offset )
 	amount_str.clear();
 
 	if ( amount+amount_offset > 0 ) {
-		KConfigGroup config = KGlobal::config()->group( "Formatting" );
+		KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
 
 		KLocale * locale = KGlobal::locale();
 		amount_str = beautify( locale->formatNumber( amount, 6 ) );

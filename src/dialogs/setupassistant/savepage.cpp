@@ -12,10 +12,11 @@
 #include "savepage.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 
 #include <QGridLayout>
 #include <QLabel>
+#include <QStandardPaths>
 
 SavePage::SavePage( QWidget *parent ) : QWidget( parent )
 {
@@ -28,7 +29,7 @@ SavePage::SavePage( QWidget *parent ) : QWidget( parent )
 	QSpacerItem *spacer_left = new QSpacerItem( 10, 10, QSizePolicy::Fixed, QSizePolicy::Minimum );
 	layout->addItem( spacer_left, 1, 0 );
 
-	QPixmap logoPixmap ( KStandardDirs::locate( "data", "krecipes/pics/save.png" ) );
+	QPixmap logoPixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/save.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( logoPixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );

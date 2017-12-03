@@ -14,6 +14,7 @@
 #include <KGlobal>
 #include <QModelIndex>
 #include <QStandardItemModel>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 
@@ -28,7 +29,7 @@ KreIngredientListWidget::KreIngredientListWidget( QWidget * parent, RecipeDB *db
 	m_sourceModel->setHorizontalHeaderLabels( horizontalLabels );
 
 	//The maximum number of elements to show in the author list.
-	KConfigGroup config = KGlobal::config()->group( "Performance" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Performance" );
 	setCurrentLimit( config.readEntry( "Limit", -1 ) );
 
 	//Connect signals and slots.

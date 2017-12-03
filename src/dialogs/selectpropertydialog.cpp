@@ -26,6 +26,7 @@
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
+#include <KSharedConfig>
 
 SelectPropertyDialog::SelectPropertyDialog( QWidget* parent, int ingID, RecipeDB *database, OptionFlag showEmpty )
 		: QDialog( parent), m_showEmpty(showEmpty),
@@ -64,7 +65,7 @@ SelectPropertyDialog::SelectPropertyDialog( QWidget* parent, int ingID, RecipeDB
 
 	propertyChooseView = new K3ListView( box );
 
-	KConfigGroup config( KGlobal::config(),  "Advanced" );
+	KConfigGroup config( KSharedConfig::openConfig(),  "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	propertyChooseView->addColumn( i18nc( "@title:column", "Id" ), show_id ? -1 : 0 );
 

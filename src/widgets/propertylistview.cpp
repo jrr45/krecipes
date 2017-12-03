@@ -16,6 +16,7 @@
 #include <QMenu>
 #include <kdebug.h>
 #include <QPointer>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "dialogs/createpropertydialog.h"
@@ -79,7 +80,7 @@ HidePropertyCheckListItem::HidePropertyCheckListItem( Q3ListViewItem* it, const 
 void HidePropertyCheckListItem::stateChange( bool on )
 {
 	if ( !m_holdSettings ) {
-		KConfigGroup config = KGlobal::config()->group("Formatting");
+		KConfigGroup config = KSharedConfig::openConfig()->group("Formatting");
 
 		config.sync();
 		QStringList hiddenList = config.readEntry("HiddenProperties", QStringList());
@@ -130,7 +131,7 @@ StdPropertyListView::StdPropertyListView( QWidget *parent, RecipeDB *db, bool ed
 	addColumn( i18nc( "@title:column", "Property" ) );
 	addColumn( i18nc( "@title:column", "Units" ) );
 
-	KConfigGroup config = KGlobal::config()->group( "Advanced" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
 	addColumn( i18nc( "@title:column", "Id" ) , show_id ? -1 : 2 );
 

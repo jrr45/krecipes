@@ -20,6 +20,7 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QCheckBox>
+#include <KSharedConfig>
 
 
 NumbersPrefs::NumbersPrefs( QWidget *parent )
@@ -57,7 +58,7 @@ NumbersPrefs::NumbersPrefs( QWidget *parent )
 	languageChange();
 
 	// Load Current Settings
-	KConfigGroup config = KGlobal::config()->group( "Formatting" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
 
 	if ( config.readEntry( "Fraction", true ) )
 		fractionRadioButton->click();
@@ -69,7 +70,7 @@ NumbersPrefs::NumbersPrefs( QWidget *parent )
 
 void NumbersPrefs::saveOptions()
 {
-	KConfigGroup config = KGlobal::config()->group( "Formatting" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
 
 	bool fraction = fractionRadioButton->isChecked();
 	config.writeEntry( "Fraction", fraction );

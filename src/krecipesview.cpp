@@ -23,6 +23,7 @@
 #include <kglobal.h>
 #include <kvbox.h>
 #include <QFrame>
+#include <KSharedConfig>
 
 #include "actionshandlers/kreauthoractionshandler.h"
 #include "actionshandlers/krerecipeactionshandler.h"
@@ -169,7 +170,7 @@ KrecipesView::KrecipesView( QWidget *parent )
 
 	kapp->processEvents();
 
-	KConfigGroup config(KGlobal::config(), "Performance" );
+	KConfigGroup config(KSharedConfig::openConfig(), "Performance" );
 	int limit = config.readEntry( "CategoryLimit", -1 );
 	database->updateCategoryCache(limit);
 
@@ -894,7 +895,7 @@ void KrecipesView::createNewRecipe( void )
 
 void KrecipesView::wizard( bool force )
 {
-	KConfigGroup config = KGlobal::config()->group( "Wizard" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "Wizard" );
 	bool setupDone = config.readEntry( "SystemSetup", false );
 
 	QString setupVersion = config.readEntry( "Version", "0.3" );  // By default assume it's 0.3. This parameter didn't exist in that version yet.
@@ -911,7 +912,7 @@ void KrecipesView::wizard( bool force )
 		if ( setupAssistant->exec() == QDialog::Accepted )
 		{
 			config.sync();
-			config = KGlobal::config()->group( "DBType" );
+			config = KSharedConfig::openConfig()->group( "DBType" );
 			dbType = config.readEntry( "Type", "SQLite" );
 
 			kDebug() << "Setting up" ;
@@ -1185,7 +1186,7 @@ void KrecipesView::resizeRightPane( int lpw, int )
 void KrecipesView::initDatabase()
 {
 
-	KConfigGroup config = KGlobal::config()->group( "DBType" );
+	KConfigGroup config = KSharedConfig::openConfig()->group( "DBType" );
 	dbType = checkCorrectDBType( config );
 
 
@@ -1211,7 +1212,7 @@ void KrecipesView::initDatabase()
 		// Reread the configuration file.
 		// The user may have changed the data and/or DB type
 
-		KConfigGroup grp = KGlobal::config()->group( "DBType" );
+		KConfigGroup grp = KSharedConfig::openConfig()->group( "DBType" );
 		dbType = checkCorrectDBType( grp );
 
 		delete database;
@@ -1238,7 +1239,7 @@ QString KrecipesView::checkCorrectDBType( KConfigGroup &config )
 
 		// Read the database setup again
 
-		config = KGlobal::config()->group( "DBType" );
+		config = KSharedConfig::openConfig()->group( "DBType" );
 		config.sync();
 		dbType = config.readEntry( "Type", "SQLite" );
 	}

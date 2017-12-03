@@ -12,6 +12,7 @@
 
 #include <kglobal.h>
 #include <klocale.h>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 
@@ -30,7 +31,7 @@ int PlainTextExporter::supportedItems() const
 
 QString PlainTextExporter::generateIngredient( const IngredientData &ing, MixedNumber::Format number_format )
 {
-	KConfigGroup config(KGlobal::config(),"Formatting");
+	KConfigGroup config(KSharedConfig::openConfig(),"Formatting");
 
 	QString content;
 

@@ -12,7 +12,7 @@
 #include "serversetuppage.h"
 
 #include <KLocale>
-#include <KStandardDirs>
+
 #include <QLineEdit>
 #include <QSpinBox>
 
@@ -25,6 +25,7 @@
 
 #include <unistd.h>
 #include <pwd.h>
+#include <QStandardPaths>
 
 
 ServerSetupPage::ServerSetupPage( QWidget *parent ) : QWidget( parent )
@@ -41,7 +42,7 @@ ServerSetupPage::ServerSetupPage( QWidget *parent ) : QWidget( parent )
 
 	// Image
 
-	QPixmap serverSetupPixmap ( KStandardDirs::locate( "data", "krecipes/pics/network.png" ) );
+	QPixmap serverSetupPixmap ( QStandardPaths::locate(QStandardPaths::GenericDataLocation, "krecipes/pics/network.png" ) );
 	logo = new QLabel( this );
 	logo->setPixmap( serverSetupPixmap );
 	logo->setSizePolicy( QSizePolicy::Fixed, QSizePolicy::Fixed );

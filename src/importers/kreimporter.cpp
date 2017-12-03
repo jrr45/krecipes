@@ -16,7 +16,7 @@
 #include <QFile>
 #include <QStringList>
 #include <QPixmap>
-#include <kstandarddirs.h>
+#include <QDir>
 
 #include "datablocks/recipe.h"
 #include "datablocks/categorytree.h"
@@ -48,7 +48,7 @@ void KreImporter::parseFile( const QString &filename )
 			setErrorMsg( i18n( "Archive does not contain a valid Krecipes file" ) );
 			return ;
 		}
-		QString tmp_dir = KStandardDirs::locateLocal( "tmp", "" );
+        QString tmp_dir = QDir::tempPath() + QLatin1Char('/');
 		dir->copyTo( tmp_dir );
 		file = new QFile( tmp_dir + name );
 		kre->close();

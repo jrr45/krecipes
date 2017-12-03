@@ -22,7 +22,7 @@
 #include <klocale.h>
 #include <kmainwindow.h>
 #include <kprogressdialog.h>
-#include <kstandarddirs.h>
+
 #include <kstatusbar.h>
 #include <kconfig.h>
 #include <kglobal.h>
@@ -51,7 +51,7 @@ RecipeViewDialog::RecipeViewDialog( QWidget *parent, RecipeDB *db, int recipeID 
 
 	connect( database, SIGNAL(recipeRemoved(int)), SLOT(recipeRemoved(int)) );
 
-	m_tempdir = new KTempDir(KStandardDirs::locateLocal("tmp", "krecipes-data-view"));
+	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-view"));
 	tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
 
 	// Functions Box
@@ -106,7 +106,7 @@ bool RecipeViewDialog::loadRecipes( const QList<int> &ids )
 
 	// Remove any files created by the last recipe loaded
 	delete m_tempdir;
-	m_tempdir = new KTempDir(KStandardDirs::locateLocal("tmp", "krecipes-data-view"));
+	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-view"));
 	tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
 
 	ids_loaded = ids; //need to save these ids in order to delete the html files later...make sure this comes after the call to removeOldFiles()

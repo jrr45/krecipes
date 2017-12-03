@@ -17,7 +17,7 @@
 #include <klocale.h>
 #include <QMenu>
 #include <kiconloader.h>
-#include <kstandarddirs.h>
+
 #include <ktemporaryfile.h>
 #include <KTempDir>
 #include <QDialog>
@@ -110,7 +110,7 @@ SetupDisplay::SetupDisplay( const Recipe &sample, QWidget *parent ) : KHTMLPart(
 		m_sample.ratingList.append(rating1);
 	}
 
-	m_tempdir = new KTempDir(KStandardDirs::locateLocal("tmp", "krecipes-data-configlayout"));
+	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-configlayout"));
 
 	kDebug()<<"first load";
 	loadHTMLView();

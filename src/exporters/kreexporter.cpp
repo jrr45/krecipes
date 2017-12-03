@@ -20,7 +20,8 @@
 #include <klocale.h>
 #include <kcodecs.h>
 #include <kglobal.h>
-#include <kstandarddirs.h>
+#include <KSharedConfig>
+
 
 #include "backends/recipedb.h"
 
@@ -91,7 +92,7 @@ QString KreExporter::generateIngredient( const IngredientData &ing )
 	}
 	xml += "</amount>\n";
 
-	KConfigGroup config(KGlobal::config(),"Formatting");
+	KConfigGroup config(KSharedConfig::openConfig(),"Formatting");
 
 	bool useAbbreviations = config.readEntry("AbbreviateUnits" , false );
 	QString unit = ing.units.determineName( ing.amount + ing.amount_offset, useAbbreviations );
@@ -188,7 +189,7 @@ QString KreExporter::createContent( const RecipeList& recipes )
 	
 		xml += "</krecipes-ingredients>\n";
 
-		KConfigGroup config(KGlobal::config(),"Formatting"); 
+		KConfigGroup config(KSharedConfig::openConfig(),"Formatting"); 
 		QStringList hiddenList = config.readEntry("HiddenProperties" , QStringList() );
 		if (( *recipe_it ).properties.count() > 0) {
 			xml += "<krecipes-properties>\n";
