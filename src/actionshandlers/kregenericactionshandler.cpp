@@ -33,13 +33,9 @@ KreGenericActionsHandler::KreGenericActionsHandler( KreGenericListWidget * listW
 {
 
 	m_contextMenu = new QMenu( listWidget );
-	connect( listWidget,
-		SIGNAL( contextMenuRequested( const QModelIndex &, const QPoint & ) ),
-		SLOT( showPopup( const QModelIndex &, const QPoint & ) )
+	connect( listWidget, SIGNAL( contextMenuRequested( const QModelIndex &, const QPoint & ) ), SLOT( showPopup( const QModelIndex &, const QPoint & ) )
 	);
-	connect( listWidget,
-		SIGNAL( itemsChanged( const QModelIndex &, const QModelIndex & ) ),
-		SLOT( saveElement( const QModelIndex &, const QModelIndex &) )
+	connect( listWidget, SIGNAL( itemsChanged( const QModelIndex &, const QModelIndex & ) ), SLOT( saveElement( const QModelIndex &, const QModelIndex &) )
 	);
 }
 

@@ -62,13 +62,9 @@ RecipeActionsHandler::RecipeActionsHandler( QTreeWidget *_parentListView, Recipe
 	kpop = new QMenu( parentListView );
 	catPop = new QMenu( parentListView );
 
-	connect( parentListView,
-        SIGNAL( contextMenu( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) ),
-        SLOT( showPopup( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) )
+	connect( parentListView, SIGNAL( contextMenu( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) ), SLOT( showPopup( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) )
 	);
-	connect( parentListView,
-        SIGNAL( doubleClicked( QTreeWidgetItem*, const QPoint &, int ) ),
-		SLOT( open() )
+	connect( parentListView, SIGNAL( doubleClicked( QTreeWidgetItem*, const QPoint &, int ) ), SLOT( open() )
 	);
 	connect( parentListView,
 		SIGNAL( selectionChanged() ), SLOT( selectionChangedSlot() ) );

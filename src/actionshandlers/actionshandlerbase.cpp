@@ -32,17 +32,11 @@ ActionsHandlerBase::ActionsHandlerBase( DBListViewBase *_parentListView, RecipeD
 {
 
 	kpop = new QMenu( parentListView );
-	connect( parentListView,
-        SIGNAL( contextMenu( QListWidget *, QListWidgetItem *, const QPoint & ) ),
-        SLOT( showPopup( QListWidget *, QListWidgetItem *, const QPoint & ) )
+	connect( parentListView, SIGNAL( contextMenu( QListWidget *, QListWidgetItem *, const QPoint & ) ), SLOT( showPopup( QListWidget *, QListWidgetItem *, const QPoint & ) )
 	);
-	connect( parentListView,
-        SIGNAL( doubleClicked( QListWidgetItem*, const QPoint &, int ) ),
-        SLOT( renameElement( QListWidgetItem*, const QPoint &, int ) )
+	connect( parentListView, SIGNAL( doubleClicked( QListWidgetItem*, const QPoint &, int ) ), SLOT( renameElement( QListWidgetItem*, const QPoint &, int ) )
 	);
-	connect( parentListView,
-        SIGNAL( itemRenamed( QListWidgetItem* ) ),
-        SLOT( saveElement( QListWidgetItem* ) )
+	connect( parentListView, SIGNAL( itemRenamed( QListWidgetItem* ) ), SLOT( saveElement( QListWidgetItem* ) )
 	);
 }
 
