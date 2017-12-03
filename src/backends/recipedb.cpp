@@ -30,7 +30,7 @@
 #include <KProgressDialog>
 #include <KGlobal>
 #include <KLocale>
-#include <KAboutData>
+#include <K4AboutData>
 #include <KProcess>
 #include <KFilterDev>
 #include <KMessageBox>

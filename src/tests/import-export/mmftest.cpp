@@ -9,7 +9,7 @@
 
 #include <kapplication.h>
 #include <KCmdLineArgs>
-#include <KAboutData>
+#include <K4AboutData>
 
 #include <QString>
 
@@ -25,7 +25,7 @@ using std::endl;
 int
 main(int argc, char *argv[])
 {
-	KAboutData about("mmftest", 0, ki18n("Mmftest"), "1");
+	K4AboutData about("mmftest", 0, ki18n("Mmftest"), "1");
 	KCmdLineArgs::init(argc, argv, &about);
 	KCmdLineOptions options;
 	options.add("+[file]");

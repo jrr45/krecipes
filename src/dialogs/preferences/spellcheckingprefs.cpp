@@ -18,7 +18,7 @@
 #include <KGlobal>
 
 #include <KCmdLineArgs>
-#include <KAboutData>
+#include <K4AboutData>
 
 #include <QHBoxLayout>
 #include <QStandardPaths>

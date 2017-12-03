@@ -11,7 +11,7 @@
 
 
 #include <KCmdLineArgs>
-#include <KAboutData>
+#include <K4AboutData>
 #include <KConfigGroup>
 #include <QString>
 //Added by qt3to4:

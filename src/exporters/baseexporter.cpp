@@ -14,7 +14,7 @@
 #include <QFileInfo>
 #include <QDir>
 
-#include <kaboutdata.h>
+#include <K4AboutData>
 #include <kdebug.h>
 #include <klocale.h>
 #include <kglobal.h>

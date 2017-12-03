@@ -9,7 +9,7 @@
 
 
 #include <KApplication>
-#include <KAboutData>
+#include <K4AboutData>
 #include <KCmdLineArgs>
 #include <KLocale>
 #include <QIcon>
@@ -18,10 +18,10 @@
  
 int main (int argc, char *argv[])
 {
-	KAboutData aboutData( "nukedb", 0,
+	K4AboutData aboutData( "nukedb", 0,
 		ki18n("NukeDB"), "0.0",
 		ki18n(""),
-		KAboutData::License_GPL,
+		K4AboutData::License_GPL,
 		ki18n("Copyright © 2012 José Manuel Santamaría Lema") );
 	KCmdLineArgs::init( argc, argv, &aboutData );
  
