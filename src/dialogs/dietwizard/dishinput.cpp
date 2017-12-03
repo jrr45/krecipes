@@ -70,10 +70,10 @@ DishInput::DishInput( QWidget* parent, RecipeDB *db, const QString &title ) : QW
 	listBoxLayout->addWidget( constraintsView );
 
 	// KDoubleInput based edit boxes
-	constraintsEditBox1 = new KDoubleNumInput( constraintsView->viewport() );
+	constraintsEditBox1 = new QDoubleSpinBox( constraintsView->viewport() );
 	constraintsView->addChild( constraintsEditBox1 );
 	constraintsEditBox1->hide();
-	constraintsEditBox2 = new KDoubleNumInput( constraintsView->viewport() );
+	constraintsEditBox2 = new QDoubleSpinBox( constraintsView->viewport() );
 	constraintsView->addChild( constraintsEditBox2 );
 	constraintsEditBox2->hide();
 

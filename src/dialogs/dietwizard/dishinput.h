@@ -24,7 +24,7 @@ class RecipeDB;
 class CategoryCheckListView;
 class PropertyConstraintListView;
 
-class KDoubleNumInput;
+class QDoubleSpinBox;
 class KVBox;
 
 class QGroupBox;
@@ -57,8 +57,8 @@ private:
 	QCheckBox *categoriesEnabledBox;
 	CategoryCheckListView *categoriesView;
 	PropertyConstraintListView *constraintsView;
-	KDoubleNumInput *constraintsEditBox1;
-	KDoubleNumInput *constraintsEditBox2;
+	QDoubleSpinBox *constraintsEditBox1;
+	QDoubleSpinBox *constraintsEditBox2;
 	RecipeDB *database;
 
 private slots:
