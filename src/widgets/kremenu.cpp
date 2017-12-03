@@ -27,7 +27,7 @@
 #include <kcursor.h>
 #include <kdebug.h>
 #include <kglobalsettings.h>
-#include <kicon.h>
+#include <QIcon>
 #include <klocale.h>
 #include <QPixmap>
 
@@ -120,14 +120,14 @@ MenuId KreMenu::createSubMenu( const QString &title, const QString &icon )
 	KreMenuButton *newMenuButton = new KreMenuButton( this );
 	newMenuButton->subMenuId = id;
 	newMenuButton->setTitle( title );
-	newMenuButton->setIconSet( KIcon( icon ) );
+	newMenuButton->setIconSet( QIcon::fromTheme( icon ) );
 
 	// Add a button to the submenu to go back to the top menu
 	KreMenuButton *newSubMenuButton = new KreMenuButton( this );
 	newSubMenuButton->menuId = id;
 	newSubMenuButton->subMenuId = mainMenuId;
 	newSubMenuButton->setTitle( i18nc("@action:button Up to top menu",  "Up..." ) );
-	newSubMenuButton->setIconSet( KIcon( "arrow-up" ) );
+	newSubMenuButton->setIconSet( QIcon::fromTheme(QStringLiteral("arrow-up")) );
 
 	connect( newMenuButton, SIGNAL( clicked( MenuId ) ), this, SLOT( showMenu( MenuId ) ) );
 	connect( newSubMenuButton, SIGNAL( clicked( MenuId ) ), this, SLOT( showMenu( MenuId ) ) );

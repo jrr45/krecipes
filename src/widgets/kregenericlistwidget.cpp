@@ -14,7 +14,7 @@
 //#include <kdebug.h>
 
 #include <KApplication>
-#include <KIcon>
+#include <QIcon>
 #include <KPixmapSequenceWidget>
 #include <KRecursiveFilterProxyModel>
 #include <KLocalizedString>
@@ -69,8 +69,8 @@ KreGenericListWidget::KreGenericListWidget( QWidget *parent, RecipeDB *db ):
 	setSearchAsYouType( configPerformance.readEntry( "SearchAsYouType", true ) );
 
 	//Navigation buttons
-	ui->m_previousButton->setIcon( KIcon( "arrow-left" ) );
-	ui->m_nextButton->setIcon( KIcon( "arrow-right" ) );
+	ui->m_previousButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
+	ui->m_nextButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	connect( ui->m_previousButton, SIGNAL(clicked()), this, SLOT(activatePreviousPage()) );
 	connect( ui->m_nextButton, SIGNAL(clicked()), this, SLOT(activateNextPage()) );
 

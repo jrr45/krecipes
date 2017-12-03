@@ -121,11 +121,11 @@ void EditRatingDialog::init( const ElementList &criteriaList )
 
 	addButton = new QPushButton( layout8 );
 	addButton->setObjectName( "addButton" );
-	addButton->setIcon( KIcon( "list-add" ) );
+	addButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 
 	removeButton = new QPushButton( layout8 );
 	removeButton->setObjectName( "removeButton" );
-	removeButton->setIcon( KIcon( "list-remove" ) );
+	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 
 	criteriaListView = new RatingCriteriaListView( page, "criteriaListView" );
 	criteriaListView->addColumn( i18nc( "@title:column", "Criteria" ) );

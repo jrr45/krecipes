@@ -106,11 +106,11 @@ DietWizardDialog::DietWizardDialog( QWidget *parent, RecipeDB *db ) : KVBox( par
 	//bottom_layout->layout()->addItem( new QSpacerItem( 10,10, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed ) );
 
 	okButton = new KPushButton( bottom_layout );
-	okButton->setIcon( KIcon( "dialog-ok" ) );
+	okButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-ok")) );
 	okButton->setText( i18nc( "@action:button", "Create the diet" ) );
 
 	KPushButton *clearButton = new KPushButton( bottom_layout );
-	clearButton->setIcon( KIcon( "edit-clear" ) );
+	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );
 	clearButton->setText( i18nc( "@action:button Clear Diet","Clear" ) );
 
 	// Create Tabs

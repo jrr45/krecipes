@@ -107,19 +107,19 @@ KrecipesView::KrecipesView( QWidget *parent )
 	// Buttons
 
 	button0 = new KreMenuButton( leftPanel, SelectP );
-	button0->setIconSet( KIcon( "system-search" ) );
+	button0->setIconSet( QIcon::fromTheme(QStringLiteral("system-search")) );
 	buttonsList.append( button0 );
 
 	button1 = new KreMenuButton( leftPanel, ShoppingP );
-	button1->setIconSet( KIcon( "view-pim-tasks" ) );
+	button1->setIconSet( QIcon::fromTheme(QStringLiteral("view-pim-tasks")) );
 	buttonsList.append( button1 );
 
 	button7 = new KreMenuButton( leftPanel, DietP );
-	button7->setIconSet( KIcon( "diet" ) );
+	button7->setIconSet( QIcon::fromTheme(QStringLiteral("diet")) );
 	buttonsList.append( button7 );
 
 	button8 = new KreMenuButton( leftPanel, MatcherP );
-	button8->setIconSet( KIcon( "view-filter" ) );
+	button8->setIconSet( QIcon::fromTheme(QStringLiteral("view-filter")) );
 	buttonsList.append( button8 );
 
 
@@ -127,38 +127,38 @@ KrecipesView::KrecipesView( QWidget *parent )
 	dataMenu = leftPanel->createSubMenu( i18n( "Data..." ), "server-database" );
 	
 	recipeButton = new KreMenuButton( leftPanel, RecipeEdit );
-	recipeButton->setIconSet( KIcon( "document-save" ) );
+	recipeButton->setIconSet( QIcon::fromTheme(QStringLiteral("document-save")) );
 	buttonsList.append( recipeButton );
 	recipeButton->setEnabled( false );
 	recipeButton->hide();
 
 	button2 = new KreMenuButton( leftPanel, IngredientsP, dataMenu );
-	button2->setIconSet( KIcon( "ingredients" ) );
+	button2->setIconSet( QIcon::fromTheme(QStringLiteral("ingredients")) );
 	buttonsList.append(button2);
 
 	button3 = new KreMenuButton( leftPanel, PropertiesP, dataMenu );
-	button3->setIconSet( KIcon( "properties" ) );
+	button3->setIconSet( QIcon::fromTheme(QStringLiteral("properties")) );
 	buttonsList.append( button3 );
 
 	button4 = new KreMenuButton( leftPanel, UnitsP, dataMenu );
-	button4->setIconSet( KIcon( "units" ) );
+	button4->setIconSet( QIcon::fromTheme(QStringLiteral("units")) );
 	buttonsList.append( button4 );
 
 	button9 = new KreMenuButton( leftPanel, PrepMethodsP, dataMenu );
-	button9->setIconSet( KIcon( "methods" ) );
+	button9->setIconSet( QIcon::fromTheme(QStringLiteral("methods")) );
 	buttonsList.append( button9 );
 
 	button5 = new KreMenuButton( leftPanel, CategoriesP, dataMenu );
-	button5->setIconSet( KIcon( "folder-yellow" ) );
+	button5->setIconSet( QIcon::fromTheme(QStringLiteral("folder-yellow")) );
 	buttonsList.append( button5 );
 
 	button6 = new KreMenuButton( leftPanel, AuthorsP, dataMenu );
-	button6->setIconSet( KIcon( "authors" ) );
+	button6->setIconSet( QIcon::fromTheme(QStringLiteral("authors")) );
 	buttonsList.append( button6 );	
 
 	contextButton = new QPushButton( leftPanel );
 	contextButton->setObjectName( "contextButton" );
-	contextButton->setIcon( KIcon( "system-help" ) );
+	contextButton->setIcon( QIcon::fromTheme(QStringLiteral("system-help")) );
 	contextButton->setGeometry( leftPanel->width() - 42, leftPanel->height() - 42, 32, 32 );
 
 	QPalette p = palette();
@@ -356,8 +356,8 @@ bool KrecipesView::questionRerunWizard( const QString &message, const QString &e
 		"the SQLite converter.\n"
 		"What do you want to do?" );
 		int answer = KMessageBox::questionYesNoCancel( this, finalMessage, "",
-			KGuiItem( i18n("Run the setup assistant"), KIcon("plasmagik") ),
-			KGuiItem( i18n("Run the SQLite converter"), KIcon("document-revert") ),
+			KGuiItem( i18n("Run the setup assistant"), QIcon::fromTheme(QStringLiteral("plasmagik")) ),
+			KGuiItem( i18n("Run the SQLite converter"), QIcon::fromTheme(QStringLiteral("document-revert")) ),
 			KStandardGuiItem::quit()
 		);
 		if ( answer == KMessageBox::Yes ) {

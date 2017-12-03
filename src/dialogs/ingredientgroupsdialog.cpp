@@ -35,12 +35,12 @@ IngredientGroupsDialog::IngredientGroupsDialog( RecipeDB *db, QWidget *parent, c
 	QVBoxLayout *buttonLayout = new QVBoxLayout;
 	KPushButton *addHeaderButton = new KPushButton( this );
 	addHeaderButton->setText( i18nc( "@action:button", "Create..." ) );
-	addHeaderButton->setIcon( KIcon( "list-add" ) );
+	addHeaderButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	buttonLayout->addWidget(addHeaderButton);
 
 	KPushButton *removeHeaderButton = new KPushButton( this );
 	removeHeaderButton->setText( i18nc( "@action:button", "Delete" ) );
-	removeHeaderButton->setIcon( KIcon ( "list-remove" ) );
+	removeHeaderButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	buttonLayout->addWidget(removeHeaderButton);
 
 	buttonLayout->addStretch();

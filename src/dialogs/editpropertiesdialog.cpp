@@ -144,7 +144,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 
 	loadButton = new QPushButton( higherBox );
 	loadButton->setObjectName( "loadButton" );
-	loadButton->setIcon( KIcon( "arrow-down" ) );
+	loadButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-down")) );
 
 	splitter->addWidget( higherBox );
 
@@ -164,12 +164,12 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 
 	propertyAddButton = new QPushButton( page );
 	propertyAddButton->setObjectName( "propertyAddButton" );
-	propertyAddButton->setIcon( KIcon( "list-add" ) );
+	propertyAddButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	layout3->addWidget( propertyAddButton );
 
 	propertyRemoveButton = new QPushButton( page );
 	loadButton->setObjectName( "propertyRemoveButton" );
-	propertyRemoveButton->setIcon( KIcon( "list-remove" ) );
+	propertyRemoveButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	layout3->addWidget( propertyRemoveButton );
 	layout7->addLayout( layout3 );
 
@@ -200,12 +200,12 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 
 	weightAddButton = new QPushButton( page );
 	weightAddButton->setObjectName( "weightAddButton" );
-	weightAddButton->setIcon( KIcon( "list-add" ) );
+	weightAddButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	layout3_2->addWidget( weightAddButton );
 
 	weightRemoveButton = new QPushButton( page );
 	weightRemoveButton->setObjectName( "weightRemoveButton" );
-	weightRemoveButton->setIcon( KIcon( "list-remove" ) );
+	weightRemoveButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	layout3_2->addWidget( weightRemoveButton );
 	layout8->addLayout( layout3_2 );
 

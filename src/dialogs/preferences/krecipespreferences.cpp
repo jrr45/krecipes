@@ -59,7 +59,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
         page->setObjectName("server" );
 	page->setHeader( i18n( "Database Management System Options (%1)" , config.readEntry( "Type" )));
 	il->loadIcon( "network-server", KIconLoader::NoGroup, 32 );
-	page->setIcon( KIcon( "server-database", il ) );
+	page->setIcon( QIcon::fromTheme( "server-database", il ) );
         m_helpMap.insert(page->objectName(),"configure-server-settings");
         addPage( page );
 
@@ -68,7 +68,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
         page->setObjectName( "formating" );
 	page->setHeader( i18n( "Customize Formatting" ) );
 	il->loadIcon( "format-indent-more", KIconLoader::NoGroup, 32 );
-	page->setIcon( KIcon( "format-indent-more", il ) );
+	page->setIcon( QIcon::fromTheme( "format-indent-more", il ) );
 	addPage(page);
 	m_helpMap.insert(page->objectName(),"custom-formatting");
 
@@ -77,7 +77,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
         page->setObjectName( "import" );
 	page->setHeader( i18n( "Recipe Import and Export Options" ) );
 	il->loadIcon( "go-down", KIconLoader::NoGroup, 32 );
-	page->setIcon( KIcon( "go-down", il ) );
+	page->setIcon( QIcon::fromTheme( "go-down", il ) );
 	addPage(page);
 	m_helpMap.insert(page->objectName(),"import-export-preference");
 
@@ -87,7 +87,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
 	page->setHeader( i18n( "Performance Options" ) );
         page->setObjectName( "performance" );
 	il->loadIcon( "preferences-system-performance", KIconLoader::NoGroup, 32 );
-	page->setIcon( KIcon( "preferences-system-performance", il ) );
+	page->setIcon( QIcon::fromTheme( "preferences-system-performance", il ) );
 	addPage(page);
 	m_helpMap.insert(page->objectName(),"configure-performance");
 
@@ -97,7 +97,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
 	page->setHeader( i18n( "Spell checking Options" ) );
         page->setObjectName( "spellchecking" );
 	il->loadIcon( "tools-check-spelling", KIconLoader::NoGroup, 32 );
-	page->setIcon( KIcon( "tools-check-spelling", il ) );
+	page->setIcon( QIcon::fromTheme( "tools-check-spelling", il ) );
 	addPage(page);
 	m_helpMap.insert(page->objectName() ,"configure-spell");
 

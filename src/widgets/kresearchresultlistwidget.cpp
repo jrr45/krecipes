@@ -79,7 +79,7 @@ void KreSearchResultListWidget::displayRecipes( const RecipeList & recipes )
 		//The "Recipe" item.
 		index = m_sourceModel->index( row_count, 0 );
 		m_sourceModel->setData( index, it->title, Qt::EditRole );
-		m_sourceModel->setData( index, KIcon("documentation"), Qt::DecorationRole );
+		m_sourceModel->setData( index, QIcon::fromTheme(QStringLiteral("documentation")), Qt::DecorationRole );
 		m_sourceModel->setData( index, RecipeItem, ItemTypeRole );
 		m_sourceModel->setData( index, it->recipeID, IdRole );
 		//m_sourceModel->setData( status, CategorizedRole );

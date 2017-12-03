@@ -115,7 +115,7 @@ void KreCategoriesListWidget::createCategorySlot( const Element & category, int 
 
 	//The "Category" item.
 	QStandardItem *itemCategory = new QStandardItem( category.name );
-	itemCategory->setData( KIcon("folder-yellow"), Qt::DecorationRole );
+	itemCategory->setData( QIcon::fromTheme(QStringLiteral("folder-yellow")), Qt::DecorationRole );
 	itemCategory->setData( category.id, IdRole );
 	itemCategory->setEditable( true );
 	if ( m_itemsCheckable ) {
@@ -160,7 +160,7 @@ void KreCategoriesListWidget::populate( QStandardItem * item, int id )
 
 		//The "Category" item.
 		QStandardItem *itemCategory = new QStandardItem( child_it->category.name );
-		itemCategory->setData( KIcon("folder-yellow"), Qt::DecorationRole );
+		itemCategory->setData( QIcon::fromTheme(QStringLiteral("folder-yellow")), Qt::DecorationRole );
 		itemCategory->setData( child_it->category.id, IdRole );
 		itemCategory->setEditable( true );
 		if ( m_itemsCheckable ) {
@@ -229,7 +229,7 @@ void KreCategoriesListWidget::load( int limit, int offset )
 
 		//The "Category" item.
 		QStandardItem *itemCategory = new QStandardItem( child_it->category.name );
-		itemCategory->setData( KIcon("folder-yellow"), Qt::DecorationRole );
+		itemCategory->setData( QIcon::fromTheme(QStringLiteral("folder-yellow")), Qt::DecorationRole );
 		itemCategory->setData( child_it->category.id, IdRole );
 		itemCategory->setEditable( true );
 		if ( m_itemsCheckable ) {

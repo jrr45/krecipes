@@ -13,7 +13,7 @@
 #include <QModelIndex>
 #include <QAction>
 /*#include <KLocale>
-#include <KIcon>
+#include <QIcon>
 #include <QPointer>
 #include <KMessageBox>
 

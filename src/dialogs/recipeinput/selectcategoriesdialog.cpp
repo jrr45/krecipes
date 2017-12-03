@@ -59,7 +59,7 @@ SelectCategoriesDialog::SelectCategoriesDialog( QWidget *parent, const ElementLi
 	//New category button
 	KPushButton *newCatButton = new KPushButton( page );
 	newCatButton->setText( i18nc( "@action:button", "&New Category..." ) );
-	newCatButton->setIcon( KIcon( "list-add" ) );
+	newCatButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 
 	// Connect signals & Slots
 	connect ( newCatButton, SIGNAL( clicked() ), SLOT( createNewCategory() ) );

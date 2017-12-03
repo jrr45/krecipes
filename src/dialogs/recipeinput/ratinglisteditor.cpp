@@ -75,7 +75,7 @@ RatingListEditor::RatingListEditor( RatingList * ratingList, RecipeDB * db,
 
 	//Add rating button
 	m_addRatingButton = new KPushButton( i18nc("@action:button", "Add Rating...") );
-	m_addRatingButton->setIcon( KIcon("list-add") );
+	m_addRatingButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	layout->addWidget( m_addRatingButton );
 	m_addRatingButton->show();
 	connect( m_addRatingButton, SIGNAL(clicked()), this, SLOT(addRating()) );

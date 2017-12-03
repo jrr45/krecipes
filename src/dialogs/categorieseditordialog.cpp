@@ -44,12 +44,12 @@ CategoriesEditorDialog::CategoriesEditorDialog( QWidget* parent, RecipeDB *db ) 
 //TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
 	newCategoryButton = new KPushButton( this );
 	newCategoryButton->setText( i18nc( "@action:button", "Create..." ) );
-	newCategoryButton->setIcon( KIcon( "list-add" ) );
+	newCategoryButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( newCategoryButton );
 
 	removeCategoryButton = new KPushButton( this );
 	removeCategoryButton->setText( i18nc( "@action:button", "Delete" ) );
-	removeCategoryButton->setIcon( KIcon( "list-remove" ) );
+	removeCategoryButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removeCategoryButton );
 	vboxl->addStretch();
 

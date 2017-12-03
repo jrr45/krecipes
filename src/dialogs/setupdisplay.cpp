@@ -441,7 +441,7 @@ void SetupDisplay::nodeClicked(const QString &/*url*/,const QPoint &point)
 		popup->addAction( i18n( "Text Color..." ), this, SLOT( setTextColor() ) );
 
 	if ( properties & Font )
-		popup->addAction( KIcon( "list-add-font" ), i18n( "Font..." ), this, SLOT( setFont() ) );
+		popup->addAction( QIcon::fromTheme(QStringLiteral("list-add-font")), i18n( "Font..." ), this, SLOT( setFont() ) );
 
 	if ( properties & Visibility ) {
 		int id = popup->insertItem( i18n( "Show" ), this, SLOT( setShown( int ) ) );

@@ -44,10 +44,10 @@ DietViewDialog::DietViewDialog( QWidget *parent, const RecipeList &recipeList, i
 	KVBox *page = new KVBox( this );
 	mainLayout->addWidget(page);
 	user1Button->setText(KStandardGuiItem::print(.text( ));
-	setButtonIcon( QDialog::User1, KIcon( "document-print" ) );
+	setButtonIcon( QDialog::User1, QIcon::fromTheme(QStringLiteral("document-print")) );
 
 	user2Button->setText(i18nc( "@action:button"));
-	setButtonIcon( QDialog::User2, KIcon( "view-pim-tasks" ) );
+	setButtonIcon( QDialog::User2, QIcon::fromTheme(QStringLiteral("view-pim-tasks")) );
 
 	// The html part
 	dietView = new KHTMLPart( page );

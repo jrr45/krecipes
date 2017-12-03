@@ -53,10 +53,10 @@ MealInput::MealInput( QWidget *parent, RecipeDB *db ) : QWidget( parent ),
 	// Next dish/ Previous dish buttons
 	buttonPrev = new KPushButton( mealOptions );
 	buttonPrev->setText( i18nc( "@action:button", "Previous Dish" ) );
-	buttonPrev->setIcon( KIcon( "go-previous" ) );
+	buttonPrev->setIcon( QIcon::fromTheme(QStringLiteral("go-previous")) );
 	buttonNext = new KPushButton( mealOptions );
 	buttonNext->setText( i18nc( "@action:button", "Next Dish" ) );
-	buttonNext->setIcon( KIcon( "go-next" ) );
+	buttonNext->setIcon( QIcon::fromTheme(QStringLiteral("go-next")) );
 
 	// Dish widgets
 	dishStack = new  QStackedWidget( this );

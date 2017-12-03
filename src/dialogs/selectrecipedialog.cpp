@@ -82,16 +82,16 @@ SelectRecipeDialog::SelectRecipeDialog( QWidget *parent, RecipeDB* db )
 	openButton = new KPushButton( buttonBar );
 	openButton->setText( i18nc( "@action:button", "Show Recipe(s)" ) );
 	openButton->setDisabled( true );
-	openButton->setIcon( KIcon( "system-search" ) );
+	openButton->setIcon( QIcon::fromTheme(QStringLiteral("system-search")) );
 	editButton = new KPushButton( buttonBar );
 	editButton->setText( i18nc( "@action:button", "Edit Recipe" ) );
 	editButton->setDisabled( true );
-	editButton->setIcon( KIcon( "document-edit" ) );
+	editButton->setIcon( QIcon::fromTheme(QStringLiteral("document-edit")) );
 	removeButton = new KPushButton( buttonBar );
 	removeButton->setText( i18nc( "@action:button", "Delete" ) );
 	removeButton->setDisabled( true );
 	removeButton->setMaximumWidth( 100 );
-	removeButton->setIcon( KIcon("edit-delete-shred" ) );
+	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-delete-shred")) );
 
 	tabWidget->insertTab( -1, basicSearchTab, i18nc( "@title:tab Basic search", "Basic" ) );
 

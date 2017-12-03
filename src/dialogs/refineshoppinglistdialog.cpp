@@ -88,13 +88,13 @@ RefineShoppingListDialog::RefineShoppingListDialog( QWidget* parent, RecipeDB *d
 
 	addButton = new KPushButton( layout2Widget );
 	addButton->setObjectName( "addButton" );
-	addButton->setIcon( KIcon( "arrow-right" ) );
+	addButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	addButton->setFixedSize( QSize( 32, 32 ) );
 	layout1->addWidget( addButton );
 
 	removeButton = new KPushButton( layout2Widget );
 	removeButton->setObjectName( "removeButton" );
-	removeButton->setIcon( KIcon( "arrow-left" ) );
+	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
 	removeButton->setFixedSize( QSize( 32, 32 ) );
 	layout1->addWidget( removeButton );
 

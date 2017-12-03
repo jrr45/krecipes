@@ -13,7 +13,7 @@
 #include <QListWidget>
 #include <KMenu>
 #include <QAction>
-#include <KIcon>
+#include <QIcon>
 #include <QPointer>
 #include <KMessageBox>
 

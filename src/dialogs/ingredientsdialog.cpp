@@ -59,18 +59,18 @@ IngredientsDialog::IngredientsDialog( QWidget* parent, RecipeDB *db ) : QWidget(
 
 	addIngredientButton = new KPushButton( ingredientTab );
 	addIngredientButton->setText( i18nc( "@action:button", "Create..." ) );
-	addIngredientButton->setIcon( KIcon( "list-add") );
+	addIngredientButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	buttonLayout->addWidget( addIngredientButton );
 
 	removeIngredientButton = new KPushButton( ingredientTab );
 	removeIngredientButton->setText( i18nc( "@action:button", "Delete" ) );
-	removeIngredientButton->setIcon( KIcon( "list-remove" ) );
+	removeIngredientButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	buttonLayout->addWidget( removeIngredientButton );
 
 	buttonLayout->addStretch();
 	
 	QPushButton *propertyButton = new KPushButton( i18nc("@action:button", "Property Information"), ingredientTab );
-	propertyButton->setIcon( KIcon( "document-properties") );
+	propertyButton->setIcon( QIcon::fromTheme(QStringLiteral("document-properties")) );
 	listLayout->addWidget( propertyButton );
 
 	layout->addLayout( listLayout );

@@ -87,7 +87,7 @@ void KreRecipesListWidget::addRecipeItem(const Element & recipe,
 
 	//The "Recipe" item.
 	QStandardItem *itemRecipe = new QStandardItem( recipe.name );
-	itemRecipe->setData( KIcon("documentation"), Qt::DecorationRole );
+	itemRecipe->setData( QIcon::fromTheme(QStringLiteral("documentation")), Qt::DecorationRole );
 	itemRecipe->setData( RecipeItem, ItemTypeRole );
 	itemRecipe->setData( recipe.id, IdRole );
 	itemRecipe->setData( status, CategorizedRole );
@@ -266,7 +266,7 @@ void KreRecipesListWidget::populate( QStandardItem * item, int id )
 
 		//The "Category" item.
 		QStandardItem *itemCategory = new QStandardItem( child_it->category.name );
-		itemCategory->setData( KIcon("folder-yellow"), Qt::DecorationRole );
+		itemCategory->setData( QIcon::fromTheme(QStringLiteral("folder-yellow")), Qt::DecorationRole );
 		itemCategory->setData( CategoryItem, Qt::UserRole );
 		itemCategory->setData( child_it->category.id, Qt::UserRole+1 );
 		itemCategory->setEditable( false );
@@ -299,7 +299,7 @@ void KreRecipesListWidget::populate( QStandardItem * item, int id )
 
 		//The "Recipe" item.
 		QStandardItem *itemRecipe = new QStandardItem( it->name );
-		itemRecipe->setData( KIcon("documentation"), Qt::DecorationRole );
+		itemRecipe->setData( QIcon::fromTheme(QStringLiteral("documentation")), Qt::DecorationRole );
 		itemRecipe->setData( RecipeItem, Qt::UserRole );
 		itemRecipe->setData( it->id, Qt::UserRole+1 );
 		itemRecipe->setData( Categorized, CategorizedRole ); //recipe categorized
@@ -343,7 +343,7 @@ void KreRecipesListWidget::load( int limit, int offset )
 
 		//Add the "Uncategorized" item to the model.
 		QStandardItem * uncategorizedItem = new QStandardItem;
-		uncategorizedItem->setData( KIcon("folder-grey"), Qt::DecorationRole );
+		uncategorizedItem->setData( QIcon::fromTheme(QStringLiteral("folder-grey")), Qt::DecorationRole );
 		uncategorizedItem->setData( 
 			i18nc( "@item Uncategorized recipes", "Uncategorized" ), Qt::EditRole );
 		uncategorizedItem->setData( OtherItem, ItemTypeRole );
@@ -369,7 +369,7 @@ void KreRecipesListWidget::load( int limit, int offset )
 
 			//The "Recipe" item.
 			QStandardItem *itemRecipe = new QStandardItem( it->name );
-			itemRecipe->setData( KIcon("documentation"), Qt::DecorationRole );
+			itemRecipe->setData( QIcon::fromTheme(QStringLiteral("documentation")), Qt::DecorationRole );
 			itemRecipe->setData( RecipeItem, Qt::UserRole );
 			itemRecipe->setData( it->id, Qt::UserRole+1 );
 			itemRecipe->setData( false, Qt::UserRole+2 );
@@ -401,7 +401,7 @@ void KreRecipesListWidget::load( int limit, int offset )
 
 		//The "Category" item.
 		QStandardItem *itemCategory = new QStandardItem( child_it->category.name );
-		itemCategory->setData( KIcon("folder-yellow"), Qt::DecorationRole );
+		itemCategory->setData( QIcon::fromTheme(QStringLiteral("folder-yellow")), Qt::DecorationRole );
 		itemCategory->setData( CategoryItem, Qt::UserRole );
 		itemCategory->setData( category_id, Qt::UserRole+1 );
 		itemCategory->setEditable( false );

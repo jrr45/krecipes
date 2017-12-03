@@ -12,7 +12,7 @@
 #include <KAboutData>
 #include <KCmdLineArgs>
 #include <KLocale>
-#include <KIcon>
+#include <QIcon>
  
 #include "mainwindow.h"
  
@@ -26,7 +26,7 @@ int main (int argc, char *argv[])
 	KCmdLineArgs::init( argc, argv, &aboutData );
  
 	KApplication app;
-	app.setWindowIcon( KIcon("edit-bomb") );
+	app.setWindowIcon( QIcon::fromTheme(QStringLiteral("edit-bomb")) );
  
 	MainWindow* window = new MainWindow();
 	window->show();

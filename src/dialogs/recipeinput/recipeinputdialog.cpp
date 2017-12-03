@@ -97,14 +97,14 @@ RecipeInputDialog::RecipeInputDialog( QWidget* parent, RecipeDB *db ) : KVBox( p
 	functionsBox->setLayout( functionsLayout );
 
 	saveButton = new QToolButton;
-	saveButton->setIcon( KIcon( "document-save" ) );
+	saveButton->setIcon( QIcon::fromTheme(QStringLiteral("document-save")) );
 	saveButton->setEnabled( false );
 	showButton = new QToolButton;
-	showButton->setIcon( KIcon( "zoom-original" ) );
+	showButton->setIcon( QIcon::fromTheme(QStringLiteral("zoom-original")) );
 	closeButton = new QToolButton;
-	closeButton->setIcon( KIcon( "window-close" ) );
+	closeButton->setIcon( QIcon::fromTheme(QStringLiteral("window-close")) );
 	resizeButton = new QToolButton;
-	resizeButton->setIcon( KIcon( "arrow-up-double" ) ); //TODO: give me an icon :)
+	resizeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-up-double")) ); //TODO: give me an icon :)
 
 	saveButton->setText( i18nc( "@action:button", "Save recipe" ) );
 	saveButton->setToolTip( i18nc( "@info:tooltip", "Save recipe" ) );

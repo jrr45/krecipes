@@ -75,13 +75,13 @@ IngredientMatcherDialog::IngredientMatcherDialog( QWidget *parent, RecipeDB *db 
 
 	addButton = new KPushButton;
 	addButton->setObjectName( "addButton" );
-	addButton->setIcon( KIcon( "arrow-right" ) );
+	addButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	addButton->setFixedSize( QSize( 32, 32 ) );
 	layout1->addWidget( addButton );
 
 	removeButton = new KPushButton;
 	removeButton->setObjectName( "removeButton" );
-	removeButton->setIcon( KIcon( "arrow-left" ) );
+	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
 	removeButton->setFixedSize( QSize( 32, 32 ) );
 	layout1->addWidget( removeButton );
 	layout1->addStretch();
@@ -129,13 +129,13 @@ IngredientMatcherDialog::IngredientMatcherDialog( QWidget *parent, RecipeDB *db 
 	KHBox *buttonBox = new KHBox( lowerBox );
 
 	okButton = new KPushButton( buttonBox );
-	okButton->setIcon( KIcon( "dialog-ok" ) );
+	okButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-ok")) );
 	okButton->setText( i18nc( "@action:button", "Find matching recipes" ) );
 
 	//buttonBox->layout()->addItem( new QSpacerItem( 10,10, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed ) );
 
 	clearButton = new KPushButton( buttonBox );
-	clearButton->setIcon( KIcon( "edit-clear" ) );
+	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );
 	clearButton->setText( i18nc( "@action:button Clear search criteria", "Clear" ) );
 
 	addWidget( lowerBox );

@@ -182,8 +182,8 @@ void SimilarCategoriesDialog::languageChange()
 		"@action:button Search a recipe category in database",
 		"Search" ) );
 	allLabel->setText( i18nc( "@label:textbox", "Similar Categories:" ) );
-	removeButton->setIcon( KIcon( "arrow-left" ) );
-	addButton->setIcon( KIcon( "arrow-right" ) );
+	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
+	addButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	toMergeLabel->setText( i18nc( "@label:textbox", "Categories to Merge:" ) );
 	mergeButton->setText( i18nc( "@action:button", "Merge" ) );
 	cancelButton->setText( i18nc( "@action:button", "Cancel" ) );

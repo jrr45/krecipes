@@ -69,7 +69,7 @@ PageSetupDialog::PageSetupDialog( QWidget *parent, const Recipe &sample, const Q
 
 
 	//KDE4 port do the last arguments of the KToolBarPopupAction and line 67 duplicate information ?
-	KToolBarPopupAction *shown_items = new KToolBarPopupAction( KIcon( "configure" ), i18n( "Items Shown" ), toolbar);
+	KToolBarPopupAction *shown_items = new KToolBarPopupAction( QIcon::fromTheme(QStringLiteral("configure")), i18n( "Items Shown" ), toolbar);
 	shown_items->setDelayed( false );
 	shown_items_popup = shown_items->menu();
 	shown_items_popup->setTitle( i18n( "Show Items" ) );
@@ -97,9 +97,9 @@ PageSetupDialog::PageSetupDialog( QWidget *parent, const Recipe &sample, const Q
 
 	KHBox *buttonsBox = new KHBox( this );
 	QPushButton *okButton = new QPushButton( i18n( "Save and Close" ), buttonsBox );
-	okButton->setIcon( KIcon( "dialog-ok" ) );
+	okButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-ok")) );
 	QPushButton *cancelButton = new QPushButton( i18n( "&Cancel" ), buttonsBox );
-	cancelButton->setIcon( KIcon( "dialog-cancel") );
+	cancelButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-cancel")) );
 	layout->addWidget( buttonsBox );
 
 	connect( m_htmlPart, SIGNAL(itemVisibilityChanged(KreDisplayItem*,bool)), this, SLOT(updateItemVisibility(KreDisplayItem*,bool)) );

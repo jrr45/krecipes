@@ -62,14 +62,14 @@ RecipeViewDialog::RecipeViewDialog( QWidget *parent, RecipeDB *db, int recipeID 
 	functionsBox->setLayout( functionsLayout );
 
 	closeButton = new QToolButton;
-	closeButton->setIcon( KIcon( "window-close" ) );
+	closeButton->setIcon( QIcon::fromTheme(QStringLiteral("window-close")) );
 
 	closeButton->setText( i18nc( "@action:button", "Close" ) );
 	closeButton->setToolTip( i18nc( "@info:tooltip", "Close" ) );
 	closeButton->setToolButtonStyle( Qt::ToolButtonTextUnderIcon );
 
 	editButton = new QToolButton;
-	editButton->setIcon( KIcon( "document-edit" ) );
+	editButton->setIcon( QIcon::fromTheme(QStringLiteral("document-edit")) );
 
 	editButton->setText( i18nc( "@action:button", "Edit Recipe" ) );
 	editButton->setToolTip( i18nc( "@info:tooltip", "Edit Recipe" ) );

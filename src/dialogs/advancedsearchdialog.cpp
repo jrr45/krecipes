@@ -476,13 +476,13 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 
 	addCriteriaButton = new KPushButton( criterionFrame );
 	addCriteriaButton->setObjectName( "addCriteriaButton" );
-	addCriteriaButton->setIcon( KIcon( "list-add" ) );
+	addCriteriaButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	addCriteriaButton->setMaximumSize( QSize( 30, 30 ) );
 	layout12->addWidget( addCriteriaButton );
 
 	removeCriteriaButton = new KPushButton( criterionFrame );
 	removeCriteriaButton->setObjectName( "removeCriteriaButton" );
-	removeCriteriaButton->setIcon( KIcon( "list-remove" ) );
+	removeCriteriaButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	//removeCriteriaButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, removeCriteriaButton->sizePolicy().hasHeightForWidth() ) );
 	removeCriteriaButton->setMaximumSize( QSize( 30, 30 ) );
 	layout12->addWidget( removeCriteriaButton );
@@ -515,7 +515,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	
 	clearButton = new KPushButton( this );
 	clearButton->setObjectName( "clearButton" );
-	clearButton->setIcon( KIcon( "edit-clear" ) );
+	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );
 	clearButton->setText( i18nc( "@action:button Clear search criteria", "C&lear" ) );
 	layout9->addWidget( clearButton );
 	spacer3 = new QSpacerItem( 110, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -523,7 +523,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	
 	findButton = new KPushButton( this );
 	findButton->setObjectName( "findButton" );
-	findButton->setIcon( KIcon( "edit-find" ) );
+	findButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-find")) );
 	findButton->setText( i18nc( "@action:button Search recipes", "&Search" ) );
 	layout9->addWidget( findButton );
 	layout7->addLayout( layout9 );

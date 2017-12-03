@@ -45,11 +45,11 @@ ShoppingListDialog::ShoppingListDialog( QWidget *parent, RecipeDB *db ) : QWidge
 	QVBoxLayout* vboxl = new QVBoxLayout();
 	vboxl->addStretch();
 	addRecipeButton = new KPushButton( this );
-	addRecipeButton->setIcon( KIcon( "arrow-right" ) );
+	addRecipeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	vboxl->addWidget( addRecipeButton );
 
 	removeRecipeButton = new KPushButton( this );
-	removeRecipeButton->setIcon( KIcon( "arrow-left" ) );
+	removeRecipeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
 	vboxl->addWidget( removeRecipeButton );
 	vboxl->addStretch();
 
@@ -69,14 +69,14 @@ ShoppingListDialog::ShoppingListDialog( QWidget *parent, RecipeDB *db ) : QWidge
 	okButton = new KPushButton( buttonBar );
 	okButton->setObjectName( "okButton" );
 	okButton->setText( i18nc( "@action:button", "&OK" ) );
-	okButton->setIcon( KIcon( "dialog-ok" ) );
+	okButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-ok")) );
 
 	//buttonBar->layout()->addItem( new QSpacerItem( 10,10, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed ) );
 
 	clearButton = new KPushButton( buttonBar );
 	clearButton->setObjectName( "clearButton" );
 	clearButton->setText( i18nc( "@action:button Clear list", "Clear" ) );
-	clearButton->setIcon( KIcon( "edit-clear" ) );
+	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );
 
 	// Connect signals & slots
 	connect( addRecipeButton, SIGNAL( clicked() ), this, SLOT( addRecipe() ) );

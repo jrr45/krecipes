@@ -47,11 +47,11 @@ PropertiesDialog::PropertiesDialog( QWidget *parent, RecipeDB *db ) : QWidget( p
 //TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
 	addPropertyButton = new KPushButton( this );
 	addPropertyButton->setText( i18nc( "@action:button", "Create..." ) );
-	addPropertyButton->setIcon( KIcon( "list-add" ) );
+	addPropertyButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( addPropertyButton );
 	removePropertyButton = new KPushButton( this );
 	removePropertyButton->setText( i18nc( "@action:button", "Delete" ) );
-	removePropertyButton->setIcon( KIcon( "list-remove" ) );
+	removePropertyButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removePropertyButton );
 	vboxl->addStretch();
 	layout->addLayout( vboxl );
