@@ -13,7 +13,7 @@
 
 #include <kdebug.h>
 
-#include <ktemporaryfile.h>
+#include <QTemporaryFile>
 #include <klocale.h>
 #include <kconfig.h>
 #include <kconfiggroup.h>

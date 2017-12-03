@@ -18,7 +18,7 @@
 #include <QMenu>
 #include <kiconloader.h>
 
-#include <ktemporaryfile.h>
+#include <QTemporaryFile>
 #include <QTemporaryDir>
 #include <QDialog>
 #include <QPointer>
@@ -183,7 +183,7 @@ void SetupDisplay::reload()
 void SetupDisplay::loadTemplate( const QString &filename )
 {
 	bool storeChangedState = has_changes;
-	KTemporaryFile tmpFile;
+	QTemporaryFile tmpFile;
 	tmpFile.setAutoRemove( true );
 	tmpFile.open();
 	saveLayout(tmpFile.fileName());

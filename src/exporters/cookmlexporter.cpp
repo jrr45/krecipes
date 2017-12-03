@@ -17,7 +17,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <klocale.h>
-#include <ktemporaryfile.h>
+#include <QTemporaryFile>
 #include <kcodecs.h>
 #include <kglobal.h>
 

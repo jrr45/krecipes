@@ -14,7 +14,7 @@
 
 #include <kcodecs.h>
 #include <ktar.h>
-#include <ktemporaryfile.h>
+#include <QTemporaryFile>
 
 #include <qdom.h>
 
