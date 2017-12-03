@@ -38,6 +38,7 @@
 #include <kvbox.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
+#include <QFileDialog>
 #include "setupdisplay.h"
 
 PageSetupDialog::PageSetupDialog( QWidget *parent, const Recipe &sample, const QString &configEntry )
@@ -200,7 +201,7 @@ void PageSetupDialog::setItemShown( int id )
 
 void PageSetupDialog::loadFile()
 {
-	QString file = KFileDialog::getOpenFileName( KStandardDirs::locateLocal( "appdata", "layouts/" ), QString("*.klo *.xsl|%1").arg(i18n("Krecipes style or template file")), this, i18n( "Select Layout" ) );
+	QString file = QFileDialog::getOpenFileName(QString("*.klo *.xsl|%1").arg(i18n("Krecipes style or template file")), this,  KStandardDirs::locateLocal( "appdata", "layouts/" ));
 
 	if ( file.endsWith(".klo") )
 		loadLayout( file );
@@ -263,7 +264,7 @@ void PageSetupDialog::saveLayout()
 
 void PageSetupDialog::saveAsLayout()
 {
-	QString filename = KFileDialog::getSaveFileName( KGlobal::mainComponent().dirs() ->saveLocation( "appdata", "layouts/" ), "*.klo|Krecipes Layout (*.klo)", this, QString() );
+	QString filename = QFileDialog::getSaveFileName("*.klo|Krecipes Layout (*.klo)", this, KGlobal::mainComponent().dirs()->saveLocation("appdata", "layouts/" ), 0, QString());
 
 	if ( !filename.isEmpty() ) {
 		if ( haveWritePerm( filename ) ) {

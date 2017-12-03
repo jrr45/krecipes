@@ -20,6 +20,7 @@
 #include <KFileDialog>
 #include <KMessageBox>
 #include <kio/netaccess.h>
+#include <QFileDialog>
 
 
 RecipeGeneralInfoEditor::RecipeGeneralInfoEditor( QWidget * parent, RecipeDB * db ):
@@ -126,7 +127,7 @@ void RecipeGeneralInfoEditor::titleChangedSlot( const QString & title )
 void RecipeGeneralInfoEditor::changePhotoSlot()
 {
 	// Get the image with a standard filedialog
-	KUrl url = KFileDialog::getOpenUrl( KUrl() , QString(
+	KUrl url = QFileDialog::getOpenFileUrl(0, QString(), KUrl();
 		"*.png *.jpg *.jpeg *.xpm *.gif|%1 (*.png *.jpg *.jpeg *.xpm *.gif)"
 		).arg( i18n( "Images" ) ), this );
 	if ( url.isEmpty() )

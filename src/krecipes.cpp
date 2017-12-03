@@ -74,6 +74,7 @@
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QVBoxLayout>
+#include <QFileDialog>
 
 
 Krecipes::Krecipes(): KXmlGuiWindow( 0 )
@@ -473,7 +474,7 @@ void Krecipes::fileOpen()
 	    KUrl url = KUrlRequesterDlg::getURL(QString(), this, i18n("Open Location") );
 	*/
 	// standard filedialog
-	/*KUrl url = KFileDialog::getOpenUrl(QString(), QString(), this, i18n("Open Location"));
+	/*KUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open Location"), QString(), QString());
 	if (!url.isEmpty())
 		m_view->openURL(url);*/
 }
@@ -703,7 +704,7 @@ void Krecipes::conversionToolSlot()
 
 void Krecipes::backupSlot()
 {
-	QString fileName = KFileDialog::getSaveFileName(KUrl(),
+	QString fileName = QFileDialog::getSaveFileName(0, QString(), KUrl(, QString());
 		QString("*.krecbk|%1 (*.krecbk)").arg(i18n("Krecipes Backup File")),
 		this, i18n("Save Backup As..."));
 
@@ -724,7 +725,7 @@ void Krecipes::backupSlot()
 
 void Krecipes::restoreSlot()
 {
-	QString filename = KFileDialog::getOpenFileName(KUrl(),
+	QString filename = QFileDialog::getOpenFileName(0, QString(), KUrl(QString());
 		QString("*.krecbk|%1 (*.krecbk)").arg(i18n("Krecipes Backup File")),
 		this,i18n("Restore Backup"));
 
