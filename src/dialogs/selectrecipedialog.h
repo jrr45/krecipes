@@ -21,7 +21,7 @@
 
 #include <kcombobox.h>
 #include <klineedit.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <kfiledialog.h>
 #include <kmenu.h>
 #include <kvbox.h>

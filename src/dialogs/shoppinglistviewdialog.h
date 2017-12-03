@@ -17,12 +17,12 @@
 
 #include <khtml_part.h>
 #include <khtmlview.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <kvbox.h>
 
 class IngredientList;
 
-class ShoppingListViewDialog: public KDialog
+class ShoppingListViewDialog: public QDialog
 {
 	Q_OBJECT
 

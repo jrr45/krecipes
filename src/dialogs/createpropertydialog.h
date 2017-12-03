@@ -20,11 +20,11 @@
 #include <QPushButton>
 
 #include <klineedit.h>
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datablocks/unit.h"
 
-class CreatePropertyDialog : public KDialog
+class CreatePropertyDialog : public QDialog
 {
 public:
 	CreatePropertyDialog( QWidget *parent, UnitList *list );

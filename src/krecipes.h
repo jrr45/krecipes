@@ -21,7 +21,7 @@
 class KrecipesView;
 
 class KToggleAction;
-class KDialog;
+class QDialog;
 class ConversionDialog;
 class QLabel;
 
@@ -141,7 +141,7 @@ private:
 
 	QLabel * statusLabel;
 	
-	KDialog *parsing_file_dlg;
+	QDialog *parsing_file_dlg;
 	ConversionDialog *convertDialog;
 
 	QList<QAction *> recipe_actions;

@@ -22,6 +22,9 @@
 #include <kapplication.h>
 #include <kcursor.h>
 #include <kglobal.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 #include "backends/recipedb.h"
 #include "widgets/krelistview.h"
@@ -31,18 +34,30 @@
 #include "datablocks/mixednumber.h"
 
 RefineShoppingListDialog::RefineShoppingListDialog( QWidget* parent, RecipeDB *db, const ElementList &recipeList )
-		: KDialog( parent),
+		: QDialog( parent),
 		database( db )
 {
-	setCaption( i18nc( "@title:window", "Refine Shopping List" ) );
-	setButtons(KDialog::Ok);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle( i18nc( "@title:window", "Refine Shopping List" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
-	setButtonText( KDialog::Ok, i18nc( "@action:button Finished refining shopping list", "&Done" ) );
+	okButton->setText(i18nc( "@action:button Finished refining shopping list"));
 
 
 	helpLabel = new QLabel( page );

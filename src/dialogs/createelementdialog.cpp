@@ -16,17 +16,32 @@
 #include <QVBoxLayout>
 #include <KLineEdit>
 #include <Q3GroupBox>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 CreateElementDialog::CreateElementDialog( QWidget *parent, const QString &text )
-	 : KDialog( parent)
+	 : QDialog( parent)
 {
-	 setCaption( text );
+	 setWindowTitle( text );
 	 setModal( true );
-	 setButtons( KDialog::Ok|KDialog::Cancel );
-	 setDefaultButton( KDialog::Ok );
+	 QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	 QWidget *mainWidget = new QWidget(this);
+	 QVBoxLayout *mainLayout = new QVBoxLayout;
+	 setLayout(mainLayout);
+	 mainLayout->addWidget(mainWidget);
+	 QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	 okButton->setDefault(true);
+	 okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	 connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	 connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	 //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	 mainLayout->addWidget(buttonBox);
+	 buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 	 KVBox *page = new KVBox( this );
-	 setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	 setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 	 Q3GroupBox *box = new Q3GroupBox( page );
 	 box->setColumnLayout( 0, Qt::Vertical );
 	 box->layout() ->setSpacing( 6 );
@@ -44,7 +59,7 @@ CreateElementDialog::CreateElementDialog( QWidget *parent, const QString &text )
 
 	 elementEdit->setFocus();
 	 connect( elementEdit, SIGNAL( textChanged(const QString& ) ), this, SLOT( slotTextChanged( const QString& ) ) );
-	 enableButtonOk( false );
+	 okButton->setEnabled( false );
 }
 
 
@@ -58,5 +73,5 @@ QString CreateElementDialog::newElementName() const
 
 void CreateElementDialog::slotTextChanged( const QString& text )
 {
-	enableButtonOk( !text.isEmpty() );
+	okButton->setEnabled( !text.isEmpty() );
 }

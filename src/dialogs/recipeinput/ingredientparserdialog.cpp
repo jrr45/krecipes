@@ -29,23 +29,38 @@
 #include <KVBox>
 #include <kmenu.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
 
 #include "datablocks/mixednumber.h"
 #include "widgets/inglistviewitem.h"
 
 IngredientParserDialog::IngredientParserDialog( const UnitList &units, QWidget* parent, const char* name )
-		: KDialog( parent ),
+		: QDialog( parent ),
 		m_unitList(units)
 {
 	//setButtonBoxOrientation( Qt::Vertical );
 	setObjectName( name );
-	setCaption(i18nc( "@title:window", "Ingredient Parser" ));
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle(i18nc( "@title:window", "Ingredient Parser" ));
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	textLabel1 = new QLabel( page );
 	textLabel1->setObjectName( "textLabel1" );
@@ -69,7 +84,7 @@ IngredientParserDialog::IngredientParserDialog( const UnitList &units, QWidget* 
 	previewIngView->addColumn( i18nc( "@title:column", "Preparation Method" ) );
 
 	languageChange();
-	setInitialSize( QSize(577, 371).expandedTo(minimumSizeHint()) );
+	resize( QSize(577, 371).expandedTo(minimumSizeHint()) );
 
 	previewIngView->setItemsRenameable( true );
 	previewIngView->setRenameable( 0, true );
@@ -140,7 +155,7 @@ void IngredientParserDialog::removeIngredient()
 {
 	delete previewIngView->selectedItem();
 	if ( !previewIngView->firstChild() )
-		enableButtonOk( false );
+		okButton->setEnabled( false );
 }
 
 void IngredientParserDialog::convertToHeader()
@@ -312,7 +327,7 @@ void IngredientParserDialog::parseText()
 		ing.prepMethodList = ElementList::split(",",line.mid(format_at,end-format_at));
 
 		last_item = new IngListViewItem(previewIngView,last_item,ing);
-		enableButtonOk( true );
+		okButton->setEnabled( true );
 	}
 }
 

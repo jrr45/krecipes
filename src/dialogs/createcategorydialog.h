@@ -13,7 +13,7 @@
 #define CREATECATEGORYDIALOG_H
 
 #include <qmap.h>
-#include <kdialog.h>
+#include <QDialog>
 #include "datablocks/elementlist.h"
 
 class KLineEdit;
@@ -23,7 +23,7 @@ class KComboBox;
 /**
 @author Jason Kivlighn
 */
-class CreateCategoryDialog : public KDialog
+class CreateCategoryDialog : public QDialog
 {
 public:
 	CreateCategoryDialog( QWidget *parent, const ElementList &categories );

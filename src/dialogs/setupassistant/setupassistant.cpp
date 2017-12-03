@@ -34,7 +34,7 @@ SetupAssistant::SetupAssistant( QWidget *parent, Qt::WFlags f ) : KAssistantDial
 {
 
 	//Don't show the help button, it's not useful at the moment.
-	showButton(KDialog::Help, false);
+	buttonBox->button(QDialogButtonBox::Help)->setVisible(false);
 
 	welcomePage = new WelcomePage( this );
 	welcomePageItem = new KPageWidgetItem( welcomePage, i18n( "Welcome to Krecipes" ) );

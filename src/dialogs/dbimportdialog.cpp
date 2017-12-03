@@ -29,20 +29,35 @@
 #include <kurlrequester.h>
 #include <knuminput.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 DBImportDialog::DBImportDialog( QWidget *parent, const char *name )
-		: KDialog( parent )
+		: QDialog( parent )
 {
 	this->setObjectName( name );
 	this->setModal( true );
-	this->setButtons( KDialog::Ok | KDialog::Cancel );
-	this->setDefaultButton( KDialog::Ok  );
-	this->setCaption( i18nc( "@title:window", "Database Import" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	this->setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	this->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	this->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
+	this->setWindowTitle( i18nc( "@title:window", "Database Import" ) );
 
 	setButtonsOrientation( Qt::Vertical );
 
 	KHBox *page = new KHBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	dbButtonGroup = new Q3ButtonGroup( page, "dbButtonGroup" );
 	dbButtonGroup->setSizePolicy( QSizePolicy( ( QSizePolicy::SizeType ) 4, ( QSizePolicy::SizeType ) 5, 0, 0, dbButtonGroup->sizePolicy().hasHeightForWidth() ) );

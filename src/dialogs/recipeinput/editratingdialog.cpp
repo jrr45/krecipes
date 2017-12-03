@@ -28,6 +28,9 @@
 #include <kiconloader.h>
 #include <kdebug.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
 
 #include "datablocks/rating.h"
 #include "datablocks/elementlist.h"
@@ -49,10 +52,10 @@ public:
 
 
 EditRatingDialog::EditRatingDialog( const ElementList &criteriaList, const Rating &rating, QWidget* parent, const char* name )
-		: KDialog( parent )
+		: QDialog( parent )
 {
 	setObjectName( name );
-	setCaption( i18nc( "@title:window", "Rating" ) );
+	setWindowTitle( i18nc( "@title:window", "Rating" ) );
 	init(criteriaList);
 	loadRating(rating);
 }
@@ -62,21 +65,33 @@ EditRatingDialog::EditRatingDialog( const ElementList &criteriaList, const Ratin
  *  name 'name' and widget flags set to 'f'.
  */
 EditRatingDialog::EditRatingDialog( const ElementList &criteriaList, QWidget* parent, const char* name )
-		: KDialog( parent )
+		: QDialog( parent )
 {
 	setObjectName( name );
-	setCaption( i18nc( "@title:window", "Rating" ) );
+	setWindowTitle( i18nc( "@title:window", "Rating" ) );
 	init(criteriaList);
 }
 
 void EditRatingDialog::init( const ElementList &criteriaList )
 {
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 	layout2 = new KHBox( page );
 
 	raterLabel = new QLabel( layout2 );

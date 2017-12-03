@@ -17,32 +17,49 @@
 #include <KVBox>
 
 #include <QDir>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 DietViewDialog::DietViewDialog( QWidget *parent, const RecipeList &recipeList, int dayNumber, int mealNumber, const QList <int> &dishNumbers )
-		: KDialog( parent )
+		: QDialog( parent )
 {
-	setCaption( i18nc( "@title:window", "View Diet" ) );
-	setButtons(KDialog::User2 | KDialog::Close | KDialog::User1);
-	setDefaultButton(KDialog::User2);
+	setWindowTitle( i18nc( "@title:window", "View Diet" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *user1Button = new QPushButton;
+	buttonBox->addButton(user1Button, QDialogButtonBox::ActionRole);
+	QPushButton *user2Button = new QPushButton;
+	buttonBox->addButton(user2Button, QDialogButtonBox::ActionRole);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	setDefaultButton(QDialog::User2);
 	setModal( false );
 	KVBox *page = new KVBox( this );
-	setMainWidget(page);
-	setButtonText( KDialog::User1, KStandardGuiItem::print().text() );
-	setButtonIcon( KDialog::User1, KIcon( "document-print" ) );
+	mainLayout->addWidget(page);
+	user1Button->setText(KStandardGuiItem::print(.text( ));
+	setButtonIcon( QDialog::User1, KIcon( "document-print" ) );
 
-	setButtonText( KDialog::User2, i18nc( "@action:button", "Create &Shopping List" ) );
-	setButtonIcon( KDialog::User2, KIcon( "view-pim-tasks" ) );
+	user2Button->setText(i18nc( "@action:button"));
+	setButtonIcon( QDialog::User2, KIcon( "view-pim-tasks" ) );
 
 	// The html part
 	dietView = new KHTMLPart( page );
+	mainLayout->addWidget(dietView);
 
-	setInitialSize( QSize(350, 450) );
+	resize( QSize(350, 450) );
 
 	setSizeGripEnabled( true );
 
-	connect ( this, SIGNAL( user2Clicked() ), this, SLOT( slotOk() ) );
-	connect ( this, SIGNAL( closeClicked() ), this, SLOT( close() ) );
-	connect ( this, SIGNAL( user1Clicked() ), this, SLOT( print() ) );
+	connect(user2Button, SIGNAL(clicked() ), this, SLOT( slotOk() ) );
+	connect(buttonBox->button(QDialogButtonBox::Close), SIGNAL(clicked() ), this, SLOT( close() ) );
+	connect(user1Button, SIGNAL( clicked() ), this, SLOT( print() ) );
 
 	// Show the diet
 	showDiet( recipeList, dayNumber, mealNumber, dishNumbers );

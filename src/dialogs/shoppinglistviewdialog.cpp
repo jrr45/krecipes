@@ -23,28 +23,42 @@
 #include <kvbox.h>
 #include <KStandardGuiItem>
 #include <q3tl.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <KGuiItem>
+#include <QVBoxLayout>
 
 ShoppingListViewDialog::ShoppingListViewDialog( QWidget *parent, const IngredientList &ingredientList )
-		: KDialog( parent )
+		: QDialog( parent )
 {
 	this->setObjectName( "shoppingviewdialog" );
-	this->setCaption( i18nc( "@title:window", "Shopping List" ) );
+	this->setWindowTitle( i18nc( "@title:window", "Shopping List" ) );
 	this->setModal( true );
-	this->setButtons( KDialog::Close | KDialog::User1 );
-	this->setButtonGuiItem( KDialog::User1 , KStandardGuiItem::print() );
-	this->setDefaultButton( KDialog::Close );
-	this->showButtonSeparator( false );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Close);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	this->setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *user1Button = new QPushButton;
+	buttonBox->addButton(user1Button, QDialogButtonBox::ActionRole);
+	this->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	this->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	KGuiItem::assign(user1Button, KStandardGuiItem::print( ));
+	buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
 	
 	// Design dialog
 	KVBox *page = new KVBox ( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	shoppingListView = new KHTMLPart( page );
 
-	setInitialSize( QSize(350, 450) );
+	resize( QSize(350, 450) );
 
-	connect ( this, SIGNAL( user1Clicked() ), this, SLOT( print() ) );
-	connect ( this, SIGNAL( closeClicked() ), this, SLOT( accept() ) );
+	connect(user1Button, SIGNAL( clicked() ), this, SLOT( print() ) );
+	connect(buttonBox->button(QDialogButtonBox::Close), SIGNAL(clicked() ), this, SLOT( accept() ) );
 
 	//---------- Sort the list --------
 	IngredientList list_copy = ingredientList;

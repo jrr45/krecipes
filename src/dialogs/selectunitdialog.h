@@ -18,7 +18,7 @@
 
 
 #include <k3listview.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <kvbox.h>
 
 #include "datablocks/unit.h"
@@ -26,7 +26,7 @@
 /**
 @author Unai Garro
 */
-class SelectUnitDialog : public KDialog
+class SelectUnitDialog : public QDialog
 {
 public:
 	enum OptionFlag { ShowEmptyUnit, HideEmptyUnit } ;

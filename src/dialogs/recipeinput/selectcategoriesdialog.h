@@ -15,7 +15,7 @@
 
 #include "datablocks/elementlist.h"
 
-#include <KDialog>
+#include <QDialog>
 
 class KreCategoriesListWidget;
 class RecipeDB;
@@ -23,7 +23,7 @@ class RecipeDB;
 /**
 @author Unai Garro
 */
-class SelectCategoriesDialog: public KDialog
+class SelectCategoriesDialog: public QDialog
 {
 
 	Q_OBJECT

@@ -15,7 +15,7 @@
 #include <kvbox.h>
 
 #include <kconfig.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kglobal.h>
@@ -26,19 +26,35 @@
 #include <QTreeView>
 #include <QHeaderView>
 #include <QSortFilterProxyModel>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include "backends/recipedb.h"
 
 SelectAuthorsDialog::SelectAuthorsDialog( QWidget *parent, const ElementList &currentAuthors, RecipeDB *db )
-		: KDialog(parent ),
+		: QDialog(parent ),
 		database(db)
 {
-	setCaption(i18nc("@title:window", "Authors" ));
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle(i18nc("@title:window", "Authors" ));
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 	//Design UI
 
 	// Combo to Pick authors

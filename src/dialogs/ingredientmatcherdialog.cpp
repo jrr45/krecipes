@@ -37,9 +37,12 @@
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kdebug.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <kvbox.h>
 #include <KHBox>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 #include "profiling.h"
 
@@ -155,10 +158,21 @@ IngredientMatcherDialog::~IngredientMatcherDialog()
 void IngredientMatcherDialog::itemRenamed( QListWidgetItem* item, const QPoint &, int col )
 {
 	if ( col == 1 ) {
-		QPointer<KDialog> amountEditDialog = new KDialog(this);
-		amountEditDialog->setCaption(i18nc("@title:window", "Enter amount"));
-		amountEditDialog->setButtons(KDialog::Cancel | KDialog::Ok);
-		amountEditDialog->setDefaultButton(KDialog::Ok);
+		QPointer<QDialog> amountEditDialog = new QDialog(this);
+		amountEditDialog->setWindowTitle(i18nc("@title:window", "Enter amount"));
+		QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+		QWidget *mainWidget = new QWidget(this);
+		QVBoxLayout *mainLayout = new QVBoxLayout;
+		amountEditDialog->setLayout(mainLayout);
+		mainLayout->addWidget(mainWidget);
+		QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+		okButton->setDefault(true);
+		okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+		amountEditDialog->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+		amountEditDialog->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+		//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+		mainLayout->addWidget(buttonBox);
+		buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 		amountEditDialog->setModal( false );	
 		Q3GroupBox *box = new Q3GroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
 		AmountUnitInput *amountEdit = new AmountUnitInput( box, database );
@@ -177,7 +191,7 @@ void IngredientMatcherDialog::itemRenamed( QListWidgetItem* item, const QPoint &
 			amountEdit->setUnit( u );
 		}
 
-		amountEditDialog->setMainWidget(box);
+		mainLayout->addWidget(box);
 		amountEditDialog->adjustSize();
 		amountEditDialog->resize( 400, amountEditDialog->size().height() );
 		amountEditDialog->setFixedHeight( amountEditDialog->size().height() );

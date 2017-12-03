@@ -10,7 +10,7 @@
 #ifndef CREATEINGREDIENTWEIGHTDIALOG_H
 #define CREATEINGREDIENTWEIGHTDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -28,7 +28,7 @@ class PrepMethodComboBox;
 class RecipeDB;
 class Weight;
 
-class CreateIngredientWeightDialog : public KDialog
+class CreateIngredientWeightDialog : public QDialog
 {
 Q_OBJECT
 	

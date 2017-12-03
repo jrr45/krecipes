@@ -70,6 +70,10 @@
 //Settings headers
 #include <kdeversion.h>
 #include <KShortcutsDialog>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 
 Krecipes::Krecipes(): KXmlGuiWindow( 0 )
@@ -114,14 +118,15 @@ Krecipes::Krecipes(): KXmlGuiWindow( 0 )
 	enableSaveOption( false ); // Disables saving initially
 	recipeSelected( false ); //nothing is selected initially
 
-	parsing_file_dlg = new KDialog( this );
+	parsing_file_dlg = new QDialog( this );
 	parsing_file_dlg->setObjectName( "parsing_file_dlg" );
 	parsing_file_dlg->setModal( true );
 	//parsing_file_dlg->setWindowFlags ( Qt::WX11BypassWM );
 	QLabel *parsing_file_dlg_label = new QLabel( i18n( "Gathering recipe data from file.\nPlease wait..." ), parsing_file_dlg );
 	parsing_file_dlg_label->setFrameStyle( QFrame::Box | QFrame::Raised );
 	//( new QVBoxLayout( parsing_file_dlg ) ) ->addWidget( parsing_file_dlg_label );
-        parsing_file_dlg->setMainWidget( parsing_file_dlg_label );
+//PORTING: Verify that widget was added to mainLayout:         parsing_file_dlg->setMainWidget( parsing_file_dlg_label );
+// Add mainLayout->addWidget(parsing_file_dlg_label); if necessary
 	parsing_file_dlg->adjustSize();
 	//parsing_file_dlg->setFixedSize(parsing_file_dlg->size());
 	convertDialog = new ConversionDialog(this,m_view->database);
@@ -513,7 +518,7 @@ void Krecipes::import()
 		0
 	);
 	file_dialog->setObjectName( "file_dialog" );
-	file_dialog->setCaption( i18n( "Import from file" ) );
+	file_dialog->setWindowTitle( i18n( "Import from file" ) );
 	file_dialog->setMode( KFile::Files );
 
 	if ( file_dialog->exec() == KFileDialog::Accepted ) {
@@ -576,11 +581,23 @@ void Krecipes::import()
 			warningEdit->setReadOnly( true );
 
 			//FIXME: This dialog should allow cancel the import.
-			QPointer<KDialog> showWarningsDlg = new KDialog( this );
-			showWarningsDlg->setCaption( i18n("Import Warnings") );
-			showWarningsDlg->setButtons( KDialog::Ok );
+			QPointer<QDialog> showWarningsDlg = new QDialog( this );
+			showWarningsDlg->setWindowTitle( i18n("Import Warnings") );
+			QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+			QWidget *mainWidget = new QWidget(this);
+			QVBoxLayout *mainLayout = new QVBoxLayout;
+			showWarningsDlg->setLayout(mainLayout);
+			mainLayout->addWidget(mainWidget);
+			QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+			okButton->setDefault(true);
+			okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+			showWarningsDlg->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+			showWarningsDlg->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+			//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+			mainLayout->addWidget(buttonBox);
 
-			showWarningsDlg->setMainWidget( warningEdit ); //KDialog will delete warningEdit for us
+//PORTING: Verify that widget was added to mainLayout: 			showWarningsDlg->setMainWidget( warningEdit ); //QDialog will delete warningEdit for us
+// Add mainLayout->addWidget(warningEdit); if necessary
 			showWarningsDlg->resize( QSize( 550, 250 ) );
 			showWarningsDlg->exec();
 			delete showWarningsDlg;
@@ -674,7 +691,7 @@ void Krecipes::printSetupSlot()
 	}
 
 	QPointer<PageSetupDialog> pageSetup = new PageSetupDialog( this, recipe, "Print" );
-	pageSetup->setCaption( i18n("Print Setup") );
+	pageSetup->setWindowTitle( i18n("Print Setup") );
 	pageSetup->exec();
 	delete pageSetup;
 }
@@ -855,7 +872,7 @@ void Krecipes::changeStatusbar( const QString& text )
 void Krecipes::changeCaption( const QString& text )
 {
 	// display the text on the caption
-	setCaption( text );
+	setWindowTitle( text );
 }
 void Krecipes::enableSaveOption( bool en )
 {

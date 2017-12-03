@@ -24,11 +24,12 @@
 
 #include <kapplication.h>
 #include <kdebug.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprogressdialog.h>
 #include <KPushButton>
+#include <KConfigGroup>
 
 UnitsDialog::UnitsDialog( QWidget *parent, RecipeDB *db ) : QWidget( parent )
 {

@@ -54,11 +54,11 @@ PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( paren
 	backupGBox->setTitle( i18nc( "@title:group Backup options", "Backup" ) );
 
 	dumpPathRequester = new KUrlRequester;
-	dumpPathRequester->fileDialog()->setCaption( i18n( "Select PostgreSQL dump command" ) );
+	dumpPathRequester->fileDialog()->setWindowTitle( i18n( "Select PostgreSQL dump command" ) );
 	backupGBoxLayout->addRow( i18n( "Path to '%1':" ,QString("pg_dump") ), dumpPathRequester );
 
 	psqlPathRequester = new KUrlRequester;
-	dumpPathRequester->fileDialog()->setCaption( i18n( "Select PostgreSQL command" ) );
+	dumpPathRequester->fileDialog()->setWindowTitle( i18n( "Select PostgreSQL command" ) );
 	backupGBoxLayout->addRow( i18n( "Path to '%1':" ,QString("psql") ), psqlPathRequester );
 
 	backupGBox->setLayout( backupGBoxLayout );

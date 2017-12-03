@@ -17,12 +17,13 @@
 #include "widgets/kreauthorlistwidget.h"
 #include "actionshandlers/kreauthoractionshandler.h"
 
-#include <kdialog.h>
+#include <QDialog>
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <KPushButton>
+#include <KConfigGroup>
 
 AuthorsDialog::AuthorsDialog( QWidget* parent, RecipeDB *db )
 	 : QWidget( parent )
@@ -39,7 +40,7 @@ AuthorsDialog::AuthorsDialog( QWidget* parent, RecipeDB *db )
 
 	//Buttons
 	QVBoxLayout* vboxl = new QVBoxLayout();
-	vboxl->setSpacing( KDialog::spacingHint() );
+//TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
 
 	newAuthorButton = new KPushButton( this );
 	newAuthorButton->setText( i18nc( "@action:button", "Create..." ) );

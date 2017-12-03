@@ -18,17 +18,33 @@
 #include <kcombobox.h>
 #include <klineedit.h>
 #include <klocale.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 CreateCategoryDialog::CreateCategoryDialog( QWidget *parent, const ElementList& categories )
-	 : KDialog( parent)
+	 : QDialog( parent)
 {
-	setCaption(i18nc("@title:window", "New Category" ));
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle(i18nc("@title:window", "New Category" ));
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 
 	box = new QGroupBox;
-	setMainWidget( box );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( box );
+// Add mainLayout->addWidget(box); if necessary
 
 	QFormLayout *boxLayout = new QFormLayout;
 	box->setLayout( boxLayout );

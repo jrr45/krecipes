@@ -12,14 +12,14 @@
 #ifndef CREATEELEMENTDIALOG_H
 #define CREATEELEMENTDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class KLineEdit;
 
 /**
 @author Unai Garro
 */
-class CreateElementDialog : public KDialog
+class CreateElementDialog : public QDialog
 {
 	Q_OBJECT
 public:

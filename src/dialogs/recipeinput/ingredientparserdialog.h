@@ -10,7 +10,7 @@
 #ifndef INGREDIENTPARSERDIALOG_H
 #define INGREDIENTPARSERDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datablocks/ingredientlist.h"
 #include "datablocks/unit.h"
@@ -29,7 +29,7 @@ class K3ListView;
 class Q3ListViewItem;
 class QPushButton;
 
-class IngredientParserDialog : public KDialog
+class IngredientParserDialog : public QDialog
 {
 	Q_OBJECT
 

@@ -13,7 +13,7 @@
 #ifndef CREATEUNITDIALOG_H
 #define CREATEUNITDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datablocks/unit.h"
 
@@ -23,7 +23,7 @@ class KLineEdit;
 /**
 @author Unai Garro
 */
-class CreateUnitDialog : public KDialog
+class CreateUnitDialog : public QDialog
 {
 Q_OBJECT
 

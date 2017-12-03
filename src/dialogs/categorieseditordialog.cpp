@@ -13,7 +13,7 @@
 #include "categorieseditordialog.h"
 
 #include <kdebug.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <klocale.h>
 #include <kmessagebox.h>
 
@@ -24,6 +24,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <KPushButton>
+#include <KConfigGroup>
 
 CategoriesEditorDialog::CategoriesEditorDialog( QWidget* parent, RecipeDB *db ) : QWidget( parent )
 {
@@ -40,7 +41,7 @@ CategoriesEditorDialog::CategoriesEditorDialog( QWidget* parent, RecipeDB *db ) 
 
 	//Buttons
 	QVBoxLayout* vboxl = new QVBoxLayout();
-	vboxl->setSpacing( KDialog::spacingHint() );
+//TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
 	newCategoryButton = new KPushButton( this );
 	newCategoryButton->setText( i18nc( "@action:button", "Create..." ) );
 	newCategoryButton->setIcon( KIcon( "list-add" ) );

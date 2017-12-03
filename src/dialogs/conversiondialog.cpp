@@ -18,6 +18,9 @@
 #include <klineedit.h>
 #include <klocale.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
 
 #include "backends/recipedb.h"
 #include "widgets/unitcombobox.h"
@@ -26,20 +29,31 @@
 #include "widgets/fractioninput.h"
 
 ConversionDialog::ConversionDialog( QWidget* parent, RecipeDB *db, const char* name )
-		: KDialog( parent ),
+		: QDialog( parent ),
 		m_database(db)
 {
 	 setObjectName( name );
-	 setCaption(i18nc( "@title:window", "Measurement Converter" ));
-	 setButtons(KDialog::Close | KDialog::User1 | KDialog::Help);
-	 setDefaultButton(KDialog::Close);
+	 setWindowTitle(i18nc( "@title:window", "Measurement Converter" ));
+	 QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Help|QDialogButtonBox::Close);
+	 QWidget *mainWidget = new QWidget(this);
+	 QVBoxLayout *mainLayout = new QVBoxLayout;
+	 setLayout(mainLayout);
+	 mainLayout->addWidget(mainWidget);
+	 QPushButton *user1Button = new QPushButton;
+	 buttonBox->addButton(user1Button, QDialogButtonBox::ActionRole);
+	 connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	 connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	 //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	 mainLayout->addWidget(buttonBox);
+	 buttonBox->button(QDialogButtonBox::Close)->setDefault(true);
 	 setHelp("measure-converter");
-	 setButtonText( KDialog::User1, i18nc("@action:button", "Convert") );
+	 user1Button->setText(i18nc("@action:button"));
 
 	 setModal( false );
 
 	 KVBox *page = new KVBox( this );
-	 setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	 setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	KHBox *vbox = new KVBox(page);
 
@@ -80,11 +94,11 @@ ConversionDialog::ConversionDialog( QWidget* parent, RecipeDB *db, const char* n
 
 	languageChange();
 
-	setInitialSize( QSize(300, 200).expandedTo(minimumSizeHint()) );
+	resize( QSize(300, 200).expandedTo(minimumSizeHint()) );
 
 	// signals and slots connections
-	connect ( this, SIGNAL( closeClicked() ), this, SLOT( accept() ) );
-	connect( this, SIGNAL( user1Clicked() ), this, SLOT( convert() ) );
+	connect(buttonBox->button(QDialogButtonBox::Close), SIGNAL(clicked() ), this, SLOT( accept() ) );
+	connect(user1Button, SIGNAL( clicked() ), this, SLOT( convert() ) );
 }
 
 ConversionDialog::~ConversionDialog()
@@ -103,7 +117,7 @@ void ConversionDialog::languageChange()
 void ConversionDialog::show()
 {
 	reset();
-	KDialog::show();
+	QDialog::show();
 }
 
 void ConversionDialog::reset()

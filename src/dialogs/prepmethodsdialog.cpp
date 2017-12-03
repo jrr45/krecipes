@@ -12,11 +12,12 @@
 
 #include "prepmethodsdialog.h"
 
-#include <KDialog>
+#include <QDialog>
 #include <KLocale>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <KPushButton>
+#include <KConfigGroup>
 
 #include "widgets/kreprepmethodlistwidget.h"
 #include "actionshandlers/kreprepmethodactionshandler.h"
@@ -38,7 +39,7 @@ PrepMethodsDialog::PrepMethodsDialog( QWidget* parent, RecipeDB *db ) : QWidget(
 
 	//Buttons
 	QVBoxLayout* vboxl = new QVBoxLayout(); 
-	vboxl->setSpacing ( KDialog::spacingHint() );
+//TODO PORT QT5 	vboxl->setSpacing ( QDialog::spacingHint() );
 
 	newPrepMethodButton = new KPushButton( this );
 	newPrepMethodButton->setText( i18nc( "@action:button", "Create..." ) );

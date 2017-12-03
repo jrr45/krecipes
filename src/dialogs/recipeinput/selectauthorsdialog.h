@@ -13,7 +13,7 @@
 #ifndef SELECTAUTHORSDIALOG_H
 #define SELECTAUTHORSDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 #include <kcombobox.h>
 
 #include "datablocks/elementlist.h"
@@ -29,7 +29,7 @@ class RecipeDB;
 /**
 @author Unai Garro
 */
-class SelectAuthorsDialog: public KDialog
+class SelectAuthorsDialog: public QDialog
 {
 
 	Q_OBJECT

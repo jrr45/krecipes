@@ -34,6 +34,8 @@
 #include <kvbox.h>
 #include <KDoubleValidator>
 #include <KLineEdit>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
 
 #include "widgets/weightinput.h"
 #include "widgets/krelistview.h"
@@ -92,19 +94,31 @@ private:
 
 
 EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, RecipeDB *database, QWidget* parent )
-	: KDialog( parent ), ingredientID(ingID), ingredientName(ingName)
+	: QDialog( parent ), ingredientID(ingID), ingredientName(ingName)
 {
 	this->setObjectName( "EditPropertiesDialog" );
 	this->setModal( true );
-	this->setButtons( KDialog::Ok );
-	this->setDefaultButton( KDialog::Ok );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	this->setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	this->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	this->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 	// Initialize internal variables
 	perUnitListBack = new ElementList;
 	db = database;
 
 	KVBox *wholePage = new KVBox( this );
-	setMainWidget( wholePage );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( wholePage );
+// Add mainLayout->addWidget(wholePage); if necessary
 	QWidget *page = new QWidget(wholePage);
 
 	EditPropertiesDialogLayout = new QVBoxLayout( page );
@@ -245,7 +259,7 @@ EditPropertiesDialog::~EditPropertiesDialog()
 
 void EditPropertiesDialog::languageChange()
 {
-	setCaption( i18nc( "@title:window", "Property Information" ) );
+	setWindowTitle( i18nc( "@title:window", "Property Information" ) );
 	infoLabel->setText( i18nc( "@label", "Property Information for <b>%1</b>" , ingredientName) );
 	usdaListView->listView()->header()->setLabel( 0, i18nc( "@title:column", "USDA Ingredient" ) );
 	usdaListView->listView()->header()->setLabel( 1,  "Id" );
@@ -302,12 +316,19 @@ void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, i
 	Weight w = weight_it->weight();
 
 	if ( col == 0 ) {
-		QPointer<KDialog> amountEditDialog = new KDialog( this );
+		QPointer<QDialog> amountEditDialog = new QDialog( this );
 		amountEditDialog->setObjectName( "WeightAmountEdit" );
 		amountEditDialog->setModal( false );
-		amountEditDialog->setCaption( i18nc("@title:window", "Enter amount") );
-		amountEditDialog->setButtons( KDialog::Cancel | KDialog::Ok );
-		amountEditDialog->setDefaultButton( KDialog::Ok );
+		amountEditDialog->setWindowTitle( i18nc("@title:window", "Enter amount") );
+		QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+		QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+		okButton->setDefault(true);
+		okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+		amountEditDialog->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+		amountEditDialog->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+		//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+		mainLayout->addWidget(buttonBox);
+		buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 		Q3GroupBox *box = new Q3GroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
 		AmountUnitInput *amountEdit = new AmountUnitInput( box, db, Unit::Mass, MixedNumber::DecimalFormat );
@@ -318,7 +339,7 @@ void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, i
 		amountEdit->setAmount( MixedNumber(w.weight()) );
 		amountEdit->setUnit( Unit(w.weightUnit(),w.weightUnit(),w.weightUnitId()) );
 
-		amountEditDialog->setMainWidget(box);
+		mainLayout->addWidget(box);
 		amountEditDialog->adjustSize();
 		amountEditDialog->resize( 400, amountEditDialog->size().height() );
 		amountEditDialog->setFixedHeight( amountEditDialog->size().height() );
@@ -334,12 +355,19 @@ void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, i
 		delete amountEditDialog;
 	}
 	else if ( col == 1 ) {
-		QPointer<KDialog> amountEditDialog = new KDialog( this );
+		QPointer<QDialog> amountEditDialog = new QDialog( this );
 		amountEditDialog->setObjectName( "PerAmountEdit" );
 		amountEditDialog->setModal( false );
-		amountEditDialog->setCaption( i18nc("@title:window", "Enter amount") );
-		amountEditDialog->setButtons( KDialog::Cancel | KDialog::Ok );
-		amountEditDialog->setDefaultButton( KDialog::Ok );
+		amountEditDialog->setWindowTitle( i18nc("@title:window", "Enter amount") );
+		QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+		QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+		okButton->setDefault(true);
+		okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+		amountEditDialog->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+		amountEditDialog->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+		//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+		mainLayout->addWidget(buttonBox);
+		buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 		Q3GroupBox *box = new Q3GroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
 		WeightInput *amountEdit = new WeightInput( box, db, Unit::All, MixedNumber::DecimalFormat );
@@ -351,7 +379,7 @@ void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, i
 		amountEdit->setUnit( Unit(w.perAmountUnit(),w.perAmountUnit(),w.perAmountUnitId()) );
 		amountEdit->setPrepMethod( Element(w.prepMethod(),w.prepMethodId()) );
 
-		amountEditDialog->setMainWidget(box);
+		mainLayout->addWidget(box);
 		amountEditDialog->adjustSize();
 		amountEditDialog->resize( 400, amountEditDialog->size().height() );
 		amountEditDialog->setFixedHeight( amountEditDialog->size().height() );

@@ -19,22 +19,38 @@
 
 
 #include <q3dict.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include "datablocks/recipe.h"
 
 RecipeImportDialog::RecipeImportDialog( const RecipeList &list, QWidget *parent )
-		: KDialog( parent ),
+		: QDialog( parent ),
 		list_copy( list )
 {
 	this->setObjectName( "RecipeImportDialog" );
 	this->setModal( true );
-	this->setCaption( i18nc( "@title:window", "Import Recipes" ) );
-	this->setButtons( KDialog::Ok | KDialog::Cancel );
-	this->setDefaultButton( KDialog::Ok );
+	this->setWindowTitle( i18nc( "@title:window", "Import Recipes" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	this->setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	this->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	this->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setButtonsOrientation( Qt::Vertical );
 
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 
 	kListView = new K3ListView( page );
@@ -45,7 +61,7 @@ RecipeImportDialog::RecipeImportDialog( const RecipeList &list, QWidget *parent 
 
 	languageChange();
 
-	setInitialSize( QSize( 600, 480 ).expandedTo( minimumSizeHint() ) );
+	resize( QSize( 600, 480 ).expandedTo( minimumSizeHint() ) );
 
 	loadListView();
 }

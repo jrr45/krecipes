@@ -12,7 +12,7 @@
 
 #include <qmap.h>
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datablocks/recipe.h"
 
@@ -23,7 +23,7 @@ class KreDisplayItem;
 /**
   * @author Jason Kivlighn
   */
-class PageSetupDialog : public KDialog
+class PageSetupDialog : public QDialog
 {
 	Q_OBJECT
 

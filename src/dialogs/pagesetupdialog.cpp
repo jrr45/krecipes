@@ -36,19 +36,30 @@
 #include <widgets/thumbbar.h>
 #include <kglobal.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
 #include "setupdisplay.h"
 
 PageSetupDialog::PageSetupDialog( QWidget *parent, const Recipe &sample, const QString &configEntry )
-	: KDialog( parent ), m_configEntry(configEntry)
+	: QDialog( parent ), m_configEntry(configEntry)
 {
 	QWidget *w = new QWidget;
 	QVBoxLayout * layout = new QVBoxLayout( this );
 	w->setLayout( layout );
-	setButtons( KDialog::None );
-	setMainWidget( w );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::NoButton);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( w );
+// Add mainLayout->addWidget(w); if necessary
 	KToolBar *toolbar = new KToolBar( this );
 	KActionCollection *actionCollection = new KActionCollection( this );
-	setCaption( i18n("Page Setup") );
+	setWindowTitle( i18n("Page Setup") );
 
 	toolbar->addAction( KStandardAction::open( this, SLOT(loadFile()), actionCollection ) );
 	toolbar->addAction( KStandardAction::save( this, SLOT( saveLayout() ), actionCollection ) );
@@ -129,7 +140,7 @@ void PageSetupDialog::accept()
 
 	config.writeEntry( "WindowSize", size() );
 
-	KDialog::accept();
+	QDialog::accept();
 }
 
 void PageSetupDialog::reject()
@@ -146,7 +157,7 @@ void PageSetupDialog::reject()
 		}
 	}
 
-	KDialog::reject();
+	QDialog::reject();
 }
 
 void PageSetupDialog::updateItemVisibility( KreDisplayItem *item, bool visible )

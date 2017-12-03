@@ -14,7 +14,7 @@
 //#include <kdebug.h>
 
 #include <klocale.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <kmessagebox.h>
 #include <KPushButton>
 
@@ -26,6 +26,7 @@
 //Added by qt3to4:
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <KConfigGroup>
 
 PropertiesDialog::PropertiesDialog( QWidget *parent, RecipeDB *db ) : QWidget( parent )
 {
@@ -43,7 +44,7 @@ PropertiesDialog::PropertiesDialog( QWidget *parent, RecipeDB *db ) : QWidget( p
 	layout->addWidget ( propertyListWidget );
 
 	QVBoxLayout* vboxl = new QVBoxLayout();
-	vboxl->setSpacing( KDialog::spacingHint() );
+//TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
 	addPropertyButton = new KPushButton( this );
 	addPropertyButton->setText( i18nc( "@action:button", "Create..." ) );
 	addPropertyButton->setIcon( KIcon( "list-add" ) );

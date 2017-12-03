@@ -18,23 +18,39 @@
 
 #include <klocale.h>
 #include <kmessagebox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 #include "datablocks/recipe.h"
 #include "widgets/fractioninput.h"
 
 
 ResizeRecipeDialog::ResizeRecipeDialog( QWidget *parent, Recipe *recipe )
-		: KDialog( parent ),
+		: QDialog( parent ),
 		m_recipe( recipe )
 {
-	setCaption(i18nc("@title:window", "Resize Recipe" ));
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle(i18nc("@title:window", "Resize Recipe" ));
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 	ui = new Ui::ResizeRecipeDialog;
 	QWidget * mainWidget = new QWidget( this );
 	ui->setupUi( mainWidget );
-	setMainWidget( mainWidget );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( mainWidget );
+// Add mainLayout->addWidget(mainWidget); if necessary
 
 	//Ignore the range info, it doesn't work in this context
 	ui->m_newYieldInput->setValue( m_recipe->yield.amount(), 0 );
@@ -95,7 +111,7 @@ void ResizeRecipeDialog::accept()
 		}
 	}
 
-	KDialog::accept();
+	QDialog::accept();
 }
 
 void ResizeRecipeDialog::resizeRecipe( double factor )

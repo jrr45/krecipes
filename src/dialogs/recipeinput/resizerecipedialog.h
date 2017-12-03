@@ -13,7 +13,7 @@
 #ifndef RESIZERECIPEDIALOG_H
 #define RESIZERECIPEDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 
 class Recipe;
 
@@ -24,7 +24,7 @@ namespace Ui {
 /**
   *@author Jason Kivlighn
   */
-class ResizeRecipeDialog : public KDialog
+class ResizeRecipeDialog : public QDialog
 {
 	Q_OBJECT
 

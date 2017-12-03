@@ -15,20 +15,36 @@
 #include <klocale.h>
 #include <QGroupBox>
 #include <QFormLayout>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 CreatePropertyDialog::CreatePropertyDialog( QWidget *parent, UnitList* list )
-		: KDialog( parent )
+		: QDialog( parent )
 {
-	setCaption( i18nc( "@title:window", "New Property" ) );
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton( KDialog::Ok);
+	setWindowTitle( i18nc( "@title:window", "New Property" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 	// Initialize Internal Variables
 	unitList = list; // Store the pointer to the unitList;
 
 	// Initialize widgets
 	QGroupBox * box = new QGroupBox;
-	setMainWidget( box );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( box );
+// Add mainLayout->addWidget(box); if necessary
 	QFormLayout * layout = new QFormLayout;
 	box->setLayout( layout );
 	box->setTitle( i18nc( "@title:group", "New Property" ) );

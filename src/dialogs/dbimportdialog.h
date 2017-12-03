@@ -9,7 +9,7 @@
 #ifndef DBIMPORTDIALOG_H
 #define DBIMPORTDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -32,7 +32,7 @@ class KIntNumInput;
 @author Jason Kivlighn
 */
 
-class DBImportDialog: public KDialog
+class DBImportDialog: public QDialog
 {
 	Q_OBJECT
 public:

@@ -46,7 +46,7 @@ SQLiteServerPrefs::SQLiteServerPrefs( QWidget *parent ) : QWidget( parent )
 	backupGBox->setLayout( backupGBoxLayout );
 
 	dumpPathRequester = new KUrlRequester;
-	dumpPathRequester->fileDialog()->setCaption( i18n( "Select SQLite command" ) );
+	dumpPathRequester->fileDialog()->setWindowTitle( i18n( "Select SQLite command" ) );
 	backupGBoxLayout->addRow( i18n( "Path to '%1':", sqliteBinary ), dumpPathRequester );
 	
 	Form1Layout->addWidget( backupGBox );
@@ -59,11 +59,11 @@ SQLiteServerPrefs::SQLiteServerPrefs( QWidget *parent ) : QWidget( parent )
 	converterGBox->setLayout( converterGBoxLayout );
 
 	oldPathRequester = new KUrlRequester;
-	oldPathRequester->fileDialog()->setCaption( i18n( "Select old SQLite version command" ) );
+	oldPathRequester->fileDialog()->setWindowTitle( i18n( "Select old SQLite version command" ) );
 	converterGBoxLayout->addRow( i18n( "Path to SQLite old version command:" ), oldPathRequester );
 	
 	newPathRequester = new KUrlRequester;
-	newPathRequester->fileDialog()->setCaption( i18n( "Select new SQLite version command" ) );
+	newPathRequester->fileDialog()->setWindowTitle( i18n( "Select new SQLite version command" ) );
 	converterGBoxLayout->addRow( i18n( "Path to SQLite new version command:" ), newPathRequester );
 	
 	Form1Layout->addWidget( converterGBox );
@@ -72,7 +72,7 @@ SQLiteServerPrefs::SQLiteServerPrefs( QWidget *parent ) : QWidget( parent )
 	// Load Current Settings
 	KConfigGroup config = KGlobal::config()->group( "Server" );
 	fileRequester = new KUrlRequester( config.readEntry( "DBFile", KStandardDirs::locateLocal( "appdata", "krecipes.krecdb" ) ), hbox );
-	fileRequester->fileDialog()->setCaption( i18n( "Select SQLite database file" ) );
+	fileRequester->fileDialog()->setWindowTitle( i18n( "Select SQLite database file" ) );
 	hbox->setStretchFactor( fileRequester, 2 );
 	dumpPathRequester->setUrl( config.readEntry( "SQLitePath", sqliteBinary ) );
 	dumpPathRequester->setFilter( sqliteBinary + "\n*|" + i18n( "All files" ) );

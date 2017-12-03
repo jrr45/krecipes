@@ -10,7 +10,7 @@
 #ifndef BORDERDIALOG_H
 #define BORDERDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QColorDialog>
 #include <khuesaturationselect.h>
 #include <kcolorvalueselector.h>
@@ -32,7 +32,7 @@ class KHTMLPart;
 
 class KreBorder;
 
-class BorderDialog : public KDialog
+class BorderDialog : public QDialog
 {
 	Q_OBJECT
 

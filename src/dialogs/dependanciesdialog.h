@@ -16,7 +16,7 @@
 #include <QLabel>
 #include <QList>
 
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datablocks/elementlist.h"
 
@@ -30,7 +30,7 @@ struct ListInfo {
 /**
 @author Unai Garro
 */
-class DependanciesDialog: public KDialog
+class DependanciesDialog: public QDialog
 {
 public:
 	//Methods

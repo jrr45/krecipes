@@ -23,22 +23,37 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <KVBox>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 SelectPropertyDialog::SelectPropertyDialog( QWidget* parent, int ingID, RecipeDB *database, OptionFlag showEmpty )
-		: KDialog( parent), m_showEmpty(showEmpty),
+		: QDialog( parent), m_showEmpty(showEmpty),
 		ingredientID(ingID), db(database)
 {
 	setModal( true );
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton( KDialog::Ok);
-	setCaption(i18nc( "@title:window", "Choose Property" ));
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
+	setWindowTitle(i18nc( "@title:window", "Choose Property" ));
 
 	// Initialize internal variables
 	unitListBack = new UnitList;
 
 	// Initialize Widgets
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 	box = new Q3GroupBox( page );
 	box->setTitle( i18nc( "@title:group", "Choose Property" ) );
 	box->setColumnLayout( 0, Qt::Vertical );

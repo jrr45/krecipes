@@ -14,6 +14,8 @@
 
 #include <KLocale>
 #include <KMessageBox>
+#include <KConfigGroup>
+
 #include <QModelIndex>
 #include <QStandardItemModel>
 

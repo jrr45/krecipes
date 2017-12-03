@@ -15,7 +15,7 @@
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QLabel>
-#include <kdialog.h>
+#include <QDialog>
 
 #include "datablocks/unit.h"
 
@@ -34,7 +34,7 @@ class KLineEdit;
 class ElementList;
 class KreListView;
 
-class EditPropertiesDialog : public KDialog
+class EditPropertiesDialog : public QDialog
 {
 	Q_OBJECT
 

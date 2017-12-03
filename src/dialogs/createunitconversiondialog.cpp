@@ -16,15 +16,31 @@
 #include <QComboBox>
 
 #include <klocale.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 CreateUnitConversionDialog::CreateUnitConversionDialog( const Element &fromUnit, const ElementList &toUnits, QWidget* parent )
-	: KDialog( parent ), m_toUnits(toUnits)
+	: QDialog( parent ), m_toUnits(toUnits)
 {
-	setButtons(KDialog::Ok | KDialog::Cancel );
-	setDefaultButton(KDialog::Ok);
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	buttonGroup1 = new Q3ButtonGroup( page, "buttonGroup1" );
 	buttonGroup1->setColumnLayout(0, Qt::Vertical );
@@ -71,7 +87,7 @@ CreateUnitConversionDialog::~CreateUnitConversionDialog()
 
 void CreateUnitConversionDialog::languageChange()
 {
-	setCaption( i18nc( "@title:window", "Unit Conversion" ) );
+	setWindowTitle( i18nc( "@title:window", "Unit Conversion" ) );
 	buttonGroup1->setTitle( i18nc( "@title:group", "New Unit Conversion" ) );
 	fromUnitLabel->setText( QString() );
 	textLabel4->setText( "=" );

@@ -25,6 +25,9 @@
 #include <KIconLoader>
 #include <KLocale>
 #include <KToolInvocation>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 
 KrecipesPreferences::KrecipesPreferences( QWidget *parent )
@@ -32,9 +35,20 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
 {
 	setFaceType( List );
 	setObjectName( "KrecipesPreferences" );
-	setCaption( i18n( "Configure" ) );
-	setButtons( Help | Ok | Cancel );
-	setDefaultButton( Ok );
+	setWindowTitle( i18n( "Configure" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel|QDialogButtonBox::Help);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	okButton->setDefault(true);
 
 	KConfigGroup config = KGlobal::config()->group( "DBType" );
 
@@ -89,7 +103,7 @@ KrecipesPreferences::KrecipesPreferences( QWidget *parent )
 
 
 	// Signals & Slots
-	connect ( this, SIGNAL( okClicked() ), this, SLOT( saveSettings() ) );
+	connect(okButton, SIGNAL(clicked() ), this, SLOT( saveSettings() ) );
         connect ( this, SIGNAL( helpClicked() ), this, SLOT( slotHelp() ) );
 }
 

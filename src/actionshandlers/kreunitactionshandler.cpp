@@ -19,6 +19,7 @@
 #include <KMessageBox>
 #include <QModelIndex>
 #include <QPointer>
+#include <KConfigGroup>
 
 #include "datablocks/elementlist.h"
 
@@ -111,7 +112,7 @@ void KreUnitActionsHandler::rename()
 	QPointer<CreateUnitDialog> unitDialog = new CreateUnitDialog( m_listWidget,
 		currentUnit.name(), currentUnit.nameAbbrev(), currentUnit.plural(), currentUnit.pluralAbbrev(),
 		currentUnit.type(), false );
-	unitDialog->setCaption( i18n("Rename Unit") );
+	unitDialog->setWindowTitle( i18n("Rename Unit") );
 
 	//Show the dialog and save the unit if it proceeds.
 	if ( unitDialog->exec() == QDialog::Accepted ) {

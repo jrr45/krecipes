@@ -30,6 +30,7 @@
 #include <QPrinter>
 #include <KTempDir>
 #include <KStandardDirs>
+#include <KConfigGroup>
 
 #include "dialogs/recipeinput/selectcategoriesdialog.h"
 
@@ -394,7 +395,7 @@ void RecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString &
 	0 );
 	fd->setObjectName( "export_dlg" );
 	fd->setModal( true );
-	fd->setCaption( caption );
+	fd->setWindowTitle( caption );
 	fd->setOperationMode( KFileDialog::Saving );
 	fd->setSelection( selection );
 	fd->setMode( KFile::File | KFile::Directory );

@@ -54,11 +54,11 @@ MySQLServerPrefs::MySQLServerPrefs( QWidget *parent ) : QWidget( parent )
 	QFormLayout *backupGBoxLayout = new QFormLayout;
 
 	dumpPathRequester = new KUrlRequester;
-	dumpPathRequester->fileDialog()->setCaption( i18n( "Select MySQL dump command" ) );
+	dumpPathRequester->fileDialog()->setWindowTitle( i18n( "Select MySQL dump command" ) );
 	backupGBoxLayout->addRow( i18n( "Path to '%1':" ,QString("mysqldump") ), dumpPathRequester );
 
 	mysqlPathRequester = new KUrlRequester;
-	mysqlPathRequester->fileDialog()->setCaption( i18n( "Select MySQL command" ) );
+	mysqlPathRequester->fileDialog()->setWindowTitle( i18n( "Select MySQL command" ) );
 	backupGBoxLayout->addRow( i18n( "Path to '%1':" ,QString("mysql") ),mysqlPathRequester );
 
 	backupGBox->setLayout(backupGBoxLayout);

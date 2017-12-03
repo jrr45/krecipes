@@ -10,7 +10,7 @@
 #ifndef CONVERSIONDIALOG_H
 #define CONVERSIONDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -27,7 +27,7 @@ class IngredientComboBox;
 class PrepMethodComboBox;
 class FractionInput;
 
-class ConversionDialog : public KDialog
+class ConversionDialog : public QDialog
 {
 Q_OBJECT
 

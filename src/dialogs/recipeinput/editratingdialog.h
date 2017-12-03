@@ -10,7 +10,7 @@
 #ifndef EDITRATINGDIALOG_H
 #define EDITRATINGDIALOG_H
 
-#include <kdialog.h>
+#include <QDialog>
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>
@@ -34,7 +34,7 @@ class RatingCriteria;
 class ElementList;
 class RatingCriteriaListView;
 
-class EditRatingDialog : public KDialog
+class EditRatingDialog : public QDialog
 {
 Q_OBJECT
 

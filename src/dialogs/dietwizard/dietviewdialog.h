@@ -18,7 +18,7 @@
 #include <QList>
 
 
-class DietViewDialog: public KDialog
+class DietViewDialog: public QDialog
 {
 	Q_OBJECT
 

@@ -25,15 +25,18 @@
 #include <kglobal.h>
 #include <kconfig.h>
 #include <kmessagebox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
 
 
 DependanciesDialog::DependanciesDialog( QWidget *parent, const QList<ListInfo> &lists, bool deps_are_deleted )
-	: KDialog( parent ), m_depsAreDeleted(deps_are_deleted)
+	: QDialog( parent ), m_depsAreDeleted(deps_are_deleted)
 {
 	init( lists );
 }
 
-DependanciesDialog::DependanciesDialog( QWidget *parent, const ListInfo &list, bool deps_are_deleted ) : KDialog( parent ),
+DependanciesDialog::DependanciesDialog( QWidget *parent, const ListInfo &list, bool deps_are_deleted ) : QDialog( parent ),
 	m_depsAreDeleted(deps_are_deleted)
 {
 	QList<ListInfo> lists;
@@ -47,13 +50,25 @@ DependanciesDialog::~DependanciesDialog()
 void DependanciesDialog::init( const QList<ListInfo> &lists )
 {
 	setModal(true);
-	setDefaultButton(KDialog::Cancel);
-	setButtons(KDialog::Ok | KDialog::Cancel);
+	buttonBox->button(QDialogButtonBox::Cancel)->setDefault(true);
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
 
-	setCaption( i18nc( "@title:window", "Element with Dependencies" ) );
+	setWindowTitle( i18nc( "@title:window", "Element with Dependencies" ) );
 
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 	// Design the dialog
 
 	instructionsLabel = new QLabel( page );
@@ -104,10 +119,10 @@ void DependanciesDialog::accept()
 			QString("<b>%1</b><br><br>%2").arg(m_msg).arg(i18nc("@info", "Are you sure you wish to proceed?")),
 			QString(),KStandardGuiItem::yes(),KStandardGuiItem::no(),"doubleCheckDelete") )
 		{
-		case KMessageBox::Yes: KDialog::accept(); break;
-		case KMessageBox::No: KDialog::reject(); break;
+		case KMessageBox::Yes: QDialog::accept(); break;
+		case KMessageBox::No: QDialog::reject(); break;
 		}
 	}
 	else
-		KDialog::accept();
+		QDialog::accept();
 }

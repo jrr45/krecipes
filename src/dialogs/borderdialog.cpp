@@ -24,20 +24,34 @@
 #include <k3listbox.h>
 #include <klocale.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
 
 #include "datablocks/kreborder.h"
 
 BorderDialog::BorderDialog( const KreBorder &border, QWidget* parent, const char* name )
-		: KDialog( parent )
+		: QDialog( parent )
 {
 	this->setObjectName( name );
-	this->setCaption( i18nc( "@title:window", "Choose Border" ) );
+	this->setWindowTitle( i18nc( "@title:window", "Choose Border" ) );
 	this->setModal( true );
-	this->setButtons( KDialog::Ok | KDialog::Cancel );
-	this->setDefaultButton( KDialog::Ok );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	this->setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	this->connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	this->connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
 	KVBox *page = new KVBox( this ); 
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	borderGroupBox = new Q3GroupBox( page, "borderGroupBox" );
 	borderGroupBox->setColumnLayout( 0, Qt::Vertical );

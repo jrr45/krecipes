@@ -15,8 +15,9 @@
 #include <QHBoxLayout>
 
 #include <klocale.h>
-#include <kdialog.h>
+#include <QDialog>
 #include <kvbox.h>
+#include <KConfigGroup>
 
 #include "actionshandlers/kreheaderactionshandler.h"
 #include "widgets/kreheaderlistwidget.h"

@@ -19,6 +19,9 @@
 #include <kmessagebox.h>
 #include <klocale.h>
 #include <kvbox.h>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
 
 #include "widgets/unitcombobox.h"
 #include "widgets/prepmethodcombobox.h"
@@ -27,14 +30,26 @@
 #include "backends/recipedb.h"
 
 CreateIngredientWeightDialog::CreateIngredientWeightDialog( QWidget* parent, RecipeDB *db )
-	: KDialog( parent )
+	: QDialog( parent )
 {
-	setCaption( i18nc( "@title:window", "Add Ingredient Weight" ) );
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle( i18nc( "@title:window", "Add Ingredient Weight" ) );
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 	KVBox *page = new KVBox( this );
-	setMainWidget( page );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
+// Add mainLayout->addWidget(page); if necessary
 
 	groupBox1 = new Q3GroupBox( page );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
@@ -81,7 +96,7 @@ CreateIngredientWeightDialog::CreateIngredientWeightDialog( QWidget* parent, Rec
 	//clearWState( WState_Polished );
 
 	weightEdit->setFocus();
-	connect( this, SIGNAL( okClicked() ), this, SLOT( slotOk() ) );
+	connect(okButton, SIGNAL(clicked() ), this, SLOT( slotOk() ) );
 }
 
 CreateIngredientWeightDialog::~CreateIngredientWeightDialog()

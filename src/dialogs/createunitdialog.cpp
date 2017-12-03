@@ -19,20 +19,36 @@
 #include <klineedit.h>
 #include <kcombobox.h>
 #include <KVBox>
+#include <KConfigGroup>
+#include <QDialogButtonBox>
+#include <QPushButton>
+#include <QVBoxLayout>
 
 CreateUnitDialog::CreateUnitDialog( QWidget *parent, const QString &name, const QString &plural,
 	const QString &name_abbrev, const QString &plural_abbrev, Unit::Type type, bool newUnit )
-		: KDialog( parent )
+		: QDialog( parent )
 {
-	setCaption(newUnit?i18nc( "@title:window", "New Unit" ):i18nc( "@title:window", "Unit" ));
-	setButtons(KDialog::Ok | KDialog::Cancel);
-	setDefaultButton(KDialog::Ok);
+	setWindowTitle(newUnit?i18nc( "@title:window", "New Unit" ):i18nc( "@title:window", "Unit" ));
+	QDialogButtonBox *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+	QWidget *mainWidget = new QWidget(this);
+	QVBoxLayout *mainLayout = new QVBoxLayout;
+	setLayout(mainLayout);
+	mainLayout->addWidget(mainWidget);
+	QPushButton *okButton = buttonBox->button(QDialogButtonBox::Ok);
+	okButton->setDefault(true);
+	okButton->setShortcut(Qt::CTRL | Qt::Key_Return);
+	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
+	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
+	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+	mainLayout->addWidget(buttonBox);
+	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
 
 	QGroupBox * box = new QGroupBox;
 	QFormLayout * layout = new QFormLayout;
 	box->setLayout( layout );
-	setMainWidget( box );
+//PORTING: Verify that widget was added to mainLayout: 	setMainWidget( box );
+// Add mainLayout->addWidget(box); if necessary
 
 	box->setTitle( (newUnit)?i18nc( "@title:group", "New Unit" ):i18nc("@title:group", "Unit") );
 	

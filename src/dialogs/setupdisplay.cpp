@@ -20,7 +20,7 @@
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
 #include <KTempDir>
-#include <kdialog.h>
+#include <QDialog>
 #include <QPointer>
 
 #include <khtmlview.h>
@@ -40,6 +40,7 @@
 #include "exporters/xsltexporter.h"
 
 #include <cmath>
+#include <KConfigGroup>
 
 KreDisplayItem::KreDisplayItem( const QString &n, const QString &_name ) : nodeId(n), name(_name)
 {
