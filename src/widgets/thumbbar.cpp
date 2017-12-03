@@ -58,9 +58,11 @@ extern "C"
 #include <kiconloader.h>
 #include <kio/previewjob.h>
 #include <klocale.h>
-#include <kmimetype.h>
+
 #include <kfileitem.h>
 #include <kglobal.h>
+#include <QMimeDatabase>
+#include <QMimeType>
 
 
 class ThumbBarViewPriv
@@ -638,7 +640,8 @@ void ThumbBarToolTip::maybeTip(const QPoint& /*pos*/)
     tipText += item->url() + cellEnd;
 
     tipText += cellBeg + i18n("Type:") + cellMid;
-    tipText += KMimeType::findByUrl(item->url())->comment() + cellEnd;
+QMimeDatabase db;
+    tipText += db.mimeTypeForUrl(item->url())->comment() + cellEnd;
 
     KFileItem fileItem(KFileItem::Unknown, KFileItem::Unknown, item->url());
 
