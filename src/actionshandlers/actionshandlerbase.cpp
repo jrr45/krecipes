@@ -11,7 +11,7 @@
 
 #include <KLocale>
 #include <QListWidget>
-#include <KMenu>
+#include <QMenu>
 #include <QAction>
 #include <QIcon>
 #include <QPointer>
@@ -31,7 +31,7 @@ ActionsHandlerBase::ActionsHandlerBase( DBListViewBase *_parentListView, RecipeD
 	QObject( _parentListView ), parentListView( _parentListView ), database( db )
 {
 
-	kpop = new KMenu( parentListView );
+	kpop = new QMenu( parentListView );
 	connect( parentListView,
         SIGNAL( contextMenu( QListWidget *, QListWidgetItem *, const QPoint & ) ),
         SLOT( showPopup( QListWidget *, QListWidgetItem *, const QPoint & ) )

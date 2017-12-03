@@ -32,7 +32,7 @@
 #include <KMessageBox>
 #include <KTempDir>
 #include <KStandardDirs>
-#include <KMenu>
+#include <QMenu>
 #include <KLocale>
 
 #include <QtWebEngineWidgets/QWebEnginePage>
@@ -52,7 +52,7 @@ KreRecipeActionsHandler::KreRecipeActionsHandler( KreRecipesListWidget * listWid
 {
 
 	m_recipesMenu = m_contextMenu; //Re-use the menu from the base class
-	m_categoriesMenu = new KMenu( listWidget );
+	m_categoriesMenu = new QMenu( listWidget );
 
 	connect( listWidget, SIGNAL( selectionChanged() ),
 		this, SLOT( selectionChangedSlot() ) );

@@ -19,7 +19,7 @@
 
 class QTreeWidgetItem;
 class QTreeWidget;
-class KMenu;
+class QMenu;
 class RecipeDB;
 class QAction;
 class KTempDir;
@@ -114,8 +114,8 @@ private slots:
 	void printDoneSlot();
 
 private:
-	KMenu *kpop;
-	KMenu *catPop;
+	QMenu *kpop;
+	QMenu *catPop;
 
     QTreeWidget *parentListView;
 	RecipeDB *database;

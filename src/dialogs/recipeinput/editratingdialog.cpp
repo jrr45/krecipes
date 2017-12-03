@@ -24,7 +24,7 @@
 #include <KRatingWidget>
 
 #include <KVBox>
-#include <kmenu.h>
+#include <QMenu>
 #include <kiconloader.h>
 #include <kdebug.h>
 #include <kvbox.h>
@@ -150,7 +150,7 @@ void EditRatingDialog::init( const ElementList &criteriaList )
 	connect( removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveRatingCriteria()) );
 
 	KIconLoader *il = KIconLoader::global();
-	KMenu *kpop = new KMenu( criteriaListView );
+	QMenu *kpop = new QMenu( criteriaListView );
 	kpop->addAction( il->loadIcon( "edit-delete-shred", KIconLoader::NoGroup, 16 ), i18nc( "@action:button", "&Delete" ), this, SLOT( slotRemoveRatingCriteria() ), Qt::Key_Delete );
 
 	for ( ElementList::const_iterator criteria_it = criteriaList.begin(); criteria_it != criteriaList.end(); ++criteria_it ) {

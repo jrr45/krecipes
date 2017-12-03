@@ -42,7 +42,7 @@
 #include <klocale.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kvbox.h>
 
 #include "backends/recipedb.h"

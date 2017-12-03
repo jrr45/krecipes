@@ -99,8 +99,8 @@ private slots:
 	void printDoneSlot();
 
 private:
-	KMenu * m_recipesMenu;
-	KMenu * m_categoriesMenu;
+	QMenu * m_recipesMenu;
+	QMenu * m_categoriesMenu;
 
 	QAction * m_categorizeAction;
 	QAction * m_removeFromCategoryAction;

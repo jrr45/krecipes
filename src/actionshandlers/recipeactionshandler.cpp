@@ -22,7 +22,7 @@
 #include <QTreeWidget>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <QAction>
 #include <kprogressdialog.h>
 #include <QtWebEngineWidgets/QWebEnginePage>
@@ -57,8 +57,8 @@ RecipeActionsHandler::RecipeActionsHandler( QTreeWidget *_parentListView, Recipe
 		categorizeAction( 0 ),
 		removeFromCategoryAction( 0 )
 {
-	kpop = new KMenu( parentListView );
-	catPop = new KMenu( parentListView );
+	kpop = new QMenu( parentListView );
+	catPop = new QMenu( parentListView );
 
 	connect( parentListView,
         SIGNAL( contextMenu( QTreeWidget *, QTreeWidgetItem *, const QPoint & ) ),

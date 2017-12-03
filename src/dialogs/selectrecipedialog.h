@@ -23,7 +23,7 @@
 #include <QLineEdit>
 #include <QDialog>
 #include <kfiledialog.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kvbox.h>
 
 

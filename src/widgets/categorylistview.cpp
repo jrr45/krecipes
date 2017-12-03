@@ -13,7 +13,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kiconloader.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kdebug.h>

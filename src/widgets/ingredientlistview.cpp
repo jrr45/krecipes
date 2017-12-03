@@ -14,7 +14,7 @@
 #include <kconfig.h>
 #include <klocale.h>
 #include <kglobal.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <QPointer>
 
 #include "backends/recipedb.h"

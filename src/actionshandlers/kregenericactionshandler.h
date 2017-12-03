@@ -14,7 +14,7 @@
 
 class KreGenericListWidget;
 class RecipeDB;
-class KMenu;
+class QMenu;
 class QAction;
 class QModelIndex;
 class QPoint;
@@ -34,7 +34,7 @@ public slots:
 	void addAction( QAction * action );
 
 protected:
-	KMenu * m_contextMenu;
+	QMenu * m_contextMenu;
 
 	KreGenericListWidget * m_listWidget;
 	RecipeDB * m_database;

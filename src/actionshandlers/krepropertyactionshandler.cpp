@@ -35,9 +35,9 @@ void KrePropertyActionsHandler::createNew()
 {
 	UnitList list;
 	m_database->loadUnits( &list );
-	QPointer<CreatePropertyDialog> propertyDialog = new CreatePropertyDialog( (QWidget*)m_listWidget, &list );
+    CreatePropertyDialog * propertyDialog = new CreatePropertyDialog( (QWidget*)m_listWidget, &list );
 
-	if ( propertyDialog->exec() == QDialog::Accepted ) {
+    if ( propertyDialog->exec() == QDialog::Accepted ) {
 		QString name = propertyDialog->newPropertyName();
 		QString units = propertyDialog->newUnitsName();
 		if ( !( ( name.isEmpty() ) || ( units.isEmpty() ) ) )  // Make sure none of the fields are empty

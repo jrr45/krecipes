@@ -18,7 +18,7 @@
 #include "widgets/krecategorieslistwidget.h"
 
 #include <KLocale>
-#include <KMenu>
+#include <QMenu>
 #include <QAction>
 #include <KMessageBox>
 

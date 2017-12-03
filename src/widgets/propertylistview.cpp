@@ -13,7 +13,7 @@
 #include <kmessagebox.h>
 #include <kconfig.h>
 #include <kglobal.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kdebug.h>
 #include <QPointer>
 

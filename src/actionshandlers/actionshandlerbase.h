@@ -13,7 +13,7 @@
 #include <QObject>
 
 class DBListViewBase;
-class KMenu;
+class QMenu;
 class QAction;
 class RecipeDB;
 class QListWidgetItem;
@@ -34,7 +34,7 @@ public slots:
 	void addAction( QAction * action );
 
 protected:
-	KMenu *kpop;
+	QMenu *kpop;
 
 	DBListViewBase *parentListView;
 	RecipeDB *database;

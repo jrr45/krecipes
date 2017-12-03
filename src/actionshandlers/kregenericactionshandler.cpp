@@ -9,7 +9,7 @@
 
 #include "kregenericactionshandler.h"
 
-#include <KMenu>
+#include <QMenu>
 #include <QModelIndex>
 #include <QAction>
 /*#include <KLocale>
@@ -32,7 +32,7 @@ KreGenericActionsHandler::KreGenericActionsHandler( KreGenericListWidget * listW
 	QObject( listWidget ), m_listWidget( listWidget ), m_database( db )
 {
 
-	m_contextMenu = new KMenu( listWidget );
+	m_contextMenu = new QMenu( listWidget );
 	connect( listWidget,
 		SIGNAL( contextMenuRequested( const QModelIndex &, const QPoint & ) ),
 		SLOT( showPopup( const QModelIndex &, const QPoint & ) )

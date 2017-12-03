@@ -24,7 +24,7 @@
 
 #include <math.h>
 
-class KMenu;
+class QMenu;
 class KTempDir;
 
 class QAction;
@@ -136,7 +136,7 @@ private:
 	//the item corresponding to the current point of processing the KLO
 	KreDisplayItem *m_currentItem;
 
-	KMenu *popup;
+	QMenu *popup;
 	DOM::CSSStyleSheet m_styleSheet;
 	Recipe m_sample;
 

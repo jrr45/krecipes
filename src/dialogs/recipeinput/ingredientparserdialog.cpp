@@ -27,7 +27,7 @@
 #include <kmessagebox.h>
 #include <QAction>
 #include <KVBox>
-#include <kmenu.h>
+#include <QMenu>
 #include <kvbox.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
@@ -105,7 +105,7 @@ IngredientParserDialog::IngredientParserDialog( const UnitList &units, QWidget* 
 	buttonBox->addWidget( buttonGroup );
 	buttonBox->addItem( horizontalSpacing );
 
-	KMenu *kpop = new KMenu( previewIngView );
+	QMenu *kpop = new QMenu( previewIngView );
 	kpop->addAction( i18nc( "@item:inmenu", "&Delete" ), this, SLOT( removeIngredient() ), Qt::Key_Delete );
 	kpop->addAction( i18nc( "@item:inmenu", "Set &Header") , this, SLOT( convertToHeader() ) );
 

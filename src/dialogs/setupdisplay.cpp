@@ -15,7 +15,7 @@
 #include <kfontdialog.h>
 #include <QColorDialog>
 #include <klocale.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <kiconloader.h>
 #include <kstandarddirs.h>
 #include <ktemporaryfile.h>
@@ -423,8 +423,8 @@ void SetupDisplay::nodeClicked(const QString &/*url*/,const QPoint &point)
 	KreDisplayItem *item = *node_item_map->find( m_currNodeId );
 
 	delete popup;
-	popup = new KMenu( view() );
-	popup->addTitle( item->name );
+	popup = new QMenu( view() );
+	popup->addSection( item->name );
 
 	unsigned int properties = 0;
 	for ( PropertiesMap::const_iterator it = box_properties->constBegin(); it != box_properties->constEnd(); ++it ) {

@@ -30,7 +30,7 @@
 #include <kstandardaction.h>
 #include <ktoolbar.h>
 #include <ktoolbarpopupaction.h>
-#include <kmenu.h>
+#include <QMenu>
 #include <KActionCollection>
 
 #include <widgets/thumbbar.h>
