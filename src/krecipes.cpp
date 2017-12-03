@@ -448,7 +448,7 @@ void Krecipes::readProperties( const KConfigGroup& group )
 	//QString url = group.readEntry("lastURL");
 
 	//if (!url.isNull())
-	//m_view->openURL(KUrl(url));
+	//m_view->openURL(QUrl(url));
 }
 
 void Krecipes::dragEnterEvent( QDragEnterEvent *event )
@@ -472,10 +472,10 @@ void Krecipes::fileOpen()
 	// button is clicked
 	/*
 	    // this brings up the generic open dialog
-	    KUrl url = KUrlRequesterDlg::getURL(QString(), this, i18n("Open Location") );
+	    QUrl url = KUrlRequesterDlg::getURL(QString(), this, i18n("Open Location") );
 	*/
 	// standard filedialog
-	/*KUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open Location"), QString(), QString());
+	/*QUrl url = QFileDialog::getOpenFileUrl(this, i18n("Open Location"), QString(), QString());
 	if (!url.isEmpty())
 		m_view->openURL(url);*/
 }
@@ -506,7 +506,7 @@ void Krecipes::filePrint()
 
 void Krecipes::import()
 {
-	QPointer<KFileDialog> file_dialog = new KFileDialog( KUrl(), QString(
+	QPointer<KFileDialog> file_dialog = new KFileDialog( QUrl(), QString(
 		"*.kre *.kreml|Krecipes (*.kre, *.kreml)\n"
 		"*.mx2|MasterCook (*.mx2)\n"
 		"*.mxp *.txt|%1 (*.mxp, *.txt)\n"
@@ -705,7 +705,7 @@ void Krecipes::conversionToolSlot()
 
 void Krecipes::backupSlot()
 {
-	QString fileName = QFileDialog::getSaveFileName(0, QString(), KUrl(, QString());
+	QString fileName = QFileDialog::getSaveFileName(0, QString(), QUrl(, QString());
 		QString("*.krecbk|%1 (*.krecbk)").arg(i18n("Krecipes Backup File")),
 		this, i18n("Save Backup As..."));
 
@@ -726,7 +726,7 @@ void Krecipes::backupSlot()
 
 void Krecipes::restoreSlot()
 {
-	QString filename = QFileDialog::getOpenFileName(0, QString(), KUrl(QString());
+	QString filename = QFileDialog::getOpenFileName(0, QString(), QUrl(QString());
 		QString("*.krecbk|%1 (*.krecbk)").arg(i18n("Krecipes Backup File")),
 		this,i18n("Restore Backup"));
 

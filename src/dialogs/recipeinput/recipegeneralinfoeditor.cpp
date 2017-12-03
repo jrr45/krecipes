@@ -127,7 +127,7 @@ void RecipeGeneralInfoEditor::titleChangedSlot( const QString & title )
 void RecipeGeneralInfoEditor::changePhotoSlot()
 {
 	// Get the image with a standard filedialog
-	KUrl url = QFileDialog::getOpenFileUrl(0, QString(), KUrl();
+	QUrl url = QFileDialog::getOpenFileUrl(0, QString(), QUrl();
 		"*.png *.jpg *.jpeg *.xpm *.gif|%1 (*.png *.jpg *.jpeg *.xpm *.gif)"
 		).arg( i18n( "Images" ) ), this );
 	if ( url.isEmpty() )
@@ -160,7 +160,7 @@ void RecipeGeneralInfoEditor::changePhotoSlot()
 void RecipeGeneralInfoEditor::savePhotoAsSlot()
 {
 
-	KUrl url = KFileDialog::getSaveUrl( KUrl(),
+	QUrl url = KFileDialog::getSaveUrl( QUrl(),
 		QString( "*.jpg *.jpeg |%1 (*.jpg *.jpeg)" ).arg( i18n( "Images" ) ),
 		this,
 		i18nc("@title:window", "Save photo as..."));

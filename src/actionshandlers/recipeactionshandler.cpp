@@ -379,7 +379,7 @@ void RecipeActionsHandler::exportRecipe( int id, const QString & caption, const 
 
 void RecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString & caption, const QString &selection, RecipeDB *database )
 {
-	KFileDialog * fd = new KFileDialog( KUrl(),
+	KFileDialog * fd = new KFileDialog( QUrl(),
 		QString( "*.kre|%1 (*.kre)\n"
 		"*.kreml|Krecipes (*.kreml)\n"
 		"*.txt|%3 (*.txt)\n"
