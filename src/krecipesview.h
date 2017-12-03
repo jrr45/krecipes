@@ -18,7 +18,6 @@
 #include <QList>
 
 #include <kstyle.h>
-#include <ktextbrowser.h>
 #include <kvbox.h>
 
 #include "importers/baseimporter.h"
