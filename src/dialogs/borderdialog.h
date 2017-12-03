@@ -11,7 +11,7 @@
 #define BORDERDIALOG_H
 
 #include <kdialog.h>
-#include <kcolordialog.h>
+#include <QColorDialog>
 #include <khuesaturationselect.h>
 #include <kcolorvalueselector.h>
 

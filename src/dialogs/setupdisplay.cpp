@@ -13,7 +13,7 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <kfontdialog.h>
-#include <kcolordialog.h>
+#include <QColorDialog>
 #include <klocale.h>
 #include <kmenu.h>
 #include <kiconloader.h>
@@ -491,7 +491,8 @@ void SetupDisplay::applyStylesheet()
 void SetupDisplay::setBackgroundColor()
 {
 	KreDisplayItem *item = *node_item_map->find( m_currNodeId );
-	if ( KColorDialog::getColor( item->backgroundColor, view() ) == QDialog::Accepted ) {
+	item->backgroundColor = QColorDialog::getColor(view())==QDialog::Accepted);
+	if ( item->backgroundColor.isValid() ) {
 		m_currentItem = item;
 		loadBackgroundColor(m_currNodeId,item->backgroundColor);
 		m_currentItem = 0;
@@ -533,7 +534,8 @@ void SetupDisplay::setColumns()
 void SetupDisplay::setTextColor()
 {
 	KreDisplayItem *item = *node_item_map->find( m_currNodeId );
-	if ( KColorDialog::getColor( item->textColor, view() ) == QDialog::Accepted ) {
+	item->textColor = QColorDialog::getColor(view())==QDialog::Accepted);
+	if ( item->textColor.isValid() ) {
 		m_currentItem = item;
 		loadTextColor(m_currNodeId,item->textColor);
 		m_currentItem = 0;
