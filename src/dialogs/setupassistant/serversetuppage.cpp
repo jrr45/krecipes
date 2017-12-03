@@ -14,7 +14,7 @@
 #include <KLocale>
 #include <KStandardDirs>
 #include <KLineEdit>
-#include <KIntNumInput>
+#include <QSpinBox>
 
 #include <QGridLayout>
 #include <QPixmap>
@@ -135,7 +135,7 @@ ServerSetupPage::ServerSetupPage( QWidget *parent ) : QWidget( parent )
 	serverSettingsLayout->addRow( i18n( "Client:" ), clientEdit );
 
 	//Port
-	portEdit = new KIntNumInput( serverSettingsGBox );
+	portEdit = new QSpinBox( serverSettingsGBox );
 	portEdit->setMinimum(0);
 	portEdit->setSpecialValueText( i18nc("@label:textbox Default Port", "Default") );
 	serverSettingsLayout->addRow( i18n( "Port:" ), portEdit );

@@ -17,7 +17,7 @@
 
 class QVBoxLayout;
 class QCheckBox;
-class KIntNumInput;
+class QSpinBox;
 
 class PerformancePrefs : public QWidget
 {
@@ -31,8 +31,8 @@ public:
 protected:
 	QVBoxLayout* Form1Layout;
 	QCheckBox* searchAsYouTypeBox;
-	KIntNumInput* catLimitInput;
-	KIntNumInput* limitInput;
+	QSpinBox* catLimitInput;
+	QSpinBox* limitInput;
 };
 
 #endif

@@ -18,7 +18,7 @@
 class QLabel;
 class QCheckBox;
 class KLineEdit;
-class KIntNumInput;
+class QSpinBox;
 
 class ServerSetupPage: public QWidget
 {
@@ -42,7 +42,7 @@ private:
 	QCheckBox *remoteServerCheckBox;
 	KLineEdit *serverEdit;
 	KLineEdit *clientEdit;
-	KIntNumInput *portEdit;
+	QSpinBox *portEdit;
 };
 
 #endif

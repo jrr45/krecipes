@@ -136,7 +136,7 @@ DBImportDialog::DBImportDialog( QWidget *parent, const char *name )
 	passwordLabel->setObjectName( "passwordLabel" );
 	layout5->addWidget( passwordLabel, 2, 0 );
 
-	portEdit = new KIntNumInput( serverPage );
+	portEdit = new QSpinBox( serverPage );
 	portEdit->setObjectName( "portEdit" );
 	portEdit->setMinimum(0);
 	portEdit->setValue(0);

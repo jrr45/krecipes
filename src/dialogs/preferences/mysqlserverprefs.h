@@ -15,7 +15,7 @@
 
 #include <QWidget>
 
-class KIntNumInput;
+class QSpinBox;
 class KLineEdit;
 class KUrlRequester;
 
@@ -34,7 +34,7 @@ private:
 	KLineEdit *usernameEdit;
 	KLineEdit *passwordEdit;
 	KLineEdit *dbNameEdit;
-	KIntNumInput *portEdit;
+	QSpinBox *portEdit;
 };
 
 #endif

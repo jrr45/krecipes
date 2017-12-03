@@ -26,7 +26,7 @@ class KLineEdit;
 class QLabel;
 
 class KUrlRequester;
-class KIntNumInput;
+class QSpinBox;
 
 /**
 @author Jason Kivlighn
@@ -59,7 +59,7 @@ private:
 	QLabel* hostLabel;
 	QLabel* nameLabel;
 	QLabel* portLabel;
-	KIntNumInput *portEdit;
+	QSpinBox *portEdit;
 	QWidget* sqlitePage;
 	KUrlRequester* sqliteDBRequester;
 

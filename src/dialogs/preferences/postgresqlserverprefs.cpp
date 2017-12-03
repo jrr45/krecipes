@@ -38,7 +38,7 @@ PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( paren
 	passwordEdit->setEchoMode( KLineEdit::Password );
 	dbLayout->addRow( i18n( "Password:" ), passwordEdit );
 
-	portEdit = new KIntNumInput( this );
+	portEdit = new QSpinBox( this );
 	portEdit->setMinimum(0);
 	portEdit->setSpecialValueText( i18nc("Default Port", "Default") );
 	dbLayout->addRow( i18n( "Port:" ), portEdit );

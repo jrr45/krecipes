@@ -15,7 +15,7 @@
 #include <KConfigGroup>
 #include <KGlobal>
 #include <KLocale>
-#include <KIntNumInput>
+#include <QSpinBox>
 #include <KHBox>
 
 #include <QVBoxLayout>
@@ -43,20 +43,22 @@ PerformancePrefs::PerformancePrefs( QWidget *parent )
         explainationLabel->setWordWrap( true );
 
 	KHBox *catLimitHBox = new KHBox( this );
-	catLimitInput = new KIntNumInput(catLimitHBox);
+	catLimitInput = new QSpinBox(catLimitHBox);
 	catLimitInput->setLabel( i18n( "Number of categories to display at once:" ) );
 	catLimitInput->setRange(0,5000,20);
-	catLimitInput->setSliderEnabled( true );
+//PORT SCRIPT: Warning QSpinBox doesn't support slider: 	catLimitInput->setSliderEnabled( true );
+
 	catLimitInput->setSpecialValueText( i18nc("Unlimited categories", "Unlimited") );
 
 	if ( cat_limit > 0 )
 		catLimitInput->setValue( cat_limit );
 
 	KHBox *limitHBox = new KHBox( this );
-	limitInput = new KIntNumInput(limitHBox);
+	limitInput = new QSpinBox(limitHBox);
 	limitInput->setLabel( i18n( "Number of elements to display at once:" ) );
 	limitInput->setRange(0,100000,1000);
-	limitInput->setSliderEnabled( true );
+//PORT SCRIPT: Warning QSpinBox doesn't support slider: 	limitInput->setSliderEnabled( true );
+
 	limitInput->setSpecialValueText( i18nc("Unlimited elements", "Unlimited") );
 
 	if ( limit > 0 )
