@@ -75,7 +75,7 @@ void KreTextEdit::keyPressEvent( QKeyEvent *e )
 	// Filter key-events if completion mode is not set to CompletionNone
 
 	KeyBindingMap keys = getKeyBindings();
-	KShortcut cut;
+	QKeySequence cut;
 	bool noModifier = ( e->modifiers() == Qt::NoModifier || e->modifiers() == Qt::ShiftModifier );
 
 	if ( noModifier ) {
