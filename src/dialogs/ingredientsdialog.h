@@ -26,7 +26,7 @@ class QPushButton;
 class KreGenericActionsHandler;
 class KreIngredientActionsHandler;
 class KreIngredientListWidget;
-class KTabWidget;
+class QTabWidget;
 class QAction;
 class QHBoxLayout;
 class QVBoxLayout;
@@ -54,7 +54,7 @@ private:
 	KreIngredientListWidget * ingredientListWidget;
 	IngredientGroupsDialog *groupsDialog;
 	KreIngredientActionsHandler *ingredientActionsHandler;
-	KTabWidget* tabWidget;
+	QTabWidget* tabWidget;
 	QWidget* ingredientTab;
 
 	// Internal Methods

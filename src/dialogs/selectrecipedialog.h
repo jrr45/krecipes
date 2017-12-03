@@ -30,7 +30,7 @@
 class KHBox;
 class QFrame;
 class QPushButton;
-class KTabWidget;
+class QTabWidget;
 class QAction;
 class QShowEvent;
 class QVBoxLayout;
@@ -83,7 +83,7 @@ private:
 
 	// Widgets
 	QVBoxLayout *layout;
-	KTabWidget *tabWidget;
+	QTabWidget *tabWidget;
 	BasicSearchTab *basicSearchTab;
 	KHBox *searchBar;
 	KreRecipesListWidget * recipeListWidget;

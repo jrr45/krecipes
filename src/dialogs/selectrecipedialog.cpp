@@ -12,7 +12,7 @@
 
 #include "selectrecipedialog.h"
 
-#include <KTabWidget>
+#include <QTabWidget>
 #include <QGridLayout>
 #include <QFrame>
 #include <QLabel>
@@ -60,7 +60,7 @@ SelectRecipeDialog::SelectRecipeDialog( QWidget *parent, RecipeDB* db )
 	database = db;
 
 	QVBoxLayout *tabLayout = new QVBoxLayout( this );
-	tabWidget = new KTabWidget( this );
+	tabWidget = new QTabWidget( this );
 	tabWidget->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding ) );
 	tabLayout->addWidget( tabWidget );
 

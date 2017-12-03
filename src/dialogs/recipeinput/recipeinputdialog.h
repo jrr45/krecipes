@@ -22,7 +22,7 @@ class RatingListEditor;
 class RecipeDB;
 class Recipe;
 
-class KTabWidget;
+class QTabWidget;
 
 class QFrame;
 class QToolButton;
@@ -54,7 +54,7 @@ private:
 	bool unsavedChanges;
 
 	// Widgets
-	KTabWidget* tabWidget;
+	QTabWidget* tabWidget;
 
 	RecipeGeneralInfoEditor * m_recipeGeneralInfoEditor;
 

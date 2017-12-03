@@ -41,7 +41,7 @@
 
 class QPushButton;
 class QGroupBox;
-class KTabWidget;
+class QTabWidget;
 
 class MealInput;
 class RecipeDB;
@@ -78,7 +78,7 @@ private:
 	QGroupBox *daysSliderBox;
 	QLabel *dayNumberLabel;
 	QSlider *dayNumberSelector;
-	KTabWidget *mealTabs;
+	QTabWidget *mealTabs;
 	MealInput *mealTab; // points to the current tab
 	QPushButton *okButton;
 

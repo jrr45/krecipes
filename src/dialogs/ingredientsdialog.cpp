@@ -27,7 +27,7 @@
 #include <kglobal.h>
 #include <kconfig.h>
 
-#include <KTabWidget>
+#include <QTabWidget>
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
@@ -43,7 +43,7 @@ IngredientsDialog::IngredientsDialog( QWidget* parent, RecipeDB *db ) : QWidget(
 
 	QHBoxLayout* page_layout = new QHBoxLayout( this );
 
-	tabWidget = new KTabWidget( this );
+	tabWidget = new QTabWidget( this );
 
 	ingredientTab = new QWidget( tabWidget );
 

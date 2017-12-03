@@ -38,7 +38,7 @@
 #include <kvbox.h>
 #include <QPushButton>
 #include <QGroupBox>
-#include <KTabWidget>
+#include <QTabWidget>
 
 #include "propertycalculator.h"
 #include "widgets/propertylistview.h"
@@ -98,7 +98,7 @@ DietWizardDialog::DietWizardDialog( QWidget *parent, RecipeDB *db ) : KVBox( par
 	mealNumberSelector->setFixedWidth( 100 );
 
 	// Tabs
-	mealTabs = new KTabWidget( this );
+	mealTabs = new QTabWidget( this );
 	mealTabs->setContentsMargins( 5 , 5, 5, 5 );
 
 	// Button bar

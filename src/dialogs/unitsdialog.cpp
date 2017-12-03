@@ -11,7 +11,7 @@
 
 #include "unitsdialog.h"
 
-#include <KTabWidget>
+#include <QTabWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 
@@ -40,7 +40,7 @@ UnitsDialog::UnitsDialog( QWidget *parent, RecipeDB *db ) : QWidget( parent )
 	// Design dialog
 	QHBoxLayout* page_layout = new QHBoxLayout( this );
 
-	tabWidget = new KTabWidget( this );
+	tabWidget = new QTabWidget( this );
 
 	unitTab = new QWidget( tabWidget );
 	QHBoxLayout* layout = new QHBoxLayout( unitTab );

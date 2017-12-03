@@ -21,7 +21,7 @@
 #include <KNumInput>
 #include <KHBox>
 #include <QPushButton>
-#include <KTabWidget>
+#include <QTabWidget>
 
 #include <QStackedWidget>
 #include <QList>

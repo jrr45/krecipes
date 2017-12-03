@@ -21,7 +21,7 @@
 
 #include <KLocale>
 #include <KMessageBox>
-#include <KTabWidget>
+#include <QTabWidget>
 
 #include <QToolButton>
 #include <QHBoxLayout>
@@ -40,7 +40,7 @@ RecipeInputDialog::RecipeInputDialog( QWidget* parent, RecipeDB *db ) : KVBox( p
 	database = db;
 
 	// Tabs
-	tabWidget = new KTabWidget( this );
+	tabWidget = new QTabWidget( this );
 	setObjectName( "tabWidget" );
 	tabWidget->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding ) );
 

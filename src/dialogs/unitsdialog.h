@@ -24,7 +24,7 @@ class KreUnitListWidget;
 class KreUnitActionsHandler;
 class QAction;
 class QPushButton;
-class KTabWidget;
+class QTabWidget;
 
 /**
 @author Unai Garro
@@ -61,7 +61,7 @@ private:
 
 	// Internal Variables
 	RecipeDB *database;
-	KTabWidget *tabWidget;
+	QTabWidget *tabWidget;
 
 private slots:
 	void loadConversionTables();
