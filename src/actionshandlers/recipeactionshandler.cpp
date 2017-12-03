@@ -28,7 +28,7 @@
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
-#include <KTempDir>
+#include <QTemporaryDir>
 
 #include <KConfigGroup>
 #include <QStandardPaths>
@@ -451,8 +451,8 @@ void RecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString &
 void RecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *database )
 {
 	//Create the temporary directory.
-	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-print"));
-	QString tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
+	m_tempdir = new QTemporaryDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-print"));
+	QString tmp_filename = m_tempdir->path() + "krecipes_recipe_view.html";
 	//Export to HTML in the temporary directory.
 	XSLTExporter html_generator( tmp_filename, "html" );
 	KConfigGroup config(KSharedConfig::openConfig(), "Page Setup" );
@@ -481,7 +481,7 @@ void RecipeActionsHandler::print(bool ok)
 	previewdlg->exec();
 	delete previewdlg;
 	//Remove the temporary directory which stores the HTML and free memory.
-	m_tempdir->unlink();
+	m_tempdir->remove();
 	delete m_tempdir;
 	emit( printDone() );
 }

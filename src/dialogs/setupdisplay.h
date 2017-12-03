@@ -25,7 +25,7 @@
 #include <math.h>
 
 class QMenu;
-class KTempDir;
+class QTemporaryDir;
 
 class QAction;
 class QLabel;
@@ -143,7 +143,7 @@ private:
 	QString m_activeTemplate;
 	QString m_activeStyle;
 
-	KTempDir * m_tempdir;
+	QTemporaryDir * m_tempdir;
 };
 
 #endif //SETUPDISPLAY_H

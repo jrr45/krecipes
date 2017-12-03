@@ -22,7 +22,7 @@ class QTreeWidget;
 class QMenu;
 class RecipeDB;
 class QAction;
-class KTempDir;
+class QTemporaryDir;
 
 /** @brief A class that centralizes common actions for recipes such as saving and editing.
   * 
@@ -126,7 +126,7 @@ private:
 	QList<int> getAllVisibleItems();
     QList<int> recipeIDs( const QList<QTreeWidgetItem *> &items ) const;
 
-	KTempDir * m_tempdir;
+	QTemporaryDir * m_tempdir;
     QWebEnginePage * m_printPage;
 };
 

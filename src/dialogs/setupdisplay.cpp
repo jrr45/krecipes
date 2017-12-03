@@ -19,7 +19,7 @@
 #include <kiconloader.h>
 
 #include <ktemporaryfile.h>
-#include <KTempDir>
+#include <QTemporaryDir>
 #include <QDialog>
 #include <QPointer>
 
@@ -110,7 +110,7 @@ SetupDisplay::SetupDisplay( const Recipe &sample, QWidget *parent ) : KHTMLPart(
 		m_sample.ratingList.append(rating1);
 	}
 
-	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-configlayout"));
+    m_tempdir = new QTemporaryDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-configlayout");
 
 	kDebug()<<"first load";
 	loadHTMLView();
@@ -131,7 +131,7 @@ SetupDisplay::SetupDisplay( const Recipe &sample, QWidget *parent ) : KHTMLPart(
 
 SetupDisplay::~SetupDisplay()
 {
-	m_tempdir->unlink();
+	m_tempdir->remove();
 	delete m_tempdir;
 	delete box_properties;
 	delete node_item_map;
@@ -140,7 +140,7 @@ SetupDisplay::~SetupDisplay()
 void SetupDisplay::loadHTMLView( const QString &templateFile, const QString &styleFile )
 {
 	kDebug()<<"loading template: "<<templateFile<<" style: "<<styleFile;
-	QString tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
+	QString tmp_filename = m_tempdir->path() + "krecipes_recipe_view.html";
 	XSLTExporter exporter( tmp_filename, "html" );
 	if ( templateFile != QString() )
 		exporter.setTemplate( templateFile );
@@ -176,7 +176,7 @@ void SetupDisplay::loadHTMLView( const QString &templateFile, const QString &sty
 
 void SetupDisplay::reload()
 {
-	m_tempdir->unlink();
+	m_tempdir->remove();
 	loadHTMLView( m_activeTemplate, m_activeStyle );
 }
 
@@ -492,7 +492,7 @@ void SetupDisplay::applyStylesheet()
 void SetupDisplay::setBackgroundColor()
 {
 	KreDisplayItem *item = *node_item_map->find( m_currNodeId );
-	item->backgroundColor = QColorDialog::getColor(view())==QDialog::Accepted);
+    item->backgroundColor = QColorDialog::getColor(view())==QDialog::Accepted;
 	if ( item->backgroundColor.isValid() ) {
 		m_currentItem = item;
 		loadBackgroundColor(m_currNodeId,item->backgroundColor);
@@ -535,7 +535,7 @@ void SetupDisplay::setColumns()
 void SetupDisplay::setTextColor()
 {
 	KreDisplayItem *item = *node_item_map->find( m_currNodeId );
-	item->textColor = QColorDialog::getColor(view())==QDialog::Accepted);
+    item->textColor = QColorDialog::getColor(view())==QDialog::Accepted;
 	if ( item->textColor.isValid() ) {
 		m_currentItem = item;
 		loadTextColor(m_currNodeId,item->textColor);

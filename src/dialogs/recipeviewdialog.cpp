@@ -27,7 +27,7 @@
 #include <kconfig.h>
 #include <kglobal.h>
 #include <kvbox.h>
-#include <KTempDir>
+#include <QTemporaryDir>
 #include <QFrame>
 #include <QToolButton>
 #include <QHBoxLayout>
@@ -51,8 +51,8 @@ RecipeViewDialog::RecipeViewDialog( QWidget *parent, RecipeDB *db, int recipeID 
 
 	connect( database, SIGNAL(recipeRemoved(int)), SLOT(recipeRemoved(int)) );
 
-	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-view"));
-	tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
+	m_tempdir = new QTemporaryDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-view"));
+	tmp_filename = m_tempdir->path() + "krecipes_recipe_view.html";
 
 	// Functions Box
 	QHBoxLayout* functionsLayout = new QHBoxLayout;
@@ -106,8 +106,8 @@ bool RecipeViewDialog::loadRecipes( const QList<int> &ids )
 
 	// Remove any files created by the last recipe loaded
 	delete m_tempdir;
-	m_tempdir = new KTempDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-view"));
-	tmp_filename = m_tempdir->name() + "krecipes_recipe_view.html";
+	m_tempdir = new QTemporaryDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-view"));
+	tmp_filename = m_tempdir->path() + "krecipes_recipe_view.html";
 
 	ids_loaded = ids; //need to save these ids in order to delete the html files later...make sure this comes after the call to removeOldFiles()
 	recipe_loaded = ( ids.count() > 0 && ids[ 0 ] >= 0 );

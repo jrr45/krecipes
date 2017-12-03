@@ -16,7 +16,7 @@
 #include "kregenericactionshandler.h"
 
 class QAction;
-class KTempDir;
+class QTemporaryDir;
 class QWebEnginePage;
 class KreRecipesListWidget;
 
@@ -105,7 +105,7 @@ private:
 	QAction * m_categorizeAction;
 	QAction * m_removeFromCategoryAction;
 
-	KTempDir * m_tempdir;
+	QTemporaryDir * m_tempdir;
     QWebEnginePage * m_printPage;
 };
 
