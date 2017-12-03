@@ -29,7 +29,7 @@ class QLabel;
 class QPushButton;
 
 class K3ListView;
-class KLineEdit;
+class QLineEdit;
 
 
 class SimilarCategoriesDialog : public QDialog
@@ -43,7 +43,7 @@ public:
 	QList<int> matches() const;
 	QString element() const;
 
-	KLineEdit* categoriesBox;
+	QLineEdit* categoriesBox;
 	QSlider* thresholdSlider;
 	QLabel* thresholdLabel;
 	QLabel* categoryLabel;

@@ -14,7 +14,7 @@
 
 #include <QDialog>
 
-class KLineEdit;
+class QLineEdit;
 
 /**
 @author Unai Garro
@@ -30,7 +30,7 @@ protected slots:
 	void slotTextChanged( const QString& text );
 
 private:
-	KLineEdit *elementEdit;
+	QLineEdit *elementEdit;
 };
 
 #endif

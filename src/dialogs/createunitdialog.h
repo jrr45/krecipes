@@ -18,7 +18,7 @@
 #include "datablocks/unit.h"
 
 class KComboBox;
-class KLineEdit;
+class QLineEdit;
 
 /**
 @author Unai Garro
@@ -37,10 +37,10 @@ protected slots:
 
 private:
 	//Widgets
-	KLineEdit *nameEdit;
-	KLineEdit *pluralEdit;
-	KLineEdit *nameAbbrevEdit;
-	KLineEdit *pluralAbbrevEdit;
+	QLineEdit *nameEdit;
+	QLineEdit *pluralEdit;
+	QLineEdit *nameAbbrevEdit;
+	QLineEdit *pluralAbbrevEdit;
 	KComboBox *typeComboBox;
 };
 

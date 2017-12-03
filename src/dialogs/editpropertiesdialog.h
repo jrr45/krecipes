@@ -30,7 +30,7 @@ class QSplitter;
 class QGroupBox;
 
 class RecipeDB;
-class KLineEdit;
+class QLineEdit;
 class ElementList;
 class KreListView;
 
@@ -83,7 +83,7 @@ private:
 	void reloadWeightList( void );
     int findPropertyNo( QListWidgetItem *it );
 
-	KLineEdit* inputBox;
+	QLineEdit* inputBox;
 
 	ElementList *perUnitListBack;
 	RecipeDB *db;

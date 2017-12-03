@@ -13,7 +13,7 @@
 #include <QLabel>
 
 #include <k3listview.h>
-#include <klineedit.h>
+#include <QLineEdit>
 #include <kvbox.h>
 
 class DBListViewBase;
@@ -56,7 +56,7 @@ private:
 	QLabel *listLabel;
 	int filteredColumn;
 	QLabel *filterLabel;
-	KLineEdit *filterEdit;
+	QLineEdit *filterEdit;
 	K3ListView *list;
 
 private slots:

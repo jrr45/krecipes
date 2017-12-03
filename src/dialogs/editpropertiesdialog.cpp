@@ -33,7 +33,7 @@
 #include <kstandarddirs.h>
 #include <kvbox.h>
 #include <KDoubleValidator>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 
@@ -227,7 +227,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 	//clearWState( WState_Polished );
 
 	KDoubleValidator * doubleValidator = new KDoubleValidator(this);
-	inputBox = new KLineEdit( propertyListView ->viewport() );
+	inputBox = new QLineEdit( propertyListView ->viewport() );
 	propertyListView ->addChild( inputBox );
 	inputBox->setValidator( doubleValidator );
 	inputBox->hide();

@@ -16,7 +16,7 @@
 #include <QWidget>
 
 class QSpinBox;
-class KLineEdit;
+class QLineEdit;
 class KUrlRequester;
 
 class MySQLServerPrefs : public QWidget
@@ -30,10 +30,10 @@ private:
 	KUrlRequester *dumpPathRequester;
 	KUrlRequester *mysqlPathRequester;
 
-	KLineEdit *serverEdit;
-	KLineEdit *usernameEdit;
-	KLineEdit *passwordEdit;
-	KLineEdit *dbNameEdit;
+	QLineEdit *serverEdit;
+	QLineEdit *usernameEdit;
+	QLineEdit *passwordEdit;
+	QLineEdit *dbNameEdit;
 	QSpinBox *portEdit;
 };
 

@@ -17,7 +17,7 @@
 
 class QLabel;
 class QCheckBox;
-class KLineEdit;
+class QLineEdit;
 class QSpinBox;
 
 class ServerSetupPage: public QWidget
@@ -36,12 +36,12 @@ private:
 	// Widgets
 	QLabel *logo;
 	QLabel *serverSetupText;
-	KLineEdit *usernameEdit;
-	KLineEdit *passwordEdit;
-	KLineEdit *dbNameEdit;
+	QLineEdit *usernameEdit;
+	QLineEdit *passwordEdit;
+	QLineEdit *dbNameEdit;
 	QCheckBox *remoteServerCheckBox;
-	KLineEdit *serverEdit;
-	KLineEdit *clientEdit;
+	QLineEdit *serverEdit;
+	QLineEdit *clientEdit;
 	QSpinBox *portEdit;
 };
 

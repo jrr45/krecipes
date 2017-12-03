@@ -20,7 +20,7 @@
 #include <q3header.h>
 #include <k3listview.h>
 #include <q3textedit.h>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KRatingWidget>
 
 #include <KVBox>
@@ -96,7 +96,7 @@ void EditRatingDialog::init( const ElementList &criteriaList )
 
 	raterLabel = new QLabel( layout2 );
 	raterLabel->setObjectName( "raterLabel" );
-	raterEdit = new KLineEdit( layout2 );
+	raterEdit = new QLineEdit( layout2 );
 	raterEdit->setObjectName( "raterEdit" );
 
 	layout8 = new KHBox( page );

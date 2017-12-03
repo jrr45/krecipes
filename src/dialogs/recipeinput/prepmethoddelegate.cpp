@@ -13,7 +13,7 @@
 #include "widgets/fractioninput.h"
 #include "datablocks/mixednumberrange.h"
 
-#include <KLineEdit>
+#include <QLineEdit>
 
 
 PrepMethodDelegate::PrepMethodDelegate(QObject *parent): QStyledItemDelegate(parent)
@@ -39,7 +39,7 @@ QWidget * PrepMethodDelegate::createEditor(QWidget *parent, const QStyleOptionVi
 {
 	Q_UNUSED(option)
 	Q_UNUSED(index)
-	KLineEdit* editor = new KLineEdit( parent );
+	QLineEdit* editor = new QLineEdit( parent );
 
 	//Fill the completion items
 	ElementList::const_iterator it = m_prepMethodsList.constBegin();
@@ -53,14 +53,14 @@ QWidget * PrepMethodDelegate::createEditor(QWidget *parent, const QStyleOptionVi
 
 void PrepMethodDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
-	KLineEdit * lineEdit = static_cast<KLineEdit*>( editor );
+	QLineEdit * lineEdit = static_cast<QLineEdit*>( editor );
 	lineEdit->setText( index.data( Qt::EditRole ).toString() );
 }
 
 void PrepMethodDelegate::setModelData(QWidget *editor, 
 	QAbstractItemModel *model, const QModelIndex &index) const
 {
-	KLineEdit * lineEdit = static_cast<KLineEdit*>( editor );
+	QLineEdit * lineEdit = static_cast<QLineEdit*>( editor );
 	//Set the preparation methods id's in the model
 	QList<QVariant> ids;
 	QStringList stringList = lineEdit->text().split(",",QString::SkipEmptyParts);

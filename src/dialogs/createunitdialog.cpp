@@ -16,7 +16,7 @@
 #include <QGroupBox>
 
 #include <klocale.h>
-#include <klineedit.h>
+#include <QLineEdit>
 #include <kcombobox.h>
 #include <KVBox>
 #include <KConfigGroup>
@@ -52,19 +52,19 @@ CreateUnitDialog::CreateUnitDialog( QWidget *parent, const QString &name, const 
 
 	box->setTitle( (newUnit)?i18nc( "@title:group", "New Unit" ):i18nc("@title:group", "Unit") );
 	
-	nameEdit = new KLineEdit( name, box );
+	nameEdit = new QLineEdit( name, box );
 	layout->addRow( i18nc("@label:textbox Single unit name",
 		"Singular:" ), nameEdit );
 	
-	nameAbbrevEdit = new KLineEdit( name_abbrev, box );
+	nameAbbrevEdit = new QLineEdit( name_abbrev, box );
 	layout->addRow( i18nc( "@label:textbox Single unit abbreviation",
 		"Singular Abbreviation:" ), nameAbbrevEdit );
 
-	pluralEdit = new KLineEdit( plural, box );
+	pluralEdit = new QLineEdit( plural, box );
 	layout->addRow( i18nc("@label:textbox Plural unit name",
 		"Plural:" ), pluralEdit );
 
-	pluralAbbrevEdit = new KLineEdit( plural_abbrev, box );
+	pluralAbbrevEdit = new QLineEdit( plural_abbrev, box );
 	layout->addRow( i18nc( "@label:textbox Plural unit abbreviation",
 		"Plural Abbreviation:" ), pluralAbbrevEdit );
 

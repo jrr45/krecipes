@@ -21,7 +21,7 @@
 #include <k3listview.h>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <klineedit.h>
+#include <QLineEdit>
 
 #include "widgets/categorycombobox.h"
 #include "backends/recipedb.h"
@@ -49,7 +49,7 @@ SimilarCategoriesDialog::SimilarCategoriesDialog( ElementList &list, QWidget* pa
    layout4->setSpacing( 6 );
    layout4->setObjectName( "layout4" );
 
-	categoriesBox = new KLineEdit( this );
+	categoriesBox = new QLineEdit( this );
 
 	layout4->addWidget( categoriesBox, 0, 1 );
 

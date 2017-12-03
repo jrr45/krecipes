@@ -112,11 +112,11 @@ void KreGenericListWidget::setCurrentLimit( int value )
 {
 	if (value == -1) { 
 		ui->m_pageNavigationWidget->setVisible( false );
-		ui->m_searchBox->setClickMessage( i18nc( "@label:textbox",
+		ui->m_searchBox->setPlaceholderText( i18nc( "@label:textbox",
 			"Type here the text to search" ) );
 	} else {
 		ui->m_pageNavigationWidget->setVisible( true );
-		ui->m_searchBox->setClickMessage( i18nc( "@label:textbox",
+		ui->m_searchBox->setPlaceholderText( i18nc( "@label:textbox",
 			"Type here the text to search in the current page" ) );
 	}
 	m_currentLimit = value;

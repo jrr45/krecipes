@@ -15,7 +15,7 @@
 
 #include <KLocale>
 #include <KStandardDirs>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KHBox>
 
 #include <QGridLayout>
@@ -100,11 +100,11 @@ PermissionsSetupPage::PermissionsSetupPage( QWidget *parent ) : QWidget( parent 
 	rootInfoGBox->setTitle( i18n( "MySQL Administrator Account" ) );
 	rootInfoGBox->setEnabled( false ); // Disable by default
 	// User Entry
-	userEdit = new KLineEdit( rootInfoGBox );
+	userEdit = new QLineEdit( rootInfoGBox );
 	userEdit->setText( "root" );
 	rootInfoLayout->addRow( i18nc("@label:textbox Database Username", "Username:" ), userEdit );
 	// Password Entry
-	passEdit = new KLineEdit( rootInfoGBox );
+	passEdit = new QLineEdit( rootInfoGBox );
 	passEdit->setEchoMode( QLineEdit::Password );
 	rootInfoLayout->addRow( i18n( "Password:" ), passEdit );
 	rootInfoGBox->setLayout(rootInfoLayout);

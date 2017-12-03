@@ -13,7 +13,7 @@
 #include "widgets/fractioninput.h"
 #include "datablocks/mixednumberrange.h"
 
-#include <KLineEdit>
+#include <QLineEdit>
 
 
 AmountDelegate::AmountDelegate(QObject *parent): QStyledItemDelegate(parent)

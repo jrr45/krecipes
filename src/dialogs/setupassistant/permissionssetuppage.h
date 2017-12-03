@@ -16,7 +16,7 @@
 
 class QLabel;
 class QCheckBox;
-class KLineEdit;
+class QLineEdit;
 
 class PermissionsSetupPage: public QWidget
 {
@@ -33,8 +33,8 @@ private:
 	QLabel *permissionsText;
 	QCheckBox *noSetupCheckBox;
 	QCheckBox *rootCheckBox;
-	KLineEdit *userEdit;
-	KLineEdit *passEdit;
+	QLineEdit *userEdit;
+	QLineEdit *passEdit;
 
 private slots:
 	void rootCheckBoxChanged( bool on );

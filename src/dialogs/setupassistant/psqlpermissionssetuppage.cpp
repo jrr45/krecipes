@@ -15,7 +15,7 @@
 
 #include <KLocale>
 #include <KStandardDirs>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KHBox>
 
 #include <QGridLayout>
@@ -104,11 +104,11 @@ PSqlPermissionsSetupPage::PSqlPermissionsSetupPage( QWidget *parent ) : QWidget(
 	rootInfoGBox->setTitle( i18n( "PostgreSQL Superuser or Privileged Account" ) );
 	rootInfoGBox->setEnabled( false ); // Disable by default
 	// User Entry
-	userEdit = new KLineEdit( rootInfoGBox );
+	userEdit = new QLineEdit( rootInfoGBox );
 	userEdit->setText( "postgres" );
 	rootInfoLayout->addRow( i18nc("@label:textbox Database Username", "Username:" ), userEdit );
 	// Password Entry
-	passEdit = new KLineEdit( rootInfoGBox );
+	passEdit = new QLineEdit( rootInfoGBox );
 	passEdit->setEchoMode( QLineEdit::Password );
 	rootInfoLayout->addRow( i18n( "Password:" ), passEdit );
 

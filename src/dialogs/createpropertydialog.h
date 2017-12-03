@@ -19,7 +19,7 @@
 
 #include <QPushButton>
 
-#include <klineedit.h>
+#include <QLineEdit>
 #include <QDialog>
 
 #include "datablocks/unit.h"
@@ -35,8 +35,8 @@ public:
 
 private:
 	//Widgets
-	KLineEdit *propertyNameEdit;
-	KLineEdit *propertyUnits;
+	QLineEdit *propertyNameEdit;
+	QLineEdit *propertyUnits;
 
 	//Internal variables
 	UnitList *unitList;

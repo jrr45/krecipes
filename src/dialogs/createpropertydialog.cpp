@@ -49,11 +49,11 @@ CreatePropertyDialog::CreatePropertyDialog( QWidget *parent, UnitList* list )
 	box->setLayout( layout );
 	box->setTitle( i18nc( "@title:group", "New Property" ) );
 
-	propertyNameEdit = new KLineEdit( box );
+	propertyNameEdit = new QLineEdit( box );
 	propertyNameEdit->setMinimumWidth( 150 );
 	layout->addRow( i18nc( "@label:textbox", "Property name:" ), propertyNameEdit );
 
-	propertyUnits = new KLineEdit( box );
+	propertyUnits = new QLineEdit( box );
 	propertyUnits->setMinimumWidth( 150 );
 	layout->addRow( i18nc( "@label:textbox", "Units:" ), propertyUnits );
 

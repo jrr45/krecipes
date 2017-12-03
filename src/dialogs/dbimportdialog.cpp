@@ -16,7 +16,7 @@
 #include <QRadioButton>
 #include <QStackedWidget>
 #include <qwidget.h>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <QLabel>
 #include <q3whatsthis.h>
 
@@ -114,23 +114,23 @@ DBImportDialog::DBImportDialog( QWidget *parent, const char *name )
 	layout5->setSpacing( 6 );
 	layout5->setObjectName( "layout5" );
 
-	hostEdit = new KLineEdit( serverPage );
+	hostEdit = new QLineEdit( serverPage );
 	hostEdit->setObjectName( "hostEdit" );
 	layout5->addWidget( hostEdit, 0, 1 );
 	hostLabel = new QLabel( serverPage );
 	hostLabel->setObjectName( "hostLabel" );
 	layout5->addWidget( hostLabel, 0, 0 );
 
-	userEdit = new KLineEdit( serverPage );
+	userEdit = new QLineEdit( serverPage );
 	userEdit->setObjectName( "userEdit" );
 	layout5->addWidget( userEdit, 1, 1 );
 	userLabel = new QLabel( serverPage );
 	userLabel->setObjectName( "userLabel" );
 	layout5->addWidget( userLabel, 1, 0 );
 
-	passwordEdit = new KLineEdit( serverPage );
+	passwordEdit = new QLineEdit( serverPage );
 	passwordEdit->setObjectName( "passwordEdit" );
-	passwordEdit->setEchoMode( KLineEdit::Password );
+	passwordEdit->setEchoMode( QLineEdit::Password );
 	layout5->addWidget( passwordEdit, 2, 1 );
 	passwordLabel = new QLabel( serverPage );
 	passwordLabel->setObjectName( "passwordLabel" );
@@ -145,7 +145,7 @@ DBImportDialog::DBImportDialog( QWidget *parent, const char *name )
 	portLabel->setObjectName( "portLabel" );
 	layout5->addWidget( portLabel, 3, 0 );
 
-	nameEdit = new KLineEdit( serverPage );
+	nameEdit = new QLineEdit( serverPage );
 	nameEdit->setObjectName( "nameEdit" );
 	layout5->addWidget( nameEdit, 4, 1 );
 	nameLabel = new QLabel( serverPage );

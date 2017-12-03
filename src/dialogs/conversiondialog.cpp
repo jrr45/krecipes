@@ -15,7 +15,7 @@
 #include <KVBox>
 
 #include <kcombobox.h>
-#include <klineedit.h>
+#include <QLineEdit>
 #include <klocale.h>
 #include <kvbox.h>
 #include <KConfigGroup>

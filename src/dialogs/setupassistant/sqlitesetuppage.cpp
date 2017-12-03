@@ -13,7 +13,7 @@
 
 #include <KLocale>
 #include <KStandardDirs>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KHBox>
 #include <KFileDialog>
 
@@ -64,7 +64,7 @@ SQLiteSetupPage::SQLiteSetupPage( QWidget *parent ) : QWidget( parent )
 
 	( void ) new QLabel( i18n( "Database file:" ), hbox );
 
-	fileEdit = new KLineEdit( hbox );
+	fileEdit = new QLineEdit( hbox );
 	fileEdit->setText( KStandardDirs::locateLocal ( "appdata", "krecipes.krecdb" ) );
 	hbox->setStretchFactor( fileEdit, 2 );
 

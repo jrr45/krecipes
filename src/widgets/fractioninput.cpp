@@ -16,7 +16,7 @@
 #include <QTimer>
 
 
-FractionInput::FractionInput( QWidget *parent, MixedNumber::Format format ) : KLineEdit( parent ),
+FractionInput::FractionInput( QWidget *parent, MixedNumber::Format format ) : QLineEdit( parent ),
 	m_allowRange(false),
 	m_format(format)
 {

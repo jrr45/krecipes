@@ -36,9 +36,9 @@ DataInitializePage::DataInitializePage( QWidget *parent ) : QWidget( parent )
 	// Explanation Text// Widgets
 	QLabel *logo;
 	//QLabel *serverSetupText;
-	//KLineEdit *usernameEdit;
-	//KLineEdit *passwordEdit;
-	//KLineEdit *dbNameEdit;
+	//QLineEdit *usernameEdit;
+	//QLineEdit *passwordEdit;
+	//QLineEdit *dbNameEdit;
 	initializeText = new QLabel( this );
 	initializeText->setText( i18n( "<p>Krecipes comes with some delicious default recipes and useful data.</p><p>Would you like to initialize your database with those? Note that this will erase all your previous recipes if you have any.</p>" ) );
 

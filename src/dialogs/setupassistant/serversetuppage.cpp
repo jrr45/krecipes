@@ -13,7 +13,7 @@
 
 #include <KLocale>
 #include <KStandardDirs>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <QSpinBox>
 
 #include <QGridLayout>
@@ -73,7 +73,7 @@ ServerSetupPage::ServerSetupPage( QWidget *parent ) : QWidget( parent )
 
 	// Username Input
 
-	usernameEdit = new KLineEdit( inputGBox );
+	usernameEdit = new QLineEdit( inputGBox );
 	// get username
 	uid_t userID;
 	QString username;
@@ -88,14 +88,14 @@ ServerSetupPage::ServerSetupPage( QWidget *parent ) : QWidget( parent )
 
 	// Password
 
-	passwordEdit = new KLineEdit( inputGBox );
+	passwordEdit = new QLineEdit( inputGBox );
 	passwordEdit->setEchoMode( QLineEdit::Password );
 	inputLayout->addRow( i18n( "Password:" ), passwordEdit );
 
 
 	// DB Name
 
-	dbNameEdit = new KLineEdit( inputGBox );
+	dbNameEdit = new QLineEdit( inputGBox );
 	dbNameEdit->setText( "Krecipes" );
 	inputLayout->addRow( i18n( "Database name:" ), dbNameEdit );
 
@@ -125,12 +125,12 @@ ServerSetupPage::ServerSetupPage( QWidget *parent ) : QWidget( parent )
 
 
 	// Server
-	serverEdit = new KLineEdit( serverSettingsGBox );
+	serverEdit = new QLineEdit( serverSettingsGBox );
 	serverEdit->setText( "localhost" );
 	serverSettingsLayout->addRow( i18n( "Server:" ), serverEdit );
 
 	// Client
-	clientEdit = new KLineEdit( serverSettingsGBox );
+	clientEdit = new QLineEdit( serverSettingsGBox );
 	clientEdit->setText( "localhost" );
 	serverSettingsLayout->addRow( i18n( "Client:" ), clientEdit );
 

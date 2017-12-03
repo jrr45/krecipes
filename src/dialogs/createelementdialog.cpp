@@ -14,7 +14,7 @@
 #include <kvbox.h>
 #include <klocale.h>
 #include <QVBoxLayout>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <Q3GroupBox>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
@@ -50,7 +50,7 @@ CreateElementDialog::CreateElementDialog( QWidget *parent, const QString &text )
 	 boxLayout->setAlignment( Qt::AlignTop );
 	 box->setTitle( text );
 
-	 elementEdit = new KLineEdit( box );
+	 elementEdit = new QLineEdit( box );
 	 boxLayout->addWidget( elementEdit );
 
 	 adjustSize();

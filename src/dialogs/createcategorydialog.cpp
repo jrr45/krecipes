@@ -16,7 +16,7 @@
 #include <QFormLayout>
 
 #include <kcombobox.h>
-#include <klineedit.h>
+#include <QLineEdit>
 #include <klocale.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
@@ -51,7 +51,7 @@ CreateCategoryDialog::CreateCategoryDialog( QWidget *parent, const ElementList& 
 	
 	box->setTitle( i18nc("@title:group", "New Category" ) );
 
-	elementEdit = new KLineEdit;
+	elementEdit = new QLineEdit;
 	boxLayout->addRow( i18nc( "@label:textbox Category name", "Name:" ), elementEdit );
 
 	categoryComboBox = new KComboBox;

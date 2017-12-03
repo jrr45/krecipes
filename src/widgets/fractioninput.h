@@ -15,7 +15,7 @@
 #include "validators/mixednumbervalidator.h"
 #include "datablocks/mixednumber.h"
 
-#include <KLineEdit>
+#include <QLineEdit>
 
 #include "deprecated.h"
 
@@ -25,11 +25,11 @@ class MixedNumberRange;
 class MixedNumber;
 
 
-/** A KLineEdit widget extended to allow input of decimals and fractions or ranges of such.
+/** A QLineEdit widget extended to allow input of decimals and fractions or ranges of such.
   * Input is returned as a @ref MixedNumberRange class.
   * @author Jason Kivlighn
   */
-class FractionInput : public KLineEdit
+class FractionInput : public QLineEdit
 {
 Q_OBJECT
 

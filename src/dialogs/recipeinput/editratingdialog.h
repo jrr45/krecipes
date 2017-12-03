@@ -26,7 +26,7 @@ class KComboBox;
 class QPushButton;
 class Q3ListViewItem;
 class Q3TextEdit;
-class KLineEdit;
+class QLineEdit;
 class KRatingWidget;
 
 class Rating;
@@ -53,7 +53,7 @@ public:
 	QLabel* commentsLabel;
 	Q3TextEdit* commentsEdit;
 	QLabel* raterLabel;
-	KLineEdit* raterEdit;
+	QLineEdit* raterEdit;
 
 	Rating rating() const;
 

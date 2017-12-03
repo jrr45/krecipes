@@ -31,7 +31,7 @@
 #include <QRadioButton>
 
 #include <KPushButton>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KPushButton>
 #include <KComboBox>
 #include <kapplication.h>
@@ -113,7 +113,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 
 	KHBox *titleHBox = new KHBox( titleFrame );
 	/*QLabel *titleInfoLabel = */new QLabel(i18nc("@label:textbox", "Keywords:"),titleHBox);
-	titleEdit = new KLineEdit( titleHBox );
+	titleEdit = new QLineEdit( titleHBox );
 	titleEdit->setObjectName( "titleEdit" );
 	titleFrameLayout->addWidget( titleHBox );
 
@@ -141,15 +141,15 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	//ingredientInfoLabel->setTextFormat( Qt::RichText );
 	ingredientFrameLayout->addRow( ingredientInfoLabel);
 
-	ingredientsAllEdit = new KLineEdit( ingredientFrame );
+	ingredientsAllEdit = new QLineEdit( ingredientFrame );
 	ingredientsAllEdit->setObjectName( "ingredientsAllEdit" );
 	ingredientFrameLayout->addRow(i18nc( "@label:textbox", "Uses all:" ), ingredientsAllEdit );
 	
-	ingredientsAnyEdit = new KLineEdit( ingredientFrame );
+	ingredientsAnyEdit = new QLineEdit( ingredientFrame );
 	ingredientsAnyEdit->setObjectName( "ingredientsAnyEdit" );
 	ingredientFrameLayout->addRow( i18nc( "@label:textbox", "Uses any of:" ), ingredientsAnyEdit );
 	
-	ingredientsWithoutEdit = new KLineEdit( ingredientFrame );
+	ingredientsWithoutEdit = new QLineEdit( ingredientFrame );
 	ingredientsWithoutEdit->setObjectName( "ingredientsWithoutEdit" );
 	ingredientFrameLayout->addRow( i18nc( "@label:textbox", "Without:" ) , ingredientsWithoutEdit );
 
@@ -178,15 +178,15 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	//categoryInfoLabel->setTextFormat( Qt::RichText );
 	categoryFrameLayout->addRow( categoryInfoLabel );
 	
-	categoriesAllEdit = new KLineEdit( categoryFrame );
+	categoriesAllEdit = new QLineEdit( categoryFrame );
 	categoriesAllEdit->setObjectName( "categoriesAllEdit" );
 	categoryFrameLayout->addRow( i18nc(  "@label:textbox","In all:" ), categoriesAllEdit );
 	
-	categoriesAnyEdit = new KLineEdit( categoryFrame );
+	categoriesAnyEdit = new QLineEdit( categoryFrame );
 	categoriesAnyEdit->setObjectName( "categoriesAnyEdit" );
 	categoryFrameLayout->addRow( i18nc( "@label:textbox","In any of:" ), categoriesAnyEdit );
 	
-	categoriesNotEdit = new KLineEdit( categoryFrame );
+	categoriesNotEdit = new QLineEdit( categoryFrame );
 	categoriesNotEdit->setObjectName( "categoriesNotEdit" );
 	categoryFrameLayout->addRow( i18nc( "@label:textbox","Not in:" ), categoriesNotEdit );
 	
@@ -215,15 +215,15 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	//authorsInfoLabel->setTextFormat( Qt::RichText );
 	authorsFrameLayout->addRow( authorsInfoLabel );
 
-	authorsAnyEdit = new KLineEdit( authorsFrame );
+	authorsAnyEdit = new QLineEdit( authorsFrame );
 	authorsAnyEdit->setObjectName( "authorsAnyEdit" );
 	authorsFrameLayout->addRow( i18nc( "@label:textbox", "By any of:" ), authorsAnyEdit );
 	
-	authorsAllEdit = new KLineEdit( authorsFrame );
+	authorsAllEdit = new QLineEdit( authorsFrame );
 	authorsAllEdit->setObjectName( "authorsAllEdit" );
 	authorsFrameLayout->addRow( i18nc( "@label:textbox", "By all:" ), authorsAllEdit );
 	
-	authorsWithoutEdit = new KLineEdit( authorsFrame );
+	authorsWithoutEdit = new QLineEdit( authorsFrame );
 	authorsWithoutEdit->setObjectName( "authorsWithoutEdit" );
 	authorsFrameLayout->addRow( i18nc( "@label:textbox","Not by:" ), authorsWithoutEdit );
 	
@@ -347,7 +347,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	KHBox *instructionsHBox = new KHBox(instructionsFrame);
 	/*QLabel *instructionsInfoLabel = */new QLabel(i18nc("@label:textbox", "Keywords:"),instructionsHBox);
 
-	instructionsEdit = new KLineEdit( instructionsHBox );
+	instructionsEdit = new QLineEdit( instructionsHBox );
 	instructionsEdit->setObjectName( "instructionsEdit" );
 	instructionsFrameLayout->addWidget( instructionsHBox );
 

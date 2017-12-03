@@ -16,7 +16,7 @@
 #include <KFileDialog>
 #include <KConfigGroup>
 #include <KNumInput>
-#include <KLineEdit>
+#include <QLineEdit>
 #include <KUrlRequester>
 
 #include <QVBoxLayout>
@@ -28,14 +28,14 @@ PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( paren
 
 	QFormLayout * dbLayout = new QFormLayout;
 
-	serverEdit = new KLineEdit( this );
+	serverEdit = new QLineEdit( this );
 	dbLayout->addRow( i18n( "Server:" ), serverEdit );
 
-	usernameEdit = new KLineEdit( this );
+	usernameEdit = new QLineEdit( this );
 	dbLayout->addRow ( i18nc("@label:textbox Database Username", "Username:" ), usernameEdit );
 
-	passwordEdit = new KLineEdit( this );
-	passwordEdit->setEchoMode( KLineEdit::Password );
+	passwordEdit = new QLineEdit( this );
+	passwordEdit->setEchoMode( QLineEdit::Password );
 	dbLayout->addRow( i18n( "Password:" ), passwordEdit );
 
 	portEdit = new QSpinBox( this );
@@ -43,7 +43,7 @@ PostgreSQLServerPrefs::PostgreSQLServerPrefs( QWidget *parent ) : QWidget( paren
 	portEdit->setSpecialValueText( i18nc("Default Port", "Default") );
 	dbLayout->addRow( i18n( "Port:" ), portEdit );
 
-	dbNameEdit = new KLineEdit( this );
+	dbNameEdit = new QLineEdit( this );
 	dbLayout->addRow( i18n( "Database name:" ), dbNameEdit );
 
 	layout->addLayout( dbLayout );

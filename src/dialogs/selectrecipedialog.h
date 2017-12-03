@@ -20,7 +20,7 @@
 #include <QLabel>
 
 #include <kcombobox.h>
-#include <klineedit.h>
+#include <QLineEdit>
 #include <QDialog>
 #include <kfiledialog.h>
 #include <kmenu.h>
@@ -92,7 +92,7 @@ private:
 	KPushButton *removeButton;
 	KPushButton *editButton;
 	QLabel *searchLabel;
-	KLineEdit *searchBox;
+	QLineEdit *searchBox;
 	CategoryComboBox *categoryBox;
 	AdvancedSearchDialog *advancedSearch;
 	// Internal Data

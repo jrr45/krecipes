@@ -11,7 +11,7 @@
 #include "datablocks/mixednumber.h"
 #include "widgets/fractioninput.h"
 
-#include <KLineEdit>
+#include <QLineEdit>
 
 #include <QSignalMapper>
 
@@ -38,7 +38,7 @@ void KreConversionTable::onEditionFinished( const QString & rowcolString )
 	QStringList splitString = rowcolString.split(" ");
 	int row = splitString.first().toInt();
 	int col = splitString.last().toInt();
-	KLineEdit * editor = (KLineEdit*)this->cellWidget( row, col );
+	QLineEdit * editor = (QLineEdit*)this->cellWidget( row, col );
 	if ( m_textChanged ) {
 		double ratioValue = editor->text().toDouble();
 		editor->setToolTip( QString("1 %1 = %2 %3")
@@ -57,7 +57,7 @@ void KreConversionTable::onCellEdited( const QString & rowcolString )
 	QStringList splitString = rowcolString.split(" ");
 	int row = splitString.first().toInt();
 	int col = splitString.last().toInt();
-	KLineEdit * editor = (KLineEdit*)this->cellWidget( row, col );
+	QLineEdit * editor = (QLineEdit*)this->cellWidget( row, col );
 	if ( editor->text().isEmpty() ) {
 		editor->setToolTip("");
 		emit ratioRemoved( row, col );
@@ -87,8 +87,8 @@ void KreConversionTable::initTable()
 				diagonalItem->setBackground( palette.brush( QPalette::Disabled, QPalette::Button ) );
 				this->setItem( r, c, diagonalItem );
 			} else {
-				// Non-diagonal items will be KLineEdit's only accepting doubles.
-				KLineEdit * editor = new KLineEdit;
+				// Non-diagonal items will be QLineEdit's only accepting doubles.
+				QLineEdit * editor = new QLineEdit;
 				editor->setValidator( new QDoubleValidator );
 				this->setCellWidget( r, c, editor );
 				m_signalMapper->setMapping( editor,
@@ -114,7 +114,7 @@ void KreConversionTable::setRatio( int ingID1, int ingID2, double ratio )
 	int indexID1 = unitIDs.indexOf( ingID1 );
 	int indexID2 = unitIDs.indexOf( ingID2 );
 
-	KLineEdit * editor = (KLineEdit*)this->cellWidget( indexID1, indexID2 );
+	QLineEdit * editor = (QLineEdit*)this->cellWidget( indexID1, indexID2 );
 
 	QString text = QString::number(ratio, 'g', 6);
 	editor->setText( QString::number(ratio, 'g', 6) );
@@ -129,7 +129,7 @@ void KreConversionTable::setRatio( int ingID1, int ingID2, double ratio )
 
 void KreConversionTable::deleteRatio( int r, int c )
 {
-	KLineEdit * editor = (KLineEdit*)this->cellWidget( r, c );
+	QLineEdit * editor = (QLineEdit*)this->cellWidget( r, c );
 	editor->setText("");
 	editor->setToolTip("");
 }

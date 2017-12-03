@@ -15,7 +15,7 @@
 #include <QWidget>
 
 class QLabel;
-class KLineEdit;
+class QLineEdit;
 
 class SQLiteSetupPage: public QWidget
 {
@@ -33,7 +33,7 @@ private:
 	// Widgets
 	QLabel *logo;
 	QLabel *serverSetupText;
-	KLineEdit *fileEdit;
+	QLineEdit *fileEdit;
 };
 
 #endif

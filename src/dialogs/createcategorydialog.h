@@ -16,7 +16,7 @@
 #include <QDialog>
 #include "datablocks/elementlist.h"
 
-class KLineEdit;
+class QLineEdit;
 class QGroupBox;
 class KComboBox;
 
@@ -36,7 +36,7 @@ private:
 
 	//Widgets
 	QGroupBox *box;
-	KLineEdit *elementEdit;
+	QLineEdit *elementEdit;
 	KComboBox* categoryComboBox;
 	QMap<QString, int> idMap;
 

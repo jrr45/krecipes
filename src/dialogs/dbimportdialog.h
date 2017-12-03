@@ -22,7 +22,7 @@ class QGridLayout;
 class QRadioButton;
 class QStackedWidget;
 class QWidget;
-class KLineEdit;
+class QLineEdit;
 class QLabel;
 
 class KUrlRequester;
@@ -50,11 +50,11 @@ private:
 	QRadioButton* psqlRadioButton;
 	QStackedWidget* paramStack;
 	QWidget* serverPage;
-	KLineEdit* nameEdit;
+	QLineEdit* nameEdit;
 	QLabel* passwordLabel;
-	KLineEdit* hostEdit;
-	KLineEdit* passwordEdit;
-	KLineEdit* userEdit;
+	QLineEdit* hostEdit;
+	QLineEdit* passwordEdit;
+	QLineEdit* userEdit;
 	QLabel* userLabel;
 	QLabel* hostLabel;
 	QLabel* nameLabel;
