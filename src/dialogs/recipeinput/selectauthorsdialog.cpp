@@ -228,4 +228,3 @@ void SelectAuthorsDialog::reloadAuthorsCombo( void )
 }
 
 
-#include "selectauthorsdialog.moc"

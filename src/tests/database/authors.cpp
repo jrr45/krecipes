@@ -162,4 +162,3 @@ void TestDatabaseAuthors::testCreatePostgreSQL()
 
 QTEST_MAIN(TestDatabaseAuthors)
 
-#include "authors.moc"

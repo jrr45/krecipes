@@ -1032,4 +1032,3 @@ void AdvancedSearchDialog::haveSelectedItems()
 		emit recipeSelected( true );
 }
 
-#include "advancedsearchdialog.moc"

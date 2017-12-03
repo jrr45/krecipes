@@ -200,4 +200,3 @@ void SelectRecipeDialog::setRemoveFromCategoryAction( QAction * action )
 	actionHandler->setRemoveFromCategoryAction( action );
 }
 
-#include "selectrecipedialog.moc"

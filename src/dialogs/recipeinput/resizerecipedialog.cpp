@@ -126,4 +126,3 @@ void ResizeRecipeDialog::resizeRecipe( double factor )
 	}
 }
 
-#include "resizerecipedialog.moc"

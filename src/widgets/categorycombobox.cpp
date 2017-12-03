@@ -179,4 +179,3 @@ int CategoryComboBox::findInsertionPoint( const QString &name )
 	return count();
 }
 
-#include "categorycombobox.moc"

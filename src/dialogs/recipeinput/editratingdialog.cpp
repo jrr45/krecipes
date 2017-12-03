@@ -271,4 +271,3 @@ void EditRatingDialog::slotRemoveRatingCriteria()
 	delete criteriaListView->selectedItem();
 }
 
-#include "editratingdialog.moc"

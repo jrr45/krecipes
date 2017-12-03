@@ -177,4 +177,3 @@ void RecipeViewDialog::recipeRemoved( int id )
 	}
 }
 
-#include "recipeviewdialog.moc"

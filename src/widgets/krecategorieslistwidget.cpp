@@ -283,4 +283,3 @@ void KreCategoriesListWidget::itemsChangedSlot( const QModelIndex & topLeft,
 	}
 }
 
-#include "krecategorieslistwidget.moc"

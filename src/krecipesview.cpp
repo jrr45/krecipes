@@ -1292,4 +1292,3 @@ QString KrecipesView::currentDatabase() const
 }
 
 
-#include "krecipesview.moc"

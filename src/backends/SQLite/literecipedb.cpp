@@ -1041,4 +1041,3 @@ QString LiteRecipeDB::escape( const QString &s ) const
 	return result;
 }
 
-#include "literecipedb.moc"

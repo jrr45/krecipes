@@ -143,4 +143,3 @@ void KreListView::clearSearch()
 	filter( QString() );
 }
 
-#include "krelistview.moc"

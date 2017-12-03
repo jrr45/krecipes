@@ -410,4 +410,3 @@ void SectionItem::paintCell ( QPainter * p, const QColorGroup & /*cg*/, int colu
 	}
 }
 
-#include "ingredientmatcherdialog.moc"

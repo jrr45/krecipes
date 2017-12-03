@@ -109,4 +109,3 @@ bool FractionInput::isEmpty() const
 	return text().isEmpty();
 }
 
-#include "fractioninput.moc"

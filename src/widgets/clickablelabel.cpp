@@ -37,4 +37,3 @@ void ClickableLabel::mouseReleaseEvent(QMouseEvent * e)
 	}
 }
 
-#include "clickablelabel.moc"

@@ -383,4 +383,3 @@ void RecipeInputDialog::reloadCheckSpelling()
 	}
 }
 
-#include "recipeinputdialog.moc"

@@ -56,4 +56,3 @@ void Test_RatingCriteria::testCopyConstructionAndAssignment()
 
 QTEST_MAIN(Test_RatingCriteria)
 
-#include "ratingcriteria.moc"

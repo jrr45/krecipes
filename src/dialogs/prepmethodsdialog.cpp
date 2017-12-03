@@ -81,4 +81,3 @@ void PrepMethodsDialog::addAction( QAction * action )
 	prepMethodActionsHandler->addAction( action );
 }
 
-#include "prepmethodsdialog.moc"

@@ -144,4 +144,3 @@ void Test_Rating::testNumberSumAndAverage()
 
 QTEST_MAIN(Test_Rating)
 
-#include "rating.moc"

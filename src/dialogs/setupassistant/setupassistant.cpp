@@ -191,4 +191,3 @@ void SetupAssistant::getServerInfo( bool &isRemote, QString &host, QString &clie
 		dbName = sqliteSetupPage->dbFile();
 }
 
-#include "setupassistant.moc"

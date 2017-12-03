@@ -209,4 +209,3 @@ void NukeConfigWidget::updateTotals( int value )
 }
 
 
-#include "nukeconfigwidget.moc"

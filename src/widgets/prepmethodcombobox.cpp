@@ -181,4 +181,3 @@ void PrepMethodComboBox::setSelected( int prepID )
 	}
 }
 
-#include "prepmethodcombobox.moc"

@@ -331,4 +331,3 @@ bool DBListViewBase::handleElement( const QString &name )
 	return true;
 }
 
-#include "dblistviewbase.moc"

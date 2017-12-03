@@ -324,4 +324,3 @@ void PageSetupDialog::selectNoLayout()
 		shown_items_popup->setItemChecked(lst[i], true );
 	}
 }
-#include "pagesetupdialog.moc"

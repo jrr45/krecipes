@@ -451,4 +451,3 @@ void CategoryCheckListView::load( int limit, int offset )
 	}
 }
 
-#include "categorylistview.moc"

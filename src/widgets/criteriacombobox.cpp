@@ -43,4 +43,3 @@ int CriteriaComboBox::criteriaID( int index )
 	return idMap[index];
 }
 
-#include "criteriacombobox.moc"

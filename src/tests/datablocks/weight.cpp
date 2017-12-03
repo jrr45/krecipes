@@ -96,4 +96,3 @@ void Test_Weight::testCopyConstructionAndAssignment()
 
 QTEST_MAIN(Test_Weight)
 
-#include "weight.moc"

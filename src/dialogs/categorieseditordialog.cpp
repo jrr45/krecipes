@@ -89,4 +89,3 @@ void CategoriesEditorDialog::setPasteAsSubcategoryAction( QAction * action )
 	categoryActionsHandler->setPasteAsSubcategoryAction( action );
 }
 
-#include "categorieseditordialog.moc"

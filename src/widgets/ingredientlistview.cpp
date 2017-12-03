@@ -170,4 +170,3 @@ void IngredientCheckListView::stateChange(IngredientCheckListItem *it,bool on)
 	}
 }
 
-#include "ingredientlistview.moc"

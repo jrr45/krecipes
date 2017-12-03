@@ -185,4 +185,3 @@ int IngredientComboBox::findInsertionPoint( const QString &name )
 	return count();
 }
 
-#include "ingredientcombobox.moc"

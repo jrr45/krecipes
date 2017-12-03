@@ -37,4 +37,3 @@ void Test_UnitRatioList::testGetRatio()
 
 QTEST_MAIN(Test_UnitRatioList)
 
-#include "unitratiolist.moc"

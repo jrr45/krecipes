@@ -1089,4 +1089,3 @@ void RecipeDB::fixUSDAPropertyUnits()
 	}
 }
 
-#include "recipedb.moc"

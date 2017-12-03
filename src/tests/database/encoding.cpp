@@ -266,4 +266,3 @@ void TestDatabaseEncoding::testRetrievePropertyUTF8_PostgreSQL()
 
 QTEST_MAIN(TestDatabaseEncoding)
 
-#include "encoding.moc"

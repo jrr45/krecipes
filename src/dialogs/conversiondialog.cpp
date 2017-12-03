@@ -175,4 +175,3 @@ void ConversionDialog::convert()
 	}
 }
 
-#include "conversiondialog.moc"

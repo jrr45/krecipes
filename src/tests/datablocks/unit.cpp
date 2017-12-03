@@ -139,4 +139,3 @@ void Test_Unit::testDetermineName()
 
 QTEST_MAIN(Test_Unit)
 
-#include "unit.moc"

@@ -3186,4 +3186,3 @@ void QSqlRecipeDB::search( RecipeList *list, int items, const RecipeSearchParame
 		loadRecipes( list, items, ids );
 }
 
-#include "qsqlrecipedb.moc"

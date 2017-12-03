@@ -224,4 +224,3 @@ void UnitsDialog::saveAllRatios( UnitRatioList &/*ratioList*/ )
 #endif
 }
 
-#include "unitsdialog.moc"

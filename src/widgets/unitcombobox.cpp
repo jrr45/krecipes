@@ -140,4 +140,3 @@ int UnitComboBox::findInsertionPoint( const QString &name )
 	return count();
 }
 
-#include "unitcombobox.moc"

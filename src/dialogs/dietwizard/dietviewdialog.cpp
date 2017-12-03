@@ -158,4 +158,3 @@ void DietViewDialog::slotOk( void )
 	close();
 }
 
-#include "dietviewdialog.moc"

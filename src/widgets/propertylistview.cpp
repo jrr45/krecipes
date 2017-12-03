@@ -195,4 +195,3 @@ void CheckPropertyListView::createProperty( const IngredientProperty &property )
 	( void ) new HidePropertyCheckListItem( this, property, (m_loading)?false:true );
 }
 
-#include "propertylistview.moc"

@@ -125,4 +125,3 @@ void CreateUnitDialog::nameAbbrevTextChanged(const QString &newText)
 	}
 }
 
-#include "createunitdialog.moc"

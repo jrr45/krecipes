@@ -76,4 +76,3 @@ void Test_UnitRatio::testReverse()
 
 QTEST_MAIN(Test_UnitRatio)
 
-#include "unitratio.moc"

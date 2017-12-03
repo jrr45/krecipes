@@ -230,4 +230,3 @@ void KreTextEdit::clearCompletionItems()
 	compObj() ->clear();
 }
 
-#include "kretextedit.moc"

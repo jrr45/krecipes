@@ -416,4 +416,3 @@ RecipeList& DietWizardDialog::dietList( void )
 	return *dietRList;
 }
 
-#include "dietwizarddialog.moc"

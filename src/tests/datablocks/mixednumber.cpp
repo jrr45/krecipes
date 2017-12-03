@@ -384,4 +384,3 @@ void TestMixedNumber::testToFromString()
 
 QTEST_MAIN(TestMixedNumber)
 
-#include "mixednumber.moc"

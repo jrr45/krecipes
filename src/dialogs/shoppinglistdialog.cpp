@@ -156,4 +156,3 @@ void ShoppingListDialog::clear()
 	m_destListwidget->clear();
 }
 
-#include "shoppinglistdialog.moc"

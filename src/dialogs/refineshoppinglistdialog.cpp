@@ -233,4 +233,3 @@ void RefineShoppingListDialog::itemRenamed( Q3ListViewItem* item, const QString 
 	}
 }
 
-#include "refineshoppinglistdialog.moc"

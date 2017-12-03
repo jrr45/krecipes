@@ -118,4 +118,3 @@ int KreAuthorListWidget::idColumn()
 	return 0;
 }
 
-#include "kreauthorlistwidget.moc"

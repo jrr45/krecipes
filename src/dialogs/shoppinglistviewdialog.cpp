@@ -121,4 +121,3 @@ void ShoppingListViewDialog::print()
 	shoppingListView->view() ->print();
 }
 
-#include "shoppinglistviewdialog.moc"

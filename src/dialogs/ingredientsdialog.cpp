@@ -134,4 +134,3 @@ void IngredientsDialog::showPropertyEdit()
 	}
 }
 
-#include "ingredientsdialog.moc"

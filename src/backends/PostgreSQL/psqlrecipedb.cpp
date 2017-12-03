@@ -634,4 +634,3 @@ void PSqlRecipeDB::empty( void )
 	}
 }
 
-#include "psqlrecipedb.moc"

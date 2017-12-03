@@ -201,5 +201,4 @@ void ConvertSQLite3::process2Finished( int exitCode, QProcess::ExitStatus exitSt
 	m_localEventLoop->exit();
 }
 
-#include "convert_sqlite3.moc"
 

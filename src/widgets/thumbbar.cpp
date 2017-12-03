@@ -662,4 +662,3 @@ QMimeDatabase db;
     tip(r, tipText);*/
 }
 
-#include "thumbbar.moc"

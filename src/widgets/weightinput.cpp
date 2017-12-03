@@ -60,4 +60,3 @@ Element WeightInput::prepMethod() const
 	return prep;
 }
 
-#include "weightinput.moc"

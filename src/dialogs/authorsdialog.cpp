@@ -80,4 +80,3 @@ void AuthorsDialog::addAction( QAction * action )
 	authorActionsHandler->addAction( action );
 }
 
-#include "authorsdialog.moc"

@@ -295,4 +295,3 @@ void BorderDialog::setColor( const QColor &color )
 	valuePal->repaint();
 }
 
-#include "borderdialog.moc"

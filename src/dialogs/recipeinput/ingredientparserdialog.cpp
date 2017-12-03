@@ -331,4 +331,3 @@ void IngredientParserDialog::parseText()
 	}
 }
 
-#include "ingredientparserdialog.moc"

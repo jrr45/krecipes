@@ -427,4 +427,3 @@ void SimilarCategoriesDialog::removeCategory()
 		delete item;
 }
 
-#include "similarcategoriesdialog.moc"

@@ -593,4 +593,3 @@ void Menu::copyMap( QMap <KreMenuButton*, int> &destMap, const QMap <KreMenuButt
 	}
 }
 
-#include "kremenu.moc"

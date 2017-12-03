@@ -465,4 +465,3 @@ void TestMixedNumberRange::testToFromString()
 
 QTEST_MAIN(TestMixedNumberRange)
 
-#include "mixednumberrange.moc"

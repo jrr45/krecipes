@@ -121,4 +121,3 @@ void Test_IngredientsEditor::testLoadAndDumpList()
 	}
 }
 
-#include "ingredientseditor.moc"

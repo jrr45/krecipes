@@ -298,4 +298,3 @@ QAbstractItemModel * KreGenericListWidget::model()
 	return m_proxyModel;
 }
 
-#include "kregenericlistwidget.moc"

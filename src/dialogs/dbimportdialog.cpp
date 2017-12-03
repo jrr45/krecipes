@@ -231,4 +231,3 @@ QString DBImportDialog::dbFile() const
 	return sqliteDBRequester->url().path();
 }
 
-#include "dbimportdialog.moc"

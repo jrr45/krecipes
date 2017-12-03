@@ -73,4 +73,3 @@ void Test_Yield::testToString()
 
 QTEST_MAIN(Test_Yield)
 
-#include "yield.moc"

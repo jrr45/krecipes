@@ -76,4 +76,3 @@ int HeaderComboBox::findInsertionPoint( const QString &name )
 
 	return c;
 }
-#include "headercombobox.moc"

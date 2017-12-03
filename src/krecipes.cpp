@@ -881,4 +881,3 @@ void Krecipes::enableSaveOption( bool en )
 	saveAction->setEnabled( en );
 }
 
-#include "krecipes.moc"

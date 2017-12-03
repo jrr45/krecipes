@@ -399,4 +399,3 @@ void KDateEdit::updateView()
   blockSignals( blocked );
 }
 
-#include "kdateedit.moc"

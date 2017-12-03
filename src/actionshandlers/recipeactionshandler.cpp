@@ -592,5 +592,4 @@ void RecipeActionsHandler::selectionChangedSlot()
 	}
 }
 
-#include "recipeactionshandler.moc"
 

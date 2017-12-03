@@ -80,4 +80,3 @@ void SelectCategoriesDialog::createNewCategory( void )
 }
 
 
-#include "selectcategoriesdialog.moc"

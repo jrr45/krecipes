@@ -144,4 +144,3 @@ Weight CreateIngredientWeightDialog::weight() const
 	return w;
 }
 
-#include "createingredientweightdialog.moc"

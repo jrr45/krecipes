@@ -81,4 +81,3 @@ void PropertiesDialog::addAction( QAction * action )
 	propertyActionsHandler->addAction( action );
 }
 
-#include "propertiesdialog.moc"

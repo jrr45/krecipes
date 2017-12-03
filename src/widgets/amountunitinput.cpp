@@ -70,4 +70,3 @@ bool AmountUnitInput::isInputValid() const
 	return amountInput->isInputValid();
 }
 
-#include "amountunitinput.moc"

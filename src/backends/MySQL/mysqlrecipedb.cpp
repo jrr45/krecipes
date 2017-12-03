@@ -618,4 +618,3 @@ void MySQLRecipeDB::givePermissions( const QString &dbName, const QString &usern
 	QSqlQuery permissionsToSet( command, *database );
 }
 
-#include "mysqlrecipedb.moc"
