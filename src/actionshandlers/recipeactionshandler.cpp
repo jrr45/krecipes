@@ -100,11 +100,11 @@ void RecipeActionsHandler::setRemoveFromCategoryAction( QAction * action )
 void RecipeActionsHandler::exec( ItemType type, const QPoint &p )
 {
 	if ( type == Recipe ) {
-        if ( kpop->idAt( 0 ) != -1 )
+        //if ( kpop->idAt( 0 ) != -1 )
 			kpop->exec( p );
 	}
 	else if ( type == Category ) {
-        if ( catPop->idAt( 0 ) != -1 )
+//        if ( catPop->idAt( 0 ) != -1 )//FIXME what did this belong to?
 			catPop->exec( p );
 	}
 }
