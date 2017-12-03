@@ -20,7 +20,7 @@
 #include <KLocale>
 #include <KNumInput>
 #include <KHBox>
-#include <KPushButton>
+#include <QPushButton>
 #include <KTabWidget>
 
 #include <QStackedWidget>
@@ -51,10 +51,10 @@ MealInput::MealInput( QWidget *parent, RecipeDB *db ) : QWidget( parent ),
 	dishNumberBox->setSizePolicy( QSizePolicy( QSizePolicy::Minimum, QSizePolicy::Minimum ) );
 
 	// Next dish/ Previous dish buttons
-	buttonPrev = new KPushButton( mealOptions );
+	buttonPrev = new QPushButton( mealOptions );
 	buttonPrev->setText( i18nc( "@action:button", "Previous Dish" ) );
 	buttonPrev->setIcon( QIcon::fromTheme(QStringLiteral("go-previous")) );
-	buttonNext = new KPushButton( mealOptions );
+	buttonNext = new QPushButton( mealOptions );
 	buttonNext->setText( i18nc( "@action:button", "Next Dish" ) );
 	buttonNext->setIcon( QIcon::fromTheme(QStringLiteral("go-next")) );
 

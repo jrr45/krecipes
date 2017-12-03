@@ -10,7 +10,7 @@
 
 #include "refineshoppinglistdialog.h"
 
-#include <KPushButton>
+#include <QPushButton>
 #include <QLabel>
 #include <q3header.h>
 #include <QPointer>
@@ -86,13 +86,13 @@ RefineShoppingListDialog::RefineShoppingListDialog( QWidget* parent, RecipeDB *d
 
 	layout1->addStretch();
 
-	addButton = new KPushButton( layout2Widget );
+	addButton = new QPushButton( layout2Widget );
 	addButton->setObjectName( "addButton" );
 	addButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	addButton->setFixedSize( QSize( 32, 32 ) );
 	layout1->addWidget( addButton );
 
-	removeButton = new KPushButton( layout2Widget );
+	removeButton = new QPushButton( layout2Widget );
 	removeButton->setObjectName( "removeButton" );
 	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
 	removeButton->setFixedSize( QSize( 32, 32 ) );

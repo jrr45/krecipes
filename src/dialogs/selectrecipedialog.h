@@ -29,7 +29,7 @@
 
 class KHBox;
 class QFrame;
-class KPushButton;
+class QPushButton;
 class KTabWidget;
 class QAction;
 class QShowEvent;
@@ -88,9 +88,9 @@ private:
 	KHBox *searchBar;
 	KreRecipesListWidget * recipeListWidget;
 	KHBox *buttonBar;
-	KPushButton *openButton;
-	KPushButton *removeButton;
-	KPushButton *editButton;
+	QPushButton *openButton;
+	QPushButton *removeButton;
+	QPushButton *editButton;
 	QLabel *searchLabel;
 	QLineEdit *searchBox;
 	CategoryComboBox *categoryBox;

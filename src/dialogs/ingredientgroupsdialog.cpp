@@ -9,7 +9,7 @@
 
 #include "ingredientgroupsdialog.h"
 
-#include <KPushButton>
+#include <QPushButton>
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -33,12 +33,12 @@ IngredientGroupsDialog::IngredientGroupsDialog( RecipeDB *db, QWidget *parent, c
 	layout->addWidget(headerListWidget);
 
 	QVBoxLayout *buttonLayout = new QVBoxLayout;
-	KPushButton *addHeaderButton = new KPushButton( this );
+	QPushButton *addHeaderButton = new QPushButton( this );
 	addHeaderButton->setText( i18nc( "@action:button", "Create..." ) );
 	addHeaderButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	buttonLayout->addWidget(addHeaderButton);
 
-	KPushButton *removeHeaderButton = new KPushButton( this );
+	QPushButton *removeHeaderButton = new QPushButton( this );
 	removeHeaderButton->setText( i18nc( "@action:button", "Delete" ) );
 	removeHeaderButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	buttonLayout->addWidget(removeHeaderButton);

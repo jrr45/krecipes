@@ -28,7 +28,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kprogressdialog.h>
-#include <KPushButton>
+#include <QPushButton>
 #include <KConfigGroup>
 
 UnitsDialog::UnitsDialog( QWidget *parent, RecipeDB *db ) : QWidget( parent )
@@ -51,12 +51,12 @@ UnitsDialog::UnitsDialog( QWidget *parent, RecipeDB *db ) : QWidget( parent )
 
 	QVBoxLayout* vboxl = new QVBoxLayout();
 
-	newUnitButton = new KPushButton( unitTab );
+	newUnitButton = new QPushButton( unitTab );
 	newUnitButton->setText( i18nc( "@action:button", "Create..." ) );
 	newUnitButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( newUnitButton );
 
-	removeUnitButton = new KPushButton( unitTab );
+	removeUnitButton = new QPushButton( unitTab );
 	removeUnitButton->setText( i18nc( "@action:button", "Delete" ) );
 	removeUnitButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removeUnitButton );

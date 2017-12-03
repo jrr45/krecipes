@@ -30,9 +30,9 @@
 #include <QGroupBox>
 #include <QRadioButton>
 
-#include <KPushButton>
+#include <QPushButton>
 #include <QLineEdit>
-#include <KPushButton>
+#include <QPushButton>
 #include <KComboBox>
 #include <kapplication.h>
 #include <kcursor.h>
@@ -93,7 +93,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->setMargin( 0 );
 	parametersFrameLayout->setSpacing( 0 );
 	
-	titleButton = new KPushButton( parametersFrame );
+	titleButton = new QPushButton( parametersFrame );
 	titleButton->setObjectName( "titleButton" );
 	titleButton->setCheckable( true );
 	titleButton->setText( i18nc("@action:button Recipe title", "Title >>") );
@@ -122,7 +122,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( titleFrameSpacer );
 
 
-	ingredientButton = new KPushButton( parametersFrame );
+	ingredientButton = new QPushButton( parametersFrame );
 	ingredientButton->setObjectName( "ingredientButton" );
 	ingredientButton->setCheckable( true );
 	ingredientButton->setText( i18nc("@action:button", "Ingredients >>") );
@@ -159,7 +159,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( ingredientspacer );
 
 
-	categoriesButton = new KPushButton( parametersFrame );
+	categoriesButton = new QPushButton( parametersFrame );
 	categoriesButton->setObjectName( "categoriesButton" );
 	categoriesButton->setCheckable( true );
 	categoriesButton->setText( i18nc( "@action:button", "Categories >>" ) );
@@ -196,7 +196,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( categoryspacer );
 
 	
-	authorsButton = new KPushButton( parametersFrame );
+	authorsButton = new QPushButton( parametersFrame );
 	authorsButton->setObjectName( "authorsButton" );
 	authorsButton->setCheckable( true );
 	authorsButton->setText( i18nc("@action:button", "Authors >>") );
@@ -233,7 +233,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( authorspacer );
 
 
-	servingsButton = new KPushButton( parametersFrame );
+	servingsButton = new QPushButton( parametersFrame );
 	servingsButton->setObjectName( "servingsButton" );
 	servingsButton->setCheckable( true );
 	servingsButton->setText( i18nc("@action:button", "Yield >>") );
@@ -281,7 +281,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( servingsspacer );
 
 
-	prepTimeButton = new KPushButton( parametersFrame );
+	prepTimeButton = new QPushButton( parametersFrame );
 	prepTimeButton->setObjectName( "prepTimeButton" );
 	prepTimeButton->setCheckable( true );
 	prepTimeButton->setText( i18nc( "@action:button", "Preparation Time >>") );
@@ -326,7 +326,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( spacer15 );
 
 
-	instructionsButton = new KPushButton( parametersFrame );
+	instructionsButton = new QPushButton( parametersFrame );
 	instructionsButton->setObjectName( "instructionsButton" );
 	instructionsButton->setCheckable( true );
 	instructionsButton->setText( i18nc( "@action:button", "Instructions >>") );
@@ -356,7 +356,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( instructionsFrameSpacer );
 
 
-	metaDataButton = new KPushButton( parametersFrame );
+	metaDataButton = new QPushButton( parametersFrame );
 	metaDataButton->setObjectName( "metaDataButton" );
 	metaDataButton->setCheckable( true );
 	metaDataButton->setText( i18nc( "@action:button", "Meta Data >>") );
@@ -409,7 +409,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	parametersFrameLayout->addItem( metaDataFrameSpacer );
 
 	//=============RATINGS FRAME===========//
-	ratingsButton = new KPushButton( parametersFrame );
+	ratingsButton = new QPushButton( parametersFrame );
 	ratingsButton->setObjectName( "ratingsButton" );
 	ratingsButton->setCheckable( true );
 	ratingsButton->setText( i18nc("@action:button", "Ratings >>") );
@@ -474,13 +474,13 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	layout12->addWidget( starsWidget );
 	
 
-	addCriteriaButton = new KPushButton( criterionFrame );
+	addCriteriaButton = new QPushButton( criterionFrame );
 	addCriteriaButton->setObjectName( "addCriteriaButton" );
 	addCriteriaButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	addCriteriaButton->setMaximumSize( QSize( 30, 30 ) );
 	layout12->addWidget( addCriteriaButton );
 
-	removeCriteriaButton = new KPushButton( criterionFrame );
+	removeCriteriaButton = new QPushButton( criterionFrame );
 	removeCriteriaButton->setObjectName( "removeCriteriaButton" );
 	removeCriteriaButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	//removeCriteriaButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, removeCriteriaButton->sizePolicy().hasHeightForWidth() ) );
@@ -513,7 +513,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	layout9->setMargin( 0 );
 	layout9->setSpacing( 3 );
 	
-	clearButton = new KPushButton( this );
+	clearButton = new QPushButton( this );
 	clearButton->setObjectName( "clearButton" );
 	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );
 	clearButton->setText( i18nc( "@action:button Clear search criteria", "C&lear" ) );
@@ -521,7 +521,7 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 	spacer3 = new QSpacerItem( 110, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout9->addItem( spacer3 );
 	
-	findButton = new KPushButton( this );
+	findButton = new QPushButton( this );
 	findButton->setObjectName( "findButton" );
 	findButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-find")) );
 	findButton->setText( i18nc( "@action:button Search recipes", "&Search" ) );

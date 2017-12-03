@@ -23,7 +23,7 @@
 #include "actionshandlers/krecategoryactionshandler.h"
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <KPushButton>
+#include <QPushButton>
 #include <KConfigGroup>
 
 CategoriesEditorDialog::CategoriesEditorDialog( QWidget* parent, RecipeDB *db ) : QWidget( parent )
@@ -42,12 +42,12 @@ CategoriesEditorDialog::CategoriesEditorDialog( QWidget* parent, RecipeDB *db ) 
 	//Buttons
 	QVBoxLayout* vboxl = new QVBoxLayout();
 //TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
-	newCategoryButton = new KPushButton( this );
+	newCategoryButton = new QPushButton( this );
 	newCategoryButton->setText( i18nc( "@action:button", "Create..." ) );
 	newCategoryButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( newCategoryButton );
 
-	removeCategoryButton = new KPushButton( this );
+	removeCategoryButton = new QPushButton( this );
 	removeCategoryButton->setText( i18nc( "@action:button", "Delete" ) );
 	removeCategoryButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removeCategoryButton );

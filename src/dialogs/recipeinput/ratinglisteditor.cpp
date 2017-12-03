@@ -17,7 +17,7 @@
 #include "backends/recipedb.h"
 #include "datablocks/rating.h"
 
-#include <KPushButton>
+#include <QPushButton>
 
 #include <QScrollArea>
 #include <QVBoxLayout>
@@ -74,7 +74,7 @@ RatingListEditor::RatingListEditor( RatingList * ratingList, RecipeDB * db,
 
 
 	//Add rating button
-	m_addRatingButton = new KPushButton( i18nc("@action:button", "Add Rating...") );
+	m_addRatingButton = new QPushButton( i18nc("@action:button", "Add Rating...") );
 	m_addRatingButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	layout->addWidget( m_addRatingButton );
 	m_addRatingButton->show();

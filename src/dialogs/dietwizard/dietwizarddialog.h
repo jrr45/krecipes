@@ -39,7 +39,7 @@
 
 #include "widgets/dblistviewbase.h"
 
-class KPushButton;
+class QPushButton;
 class QGroupBox;
 class KTabWidget;
 
@@ -80,7 +80,7 @@ private:
 	QSlider *dayNumberSelector;
 	KTabWidget *mealTabs;
 	MealInput *mealTab; // points to the current tab
-	KPushButton *okButton;
+	QPushButton *okButton;
 
 	//Methods
 	bool checkCategories( Recipe &rec, int meal, int dish );

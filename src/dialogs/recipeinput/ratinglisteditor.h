@@ -25,7 +25,7 @@ class MyScrollArea;
 class RecipeDB;
 class RatingDisplayWidget;
 
-class KPushButton;
+class QPushButton;
 
 class QScrollArea;
 class QFrame;
@@ -54,7 +54,7 @@ private slots:
 
 private:
 
-	KPushButton * m_addRatingButton;
+	QPushButton * m_addRatingButton;
 
 	MyScrollArea * m_scrollArea;
 	QFrame * m_frame;

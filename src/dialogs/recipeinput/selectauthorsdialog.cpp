@@ -19,7 +19,7 @@
 #include <klocale.h>
 #include <kmessagebox.h>
 #include <kglobal.h>
-#include <KPushButton>
+#include <QPushButton>
 
 #include <QLineEdit>
 #include <QStandardItemModel>
@@ -71,10 +71,10 @@ SelectAuthorsDialog::SelectAuthorsDialog( QWidget *parent, const ElementList &cu
 
 	// Add/Remove buttons
 
-	addAuthorButton = new KPushButton( topBox );
+	addAuthorButton = new QPushButton( topBox );
 	addAuthorButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 
-	removeAuthorButton = new KPushButton( topBox );
+	removeAuthorButton = new QPushButton( topBox );
 	removeAuthorButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 
 	// Author List

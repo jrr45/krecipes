@@ -21,7 +21,7 @@
 #include "datablocks/recipelist.h"
 
 #include <KLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <KVBox>
 
 #include <QDropEvent>
@@ -44,11 +44,11 @@ ShoppingListDialog::ShoppingListDialog( QWidget *parent, RecipeDB *db ) : QWidge
 
 	QVBoxLayout* vboxl = new QVBoxLayout();
 	vboxl->addStretch();
-	addRecipeButton = new KPushButton( this );
+	addRecipeButton = new QPushButton( this );
 	addRecipeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-right")) );
 	vboxl->addWidget( addRecipeButton );
 
-	removeRecipeButton = new KPushButton( this );
+	removeRecipeButton = new QPushButton( this );
 	removeRecipeButton->setIcon( QIcon::fromTheme(QStringLiteral("arrow-left")) );
 	vboxl->addWidget( removeRecipeButton );
 	vboxl->addStretch();
@@ -66,14 +66,14 @@ ShoppingListDialog::ShoppingListDialog( QWidget *parent, RecipeDB *db ) : QWidge
 	layout->setColumnStretch( 1, 0 );
 	layout->setColumnStretch( 2, 1 );
 
-	okButton = new KPushButton( buttonBar );
+	okButton = new QPushButton( buttonBar );
 	okButton->setObjectName( "okButton" );
 	okButton->setText( i18nc( "@action:button", "&OK" ) );
 	okButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-ok")) );
 
 	//buttonBar->layout()->addItem( new QSpacerItem( 10,10, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed ) );
 
-	clearButton = new KPushButton( buttonBar );
+	clearButton = new QPushButton( buttonBar );
 	clearButton->setObjectName( "clearButton" );
 	clearButton->setText( i18nc( "@action:button Clear list", "Clear" ) );
 	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );

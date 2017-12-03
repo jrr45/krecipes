@@ -26,7 +26,7 @@ class KrePrepMethodActionsHandler;
 class QAction;
 class PrepMethodActionsHandler;
 class KrePrepMethodListWidget;
-class KPushButton;
+class QPushButton;
 
 /**
 @author Unai Garro
@@ -53,7 +53,7 @@ private:
 	KrePrepMethodListWidget * prepMethodListWidget;
 	KrePrepMethodActionsHandler *prepMethodActionsHandler;
 	KHBox *buttonBar;
-	KPushButton *newPrepMethodButton;
-	KPushButton *removePrepMethodButton;
+	QPushButton *newPrepMethodButton;
+	QPushButton *removePrepMethodButton;
 };
 #endif

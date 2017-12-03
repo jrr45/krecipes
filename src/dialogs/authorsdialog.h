@@ -23,7 +23,7 @@ class KreAuthorListWidget;
 class KreGenericActionsHandler;
 class KreAuthorActionsHandler;
 class QAction;
-class KPushButton;
+class QPushButton;
 
 /**
 @author Unai Garro
@@ -49,7 +49,7 @@ private:
 	//Widgets
 	KreAuthorListWidget *authorListWidget;
 	KreAuthorActionsHandler *authorActionsHandler;
-	KPushButton *newAuthorButton;
-	KPushButton *removeAuthorButton;
+	QPushButton *newAuthorButton;
+	QPushButton *removeAuthorButton;
 };
 #endif

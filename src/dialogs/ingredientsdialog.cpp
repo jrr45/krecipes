@@ -31,7 +31,7 @@
 #include <QGridLayout>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <KPushButton>
+#include <QPushButton>
 #include <QPointer>
 
 IngredientsDialog::IngredientsDialog( QWidget* parent, RecipeDB *db ) : QWidget( parent )
@@ -57,19 +57,19 @@ IngredientsDialog::IngredientsDialog( QWidget* parent, RecipeDB *db ) : QWidget(
 
 	QVBoxLayout *buttonLayout = new QVBoxLayout();
 
-	addIngredientButton = new KPushButton( ingredientTab );
+	addIngredientButton = new QPushButton( ingredientTab );
 	addIngredientButton->setText( i18nc( "@action:button", "Create..." ) );
 	addIngredientButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	buttonLayout->addWidget( addIngredientButton );
 
-	removeIngredientButton = new KPushButton( ingredientTab );
+	removeIngredientButton = new QPushButton( ingredientTab );
 	removeIngredientButton->setText( i18nc( "@action:button", "Delete" ) );
 	removeIngredientButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	buttonLayout->addWidget( removeIngredientButton );
 
 	buttonLayout->addStretch();
 	
-	QPushButton *propertyButton = new KPushButton( i18nc("@action:button", "Property Information"), ingredientTab );
+	QPushButton *propertyButton = new QPushButton( i18nc("@action:button", "Property Information"), ingredientTab );
 	propertyButton->setIcon( QIcon::fromTheme(QStringLiteral("document-properties")) );
 	listLayout->addWidget( propertyButton );
 

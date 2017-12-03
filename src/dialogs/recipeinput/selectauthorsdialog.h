@@ -22,7 +22,7 @@ class QTreeView;
 class QStandardItemModel;
 class QSortFilterProxyModel;
 
-class KPushButton;
+class QPushButton;
 
 class RecipeDB;
 
@@ -45,8 +45,8 @@ private:
 	//Widgets
 	KComboBox *authorsCombo;
 	QTreeView *authorListView;
-	KPushButton *addAuthorButton;
-	KPushButton *removeAuthorButton;
+	QPushButton *addAuthorButton;
+	QPushButton *removeAuthorButton;
 
 	//Variables
 	ElementList authorList; /* The author list for the whole database. */

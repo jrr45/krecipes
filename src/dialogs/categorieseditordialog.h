@@ -25,7 +25,7 @@ class RecipeDB;
 class KreCategoriesListWidget;
 class QAction;
 class KreCategoryActionsHandler;
-class KPushButton;
+class QPushButton;
 
 /**
 @author Unai Garro
@@ -55,8 +55,8 @@ private:
 	KreCategoriesListWidget * m_categoriesListWidget;
 	KreCategoryActionsHandler *categoryActionsHandler;
 	KHBox *buttonBar;
-	KPushButton *newCategoryButton;
-	KPushButton *removeCategoryButton;
+	QPushButton *newCategoryButton;
+	QPushButton *removeCategoryButton;
 };
 
 #endif

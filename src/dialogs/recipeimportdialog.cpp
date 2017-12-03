@@ -12,7 +12,7 @@
 #include "recipeimportdialog.h"
 
 #include <klocale.h>
-#include <kpushbutton.h>
+#include <QPushButton>
 #include <k3listview.h>
 #include <kdebug.h>
 #include <kvbox.h>

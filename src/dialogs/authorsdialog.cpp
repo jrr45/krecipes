@@ -22,7 +22,7 @@
 #include <kmessagebox.h>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <KPushButton>
+#include <QPushButton>
 #include <KConfigGroup>
 
 AuthorsDialog::AuthorsDialog( QWidget* parent, RecipeDB *db )
@@ -42,12 +42,12 @@ AuthorsDialog::AuthorsDialog( QWidget* parent, RecipeDB *db )
 	QVBoxLayout* vboxl = new QVBoxLayout();
 //TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
 
-	newAuthorButton = new KPushButton( this );
+	newAuthorButton = new QPushButton( this );
 	newAuthorButton->setText( i18nc( "@action:button", "Create..." ) );
 	newAuthorButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( newAuthorButton );
 
-	removeAuthorButton = new KPushButton( this );
+	removeAuthorButton = new QPushButton( this );
 	removeAuthorButton->setText( i18nc( "@action:button", "Delete" ) );
 	removeAuthorButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removeAuthorButton );

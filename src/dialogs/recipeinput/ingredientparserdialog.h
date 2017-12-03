@@ -24,7 +24,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QLabel;
 class KTextEdit;
-class KPushButton;
+class QPushButton;
 class K3ListView;
 class Q3ListViewItem;
 class QPushButton;
@@ -43,7 +43,7 @@ protected:
 	QLabel* textLabel1;
 	QLabel *previewLabel;
 	KTextEdit* ingredientTextEdit;
-	KPushButton* parseButton;
+	QPushButton* parseButton;
 	K3ListView* previewIngView;
 	QPushButton* buttonGroup;
 

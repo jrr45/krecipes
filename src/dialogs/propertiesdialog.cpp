@@ -16,7 +16,7 @@
 #include <klocale.h>
 #include <QDialog>
 #include <kmessagebox.h>
-#include <KPushButton>
+#include <QPushButton>
 
 #include "backends/recipedb.h"
 #include "createpropertydialog.h"
@@ -45,11 +45,11 @@ PropertiesDialog::PropertiesDialog( QWidget *parent, RecipeDB *db ) : QWidget( p
 
 	QVBoxLayout* vboxl = new QVBoxLayout();
 //TODO PORT QT5 	vboxl->setSpacing( QDialog::spacingHint() );
-	addPropertyButton = new KPushButton( this );
+	addPropertyButton = new QPushButton( this );
 	addPropertyButton->setText( i18nc( "@action:button", "Create..." ) );
 	addPropertyButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( addPropertyButton );
-	removePropertyButton = new KPushButton( this );
+	removePropertyButton = new QPushButton( this );
 	removePropertyButton->setText( i18nc( "@action:button", "Delete" ) );
 	removePropertyButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removePropertyButton );

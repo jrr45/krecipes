@@ -18,7 +18,7 @@
 #include <k3listview.h>
 #include <kvbox.h>
 
-class KPushButton;
+class QPushButton;
 class RecipeDB;
 class KrePropertyListWidget;
 class KreGenericActionsHandler;
@@ -44,8 +44,8 @@ private:
 
 	// Widgets
 	QGridLayout* layout;
-	KPushButton* addPropertyButton;
-	KPushButton* removePropertyButton;
+	QPushButton* addPropertyButton;
+	QPushButton* removePropertyButton;
 	KrePropertyListWidget* propertyListWidget;
 	KrePropertyActionsHandler* propertyActionsHandler;
 

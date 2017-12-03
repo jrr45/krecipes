@@ -19,7 +19,7 @@
 
 #include <KVBox>
 #include <KLocale>
-#include <KPushButton>
+#include <QPushButton>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -57,7 +57,7 @@ SelectCategoriesDialog::SelectCategoriesDialog( QWidget *parent, const ElementLi
 	m_categoriesListWidget->expandAll();
 
 	//New category button
-	KPushButton *newCatButton = new KPushButton( page );
+	QPushButton *newCatButton = new QPushButton( page );
 	newCatButton->setText( i18nc( "@action:button", "&New Category..." ) );
 	newCatButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 

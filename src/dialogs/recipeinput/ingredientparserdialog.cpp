@@ -23,7 +23,7 @@
 #include <klocale.h>
 #include <kdebug.h>
 #include <k3listview.h>
-#include <kpushbutton.h>
+#include <QPushButton>
 #include <kmessagebox.h>
 #include <QAction>
 #include <KVBox>
@@ -70,7 +70,7 @@ IngredientParserDialog::IngredientParserDialog( const UnitList &units, QWidget* 
 	ingredientTextEdit->setObjectName( "ingredientTextEdit" );
 	ingredientTextEdit->setAcceptRichText( false );
 
-	parseButton = new KPushButton( page );
+	parseButton = new QPushButton( page );
 
 	previewLabel = new QLabel( page );
 	previewLabel->setObjectName( "previewLabel" );

@@ -20,7 +20,7 @@
 #include <QSplitter>
 #include <QLabel>
 #include <QListWidget>
-#include <KPushButton>
+#include <QPushButton>
 
 #include <kstringhandler.h>
 #include <klocale.h>
@@ -139,10 +139,10 @@ private:
 	QLabel *missingNumberLabel;
 	QSpinBox *missingNumberSpinBox;
 
-	KPushButton *okButton;
-	KPushButton *clearButton;
-	KPushButton *addButton;
-	KPushButton *removeButton;
+	QPushButton *okButton;
+	QPushButton *clearButton;
+	QPushButton *addButton;
+	QPushButton *removeButton;
 
 	IngredientList m_ingredientList;
     QMap<QListWidgetItem*, IngredientList::iterator> m_item_ing_map;

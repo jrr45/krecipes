@@ -24,7 +24,7 @@ class KreRecipesListWidget;
 class KreSearchResultListWidget;
 
 class QGridLayout;
-class KPushButton;
+class QPushButton;
 
 /**
 @author Unai Garro
@@ -46,13 +46,13 @@ private:
 	RecipeDB *database;
 	// Widgets
 	QGridLayout* layout;
-	KPushButton* addRecipeButton;
-	KPushButton* removeRecipeButton;
+	QPushButton* addRecipeButton;
+	QPushButton* removeRecipeButton;
 	KreListView* recipeListView;
 	KreListView* shopRecipeListView;
 	KHBox *buttonBar;
-	KPushButton* okButton;
-	KPushButton* clearButton;
+	QPushButton* okButton;
+	QPushButton* clearButton;
 	KreRecipesListWidget * m_sourceListWidget;
 	KreSearchResultListWidget * m_destListwidget;
 

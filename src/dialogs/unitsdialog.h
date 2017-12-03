@@ -23,7 +23,7 @@ class KreConversionTable;
 class KreUnitListWidget;
 class KreUnitActionsHandler;
 class QAction;
-class KPushButton;
+class QPushButton;
 class KTabWidget;
 
 /**
@@ -51,8 +51,8 @@ private:
 	KreUnitActionsHandler *unitActionsHandler;
 	KreConversionTable *massConversionTable;
 	KreConversionTable *volumeConversionTable;
-	KPushButton *newUnitButton;
-	KPushButton *removeUnitButton;
+	QPushButton *newUnitButton;
+	QPushButton *removeUnitButton;
 	QWidget *unitTab;
 
 	// Internal methods

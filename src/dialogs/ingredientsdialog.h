@@ -22,7 +22,7 @@
 
 class RecipeDB;
 class IngredientGroupsDialog;
-class KPushButton;
+class QPushButton;
 class KreGenericActionsHandler;
 class KreIngredientActionsHandler;
 class KreIngredientListWidget;
@@ -49,8 +49,8 @@ private:
 	// Widgets
 	QHBoxLayout* layout;
 	QVBoxLayout* listLayout;
-	KPushButton* addIngredientButton;
-	KPushButton* removeIngredientButton;
+	QPushButton* addIngredientButton;
+	QPushButton* removeIngredientButton;
 	KreIngredientListWidget * ingredientListWidget;
 	IngredientGroupsDialog *groupsDialog;
 	KreIngredientActionsHandler *ingredientActionsHandler;

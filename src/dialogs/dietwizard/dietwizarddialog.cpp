@@ -36,7 +36,7 @@
 #include <kdebug.h>
 #include <krandom.h>
 #include <kvbox.h>
-#include <KPushButton>
+#include <QPushButton>
 #include <QGroupBox>
 #include <KTabWidget>
 
@@ -105,11 +105,11 @@ DietWizardDialog::DietWizardDialog( QWidget *parent, RecipeDB *db ) : KVBox( par
 	KHBox *bottom_layout = new KHBox( this );
 	//bottom_layout->layout()->addItem( new QSpacerItem( 10,10, QSizePolicy::MinimumExpanding, QSizePolicy::Fixed ) );
 
-	okButton = new KPushButton( bottom_layout );
+	okButton = new QPushButton( bottom_layout );
 	okButton->setIcon( QIcon::fromTheme(QStringLiteral("dialog-ok")) );
 	okButton->setText( i18nc( "@action:button", "Create the diet" ) );
 
-	KPushButton *clearButton = new KPushButton( bottom_layout );
+	QPushButton *clearButton = new QPushButton( bottom_layout );
 	clearButton->setIcon( QIcon::fromTheme(QStringLiteral("edit-clear")) );
 	clearButton->setText( i18nc( "@action:button Clear Diet","Clear" ) );
 

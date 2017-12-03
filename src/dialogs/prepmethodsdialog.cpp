@@ -16,7 +16,7 @@
 #include <KLocale>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <KPushButton>
+#include <QPushButton>
 #include <KConfigGroup>
 
 #include "widgets/kreprepmethodlistwidget.h"
@@ -41,12 +41,12 @@ PrepMethodsDialog::PrepMethodsDialog( QWidget* parent, RecipeDB *db ) : QWidget(
 	QVBoxLayout* vboxl = new QVBoxLayout(); 
 //TODO PORT QT5 	vboxl->setSpacing ( QDialog::spacingHint() );
 
-	newPrepMethodButton = new KPushButton( this );
+	newPrepMethodButton = new QPushButton( this );
 	newPrepMethodButton->setText( i18nc( "@action:button", "Create..." ) );
 	newPrepMethodButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 	vboxl->addWidget( newPrepMethodButton );
 
-	removePrepMethodButton = new KPushButton( this );
+	removePrepMethodButton = new QPushButton( this );
 	removePrepMethodButton->setText( i18nc( "@action:button", "Delete" ) );
 	removePrepMethodButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 	vboxl->addWidget( removePrepMethodButton );

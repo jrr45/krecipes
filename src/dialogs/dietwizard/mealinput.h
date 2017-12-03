@@ -20,7 +20,7 @@ class DishInput;
 class MealInput;
 class RecipeDB;
 
-class KPushButton;
+class QPushButton;
 class KHBox;
 
 class QSpinBox;
@@ -63,8 +63,8 @@ private:
 	QSpinBox *dishNumberInput;
 
 	// Move <-> buttons
-	KPushButton *buttonNext;
-	KPushButton *buttonPrev;
+	QPushButton *buttonNext;
+	QPushButton *buttonPrev;
 
 	// Settings for the dish
 	QStackedWidget *dishStack;
