@@ -447,7 +447,7 @@ void RecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString &
 void RecipeActionsHandler::printRecipes( const QList<int> &ids, RecipeDB *database )
 {
 	//Create the temporary directory.
-	m_tempdir = new QTemporaryDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-print"));
+    m_tempdir = new QTemporaryDir(QDir::tempPath() + QLatin1Char('/') +  "krecipes-data-print");
 	QString tmp_filename = m_tempdir->path() + "krecipes_recipe_view.html";
 	//Export to HTML in the temporary directory.
 	XSLTExporter html_generator( tmp_filename, "html" );
