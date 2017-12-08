@@ -15,12 +15,11 @@
 #include <kglobalsettings.h>
 #include <klocale.h>
 #include <kdebug.h>
-
-//Added by qt3to4:
-#include <QLabel>
-#include <QFrame>
 #include <kvbox.h>
 #include <KSharedConfig>
+
+#include <QLabel>
+#include <QFrame>
 
 #include "widgets/dblistviewbase.h"
 
@@ -86,6 +85,7 @@ KreListView::~KreListView()
 
 void KreListView::filter( const QString& s )
 {
+/* FIXME needs RTTI removal
 	for ( Q3ListViewItem * it = list->firstChild();it;it = it->nextSibling() ) {
 		if ( it->rtti() == NEXTLISTITEM_RTTI || it->rtti() == PREVLISTITEM_RTTI )
 			continue;
@@ -106,6 +106,7 @@ void KreListView::filter( const QString& s )
 
 
 	}
+*/
 }
 
 void KreListView::refilter()

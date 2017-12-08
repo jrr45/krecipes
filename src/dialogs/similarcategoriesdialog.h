@@ -11,8 +11,6 @@
 #define SIMILARCATEGORIESDIALOG_H
 
 #include <QDialog>
-#include <q3valuevector.h>
-//Added by qt3to4:
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QHBoxLayout>

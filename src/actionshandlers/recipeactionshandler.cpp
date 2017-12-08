@@ -109,7 +109,8 @@ void RecipeActionsHandler::exec( ItemType type, const QPoint &p )
 
 void RecipeActionsHandler::showPopup( QTreeWidget * /*l*/, QTreeWidgetItem *i, const QPoint &p )
 {
-	if ( i ) { // Check if the QListViewItem actually exists
+/* FIXME rtti needs removal
+    if ( i ) { // Check if the QListViewItem actually exists
 		if ( i->rtti() == 1000 ) {
 			if ( categorizeAction )
 				categorizeAction->setVisible( i->parent() && i->parent()->rtti() == 1006 );
@@ -120,11 +121,13 @@ void RecipeActionsHandler::showPopup( QTreeWidget * /*l*/, QTreeWidgetItem *i, c
 		else if ( i->rtti() == 1001 )  //is a category... don't pop-up for an empty category though
 			exec( Category, p );
 	}
+*/
 }
 
 QList<int> RecipeActionsHandler::recipeIDs( const QList<QTreeWidgetItem *> &items ) const
 {
-	QList<int> ids;
+    QList<int> ids;
+/* FIXME rtti needs removal
 
     QListIterator<QTreeWidgetItem *> it(items);
     const QTreeWidgetItem *item;
@@ -146,7 +149,7 @@ QList<int> RecipeActionsHandler::recipeIDs( const QList<QTreeWidgetItem *> &item
 			}
 		}
 	}
-
+*/
 	return ids;
 }
 
@@ -225,10 +228,12 @@ void RecipeActionsHandler::edit()
     QList<QTreeWidgetItem *> items = parentListView->selectedItems();
 	if ( items.count() > 1 )
         KMessageBox::sorry( kapp->activeWindow(), i18n("Please select only one recipe."), i18n("Edit Recipe") );
-	else if ( items.count() == 1 && items.at(0)->rtti() == 1000 ) {
+/* FIXME rtti needs removal
+    else if ( items.count() == 1 && items.at(0)->rtti() == 1000 ) {
 		RecipeListItem * recipe_it = ( RecipeListItem* ) items.at(0);
 		emit recipeSelected( recipe_it->recipeID(), 1 );
 	}
+*/
 	else //either nothing was selected or a category was selected
         KMessageBox::sorry( kapp->activeWindow(), i18n("No recipes selected."), i18n("Edit Recipe") );
 }
@@ -240,13 +245,14 @@ void RecipeActionsHandler::recipeExport()
 		QList<int> ids = recipeIDs( items );
 
 		QString title;
+/* FIXME rtti needs removal
 		if ( items.count() == 1 && items.at(0)->rtti() == 1000 ) {
 			RecipeListItem * recipe_it = ( RecipeListItem* ) items.at(0);
 			title = recipe_it->title();
 		}
 		else
 			title = i18n( "Recipes" );
-
+*/
 		exportRecipes( ids, i18n( "Export Recipe" ), title, database );
 	}
 	else //if nothing selected, export all visible recipes
@@ -320,10 +326,12 @@ void RecipeActionsHandler::remove()
         QTreeWidgetItem *item;
 		while ( it.hasNext() ) {
 			item = it.next();
-			if ( item->rtti() == RECIPELISTITEM_RTTI ) {
+/* FIXME rtti needs removal
+            if ( item->rtti() == RECIPELISTITEM_RTTI ) {
 				RecipeListItem * recipe_it = ( RecipeListItem* ) item;
 				recipe_ids.append( recipe_it->recipeID() );
-			}
+            }
+*/
 		}
 		emit recipesSelected( recipe_ids, 2 );
 	}
@@ -348,21 +356,25 @@ void RecipeActionsHandler::addToShoppingList()
 void RecipeActionsHandler::expandAll()
 {
     QTreeWidgetItemIterator it( parentListView );
-	while ( it.current() ) {
+/* FIXME iterator is private
+    while ( it.current() ) {
         QTreeWidgetItem * item = it.current();
 		item->setOpen( true );
 		++it;
 	}
+*/
 }
 
 void RecipeActionsHandler::collapseAll()
 {
     QTreeWidgetItemIterator it( parentListView );
+/* FIXME iterator is private
 	while ( it.current() ) {
         QTreeWidgetItem * item = it.current();
 		item->setOpen( false );
 		++it;
 	}
+*/
 }
 
 void RecipeActionsHandler::exportRecipe( int id, const QString & caption, const QString &selection, RecipeDB *db )
@@ -436,7 +448,7 @@ void RecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString &
 			if ( overwrite == KMessageBox::Yes || overwrite == -1 ) {
                 QProgressDialog progress_dialog(0);
 				progress_dialog.setWindowTitle(QString());
-                progress_dialog.setLabelText(i18nc( "@info:progress", "Saving recipes....");
+                progress_dialog.setLabelText(i18nc( "@info:progress", "Saving recipes...."));
 				progress_dialog.setObjectName("export_progress_dialog");
 				exporter->exporter( ids, database, &progress_dialog );
 			}
@@ -538,7 +550,7 @@ void RecipeActionsHandler::recipesToClipboard()
 QList<int> RecipeActionsHandler::getAllVisibleItems()
 {
 	QList<int> ids;
-
+/* FIXME rtti needs removal
     QTreeWidgetItemIterator iterator( parentListView );
 	while ( iterator.current() ) {
 		if ( iterator.current() ->isVisible() ) {
@@ -564,7 +576,7 @@ QList<int> RecipeActionsHandler::getAllVisibleItems()
 
 		++iterator;
 	}
-
+*/
 	return ids;
 }
 
@@ -577,6 +589,7 @@ QList<int> RecipeActionsHandler::recipeIDs() const
 
 void RecipeActionsHandler::selectionChangedSlot()
 {
+/* FIXME rtti needs removal
     const QList<QTreeWidgetItem*> items = parentListView->selectedItems();
     if ( (items.count() == 1) && (items.first()->rtti() == 1000) ) {
 		// We have a single recipe as our selection
@@ -588,6 +601,7 @@ void RecipeActionsHandler::selectionChangedSlot()
 		emit recipeSelected( 0, 5 ); //id doesn't matter here
 		emit recipeSelected( false );
 	}
+*/
 }
 
 

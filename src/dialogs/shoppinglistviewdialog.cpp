@@ -22,7 +22,6 @@
 #include <kiconloader.h>
 #include <kvbox.h>
 #include <KStandardGuiItem>
-#include <q3tl.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <KGuiItem>

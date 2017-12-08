@@ -20,6 +20,7 @@
 #include <QImage>
 #include <QSize>
 #include <QFileInfo>
+#include <QMimeData>
 
 
 #define PHOTO_SIZE QSize(221,166)
