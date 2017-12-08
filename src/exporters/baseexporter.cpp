@@ -54,7 +54,7 @@ void BaseExporter::setCompressed( bool b )
 	compress = b;
 }
 
-void BaseExporter::exporter( const QList<int> &ids, RecipeDB *database, KProgressDialog *progress_dlg )
+void BaseExporter::exporter( const QList<int> &ids, RecipeDB *database, QProgressDialog *progress_dlg )
 {
 	m_progress_dlg = progress_dlg;
 
@@ -64,7 +64,7 @@ void BaseExporter::exporter( const QList<int> &ids, RecipeDB *database, KProgres
 		kDebug() << "no output file has been selected for export." ;
 }
 
-void BaseExporter::exporter( int id, RecipeDB *database, KProgressDialog *progress_dlg )
+void BaseExporter::exporter( int id, RecipeDB *database, QProgressDialog *progress_dlg )
 {
 	QList<int> single_recipe_list;
 	single_recipe_list << id ;
@@ -107,7 +107,7 @@ void BaseExporter::saveToFile( const QList<int> &ids, RecipeDB *database )
 {
 	if ( file->open( QIODevice::WriteOnly ) ) {
 		if ( m_progress_dlg )
-			m_progress_dlg->progressBar()->setMaximum( ids.count()/progressInterval() );
+            m_progress_dlg->setMaximum( ids.count()/progressInterval() );
 
 		QList<int> ids_copy = ids;
 		QTextStream stream( file );
@@ -136,11 +136,11 @@ void BaseExporter::saveToFile( const QList<int> &ids, RecipeDB *database )
 			if ( !content.isEmpty() )
 				stream << content;
 
-			if ( m_progress_dlg && m_progress_dlg->wasCancelled() )
+            if ( m_progress_dlg && m_progress_dlg->wasCanceled() )
 				break;
 
 			if ( m_progress_dlg ) {
-				m_progress_dlg->progressBar()->setValue(m_progress_dlg->progressBar()->value() + progressInterval() );
+                m_progress_dlg->setValue(m_progress_dlg->value() + progressInterval() );
 				kapp->processEvents();
 			}
 		}

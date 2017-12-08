@@ -23,8 +23,6 @@
 #include <kglobal.h>
 #include <khtml_part.h>
 #include <khtmlview.h>
-#include <kprogressdialog.h>
-
 
 #include <libxml/parser.h>
 #include <libxml/tree.h>
@@ -35,7 +33,7 @@
 
 #include <cmath> //round
 #include <QStandardPaths>
-#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include "backends/recipedb.h"
 #include "dialogs/setupdisplay.h"
@@ -62,7 +60,7 @@ const char* i18n_strings[] = {
 XSLTExporter::XSLTExporter( const QString& filename, const QString &format ) :
 		BaseExporter( filename, format )
 {
-    KConfigGroup config = KSharedConfig::openConfig()->group( "Page Setup" );
+    KConfigGroup config( KSharedConfig::openConfig(), "Page Setup" );
 
 	//let's do everything we can to be sure at least some layout is loaded
 	QString template_filename = config.readEntry( "Template", QStandardPaths::locate(QStandardPaths::DataLocation, "layouts/Default.xsl" ) );

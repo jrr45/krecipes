@@ -15,7 +15,7 @@
 #include <kdebug.h>
 #include <kglobal.h>
 #include <klocale.h>
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 //Added by qt3to4:
 #include <QKeyEvent>
 #include <KSharedConfig>
@@ -161,8 +161,8 @@ void DBListViewBase::reload( ReloadFlags flag )
 	if ( flag == ForceReload || (!firstChild() && flag == Load) || (firstChild() && flag == ReloadIfPopulated) ) {
 		KApplication::setOverrideCursor( Qt::WaitCursor );
 
-		//m_progress = new KProgressDialog(this,0,QString(),i18n("Loading..."),true);
-		//m_progress->setAllowCancel(false);
+		//m_progress = new QProgressDialog(this);
+		//m_progress->setCancelButton(0);
 		//m_progress->progressBar()->setPercentageVisible(false);
 		//m_progress->progressBar()->setTotalSteps( m_totalSteps );
 		//m_progress->show();
@@ -192,7 +192,7 @@ void DBListViewBase::setTotalItems(int i)
 {
 	m_totalSteps = i;
 	if ( m_progress ) {
-		m_progress->progressBar()->setMaximum( m_totalSteps );
+		m_progress->setMaximum( m_totalSteps );
 	}
 }
 
@@ -211,7 +211,7 @@ void DBListViewBase::createElement( Q3ListViewItem *it )
 	if ( bulk_load ) { //this can be much faster if we know the elements are already in order
 		if ( lastElement ) it->moveItem(lastElement);
 		lastElementMap.insert(it->parent(),it);
-		if ( m_progress ) { m_progress->progressBar()->setValue(m_progress->progressBar()->value() +1); }
+		if ( m_progress ) { m_progress->setValue(m_progress->value() +1); }
 	}
 	else {
 		if ( lastElement == 0 ) {

@@ -26,7 +26,7 @@ class RecipeDB;
 class CategoryTree;
 class IngredientData;
 
-class KProgressDialog;
+class QProgressDialog;
 
 /** @brief Subclass this class to create an importer for a specific file type.
   *
@@ -70,7 +70,7 @@ public:
 protected:
 	virtual void parseFile( const QString &filename ) = 0;
 	
-	void importRecipes( RecipeList &selected_recipes, RecipeDB *db, KProgressDialog *progess_dialog );
+	void importRecipes( RecipeList &selected_recipes, RecipeDB *db, QProgressDialog *progess_dialog );
 
 	/** Add a recipe to be imported into the database */
 	void add( const Recipe &recipe );
@@ -100,7 +100,7 @@ protected:
 private:
 	void importCategoryStructure( RecipeDB *, const CategoryTree * );
 	void importUnitRatios( RecipeDB * );
-	void importIngredient( IngredientData &ing, RecipeDB *db, KProgressDialog *progress_dialog );
+	void importIngredient( IngredientData &ing, RecipeDB *db, QProgressDialog *progress_dialog );
 
 	void processMessages( const QString &file );
 
@@ -118,7 +118,7 @@ private:
 	bool direct;
 
 	RecipeDB *m_database;
-	KProgressDialog *m_progress_dialog;
+	QProgressDialog *m_progress_dialog;
 	QStringList m_filenames;
 };
 

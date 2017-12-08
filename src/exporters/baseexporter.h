@@ -15,7 +15,7 @@
 #include <QList>
 
 #include <kapplication.h>
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 
 #include "datablocks/recipelist.h"
 
@@ -39,10 +39,10 @@ public:
 	/** Export the recipes with the given ids to the file specified in the constructor.
 	 *  Optionally, a progress dialog may be given to specify the progress made.
 	 */
-	void exporter( const QList<int> &ids, RecipeDB *database, KProgressDialog * = 0 );
+	void exporter( const QList<int> &ids, RecipeDB *database, QProgressDialog * = 0 );
 
 	/** Convenience function for the above, which exports a single recipe. */
-	void exporter( int id, RecipeDB *database, KProgressDialog * = 0 );
+	void exporter( int id, RecipeDB *database, QProgressDialog * = 0 );
 
 	/** Returns the actual filename that will be written to during the export.
 	  * Note that this can differ somewhat from the filename passed in the 
@@ -88,7 +88,7 @@ private:
 	QFile* file;
 	KTar *tar_file;
 	QString filename;
-	KProgressDialog *m_progress_dlg;
+	QProgressDialog *m_progress_dlg;
 	bool compress;
 };
 

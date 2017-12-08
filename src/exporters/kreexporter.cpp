@@ -20,7 +20,7 @@
 #include <klocale.h>
 #include <kcodecs.h>
 #include <kglobal.h>
-#include <KSharedConfig>
+#include <KConfigGroup>
 
 
 #include "backends/recipedb.h"

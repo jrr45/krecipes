@@ -12,7 +12,7 @@
 
 #include <kglobal.h>
 #include <klocale.h>
-#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include "backends/recipedb.h"
 

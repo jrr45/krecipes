@@ -21,7 +21,7 @@
 #include <khtml_part.h>
 #include <klocale.h>
 #include <kmainwindow.h>
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 
 #include <kstatusbar.h>
 #include <kconfig.h>
@@ -120,11 +120,13 @@ bool RecipeViewDialog::loadRecipes( const QList<int> &ids )
 
 bool RecipeViewDialog::showRecipes( const QList<int> &ids )
 {
-	KProgressDialog * progress_dialog = 0;
+	QProgressDialog * progress_dialog = 0;
 
 	if ( ids.count() > 1 )  //we don't want a progress bar coming up when there is only one recipe... it may show up during the splash screen
 	{
-		progress_dialog = new KProgressDialog( this, QString(), i18nc( "@title:window", "Loading recipes, please wait..." ) );
+		progress_dialog = new QProgressDialog( this);
+		progress_dialog->setWindowTitle(QString());
+        progress_dialog->setLabelText(i18nc( "@title:window", "Loading recipes, please wait..." );
 		progress_dialog->setObjectName( "open_progress_dialog" );
 		progress_dialog->setModal( true );
 		progress_dialog->resize( 240, 80 );
@@ -138,7 +140,7 @@ bool RecipeViewDialog::showRecipes( const QList<int> &ids )
 	XSLTExporter html_generator( tmp_filename, "html" );
 
 	html_generator.exporter( ids, database, progress_dialog ); //writes the generated HTML to 'tmp_filename'
-	if ( progress_dialog && progress_dialog->wasCancelled() ) {
+	if ( progress_dialog && progress_dialog->wasCanceled() ) {
 		delete progress_dialog;
 		return false;
 	}

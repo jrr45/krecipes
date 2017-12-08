@@ -27,7 +27,6 @@
 
 #include <KConfigGroup>
 
-#include <KProgressDialog>
 #include <KGlobal>
 #include <KLocale>
 #include <K4AboutData>

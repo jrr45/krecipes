@@ -24,7 +24,7 @@
 #include <kmessagebox.h>
 #include <QMenu>
 #include <QAction>
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 #include <QtWebEngineWidgets/QWebEnginePage>
 #include <QPrintPreviewDialog>
 #include <QPrinter>
@@ -434,7 +434,9 @@ void RecipeActionsHandler::exportRecipes( const QList<int> &ids, const QString &
 			}
 
 			if ( overwrite == KMessageBox::Yes || overwrite == -1 ) {
-				KProgressDialog progress_dialog( 0, QString(), i18nc( "@info:progress", "Saving recipes..." ) );
+                QProgressDialog progress_dialog(0);
+				progress_dialog.setWindowTitle(QString());
+                progress_dialog.setLabelText(i18nc( "@info:progress", "Saving recipes....");
 				progress_dialog.setObjectName("export_progress_dialog");
 				exporter->exporter( ids, database, &progress_dialog );
 			}

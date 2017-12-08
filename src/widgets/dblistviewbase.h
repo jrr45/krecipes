@@ -18,7 +18,7 @@
 #define PREVLISTITEM_RTTI 1002
 #define NEXTLISTITEM_RTTI 1003
 
-class KProgressDialog;
+class QProgressDialog;
 
 class RecipeDB;
 
@@ -83,7 +83,7 @@ private:
     QMap<QListWidgetItem*,QListWidgetItem*> lastElementMap;
     QListWidgetItem *delete_me_later;
 
-	KProgressDialog *m_progress;
+	QProgressDialog *m_progress;
 	int m_totalSteps;
 };
 

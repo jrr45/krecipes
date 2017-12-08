@@ -19,7 +19,7 @@
 
 class QDropEvent;
 
-class KProgressDialog;
+class QProgressDialog;
 
 class RecipeDB;
 
@@ -157,7 +157,7 @@ private:
     QTreeWidgetItem *m_uncat_item;
     QTreeWidgetItem *lastElementCurrLevel;
 
-	KProgressDialog *m_progress_dlg;
+	QProgressDialog *m_progress_dlg;
 };
 
 #endif //RECIPELISTVIEW_H

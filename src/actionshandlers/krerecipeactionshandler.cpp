@@ -43,7 +43,7 @@
 #include <QPrinter>
 #include <QFileDialog>
 #include <QStandardPaths>
-#include <KSharedConfig>
+#include <KConfigGroup>
 
 
 
@@ -326,7 +326,9 @@ void KreRecipeActionsHandler::exportRecipes( const QList<int> &ids, const QStrin
 
             // export recipes to file
 			if ( overwrite == KMessageBox::Yes || overwrite == -1 ) {
-				KProgressDialog progress_dialog( 0, QString(), i18nc( "@info:progress", "Saving recipes..." ) );
+                QProgressDialog progress_dialog(0);
+				progress_dialog.setWindowTitle(QString());
+                progress_dialog.setLabelText(i18nc("@info:progress", "Saving recipes..."));
 				progress_dialog.setObjectName("export_progress_dialog");
 				exporter->exporter( ids, database, &progress_dialog );
 			}

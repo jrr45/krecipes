@@ -13,10 +13,10 @@
 #include <kconfig.h>
 #include <kdebug.h>
 #include <klocale.h>
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 #include <kmessagebox.h>
 #include <kglobal.h>
-#include <KSharedConfig>
+#include <KConfigGroup>
 
 #include "datablocks/recipe.h"
 #include "backends/recipedb.h"
@@ -30,7 +30,7 @@ BaseImporter::BaseImporter() :
 		m_cat_structure( 0 ),
 		file_recipe_count( 0 )
 {
-	KConfigGroup config = KSharedConfig::openConfig()->group( "Import" );
+    KConfigGroup config( KSharedConfig::openConfig(), "Import" );
 
 	direct = config.readEntry( "DirectImport", false );
 }
@@ -55,7 +55,7 @@ void BaseImporter::add( const RecipeList &recipe_list )
 	}
 
 	if ( direct ) {
-		if ( !m_progress_dialog->wasCancelled() )
+        if ( !m_progress_dialog->wasCanceled() )
 			importRecipes( *m_recipe_list, m_database, m_progress_dialog );
 	}
 }
@@ -67,7 +67,7 @@ void BaseImporter::add( const Recipe &recipe )
 	copy.recipeID = -1; //make sure an importer didn't give this a value
 
 	if ( direct ) {
-		if ( !m_progress_dialog->wasCancelled() ) {
+        if ( !m_progress_dialog->wasCanceled() ) {
 			RecipeList list;
 			list.append( recipe );
 			importRecipes( list, m_database, m_progress_dialog );
@@ -95,16 +95,18 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 	if ( direct ) {
 		m_database = db;
 
-        m_progress_dialog = new KProgressDialog( kapp->activeWindow(), i18n( "Importing selected recipes" ), QString(), Qt::Dialog );
+        m_progress_dialog = new QProgressDialog( kapp->activeWindow());
+        m_progress_dialog->setWindowTitle(i18n( "Importing selected recipes" ));
+        m_progress_dialog->setLabelText(QString());
         m_progress_dialog->setModal( true );
-		m_progress_dialog->progressBar()->setRange( 0, 0 );
+		m_progress_dialog->setRange( 0, 0 );
 	
 		for ( QStringList::const_iterator file_it = m_filenames.constBegin(); file_it != m_filenames.constEnd(); ++file_it ) {
 			file_recipe_count = 0;
 			parseFile( *file_it );
 			processMessages( *file_it );
 	
-			if ( m_progress_dialog->wasCancelled() )
+			if ( m_progress_dialog->wasCanceled() )
 				break;
 		}
 		
@@ -118,10 +120,11 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 		m_recipe_list->empty();
 		//db->blockSignals(true);
 
-        m_progress_dialog = new KProgressDialog( kapp->activeWindow(), i18n( "Importing selected recipes" ), QString(), Qt::Dialog );
+        m_progress_dialog = new QProgressDialog( kapp->activeWindow());
+        m_progress_dialog->setWindowTitle(i18n( "Importing selected recipes" ));
+        m_progress_dialog->setLabelText(QString());
 		m_progress_dialog->setModal( true );
-		m_progress_dialog->progressBar()->setRange( 0, m_recipe_list->count() );
-		m_progress_dialog->progressBar()->setFormat( i18n( "%v/%m Recipes" ) );
+		m_progress_dialog->setRange( 0, m_recipe_list->count() );
 
 		if ( m_cat_structure ) {
 			importCategoryStructure( db, m_cat_structure );
@@ -136,14 +139,14 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 	}
 }
 
-void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, KProgressDialog *progress_dialog )
+void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, QProgressDialog *progress_dialog )
 {
 	//cache some data we'll need
 	int max_units_length = db->maxUnitNameLength();
 	int max_group_length = db->maxIngGroupNameLength();
 
 	if ( direct ) {
-		progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+        progress_dialog->setValue(progress_dialog->value()+1);
 		kapp->processEvents();
 	}
 
@@ -162,7 +165,7 @@ void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, KProgres
 	}
 
 	if ( direct ) {
-		progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+        progress_dialog->setValue(progress_dialog->value()+1);
 		kapp->processEvents();
 	}
 
@@ -178,7 +181,7 @@ void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, KProgres
 	}
 
 	if ( direct ) {
-		progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+        progress_dialog->setValue(progress_dialog->value()+1);
 		kapp->processEvents();
 	}
 
@@ -199,21 +202,21 @@ void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, KProgres
 		db->addUnitToIngredient( new_ing_id, new_unit_id );
 }
 
-void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KProgressDialog *progress_dialog )
+void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QProgressDialog *progress_dialog )
 {
 	START_TIMER("recipe import")
 	db->transaction();
 	db->disableTransactions();
 
 	// Load Current Settings
-	KConfigGroup config = KSharedConfig::openConfig()->group( "Import" );
+    KConfigGroup config( KSharedConfig::openConfig(), "Import" );
 	bool overwrite = config.readEntry( "OverwriteExisting", false );
 
 	RecipeList::iterator recipe_it; RecipeList::iterator recipe_list_end( selected_recipes.end() );
 	RecipeList::iterator recipe_it_old = selected_recipes.end();
 	for ( recipe_it = selected_recipes.begin(); recipe_it != recipe_list_end; ++recipe_it ) {
 		if ( !direct ) {
-			if ( progress_dialog->wasCancelled() ) {
+            if ( progress_dialog->wasCanceled() ) {
                 KMessageBox::information( kapp->activeWindow(), i18n( "All recipes up unto this point have been successfully imported." ) );
 				//db->blockSignals(false);
 				db->enableTransactions();
@@ -227,7 +230,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 			selected_recipes.erase( recipe_it_old );
 
 		progress_dialog->setLabelText( i18n( "Importing recipe: %1" ,( *recipe_it ).title ));
-		progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+        progress_dialog->setValue(progress_dialog->value()+1);
 		kapp->processEvents();
 
 		//add all recipe items (authors, ingredients, etc. to the database if they aren't already
@@ -243,7 +246,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 		ElementList::iterator author_list_end( ( *recipe_it ).authorList.end() );
 		for ( ElementList::iterator author_it = ( *recipe_it ).authorList.begin(); author_it != author_list_end; ++author_it ) {
 			if ( direct ) {
-				progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+                progress_dialog->setValue(progress_dialog->value()+1);
 				kapp->processEvents();
 			}
 
@@ -258,7 +261,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 		ElementList::iterator cat_list_end( ( *recipe_it ).categoryList.end() );
 		for ( ElementList::iterator cat_it = ( *recipe_it ).categoryList.begin(); cat_it != cat_list_end; ++cat_it ) {
 			if ( direct ) {
-				progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+                progress_dialog->setValue(progress_dialog->value()+1);
 				kapp->processEvents();
 			}
 
@@ -281,7 +284,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 		RatingList::iterator rating_list_end( ( *recipe_it ).ratingList.end() );
 		for ( RatingList::iterator rating_it = ( *recipe_it ).ratingList.begin(); rating_it != rating_list_end; ++rating_it ) {
 			if ( direct ) {
-				progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+                progress_dialog->setValue(progress_dialog->value()+1);
 				kapp->processEvents();
 			}
 
@@ -301,7 +304,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, KP
 			( *recipe_it ).title = db->getUniqueRecipeTitle( ( *recipe_it ).title );
 
 		if ( direct ) {
-			progress_dialog->progressBar()->setValue(progress_dialog->progressBar()->value()+1);
+            progress_dialog->setValue(progress_dialog->value()+1);
 			kapp->processEvents();
 		}
 

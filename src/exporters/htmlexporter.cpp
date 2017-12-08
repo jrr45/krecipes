@@ -21,7 +21,6 @@
 
 #include <kdebug.h>
 #include <klocale.h>
-#include <kprogressdialog.h>
 
 #include <kiconloader.h>
 
@@ -30,7 +29,7 @@
 #include "dialogs/setupdisplay.h"
 
 #include <cmath> //for ceil()
-#include <KSharedConfig>
+#include <KConfigGroup>
 
 HTMLExporter::HTMLExporter( const QString& filename, const QString &format ) :
 		BaseExporter( filename, format )
@@ -244,7 +243,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 
 	//=======================INGREDIENTS======================//
 	QString ingredients_html;
-    KConfigGroup config = KSharedConfig::openConfig()->group( "Formatting" );
+    KConfigGroup config( KSharedConfig::openConfig(), "Formatting" );
 	bool useAbbreviations = config.readEntry("AbbreviateUnits", false);
 
 	int cols = 2;

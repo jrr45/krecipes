@@ -13,7 +13,7 @@
 #include <QObject>
 #include <qwidget.h>
 
-class KProgressDialog;
+class QProgressDialog;
 
 class RecipeDB;
 class ProgressSlotObject;
@@ -43,7 +43,7 @@ protected:
 
 private:
 	ProgressSlotObject *slot_obj;
-	KProgressDialog *progress_dlg;
+	QProgressDialog *progress_dlg;
 	RecipeDB *database;
 
 	int m_rate;

@@ -11,7 +11,7 @@
 
 #include <QApplication>
 
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 
 #include "recipedb.h"
 
@@ -30,10 +30,12 @@ void ProgressInterface::progressBegin( int steps, const QString &caption, const 
 {
 	m_rate = rate;
 
-	progress_dlg = new KProgressDialog((QWidget*)slot_obj->parent(),caption,text,Qt::Dialog);
+	progress_dlg = new QProgressDialog((QWidget*)slot_obj->parent());
+    progress_dlg->setLabelText( caption );
+    progress_dlg->setWindowTitle( text );
 	progress_dlg->setModal( true );
 
-	progress_dlg->progressBar()->setRange( 0, steps );
+	progress_dlg->setRange( 0, steps );
 }
 
 void ProgressInterface::progressDone()
@@ -46,14 +48,14 @@ void ProgressInterface::progressDone()
 
 void ProgressInterface::progress()
 {
-	if ( progress_dlg->wasCancelled() ) {
+	if ( progress_dlg->wasCanceled() ) {
 		database->cancelOperation();
 	}
 	else {
 		++m_rate_at;
 
 		if ( m_rate_at % m_rate == 0 ) {
-			progress_dlg->progressBar()->setValue(progress_dlg->progressBar()->value()+1);
+			progress_dlg->setValue(progress_dlg->value()+1);
 			m_rate_at = 0;
 		}
 		qApp->processEvents();

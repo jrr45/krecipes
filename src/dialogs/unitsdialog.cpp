@@ -27,7 +27,7 @@
 #include <QDialog>
 #include <klocale.h>
 #include <kmessagebox.h>
-#include <kprogressdialog.h>
+#include <QProgressDialog>
 #include <QPushButton>
 #include <KConfigGroup>
 
@@ -187,13 +187,15 @@ void UnitsDialog::saveAllRatios( UnitRatioList &/*ratioList*/ )
 #if 0
 	ConversionTable *conversionTable = massConversionTable;
 
-	KProgressDialog progress_dialog( this, "progress_dialog", i18nc( "@title:window", "Finding Unit Ratios" ), QString(), true );
+    QProgressDialog progress_dialog( this );
+	progress_dialog.setWindowTitle("progress_dialog");
+    progress_dialog.setLabelText(i18nc( "@title:window", "Finding Unit Ratios");
 	progress_dialog.progressBar() ->setTotalSteps( ratioList.count() * ratioList.count() );
 
 	for ( UnitRatioList::const_iterator current_it = ratioList.begin(); current_it != ratioList.end(); ++current_it ) {
 		UnitRatio current_ratio = *current_it;
 		for ( UnitRatioList::const_iterator ratio_it = ratioList.begin(); ratio_it != ratioList.end(); ++ratio_it ) {
-			if ( progress_dialog.wasCancelled() )
+			if ( progress_dialog.wasCanceled() )
 				return ;
 
 			progress_dialog.progressBar() ->advance( 1 );
