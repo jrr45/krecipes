@@ -18,16 +18,14 @@
 #include <QCheckBox>
 
 #include <QLabel>
-#include <q3ptrlist.h>
 #include <QSlider>
 #include <qspinbox.h>
-#include <QList.h>
+#include <QList>
 
 #include <QStackedWidget>
 //Added by qt3to4:
 #include <QPaintEvent>
 
-#include <k3listview.h>
 #include <kvbox.h>
 
 #include "datablocks/constraintlist.h"

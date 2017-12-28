@@ -75,7 +75,7 @@ void PanelDeco::setHeader( const QString &title, const QString &icon )
 // Top part of the decoration
 
 TopDeco::TopDeco( QWidget *parent, const char *name, const QString &title, const QString &iconName ) :
-	QWidget( parent, Qt::WNoAutoErase )
+    QWidget( parent )
 {
 	setObjectName( name );
 	setMinimumHeight( 30 );

@@ -18,11 +18,11 @@
 
 class RecipeDB;
 
-class PropertyCheckListItem : public Q3CheckListItem
+class PropertyCheckListItem : public QListWidgetItem
 {
 public:
-	PropertyCheckListItem( Q3ListView* klv, const IngredientProperty &property );
-	PropertyCheckListItem( Q3ListViewItem* it, const IngredientProperty &property );
+    PropertyCheckListItem( QListWidget* klv, const IngredientProperty &property );
+    PropertyCheckListItem( QListWidgetItem* it, const IngredientProperty &property );
 
 	~PropertyCheckListItem( void )
 	{}
@@ -42,8 +42,8 @@ protected:
 class HidePropertyCheckListItem : public PropertyCheckListItem
 {
 public:
-	HidePropertyCheckListItem( Q3ListView* klv, const IngredientProperty &property, bool enable = false );
-	HidePropertyCheckListItem( Q3ListViewItem* it, const IngredientProperty &property, bool enable = false );
+    HidePropertyCheckListItem( QListWidget* klv, const IngredientProperty &property, bool enable = false );
+    HidePropertyCheckListItem( QListWidgetItem* it, const IngredientProperty &property, bool enable = false );
 
 protected:
 	virtual void stateChange( bool on );
@@ -53,10 +53,10 @@ private:
 };
 
 
-class ConstraintsListItem: public Q3CheckListItem
+class ConstraintsListItem: public QListWidgetItem
 {
 public:
-	ConstraintsListItem( Q3ListView* klv, const IngredientProperty &pty ) : Q3CheckListItem( klv, QString(), Q3CheckListItem::CheckBox )
+    ConstraintsListItem( QListWidget* klv, const IngredientProperty &pty ) : QListWidgetItem( klv )
 	{
 		// Initialize the constraint data with the property data
 		ctStored = new Constraint();
@@ -82,7 +82,7 @@ public:
 		delete ctStored;
 		ctStored = new Constraint( constraint );
 
-		setOn( ctStored->enabled );
+//		setOn( ctStored->enabled );
 	}
 	double maxVal()
 	{
@@ -99,12 +99,12 @@ public:
 	void setMax( double maxValue )
 	{
 		ctStored->max = maxValue;
-		setText( 3, QString::number( maxValue ) );
+//		setText( 3, QString::number( maxValue ) );
 	}
 	void setMin( double minValue )
 	{
 		ctStored->min = minValue;
-		setText( 2, QString::number( minValue ) );
+//		setText( 2, QString::number( minValue ) );
 	}
 	virtual QString text( int column ) const
 	{

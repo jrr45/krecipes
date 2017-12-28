@@ -15,7 +15,6 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QVBoxLayout>
-#include <q3tl.h>
 
 #include <khtmlview.h>
 #include <kapplication.h>

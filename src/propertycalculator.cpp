@@ -68,7 +68,7 @@ void addPropertyToList( RecipeDB *database, IngredientPropertyList *recipeProper
 	IngredientPropertyList::const_iterator prop_it;
 	for ( prop_it = ingPropertyList.constBegin(); prop_it != ingPropertyList.constEnd(); ++prop_it ) {
 		// Find if property was listed before
-		int pos = recipePropertyList->findIndex( *prop_it );
+        int pos = recipePropertyList->findByName( prop_it->name );
 		if ( pos >= 0 )  //Exists. Add to it
 		{
 			Ingredient result;

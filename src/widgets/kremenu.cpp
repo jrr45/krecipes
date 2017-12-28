@@ -15,7 +15,7 @@
 #include <QImage>
 #include <QObject>
 #include <QPainter>
-//Added by qt3to4:
+#include <QStyle>
 #include <QPaintEvent>
 #include <QResizeEvent>
 #include <QChildEvent>
@@ -33,7 +33,7 @@
 
 
 KreMenu::KreMenu( QWidget *parent, const char *name ):
-	QWidget( parent, Qt::WNoAutoErase )
+    QWidget( parent )
 {
 	setObjectName( name );
 	Menu newMenu;
@@ -54,7 +54,7 @@ KreMenu::~KreMenu()
 
 void KreMenu::childEvent ( QChildEvent *e )
 {
-	if ( e->type() == QChildEvent::ChildInserted ) {
+/*	if ( e->type() == QChildEvent::ChildInserted ) {
 		QObject * child = e->child();
 		if ( child->inherits( "KreMenuButton" ) ) {
 			KreMenuButton * button = static_cast<KreMenuButton*>( child );
@@ -96,6 +96,7 @@ void KreMenu::childEvent ( QChildEvent *e )
 			}
 	}
 	QWidget::childEvent( e );
+    */
 }
 
 void KreMenu::collectClicks( KreMenuButton *w )
@@ -207,7 +208,7 @@ QSize KreMenu::sizeHint() const
 QSize KreMenu::minimumSizeHint() const
 {
 	int width = 30;
-
+/*
 	const QList<QObject *> childElements = queryList( 0, 0, false, false ); //only first-generation children (not recursive)
 	foreach ( QObject *obj, childElements )
 	{
@@ -217,6 +218,7 @@ QSize KreMenu::minimumSizeHint() const
 				width = obj_width_hint;
 		}
 	}
+*/
 	return QSize(width, 150);
 }
 
@@ -227,7 +229,7 @@ void KreMenu::paintEvent( QPaintEvent * )
 	//if (minimumWidth() <45) setMinimumWidth(45); // FIXME: can somehow setMinimumWidth be restricted? This may not be the best place to do this
 
 	// Get gradient colors
-	QColor c = QColorGroup( QPalette() ).color(QPalette::Button);
+    QColor c = QPalette().color(QPalette::Button);
 	QColor c1 = c.dark( 130 );
 	QColor c2 = c.light( 120 );
 
@@ -288,16 +290,16 @@ void KreMenu::showMenu( MenuId id )
 
 
 KreMenuButton::KreMenuButton( KreMenu *parent, KrePanel _panel, MenuId id ):
-	QWidget( parent, Qt::WNoAutoErase ), panel( _panel )
+    QWidget( parent ), panel( _panel )
 {
 	highlighted = false;
 	text.clear();
-
+/*
     if ( id == QList <Menu>::Iterator() ) // KDE4 port to be check
 	{
 		menuId = parent->mainMenu();
 	}
-	else
+    else*/
 		menuId = id;
 
 	subMenuId = MenuId(); // By default it's not a submenu button
@@ -369,8 +371,8 @@ void KreMenuButton::paintEvent( QPaintEvent * )
 
 	// Set the gradient colors
 
-	c1 = QColorGroup( QPalette() ).color(QPalette::Button).dark( darken );
-	c2 = QColorGroup( QPalette() ).color(QPalette::Button).light( lighten );
+    c1 = QPalette().color(QPalette::Button).dark( darken );
+    c2 = QPalette().color(QPalette::Button).light( lighten );
 
 	if ( highlighted ) {
 		darken -= 10;
@@ -407,9 +409,9 @@ void KreMenuButton::paintEvent( QPaintEvent * )
 
 	// Draw the line
           painter.save();
-          painter.setPen( QColorGroup( QPalette() ).color(QPalette::Button).dark( darken ) );
+          painter.setPen( QPalette().color(QPalette::Button).dark( darken ) );
           painter.drawLine( width() / 5, height() - 2, width() - 1, height() - 2 );
-          painter.setPen( QColorGroup( QPalette() ).color(QPalette::Button).light( lighten ) );
+          painter.setPen( QPalette().color(QPalette::Button).light( lighten ) );
           painter.drawLine( width() / 5, height() - 1, width() - 1, height() - 1 );
           painter.restore();
 

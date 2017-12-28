@@ -9,7 +9,7 @@
 *   (at your option) any later version.                                   *
 ***************************************************************************/
 
-#include "krecipes.h"
+//#include "krecipes.h"
 #include "krecipes_version.h"
 
 #include <iostream>
@@ -50,10 +50,10 @@ int main( int argc, char **argv )
 	about.addCredit( ki18n("Robert Wadley"), ki18n("Icons and artwork"), "rob@robntina.fastmail.us", 0 );
 	about.addAuthor( ki18n("Daniel Sauvé"), ki18n("Porting to KDE4"), "megametres@gmail.com", "http://metres.homelinux.com" );
 
-        about.addAuthor( ki18n("Laurent Montel"), ki18n("Porting to KDE4"), "montel@kde.org", 0 );
-        about.addAuthor( ki18n("José Manuel Santamaría Lema"), ki18n("Porting to KDE4, current maintainer"), "panfaust@gmail.com", 0 );
-        about.addAuthor( ki18n("Martin Engelmann"), ki18n("Porting to KDE4, developer"), "murphi.oss@googlemail.com", 0 );
-	
+    about.addAuthor( ki18n("Laurent Montel"), ki18n("Porting to KDE4"), "montel@kde.org", 0 );
+    about.addAuthor( ki18n("José Manuel Santamaría Lema"), ki18n("Porting to KDE4, current maintainer"), "panfaust@gmail.com", 0 );
+    about.addAuthor( ki18n("Martin Engelmann"), ki18n("Porting to KDE4, developer"), "murphi.oss@googlemail.com", 0 );
+
 	about.addCredit( ki18n("Patrick Spendrin"), ki18n("Patches to make Krecipes work under Windows"), "ps_ml@gmx.de", 0 );
 	about.addCredit( ki18n("Mike Ferguson"), ki18n("Help with bugs, patches"), "", 0 );
 	about.addCredit( ki18n("Warren Severin"), ki18n("Code to export recipes to *.mx2 files"), "", 0 );
@@ -78,7 +78,7 @@ int main( int argc, char **argv )
 
 	// see if we are starting with session management
 	if ( app.isSessionRestored() ) {
-		RESTORE( Krecipes );
+//		RESTORE( Krecipes );
 	}
 	else {
 		// no session.. just start up normally
@@ -92,9 +92,9 @@ int main( int argc, char **argv )
 			return 0;
 		}
 
-		Krecipes * widget = new Krecipes;
-		app.setTopWidget( widget );
-		widget->show();
+//		Krecipes * widget = new Krecipes;
+//		app.setTopWidget( widget );
+//		widget->show();
 
 		args->clear();
 	}

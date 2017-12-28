@@ -21,6 +21,7 @@
 #include <kcodecs.h>
 #include <kglobal.h>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 
 #include "backends/recipedb.h"

@@ -25,8 +25,8 @@ class QGridLayout;
 class QLabel;
 class KTextEdit;
 class QPushButton;
-class K3ListView;
-class Q3ListViewItem;
+class QListWidget;
+class QTreeWidgetItem;
 class QPushButton;
 
 class IngredientParserDialog : public QDialog
@@ -44,7 +44,7 @@ protected:
 	QLabel *previewLabel;
 	KTextEdit* ingredientTextEdit;
 	QPushButton* parseButton;
-	K3ListView* previewIngView;
+	QListWidget* previewIngView;
 	QPushButton* buttonGroup;
 
 protected slots:
@@ -57,7 +57,7 @@ protected slots:
 	virtual void languageChange();
 
 private:
-	void convertToHeader( const QList<Q3ListViewItem*> &items );
+	void convertToHeader( const QList<QTreeWidgetItem*> &items );
 
 	UnitList m_unitList;
 	IngredientList m_ingList;

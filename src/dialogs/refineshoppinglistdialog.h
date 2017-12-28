@@ -25,7 +25,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QLabel;
-class Q3ListViewItem;
+class QTreeWidgetItem;
 class QPushButton;
 
 class RecipeDB;
@@ -54,14 +54,14 @@ protected slots:
 	virtual void accept();
 	void addIngredient();
 	void removeIngredient();
-	void itemRenamed( Q3ListViewItem*, const QString &, int );
+	void itemRenamed( QTreeWidgetItem*, const QString &, int );
 
 private:
 	void loadData();
 
 	RecipeDB *database;
 	IngredientList ingredientList;
-	QMap<Q3ListViewItem*, IngredientList::iterator> item_ing_map;
+	QMap<QTreeWidgetItem*, IngredientList::iterator> item_ing_map;
 };
 
 #endif // REFINESHOPPINGLISTDIALOG_H

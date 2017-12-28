@@ -104,13 +104,14 @@ void ConvertSQLite3::convert()
 		}
 		
 		if ( retry ) {
-			QPointer<KrecipesPreferences> prefDialog = new KrecipesPreferences( 0 );
+/*FIXME			QPointer<KrecipesPreferences> prefDialog = new KrecipesPreferences( 0 );
 			if ( prefDialog->exec() == QDialog::Rejected ) {
 				delete prefDialog;
 				return;
 			}
 			delete prefDialog;
-			p1.kill();
+*/
+            p1.kill();
 			p2.kill();
 			cmd1[0] = config.readEntry("SQLiteOldVersionPath", "sqlite");
 			cmd2[0] = config.readEntry("SQLiteNewVersionPath", "sqlite3");
@@ -166,7 +167,7 @@ bool ConvertSQLite3::copyFile( const QString &oldFilePath, const QString &newFil
 	char* buffer = new char[BUFFER_SIZE];
 	while(!oldFile.atEnd())
 	{
-		Q_ULONG len = oldFile.read( buffer, BUFFER_SIZE );
+        quint64 len = oldFile.read( buffer, BUFFER_SIZE );
 		newFile.write( buffer, len );
 	}
 

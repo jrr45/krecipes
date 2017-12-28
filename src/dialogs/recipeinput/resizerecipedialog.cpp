@@ -46,8 +46,7 @@ ResizeRecipeDialog::ResizeRecipeDialog( QWidget *parent, Recipe *recipe )
 	mainLayout->addWidget(buttonBox);
 	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 	setModal( true );
-	ui = new Ui::ResizeRecipeDialog;
-	QWidget * mainWidget = new QWidget( this );
+    ui = new Ui::ResizeRecipeDialog;
 	ui->setupUi( mainWidget );
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( mainWidget );
 // Add mainLayout->addWidget(mainWidget); if necessary

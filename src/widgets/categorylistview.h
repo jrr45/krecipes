@@ -124,7 +124,7 @@ protected:
 	virtual void load( int limit, int offset );
 
 	/** so that it allows dropping into
-	  * subchildren that aren't expandable.  The code is taken from KDE's K3ListView with
+      * subchildren that aren't expandable.  The code is taken from KDE's QListWidget with
 	  * one line commented out.
 	  */
     /*

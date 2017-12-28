@@ -15,7 +15,7 @@
 #include <klocale.h>
 #include <QVBoxLayout>
 #include <QLineEdit>
-#include <Q3GroupBox>
+#include <QGroupBox>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -42,7 +42,7 @@ CreateElementDialog::CreateElementDialog( QWidget *parent, const QString &text )
 	 KVBox *page = new KVBox( this );
 //PORTING: Verify that widget was added to mainLayout: 	 setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
-	 Q3GroupBox *box = new Q3GroupBox( page );
+	 QGroupBox *box = new QGroupBox( page );
 	 box->setColumnLayout( 0, Qt::Vertical );
 	 box->layout() ->setSpacing( 6 );
 	 box->layout() ->setMargin( 11 );

@@ -55,7 +55,7 @@ SelectPropertyDialog::SelectPropertyDialog( QWidget* parent, int ingID, RecipeDB
 	KVBox *page = new KVBox( this );
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
-	box = new Q3GroupBox( page );
+	box = new QGroupBox( page );
 	box->setTitle( i18nc( "@title:group", "Choose Property" ) );
 	box->setColumnLayout( 0, Qt::Vertical );
 	box->layout() ->setSpacing( 6 );
@@ -63,7 +63,7 @@ SelectPropertyDialog::SelectPropertyDialog( QWidget* parent, int ingID, RecipeDB
 	QVBoxLayout *boxLayout = new QVBoxLayout( box->layout() );
 	boxLayout->setAlignment( Qt::AlignTop );
 
-	propertyChooseView = new K3ListView( box );
+    propertyChooseView = new QListWidget( box );
 
 	KConfigGroup config( KSharedConfig::openConfig(),  "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
@@ -110,7 +110,7 @@ SelectPropertyDialog::~SelectPropertyDialog()
 int SelectPropertyDialog::propertyID( void )
 {
 
-	Q3ListViewItem * it;
+    QListWidgetItem * it;
 	if ( ( it = propertyChooseView->selectedItem() ) ) {
 		return ( it->text( 0 ).toInt() );
 	}
@@ -149,7 +149,7 @@ int SelectPropertyDialog::perUnitsID()
 void SelectPropertyDialog::loadProperties( IngredientPropertyList *propertyList )
 {
 	for ( IngredientPropertyList::const_iterator prop_it = propertyList->constBegin(); prop_it != propertyList->constEnd(); ++prop_it ) {
-		( void ) new Q3ListViewItem( propertyChooseView, QString::number( (*prop_it).id ), (*prop_it).name );
+        ( void ) new QListWidgetItem( propertyChooseView, QString::number( (*prop_it).id ), (*prop_it).name );
 	}
 }
 void SelectPropertyDialog::loadUnits( UnitList *unitList )

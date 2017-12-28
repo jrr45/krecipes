@@ -23,11 +23,11 @@ class IngredientCheckListView;
 /**
 @author Unai Garro
 */
-class IngredientCheckListItem: public Q3CheckListItem
+class IngredientCheckListItem: public QListWidgetItem
 {
 public:
 	IngredientCheckListItem( IngredientCheckListView* qlv, const Element &ing );
-	IngredientCheckListItem( IngredientCheckListView* qlv, Q3ListViewItem *after, const Element &ing );
+    IngredientCheckListItem( IngredientCheckListView* qlv, QListWidgetItem *after, const Element &ing );
 	~IngredientCheckListItem( void );
 
 	int id( void ) const;

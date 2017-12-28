@@ -14,12 +14,10 @@
 #include <QPushButton>
 #include <QLabel>
 #include <KComboBox>
-//Added by qt3to4:
 #include <QPixmap>
 #include <knuminput.h>
-#include <q3header.h>
-#include <k3listview.h>
-#include <q3textedit.h>
+#include <QListWidget>
+#include <QTextEdit>
 #include <QLineEdit>
 #include <KRatingWidget>
 
@@ -36,17 +34,18 @@
 #include "datablocks/elementlist.h"
 #include "datablocks/mixednumber.h"
 
-class RatingCriteriaListView : public K3ListView
+class RatingCriteriaListView : public QListWidget
 {
 public:
-	RatingCriteriaListView( QWidget *parent = 0, const char *name = 0 ) : K3ListView(parent){ setObjectName( name ); }
+	RatingCriteriaListView( QWidget *parent = 0, const char *name = 0 ) : QListWidget(parent){ setObjectName( name ); }
 
-	void rename( Q3ListViewItem *it, int c )
+	void rename( QTreeWidgetItem *it, int c )
 	{
-		if ( c == 1 )
+/*FIXME		if ( c == 1 )
 			it->setPixmap(c,QPixmap());
 
-		K3ListView::rename(it,c);
+		QListWidget::rename(it,c);
+        */
 	}
 };
 
@@ -104,59 +103,59 @@ void EditRatingDialog::init( const ElementList &criteriaList )
 	criteriaLabel = new QLabel( layout8 );
 	criteriaLabel->setObjectName( "criteriaLabel" );
 
-	criteriaComboBox = new KComboBox( layout8 );
-	criteriaComboBox->setEditable( false );
-	criteriaComboBox->setObjectName( "criteriaComboBox" );
-	criteriaComboBox->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, (QSizePolicy::SizeType)0, 0, 0, criteriaComboBox->sizePolicy().hasHeightForWidth() ) );
-	criteriaComboBox->setEditable( true );
-	criteriaComboBox->lineEdit()->disconnect( criteriaComboBox ); //so hitting enter doesn't enter the item into the box
+//	criteriaComboBox = new KComboBox( layout8 );
+//	criteriaComboBox->setEditable( false );
+//	criteriaComboBox->setObjectName( "criteriaComboBox" );
+//	criteriaComboBox->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, (QSizePolicy::SizeType)0, 0, 0, criteriaComboBox->sizePolicy().hasHeightForWidth() ) );
+//	criteriaComboBox->setEditable( true );
+//	criteriaComboBox->lineEdit()->disconnect( criteriaComboBox ); //so hitting enter doesn't enter the item into the box
 
-	starsLabel = new QLabel( layout8 );
-	starsLabel->setObjectName( "starsLabel" );
+//	starsLabel = new QLabel( layout8 );
+//	starsLabel->setObjectName( "starsLabel" );
 
-	starsWidget = new KRatingWidget( layout8 );
-	starsWidget->setMaxRating( 10 );
-	starsWidget->setObjectName( "starsWidget" );
-	starsWidget->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
+//	starsWidget = new KRatingWidget( layout8 );
+//	starsWidget->setMaxRating( 10 );
+//	starsWidget->setObjectName( "starsWidget" );
+//	starsWidget->setSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::Fixed );
 
-	addButton = new QPushButton( layout8 );
-	addButton->setObjectName( "addButton" );
-	addButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
+//	addButton = new QPushButton( layout8 );
+//	addButton->setObjectName( "addButton" );
+//	addButton->setIcon( QIcon::fromTheme(QStringLiteral("list-add")) );
 
-	removeButton = new QPushButton( layout8 );
-	removeButton->setObjectName( "removeButton" );
-	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
+//	removeButton = new QPushButton( layout8 );
+//	removeButton->setObjectName( "removeButton" );
+//	removeButton->setIcon( QIcon::fromTheme(QStringLiteral("list-remove")) );
 
-	criteriaListView = new RatingCriteriaListView( page, "criteriaListView" );
-	criteriaListView->addColumn( i18nc( "@title:column", "Criteria" ) );
-	criteriaListView->addColumn( i18nc( "@title:column", "Stars" ) );
-	criteriaListView->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, criteriaListView->sizePolicy().hasHeightForWidth() ) );
-	criteriaListView->setSorting(-1);
-	criteriaListView->setItemsRenameable( true );
-	criteriaListView->setRenameable( 0, true );
-	criteriaListView->setRenameable( 1, true );
+//	criteriaListView = new RatingCriteriaListView( page, "criteriaListView" );
+//	criteriaListView->addColumn( i18nc( "@title:column", "Criteria" ) );
+//	criteriaListView->addColumn( i18nc( "@title:column", "Stars" ) );
+//	criteriaListView->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, criteriaListView->sizePolicy().hasHeightForWidth() ) );
+//	criteriaListView->setSorting(-1);
+//	criteriaListView->setItemsRenameable( true );
+//	criteriaListView->setRenameable( 0, true );
+//	criteriaListView->setRenameable( 1, true );
 
-	commentsLabel = new QLabel( page );
-	commentsLabel->setObjectName( "commentsLabel" );
+//	commentsLabel = new QLabel( page );
+//	commentsLabel->setObjectName( "commentsLabel" );
 
-	commentsEdit = new Q3TextEdit( page, "commentsEdit" );
+//    commentsEdit = new QTextEdit( page, "commentsEdit" );
 
-	languageChange();
-	resize( QSize(358, 331).expandedTo(minimumSizeHint()) );
-	//clearWState( WState_Polished );
+//	languageChange();
+//	resize( QSize(358, 331).expandedTo(minimumSizeHint()) );
+//	//clearWState( WState_Polished );
 
-	connect( criteriaListView, SIGNAL(itemRenamed(Q3ListViewItem*,const QString &,int)), this, SLOT(itemRenamed(Q3ListViewItem*,const QString &,int)) );
-	connect( addButton, SIGNAL(clicked()), this, SLOT(slotAddRatingCriteria()) );
-	connect( removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveRatingCriteria()) );
+//	connect( criteriaListView, SIGNAL(itemRenamed(QTreeWidgetItem*,const QString &,int)), this, SLOT(itemRenamed(QTreeWidgetItem*,const QString &,int)) );
+//	connect( addButton, SIGNAL(clicked()), this, SLOT(slotAddRatingCriteria()) );
+//	connect( removeButton, SIGNAL(clicked()), this, SLOT(slotRemoveRatingCriteria()) );
 
-	KIconLoader *il = KIconLoader::global();
-	QMenu *kpop = new QMenu( criteriaListView );
-	kpop->addAction( il->loadIcon( "edit-delete-shred", KIconLoader::NoGroup, 16 ), i18nc( "@action:button", "&Delete" ), this, SLOT( slotRemoveRatingCriteria() ), Qt::Key_Delete );
+//	KIconLoader *il = KIconLoader::global();
+//	QMenu *kpop = new QMenu( criteriaListView );
+//	kpop->addAction( il->loadIcon( "edit-delete-shred", KIconLoader::NoGroup, 16 ), i18nc( "@action:button", "&Delete" ), this, SLOT( slotRemoveRatingCriteria() ), Qt::Key_Delete );
 
-	for ( ElementList::const_iterator criteria_it = criteriaList.begin(); criteria_it != criteriaList.end(); ++criteria_it ) {
-		criteriaComboBox->insertItem( criteriaComboBox->count(), ( *criteria_it ).name );
-		//criteriaComboBox->completionObject()->addItem( ( *criteria_it ).name );
-	}
+//	for ( ElementList::const_iterator criteria_it = criteriaList.begin(); criteria_it != criteriaList.end(); ++criteria_it ) {
+//		criteriaComboBox->insertItem( criteriaComboBox->count(), ( *criteria_it ).name );
+//		//criteriaComboBox->completionObject()->addItem( ( *criteria_it ).name );
+//	}
 
 	ratingID = -1;
 }
@@ -175,6 +174,7 @@ EditRatingDialog::~EditRatingDialog()
  */
 void EditRatingDialog::languageChange()
 {
+    /*FIXME
 	criteriaLabel->setText( i18nc( "@label:textbox", "Criteria:" ) );
 	starsLabel->setText( i18nc( "@label:textbox", "Stars:" ) );
 	addButton->setText( i18nc( "@action:button", "Add" ) );
@@ -182,11 +182,12 @@ void EditRatingDialog::languageChange()
 	criteriaListView->header()->setLabel( 0, i18nc( "@title:column", "Criteria" ) );
 	criteriaListView->header()->setLabel( 1, i18nc( "@title:column", "Stars" ) );
 	commentsLabel->setText( i18nc( "@label:textbox", "Comments:" ) );
-	raterLabel->setText( i18nc( "@label:textbox", "Rater:" ) );
+    raterLabel->setText( i18nc( "@label:textbox", "Rater:" ) );/*
 }
 
-void EditRatingDialog::itemRenamed(Q3ListViewItem* it, const QString &, int c)
+void EditRatingDialog::itemRenamed(QTreeWidgetItem* it, const QString &, int c)
 {
+/*FIXME
 	if ( c == 1 ) {
 		QValidator::State state;
 		MixedNumber stars_mn;
@@ -205,13 +206,14 @@ void EditRatingDialog::itemRenamed(Q3ListViewItem* it, const QString &, int c)
 
 		it->setText(c,QString());
 	}
+    */
 }
 
 Rating EditRatingDialog::rating() const
 {
 	Rating r;
-
-	for ( Q3ListViewItem *it = criteriaListView->firstChild(); it; it = it->nextSibling() ) {
+/*FIXME
+	for ( QTreeWidgetItem *it = criteriaListView->firstChild(); it; it = it->nextSibling() ) {
 		RatingCriteria rc;
 		rc.setName(it->text(0));
 		rc.setStars(it->text(2).toDouble());
@@ -220,7 +222,7 @@ Rating EditRatingDialog::rating() const
 
 	r.setComment(commentsEdit->text());
 	r.setRater(raterEdit->text());
-
+*/
 	r.setId(ratingID);
 
 	return r;
@@ -257,17 +259,19 @@ void EditRatingDialog::slotAddRatingCriteria()
 
 void EditRatingDialog::addRatingCriteria( const RatingCriteria &rc )
 {
-	Q3ListViewItem * it = new Q3ListViewItem(criteriaListView,rc.name());
+    /*FIXME
+	QTreeWidgetItem * it = new QTreeWidgetItem(criteriaListView,rc.name());
 
 	QPixmap stars = Rating::starsPixmap(rc.stars());
 	if ( !stars.isNull() ) //there aren't zero stars
 		it->setPixmap(1,stars);
 
 	it->setText(2,QString::number(rc.stars()));
+    */
 }
 
 void EditRatingDialog::slotRemoveRatingCriteria()
 {
-	delete criteriaListView->selectedItem();
+    delete criteriaListView->selectedItems().first();
 }
 

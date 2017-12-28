@@ -44,6 +44,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 
 

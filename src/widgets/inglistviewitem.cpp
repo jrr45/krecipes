@@ -18,9 +18,6 @@
 #include "datablocks/unit.h"
 #include "datablocks/mixednumber.h"
 
-IngSubListViewItem::IngSubListViewItem( Q3ListViewItem* qli, const Ingredient &i ) : IngListViewItem( qli, 0, i )
-{
-}
 
 QString IngSubListViewItem::text( int column ) const
 {
@@ -57,19 +54,14 @@ int IngSubListViewItem::rtti() const
 }
 
 
-IngListViewItem::IngListViewItem( Q3ListView* qlv, const Ingredient &i ) : Q3ListViewItem( qlv )
+IngListViewItem::IngListViewItem( QListWidget* qlv, const Ingredient &i ) : QListWidgetItem( qlv )
 {
 	init( i );
 }
 
-IngListViewItem::IngListViewItem( Q3ListView* qlv, Q3ListViewItem *after, const Ingredient &i ) : Q3ListViewItem( qlv, after )
+IngListViewItem::IngListViewItem( QListWidget* qlv, QListWidgetItem *after, const Ingredient &i ) : QListWidgetItem( qlv )
 {
-	init( i );
-}
-
-IngListViewItem::IngListViewItem( Q3ListViewItem* qli, Q3ListViewItem *after, const Ingredient &i ) : Q3ListViewItem( qli, after )
-{
-	init( i );
+    init( i ); //FIXME no longer has siblings
 }
 
 int IngListViewItem::rtti() const
@@ -173,7 +165,7 @@ void IngListViewItem::init( const Ingredient &i )
 }
 
 
-IngGrpListViewItem::IngGrpListViewItem( Q3ListView* qlv, Q3ListViewItem *after, const QString &group, int id ) : Q3ListViewItem( qlv, after )
+IngGrpListViewItem::IngGrpListViewItem( QListWidget* qlv, QListWidgetItem *after, const QString &group, int id ) : QListWidgetItem( qlv )
 {
 	init( group, id );
 }

@@ -16,7 +16,8 @@
 #include <QDebug>
 #include <QtGlobal>
 
-Q_DECLARE_METATYPE(QValidator::State);
+Q_DECLARE_METATYPE(QValidator::State)
+
 #define INV QValidator::Invalid
 #define ITM QValidator::Intermediate
 #define ACC QValidator::Acceptable

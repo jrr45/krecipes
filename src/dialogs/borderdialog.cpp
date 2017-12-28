@@ -10,7 +10,7 @@
 #include "borderdialog.h"
 
 #include <QPushButton>
-#include <q3groupbox.h>
+#include <QGroupBox>
 
 #include <QLabel>
 #include <qspinbox.h>
@@ -53,7 +53,7 @@ BorderDialog::BorderDialog( const KreBorder &border, QWidget* parent, const char
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
 
-	borderGroupBox = new Q3GroupBox( page, "borderGroupBox" );
+    borderGroupBox = new QGroupBox( page, "borderGroupBox" );
 	borderGroupBox->setColumnLayout( 0, Qt::Vertical );
 	borderGroupBox->layout()->setSpacing( 6 );
 	borderGroupBox->layout()->setMargin( 11 );

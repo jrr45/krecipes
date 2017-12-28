@@ -23,7 +23,7 @@
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class Q3ButtonGroup;
+class QButtonGroup;
 class QLabel;
 class QComboBox;
 
@@ -41,7 +41,7 @@ public:
 protected:
 	QHBoxLayout* buttonGroup1Layout;
 
-	Q3ButtonGroup* buttonGroup1;
+	QButtonGroup* buttonGroup1;
 	FractionInput* fromUnitEdit;
 	QLabel* fromUnitLabel;
 	QLabel* textLabel4;

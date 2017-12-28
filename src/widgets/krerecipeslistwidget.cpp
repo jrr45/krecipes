@@ -15,6 +15,7 @@
 #include "datablocks/elementlist.h"
 
 #include <kdebug.h>
+#include <KLocale>
 
 #include <QStandardItemModel>
 #include <QSortFilterProxyModel>

@@ -37,7 +37,7 @@ class QVBoxLayout;
 
 class RecipeDB;
 class Recipe;
-class AdvancedSearchDialog;
+//class AdvancedSearchDialog;
 class KreRecipesListWidget;
 class KreRecipeActionsHandler;
 class CategoryComboBox;
@@ -94,7 +94,7 @@ private:
 	QLabel *searchLabel;
 	QLineEdit *searchBox;
 	CategoryComboBox *categoryBox;
-	AdvancedSearchDialog *advancedSearch;
+    //AdvancedSearchDialog *advancedSearch;
 	// Internal Data
 	RecipeDB *database;
 	KreRecipeActionsHandler *actionHandler;

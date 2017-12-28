@@ -26,7 +26,7 @@ class QSlider;
 class QLabel;
 class QPushButton;
 
-class K3ListView;
+class QListWidget;
 class QLineEdit;
 
 
@@ -47,11 +47,11 @@ public:
 	QLabel* categoryLabel;
 	QPushButton* searchButton;
 	QLabel* allLabel;
-	K3ListView* allListView;
+	QListWidget* allListView;
 	QPushButton* removeButton;
 	QPushButton* addButton;
 	QLabel* toMergeLabel;
-	K3ListView* toMergeListView;
+	QListWidget* toMergeListView;
 	QPushButton* mergeButton;
 	QPushButton* cancelButton;
 	

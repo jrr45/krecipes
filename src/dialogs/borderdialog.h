@@ -24,7 +24,7 @@
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class Q3GroupBox;
+class QGroupBox;
 class QLabel;
 class K3ListBox;
 class QSpinBox;
@@ -42,7 +42,7 @@ public:
 
 	KreBorder border() const;
 
-	Q3GroupBox* borderGroupBox;
+    QGroupBox* borderGroupBox;
 	QLabel* styleLabel;
 	K3ListBox* styleListBox;
 	QLabel* colorLabel;

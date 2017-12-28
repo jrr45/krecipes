@@ -13,12 +13,12 @@
 
 #include <klocale.h>
 #include <QPushButton>
-#include <k3listview.h>
+#include <QListWidget>
 #include <kdebug.h>
 #include <kvbox.h>
 
 
-#include <q3dict.h>
+#include <QHash>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
 #include <QPushButton>
@@ -46,18 +46,18 @@ RecipeImportDialog::RecipeImportDialog( const RecipeList &list, QWidget *parent 
 	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
 	mainLayout->addWidget(buttonBox);
 	buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
-	setButtonsOrientation( Qt::Vertical );
+//	setButtonsOrientation( Qt::Vertical );
 
 	KVBox *page = new KVBox( this );
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
 
 
-	kListView = new K3ListView( page );
-	kListView->addColumn( i18nc( "@title:column", "Recipes" ) );
+    kListView = new QListWidget( page );
+//	kListView->addColumn( i18nc( "@title:column", "Recipes" ) );
 	kListView->setProperty( "selectionMode", "NoSelection" );
-	kListView->setRootIsDecorated( true );
-	kListView->setAllColumnsShowFocus( true );
+//	kListView->setRootIsDecorated( true );
+//	kListView->setAllColumnsShowFocus( true );
 
 	languageChange();
 
@@ -77,7 +77,9 @@ void RecipeImportDialog::languageChange()
 
 void RecipeImportDialog::loadListView()
 {
-	CustomCheckListItem * head_item = new CustomCheckListItem( kListView, i18nc( "@item:inlistbox All items", "All (%1)", list_copy.count() ), Q3CheckListItem::CheckBox );
+    /* FIXME
+    CustomCheckListItem * head_item( kListView );
+    head_item->setText( i18nc( "@item:inlistbox All items", "All (%1)", list_copy.count() );
 	head_item->setOpen( true );
 
 	//get all categories
@@ -92,11 +94,11 @@ void RecipeImportDialog::loadListView()
 	}
 
 	//create all category check list items
-	Q3Dict<CustomCheckListItem> all_categories;
+    QHash<CustomCheckListItem> all_categories;
 
 	QStringList::iterator it;
 	for ( it = categoryList.begin(); it != categoryList.end(); ++it ) {
-		CustomCheckListItem *category_item = new CustomCheckListItem( head_item, *it, Q3CheckListItem::CheckBox );
+        CustomCheckListItem *category_item = new CustomCheckListItem( head_item, *it, QListWidgetItem::CheckBox );
 		//category_item->setOpen(true);
 
 		all_categories.insert( *it, category_item );
@@ -112,10 +114,10 @@ void RecipeImportDialog::loadListView()
 		if ( ( *recipe_it ).categoryList.count() == 0 ) {
 			if ( !category_item )  //don't create this until there are recipes to put in it
 			{
-				category_item = new CustomCheckListItem( head_item, i18nc( "@item", "Uncategorized" ), Q3CheckListItem::CheckBox );
+                category_item = new CustomCheckListItem( head_item, i18nc( "@item", "Uncategorized" ), QListWidgetItem::CheckBox );
 				all_categories.insert( i18nc( "@item", "Uncategorized" ), category_item );
 			}
-			CustomCheckListItem *item = new CustomCheckListItem( category_item, ( *recipe_it ).title, Q3CheckListItem::CheckBox );
+            CustomCheckListItem *item = new CustomCheckListItem( category_item, ( *recipe_it ).title, QListWidgetItem::CheckBox );
 			recipe_items->insert( item, recipe_it );
 		}
 		else {
@@ -123,23 +125,24 @@ void RecipeImportDialog::loadListView()
 
 				CustomCheckListItem *category_item = all_categories[ ( *cat_it ).name ];
 
-				item = new CustomCheckListItem( category_item, item, ( *recipe_it ).title, Q3CheckListItem::CheckBox );
+                item = new CustomCheckListItem( category_item, item, ( *recipe_it ).title, QListWidgetItem::CheckBox );
 				recipe_items->insert( item, recipe_it );
 			}
 		}
 	}
 
 	//append the number of recipes in each category to the check list item text
-	Q3DictIterator<CustomCheckListItem> categories_it( all_categories );
+    QHashIterator<CustomCheckListItem> categories_it( all_categories );
 	for ( ; categories_it.current(); ++categories_it ) {
 		int count = 0;
-		for ( Q3CheckListItem * it = static_cast<Q3CheckListItem*>( categories_it.current() ->firstChild() ); it; it = static_cast<Q3CheckListItem*>( it->nextSibling() ) ) {
+        for ( QListWidgetItem * it = static_cast<QListWidgetItem*>( categories_it.current() ->firstChild() ); it; it = static_cast<QListWidgetItem*>( it->nextSibling() ) ) {
 			count++;
 		}
 		categories_it.current() ->setText( 0, categories_it.current() ->text( 0 ) + QString( " (%1)" ).arg( count ) );
 	}
 
 	head_item->setOn( true ); //this will check all recipes
+    */
 }
 
 RecipeList RecipeImportDialog::getSelectedRecipes()
@@ -147,7 +150,7 @@ RecipeList RecipeImportDialog::getSelectedRecipes()
 	RecipeList selected_recipes;
 
 	QLinkedList<RecipeList::const_iterator> already_included_recipes;
-
+/* FIXME
 	QMap<CustomCheckListItem*, RecipeList::const_iterator>::const_iterator it;
 	for ( it = recipe_items->constBegin(); it != recipe_items->constEnd(); ++it ) {
 		if ( static_cast<CustomCheckListItem*>( it.key() ) ->isOn() &&
@@ -157,26 +160,27 @@ RecipeList RecipeImportDialog::getSelectedRecipes()
 			selected_recipes.prepend( *it.value() );
 		}
 	}
-
+*/
 	return selected_recipes;
 }
 
-CustomCheckListItem::CustomCheckListItem( QListWidget *parent, const QString & s, Type t )
-		: Q3CheckListItem( parent, s, t ), m_locked( false )
+CustomCheckListItem::CustomCheckListItem( QListWidget *parent )
+        : QListWidgetItem( parent ), m_locked( false )
+{}
+/*
+CustomCheckListItem::CustomCheckListItem( CustomCheckListItem *parent, const QString & s )
+        : QListWidgetItem( parent ), m_locked( false )
 {}
 
-CustomCheckListItem::CustomCheckListItem( CustomCheckListItem *parent, const QString & s, Type t )
-		: Q3CheckListItem( parent, s, t ), m_locked( false )
-{}
-
-CustomCheckListItem::CustomCheckListItem( Q3CheckListItem *parent, Q3CheckListItem *after, const QString & s, Type t )
-		: Q3CheckListItem( parent, after, s, t ), m_locked( false )
-{}
+CustomCheckListItem::CustomCheckListItem( QListWidgetItem *parent, QListWidgetItem *after, const QString & s )
+        : QListWidgetItem( parent ), m_locked( false )
+{}*/
 
 void CustomCheckListItem::stateChange( bool on )
 {
+    /* FIXME
 	if ( !m_locked ) {
-		for ( Q3CheckListItem * it = static_cast<Q3CheckListItem*>( firstChild() ); it; it = static_cast<Q3CheckListItem*>( it->nextSibling() ) ) {
+        for ( QListWidgetItem * it = static_cast<QListWidgetItem*>( firstChild() ); it; it = static_cast<QListWidgetItem*>( it->nextSibling() ) ) {
 			it->setOn( on );
 		}
 	}
@@ -200,5 +204,6 @@ void CustomCheckListItem::stateChange( bool on )
 		}
 		++it;
 	}
+    */
 }
 

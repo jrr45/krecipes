@@ -21,7 +21,7 @@
 #include <QSplitter>
 #include <QGroupBox>
 
-#include <k3listview.h>
+#include <QListWidget>
 #include <klocale.h>
 #include <kglobal.h>
 #include <kconfig.h>
@@ -175,7 +175,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 	layout3->addWidget( propertyRemoveButton );
 	layout7->addLayout( layout3 );
 
-	propertyListView = new K3ListView( page );
+    propertyListView = new QListWidget( page );
 	propertyListView->setObjectName( "propertyListView" );
 	propertyListView->setAllColumnsShowFocus( true );
 	propertyListView->addColumn( i18nc( "@title:column", "Property" ) );
@@ -211,7 +211,7 @@ EditPropertiesDialog::EditPropertiesDialog( int ingID, const QString &ingName, R
 	layout3_2->addWidget( weightRemoveButton );
 	layout8->addLayout( layout3_2 );
 
-	weightListView = new K3ListView( page );
+    weightListView = new QListWidget( page );
 	weightListView->setObjectName( "weightListView" );
 	weightListView->addColumn( i18nc( "@title:column", "Weight" ) );
 	weightListView->addColumn( i18nc( "@title:column", "Per Amount" ) );
@@ -332,7 +332,7 @@ void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, i
 		mainLayout->addWidget(buttonBox);
 		buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
-		Q3GroupBox *box = new Q3GroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
+		QGroupBox *box = new QGroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
 		AmountUnitInput *amountEdit = new AmountUnitInput( box, db, Unit::Mass, MixedNumber::DecimalFormat );
 
 		WeightListItem *it = (WeightListItem*)item;
@@ -371,7 +371,7 @@ void EditPropertiesDialog::itemRenamed( QListWidgetItem* item, const QPoint &, i
 		mainLayout->addWidget(buttonBox);
 		buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 
-		Q3GroupBox *box = new Q3GroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
+		QGroupBox *box = new QGroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
 		WeightInput *amountEdit = new WeightInput( box, db, Unit::All, MixedNumber::DecimalFormat );
 
 		WeightListItem *it = (WeightListItem*)item;

@@ -23,7 +23,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QLabel;
-class K3ListView;
+class QListWidget;
 class QListWidgetItem;
 class QPushButton;
 class QSplitter;
@@ -47,10 +47,10 @@ public:
 	QPushButton* loadButton;
 	QPushButton* propertyAddButton;
 	QPushButton* propertyRemoveButton;
-	K3ListView* propertyListView;
+    QListWidget* propertyListView;
 	QPushButton* weightAddButton;
 	QPushButton* weightRemoveButton;
-	K3ListView* weightListView;
+    QListWidget* weightListView;
 
 protected:
 	QSplitter* splitter;

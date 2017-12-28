@@ -13,7 +13,6 @@
 #include <KTextEdit>
 #include <QLabel>
 
-#include <q3header.h>
 #include <QApplication>
 #include <QClipboard>
 
@@ -22,7 +21,7 @@
 
 #include <klocale.h>
 #include <kdebug.h>
-#include <k3listview.h>
+#include <QListWidget>
 #include <QPushButton>
 #include <kmessagebox.h>
 #include <QAction>
@@ -76,7 +75,7 @@ IngredientParserDialog::IngredientParserDialog( const UnitList &units, QWidget* 
 	previewLabel->setObjectName( "previewLabel" );
 	previewLabel->setTextFormat( Qt::RichText );
 
-	previewIngView = new K3ListView( page );
+	previewIngView = new QListWidget( page );
 	previewIngView->setSorting(-1);
 	previewIngView->addColumn( i18nc( "@title:column", "Ingredient" ) );
 	previewIngView->addColumn( i18nc( "@title:column", "Amount" ) );
@@ -92,7 +91,7 @@ IngredientParserDialog::IngredientParserDialog( const UnitList &units, QWidget* 
 	previewIngView->setRenameable( 2, true );
 	previewIngView->setRenameable( 3, true );
 
-	previewIngView->setSelectionMode( Q3ListView::Extended );
+	previewIngView->setSelectionMode( QTreeWidget::Extended );
 
 	ingredientTextEdit->setText( QApplication::clipboard()->text() );
 	ingredientTextEdit->selectAll();
@@ -135,7 +134,7 @@ void IngredientParserDialog::languageChange()
 
 void IngredientParserDialog::accept()
 {
-	for ( Q3ListViewItem *it = previewIngView->firstChild(); it; it = it->nextSibling() ) {
+	for ( QTreeWidgetItem *it = previewIngView->firstChild(); it; it = it->nextSibling() ) {
 		if ( it->rtti() == INGGRPLISTVIEWITEM_RTTI ) {
 			QString group = ((IngGrpListViewItem*)it)->group();
 			for ( IngListViewItem *sub_it = (IngListViewItem*)it->firstChild(); sub_it; sub_it = (IngListViewItem*)sub_it->nextSibling() ) {
@@ -160,21 +159,21 @@ void IngredientParserDialog::removeIngredient()
 
 void IngredientParserDialog::convertToHeader()
 {
-	QList<Q3ListViewItem*> items = previewIngView->selectedItems();
+	QList<QTreeWidgetItem*> items = previewIngView->selectedItems();
 	if ( items.isEmpty() )
 		return;
 	else if ( items.count() > 1 )
 		convertToHeader(items);
 	else { //items.count = 1
-		Q3ListViewItem *item = items.first();
+		QTreeWidgetItem *item = items.first();
 		if ( item->rtti() == INGLISTVIEWITEM_RTTI ) {
-			Q3ListViewItem *new_item = new IngGrpListViewItem(previewIngView,
+			QTreeWidgetItem *new_item = new IngGrpListViewItem(previewIngView,
 			(item->parent())?item->parent():item,
 			((IngListViewItem*)item)->ingredient().name, -1);
 
-			Q3ListViewItem *next_sibling;
-			Q3ListViewItem *last_item = 0;
-			for ( Q3ListViewItem * it = (item->parent())?item->nextSibling():new_item->nextSibling(); it; it = next_sibling ) {
+			QTreeWidgetItem *next_sibling;
+			QTreeWidgetItem *last_item = 0;
+			for ( QTreeWidgetItem * it = (item->parent())?item->nextSibling():new_item->nextSibling(); it; it = next_sibling ) {
 				if ( it->rtti() == INGGRPLISTVIEWITEM_RTTI )
 					break;
 
@@ -199,24 +198,24 @@ void IngredientParserDialog::convertToHeader()
 	}
 }
 
-void IngredientParserDialog::convertToHeader( const QList<Q3ListViewItem*> &items )
+void IngredientParserDialog::convertToHeader( const QList<QTreeWidgetItem*> &items )
 {
 	//Port to kde4
-	/*
+    /* FIXME
 	if ( items.isEmpty() > 0 ) {
-		QListIterator<Q3ListViewItem> it(items);
-		Q3ListViewItem *item = it.current();
+		QListIterator<QTreeWidgetItem> it(items);
+		QTreeWidgetItem *item = it.current();
 
 		if ( item->rtti() != INGLISTVIEWITEM_RTTI )
 			return;
 
 		QString group = ((IngListViewItem*)item)->ingredient().name;
-		Q3ListViewItem *ingGroupItem = new IngGrpListViewItem(previewIngView,
+		QTreeWidgetItem *ingGroupItem = new IngGrpListViewItem(previewIngView,
 			(item->parent())?item->parent():item, group, -1);
 		delete item; //delete the ingredient header which was detected as an ingredient
 		++it;
 
-		Q3ListViewItem *last_item = 0;
+		QTreeWidgetItem *last_item = 0;
 		while ( (item = it.current()) != 0 ) {
 			//ignore anything that isn't an ingredient (e.g. headers)
 			if ( item->rtti() == INGLISTVIEWITEM_RTTI ) {
@@ -245,7 +244,7 @@ void IngredientParserDialog::parseText()
 {
 	previewIngView->clear();
 
-	Q3ListViewItem *last_item = 0;
+	QTreeWidgetItem *last_item = 0;
 
 	int line_num = 0;
 	QStringList ingredients;

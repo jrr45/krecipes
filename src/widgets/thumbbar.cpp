@@ -25,11 +25,6 @@
 
 #include "thumbbar.h"
 
-//Added by qt3to4:
-#include <QPaintEvent>
-#include <QFrame>
-#include <QMouseEvent>
-
 // C Ansi includes.
 
 extern "C"
@@ -46,10 +41,15 @@ extern "C"
 #include <QPixmap>
 #include <QTimer>
 #include <QPainter>
-#include <q3dict.h>
-#include <qpoint.h>
+#include <QPoint>
 #include <QDateTime>
 #include <QFileInfo>
+#include <QPaintEvent>
+#include <QFrame>
+#include <QMouseEvent>
+#include <QMimeDatabase>
+#include <QMimeType>
+#include <QScrollBar>
 
 // KDE includes.
 
@@ -61,9 +61,6 @@ extern "C"
 
 #include <kfileitem.h>
 #include <kglobal.h>
-#include <QMimeDatabase>
-#include <QMimeType>
-
 
 class ThumbBarViewPriv
 {
@@ -75,7 +72,6 @@ public:
         lastItem   = 0;
         currItem   = 0;
         count      = 0;
-        itemDict.setAutoDelete(false);
     }
 
     bool                      clearing;
@@ -92,8 +88,6 @@ public:
     ThumbBarItem             *currItem;
 
     ThumbBarToolTip          *tip;
-
-    Q3Dict<ThumbBarItem>       itemDict;
 };
 
 class ThumbBarItemPriv
@@ -123,7 +117,7 @@ public:
 };
 
 ThumbBarView::ThumbBarView(QWidget* parent, int orientation)
-            : Q3ScrollView(parent)
+            : QScrollArea(parent)
 {
     d = new ThumbBarViewPriv;
     d->margin      = 5;
@@ -136,19 +130,19 @@ ThumbBarView::ThumbBarView(QWidget* parent, int orientation)
     connect(d->timer, SIGNAL(timeout()),
             this, SLOT(slotUpdate()));
 
-    viewport()->setBackgroundMode(Qt::NoBackground);
+    viewport()->setBackgroundRole( QPalette::Background );
     viewport()->setMouseTracking(true);
     setFrameStyle(QFrame::NoFrame);
 
     if (d->orientation == Vertical)
     {
-       setHScrollBarMode(Q3ScrollView::AlwaysOff);
+       setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
        setFixedWidth(d->tileSize + 2*d->margin
                      + verticalScrollBar()->sizeHint().width());
     }
     else
     {
-       setVScrollBarMode(Q3ScrollView::AlwaysOff);
+       setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
        setFixedHeight(d->tileSize + 2*d->margin
                       + horizontalScrollBar()->sizeHint().height());
     }
@@ -290,7 +284,7 @@ void ThumbBarView::viewportPaintEvent(QPaintEvent* e)
 
     QColor hilightColor = QPalette().highlight().color();
     QColor backgroundColor = QPalette().window().color();
-
+/*FIXME disable repainting for now
     if (d->orientation == Vertical)
     {
        cy = viewportToContents(er.topLeft()).y();
@@ -375,6 +369,7 @@ void ThumbBarView::viewportPaintEvent(QPaintEvent* e)
        bitBlt(viewport(), 0, er.y(), &bgPix);
     else
        bitBlt(viewport(), er.x(), 0, &bgPix);
+       */
 }
 
 void ThumbBarView::contentsMousePressEvent(QMouseEvent* e)
@@ -446,8 +441,6 @@ void ThumbBarView::insertItem(ThumbBarItem* item)
 
     }
 
-    d->itemDict.insert(item->url(), item);
-
     d->count++;
     triggerUpdate();
     emit signalItemAdded();
@@ -491,8 +484,6 @@ void ThumbBarView::removeItem(ThumbBarItem* item)
         }
     }
 
-    d->itemDict.remove(item->url());
-
     if (!d->clearing)
     {
         triggerUpdate();
@@ -514,15 +505,17 @@ void ThumbBarView::rearrangeItems()
             urlList.append(item->d->url);
         item = item->d->next;
     }
-
+/* FIXME disable replainting for now
     if (d->orientation == Vertical)
        resizeContents(width(), d->count*(d->tileSize+2*d->margin));
     else
        resizeContents(d->count*(d->tileSize+2*d->margin), height());
+       */
 }
 
 void ThumbBarView::repaintItem(ThumbBarItem* item)
 {
+    /* FIXME disbale repainting
     if (item)
     {
        if (d->orientation == Vertical)
@@ -530,6 +523,7 @@ void ThumbBarView::repaintItem(ThumbBarItem* item)
        else
            repaintContents(item->d->pos, 0, d->tileSize+2*d->margin, visibleHeight());
     }
+    */
 }
 
 void ThumbBarView::slotUpdate()
@@ -594,14 +588,14 @@ QRect ThumbBarItem::rect() const
     if (d->view->d->orientation == ThumbBarView::Vertical)
     {
         return QRect(0, d->pos,
-                     d->view->visibleWidth(),
+                     d->view->visibleRegion().boundingRect().width(),
                      d->view->d->tileSize + 2*d->view->d->margin);
     }
     else
     {
         return QRect(d->pos, 0,
                      d->view->d->tileSize + 2*d->view->d->margin,
-                     d->view->visibleHeight());
+                     d->view->visibleRegion().boundingRect().height());
     }
 }
 

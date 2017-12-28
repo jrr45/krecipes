@@ -112,7 +112,7 @@ void PropertyListView::reload()
 	IngredientPropertyList propertyList;
 	database->loadProperties( &propertyList );
 
-	//Populate this data into the K3ListView
+    //Populate this data into the QListWidget
 	IngredientPropertyList::const_iterator prop_it;
 	for ( prop_it = propertyList.constBegin(); prop_it != propertyList.constEnd(); ++prop_it )
 		createProperty( *prop_it );

@@ -188,7 +188,7 @@ void CategoryListView::movableDropEvent( QTreeWidgetItem * parent, QTreeWidgetIt
 	if ( (selectedItem()->rtti() == PREVLISTITEM_RTTI) ||
 	(selectedItem()->rtti() == NEXTLISTITEM_RTTI) )
 		return;
-	K3ListView::movableDropEvent( parent, afterme );
+	QListWidget::movableDropEvent( parent, afterme );
 }
 
 void CategoryListView::populate( QTreeWidgetItem *item )

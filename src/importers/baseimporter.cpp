@@ -17,6 +17,7 @@
 #include <kmessagebox.h>
 #include <kglobal.h>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include "datablocks/recipe.h"
 #include "backends/recipedb.h"

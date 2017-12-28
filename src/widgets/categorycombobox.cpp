@@ -11,8 +11,6 @@
 
 #include "categorycombobox.h"
 
-#include <q3listbox.h>
-
 #include <klocale.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>

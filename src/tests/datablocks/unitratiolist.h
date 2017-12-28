@@ -15,7 +15,7 @@
 
 class Test_UnitRatioList : public QObject
 {
-    Q_OBJECT;
+    Q_OBJECT
 
 private slots:
     void testGetRatio();

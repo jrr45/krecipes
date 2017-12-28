@@ -12,13 +12,12 @@
 #include <unistd.h> //for getuid()
 #include <pwd.h> //getpwuid()
 
-#include <q3buttongroup.h>
+#include <QButtonGroup>
 #include <QRadioButton>
 #include <QStackedWidget>
 #include <qwidget.h>
 #include <QLineEdit>
 #include <QLabel>
-#include <q3whatsthis.h>
 
 #include <QGridLayout>
 #include <QVBoxLayout>
@@ -59,7 +58,7 @@ DBImportDialog::DBImportDialog( QWidget *parent, const char *name )
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
 
-	dbButtonGroup = new Q3ButtonGroup( page, "dbButtonGroup" );
+    dbButtonGroup = new QButtonGroup( page, "dbButtonGroup" );
 	dbButtonGroup->setSizePolicy( QSizePolicy( ( QSizePolicy::SizeType ) 4, ( QSizePolicy::SizeType ) 5, 0, 0, dbButtonGroup->sizePolicy().hasHeightForWidth() ) );
 	dbButtonGroup->setColumnLayout( 0, Qt::Vertical );
 	dbButtonGroup->layout() ->setSpacing( 6 );

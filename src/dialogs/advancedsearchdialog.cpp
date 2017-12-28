@@ -17,7 +17,7 @@
 #include <QWidget>
 #include <QCheckBox>
 #include <QFrame>
-#include <QListWidget>
+#include <QTreeView>
 #include <QSpinBox>
 #include <QDateTimeEdit>
 #include <QScrollArea>
@@ -38,7 +38,7 @@
 #include <kcursor.h>
 #include <kdebug.h>
 #include <kiconloader.h>
-#include <k3listview.h>
+#include <QTreeView>
 #include <klocale.h>
 #include <kconfiggroup.h>
 #include <kglobal.h>
@@ -489,10 +489,10 @@ AdvancedSearchDialog::AdvancedSearchDialog( QWidget *parent, RecipeDB *db ) : QW
 
 	criterionFrameLayout->addLayout( layout12 );
 	
-	criteriaListView = new K3ListView( criterionFrame );
+    criteriaListView = new QTreeView( criterionFrame );
 	criteriaListView->setObjectName( "criteriaListView" );
 	criteriaListView->setSizePolicy( QSizePolicy::Expanding, QSizePolicy::Expanding );
-	criteriaListView->addColumn( i18nc( "@title:column", "Criterion" ) );
+    criteriaListView->addColumn( i18nc( "@title:column", "Criterion" ) );
 	criteriaListView->addColumn( i18nc( "@title:column", "Stars" ) );
 	criteriaListView->header()->setLabel( 0, i18nc( "@title:column", "Criteria" ) );
 	criteriaListView->header()->setLabel( 1, i18nc( "@title:column", "Stars" ) );
@@ -921,7 +921,7 @@ void AdvancedSearchDialog::search()
 				}
 			}
 
-            for ( QListWidgetItem *item = criteriaListView->firstChild(); item; item = item->nextSibling() ) {
+            for ( QTreeViewItem *item : criteriaListView->children() ) {
                 Ingredient i; i.setAmount( item->setText(1) );
 				double stars = i.amount;
 				double stars_offset = i.amount_offset;

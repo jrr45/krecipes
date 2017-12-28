@@ -37,7 +37,8 @@ DietViewDialog::DietViewDialog( QWidget *parent, const RecipeList &recipeList, i
 	buttonBox->addButton(user2Button, QDialogButtonBox::ActionRole);
 	connect(buttonBox, SIGNAL(accepted()), this, SLOT(accept()));
 	connect(buttonBox, SIGNAL(rejected()), this, SLOT(reject()));
-	//PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
+/*FIXME
+    //PORTING SCRIPT: WARNING mainLayout->addWidget(buttonBox) must be last item in layout. Please move it.
 	mainLayout->addWidget(buttonBox);
 	setDefaultButton(QDialog::User2);
 	setModal( false );
@@ -52,7 +53,7 @@ DietViewDialog::DietViewDialog( QWidget *parent, const RecipeList &recipeList, i
 	// The html part
 	dietView = new KHTMLPart( page );
 	mainLayout->addWidget(dietView);
-
+*/
 	resize( QSize(350, 450) );
 
 	setSizeGripEnabled( true );

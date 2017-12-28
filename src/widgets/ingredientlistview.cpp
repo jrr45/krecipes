@@ -33,7 +33,7 @@ IngredientCheckListItem::IngredientCheckListItem( IngredientCheckListView* qlv, 
 	ingStored->name = ing.name;
 }
 
-IngredientCheckListItem::IngredientCheckListItem( IngredientCheckListView* qlv, Q3ListViewItem *after, const Element &ing ) : Q3CheckListItem( qlv, after, QString(), Q3CheckListItem::CheckBox ),
+IngredientCheckListItem::IngredientCheckListItem( IngredientCheckListView* qlv, QListWidgetItem *after, const Element &ing ) : Q3CheckListItem( qlv, after, QString(), Q3CheckListItem::CheckBox ),
 	m_listview(qlv)
 {
 	// Initialize the ingredient data with the property data
@@ -79,7 +79,7 @@ void IngredientCheckListItem::stateChange( bool on )
 IngredientListView::IngredientListView( QWidget *parent, RecipeDB *db ) : DBListViewBase( parent,db, db->ingredientCount() )
 {
 	setAllColumnsShowFocus( true );
-	setDefaultRenameAction( Q3ListView::Reject );
+    setDefaultRenameAction( QListWidget::Reject );
 	connect( database, SIGNAL( ingredientCreated( const Element & ) ), SLOT( checkCreateIngredient( const Element & ) ) );
 	connect( database, SIGNAL( ingredientRemoved( int ) ), SLOT( removeIngredient( int ) ) );
 }
@@ -118,12 +118,12 @@ StdIngredientListView::StdIngredientListView( QWidget *parent, RecipeDB *db, boo
 
 void StdIngredientListView::createIngredient( const Element &ing )
 {
-	createElement(new Q3ListViewItem( this, ing.name, QString::number( ing.id ) ));
+    createElement(new QListWidgetItem( this, ing.name, QString::number( ing.id ) ));
 }
 
 void StdIngredientListView::removeIngredient( int id )
 {
-	Q3ListViewItem * item = findItem( QString::number( id ), 1 );
+    QListWidgetItem * item = findItem( QString::number( id ), 1 );
 	removeElement(item);
 }
 
@@ -144,7 +144,7 @@ void IngredientCheckListView::createIngredient( const Element &ing )
 
 void IngredientCheckListView::removeIngredient( int id )
 {
-	Q3ListViewItem * item = findItem( QString::number( id ), 1 );
+    QListWidgetItem * item = findItem( QString::number( id ), 1 );
 	removeElement(item);
 }
 

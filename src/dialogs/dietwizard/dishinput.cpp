@@ -22,7 +22,6 @@
 #include <KNumInput>
 #include <KVBox>
 
-#include <q3header.h>
 #include <QLabel>
 #include <QFrame>
 #include <QVBoxLayout>
@@ -40,7 +39,7 @@ DishInput::DishInput( QWidget* parent, RecipeDB *db, const QString &title ) : QW
 	QVBoxLayout *layout = new QVBoxLayout( this );
 	layout->setSpacing( 10 );
 
-	//Horizontal Box to hold the K3ListView's
+    //Horizontal Box to hold the QListWidget's
 	listBox = new QGroupBox;
 	QHBoxLayout *listBoxLayout = new QHBoxLayout;
 	listBox->setTitle( i18nc( "@label:listbox", "Dish Characteristics" ) );
@@ -57,7 +56,7 @@ DishInput::DishInput( QWidget* parent, RecipeDB *db, const QString &title ) : QW
 	categoriesEnabledBox = new QCheckBox( categoriesBox );
 	categoriesEnabledBox->setText( i18nc( "@option:check", "Enable Category Filtering" ) );
 
-	categoriesView = new CategoryCheckListView( categoriesBox, database, false );
+    categoriesView = new CategoryCheckListView( categoriesBox, database, false );
 	categoriesView->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 	categoriesView->setEnabled( false ); // Disable it by default
 
@@ -66,15 +65,15 @@ DishInput::DishInput( QWidget* parent, RecipeDB *db, const QString &title ) : QW
 	//Constraints list
 	constraintsView = new PropertyConstraintListView( listBox, database );
 	constraintsView->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
-	constraintsView->reload();
+    constraintsView->reload();
 	listBoxLayout->addWidget( constraintsView );
 
 	// KDoubleInput based edit boxes
 	constraintsEditBox1 = new QDoubleSpinBox( constraintsView->viewport() );
-	constraintsView->addChild( constraintsEditBox1 );
+//	constraintsView->addChild( constraintsEditBox1 );
 	constraintsEditBox1->hide();
 	constraintsEditBox2 = new QDoubleSpinBox( constraintsView->viewport() );
-	constraintsView->addChild( constraintsEditBox2 );
+//	constraintsView->addChild( constraintsEditBox2 );
 	constraintsEditBox2->hide();
 
 
@@ -91,15 +90,16 @@ DishInput::~DishInput()
 
 void DishInput::clear()
 {
+/* FIXME disable RTTI
     QListWidgetItemIterator it( categoriesView );
 	while ( it.current() ) {
 		if (it.current()->rtti() == CATEGORYCHECKLISTITEM_RTTI) {
-			CategoryCheckListItem * item = ( CategoryCheckListItem* ) it.current();
+            CategoryCheckListItem * item = ( CategoryCheckListItem* ) it.current();
 			item->setOn( false );
 		}
 		++it;
 	}
-
+*/
 	constraintsView->reload();
 	categoriesEnabledBox->setChecked( false );
 }
@@ -124,7 +124,7 @@ void DishInput::reload( ReloadFlags flag )
 void DishInput::insertConstraintsEditBoxes( QListWidgetItem* it )
 {
 	QRect r;
-
+/*FIXME
 	// Constraints Box1
 	r = constraintsView->header() ->sectionRect( 2 ); //start at the section 2 header
 	r.translate( 0, constraintsView->itemRect( it ).y() ); //Move down to the item, note that its height is same as header's right now.
@@ -149,6 +149,7 @@ void DishInput::insertConstraintsEditBoxes( QListWidgetItem* it )
 	// Show Boxes
 	constraintsEditBox1->show();
 	constraintsEditBox2->show();
+    */
 }
 
 void DishInput::hideConstraintInputs()
@@ -161,6 +162,7 @@ void DishInput::loadConstraints( ConstraintList *constraints ) const
 {
 	constraints->clear();
 	Constraint constraint;
+    /*FIXME
 	for ( ConstraintsListItem * it = ( ConstraintsListItem* ) ( constraintsView->firstChild() );it;it = ( ConstraintsListItem* ) ( it->nextSibling() ) ) {
 		constraint.id = it->propertyId();
 		constraint.min = it->minVal();
@@ -168,6 +170,7 @@ void DishInput::loadConstraints( ConstraintList *constraints ) const
 		constraint.enabled = it->isOn();
 		constraints->append( constraint );
 	}
+    */
 }
 
 void DishInput::loadEnabledCategories( ElementList* categories )
@@ -185,7 +188,7 @@ void DishInput::loadEnabledCategories( ElementList* categories )
 
 void DishInput::setMinValue( double minValue )
 {
-	ConstraintsListItem *it = ( ConstraintsListItem* ) ( constraintsView->selectedItem() ); // Find selected property
+    ConstraintsListItem *it = ( ConstraintsListItem* ) ( constraintsView->selectedItems().first() ); // Find selected property
 
 	if ( it )
 		it->setMin( minValue );
@@ -193,7 +196,7 @@ void DishInput::setMinValue( double minValue )
 
 void DishInput::setMaxValue( double maxValue )
 {
-	ConstraintsListItem *it = ( ConstraintsListItem* ) ( constraintsView->selectedItem() ); // Find selected property
+    ConstraintsListItem *it = ( ConstraintsListItem* ) ( constraintsView->selectedItems().first() ); // Find selected property
 
 	if ( it )
 		it->setMax( maxValue );

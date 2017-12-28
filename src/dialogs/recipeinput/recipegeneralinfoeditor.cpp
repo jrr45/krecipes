@@ -17,6 +17,7 @@
 #include "selectcategoriesdialog.h"
 #include "datablocks/recipe.h"
 
+#include <KLocale>
 #include <KFileDialog>
 #include <KMessageBox>
 #include <kio/netaccess.h>
@@ -127,9 +128,8 @@ void RecipeGeneralInfoEditor::titleChangedSlot( const QString & title )
 void RecipeGeneralInfoEditor::changePhotoSlot()
 {
 	// Get the image with a standard filedialog
-	QUrl url = QFileDialog::getOpenFileUrl(0, QString(), QUrl();
-		"*.png *.jpg *.jpeg *.xpm *.gif|%1 (*.png *.jpg *.jpeg *.xpm *.gif)"
-		).arg( i18n( "Images" ) ), this );
+    QUrl url = QFileDialog::getOpenFileUrl(0, QString(), QUrl(),
+        i18n( "Images" ) + " (*.png *.jpg *.jpeg *.xpm *.gif)" );
 	if ( url.isEmpty() )
 		return;
 	QString filename;

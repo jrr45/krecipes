@@ -19,7 +19,7 @@
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
-class Q3GroupBox;
+class QGroupBox;
 class QLabel;
 
 class FractionInput;
@@ -46,7 +46,7 @@ protected slots:
 	void slotOk();
 
 private:
-	Q3GroupBox* groupBox1;
+	QGroupBox* groupBox1;
 	FractionInput* perAmountEdit;
 	FractionInput* weightEdit;
 	UnitComboBox* weightUnitBox;

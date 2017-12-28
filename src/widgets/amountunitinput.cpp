@@ -9,9 +9,6 @@
 
 #include "amountunitinput.h"
 
-#include <q3header.h>
-#include <q3listview.h>
-
 #include "fractioninput.h"
 #include "unitcombobox.h"
 #include "backends/recipedb.h"

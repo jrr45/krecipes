@@ -14,8 +14,8 @@
 #include <K4AboutData>
 #include <KConfigGroup>
 #include <QString>
-//Added by qt3to4:
 #include <QKeyEvent>
+#include <QCoreApplication>
 #include <KStandardShortcut>
 
 #include <QAction>
@@ -26,145 +26,145 @@
 #include <KSharedConfig>
 
 KreTextEdit::KreTextEdit( QWidget *parent ):
-	KTextEdit( parent )//, KCompletionBase()
+    KTextEdit( parent )//, KCompletionBase()
 {
-	KCompletion * comp = completionObject(); //creates the completion object
-	comp->setIgnoreCase( true );
+    KCompletion * comp = completionObject(); //creates the completion object
+    comp->setIgnoreCase( true );
 
-	completing = false;
+    completing = false;
 
-	QString spellCheckingConfigFileName = KStandardDirs::locateLocal( "config",
-		KCmdLineArgs::aboutData()->appName() + "rc" );
+    QString spellCheckingConfigFileName = QStandardPaths::locate( QStandardPaths::GenericConfigLocation,
+        QCoreApplication::applicationName() + "rc" );
 
-	KConfig localConfig( spellCheckingConfigFileName, KConfig::SimpleConfig );
-	KConfigGroup localGroup( &localConfig, "Spelling" );
+    KConfig localConfig( spellCheckingConfigFileName, KConfig::SimpleConfig );
+    KConfigGroup localGroup( &localConfig, "Spelling" );
 
-	//If we don't have our local configuration for spell checking, fall back to
-	//user's global configuration.
-	if ( !localConfig.hasGroup( "Spelling" ) ) {
-		KConfig globalSonnetConfig( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "sonnetrc" ) ;
-		KConfigGroup globalGroup( &globalSonnetConfig, "Spelling" );
-		globalGroup.copyTo( &localGroup );
-		localConfig.sync();
-		KConfigGroup group( KSharedConfig::openConfig(), "Spelling" );
-		globalGroup.copyTo( &group );
-	}
+    //If we don't have our local configuration for spell checking, fall back to
+    //user's global configuration.
+    if ( !localConfig.hasGroup( "Spelling" ) ) {
+        KConfig globalSonnetConfig( QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QLatin1Char('/') + "sonnetrc" ) ;
+        KConfigGroup globalGroup( &globalSonnetConfig, "Spelling" );
+        globalGroup.copyTo( &localGroup );
+        localConfig.sync();
+        KConfigGroup group( KSharedConfig::openConfig(), "Spelling" );
+        globalGroup.copyTo( &group );
+    }
 
-	setSpellCheckingConfigFileName( spellCheckingConfigFileName );
+//    KTextEdit::setSpellCheckingConfigFileName( spellCheckingConfigFileName );
 
-	if ( localGroup.readEntry( "checkerEnabledByDefault", false ) )
-		setCheckSpellingEnabled( true );
-	else
-		setCheckSpellingEnabled( false );
+    if ( localGroup.readEntry( "checkerEnabledByDefault", false ) )
+        setCheckSpellingEnabled( true );
+    else
+        setCheckSpellingEnabled( false );
 
-	//connect( this, SIGNAL( clicked( int, int ) ), SLOT( haltCompletion() ) );
+    //connect( this, SIGNAL( clicked( int, int ) ), SLOT( haltCompletion() ) );
 }
 
 void KreTextEdit::createHighlighter()
 {
-	KTextEdit::createHighlighter();
-	Sonnet::Highlighter * current_highlighter = highlighter();
-	if (current_highlighter)
-		current_highlighter->setAutomatic( false );
+    KTextEdit::createHighlighter();
+    Sonnet::Highlighter * current_highlighter = highlighter();
+    if (current_highlighter)
+        current_highlighter->setAutomatic( false );
 }
 
 void KreTextEdit::haltCompletion()
 {
-	completing = false;
+    completing = false;
 }
 void KreTextEdit::keyPressEvent( QKeyEvent *e )
 {
-	// Filter key-events if completion mode is not set to CompletionNone
+    // Filter key-events if completion mode is not set to CompletionNone
+/* FIXME use qtextedits autocomplete
+    KeyBindingMap keys = getKeyBindings();
+    QKeySequence cut;
+    bool noModifier = ( e->modifiers() == Qt::NoModifier || e->modifiers() == Qt::ShiftModifier );
 
-	KeyBindingMap keys = getKeyBindings();
-	QKeySequence cut;
-	bool noModifier = ( e->modifiers() == Qt::NoModifier || e->modifiers() == Qt::ShiftModifier );
+    if ( noModifier ) {
+        QString keycode = e->text();
+        if ( !keycode.isEmpty() && keycode.unicode() ->isPrint() ) {
+            KTextEdit::keyPressEvent ( e );
+            tryCompletion();
+            e->accept();
+            return ;
+        }
+    }
 
-	if ( noModifier ) {
-		QString keycode = e->text();
-		if ( !keycode.isEmpty() && keycode.unicode() ->isPrint() ) {
-			KTextEdit::keyPressEvent ( e );
-			tryCompletion();
-			e->accept();
-			return ;
-		}
-	}
+    // Handles completion
+    if ( keys[ TextCompletion ].isEmpty() )
+        cut = KStandardShortcut::shortcut( KStandardShortcut::TextCompletion );
+    else
+        cut = keys[ TextCompletion ];
 
-	// Handles completion
-	if ( keys[ TextCompletion ].isEmpty() )
-		cut = KStandardShortcut::shortcut( KStandardShortcut::TextCompletion );
-	else
-		cut = keys[ TextCompletion ];
-
-	//using just the standard Ctrl+E isn't user-friendly enough for Grandma...
-	if ( completing && ( cut.contains( e->key() ) || e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return ) ) {
+    //using just the standard Ctrl+E isn't user-friendly enough for Grandma...
+    if ( completing && ( cut.contains( e->key() ) || e->key() == Qt::Key_Enter || e->key() == Qt::Key_Return ) ) {
 #if 0
-		int paraFrom, indexFrom, paraTo, indexTo;
-		getSelection ( &paraFrom, &indexFrom, &paraTo, &indexTo );
+        int paraFrom, indexFrom, paraTo, indexTo;
+        getSelection ( &paraFrom, &indexFrom, &paraTo, &indexTo );
 
-		removeSelection();
-		setCursorPosition( paraTo, indexTo );
+        removeSelection();
+        setCursorPosition( paraTo, indexTo );
 
-		completing = false;
-		return ;
+        completing = false;
+        return ;
 #endif
-	}
+    }
 
-	// handle rotation
+    // handle rotation
 
-	// Handles previous match
-	if ( keys[ PrevCompletionMatch ].isEmpty() )
-		cut = KStandardShortcut::shortcut( KStandardShortcut::PrevCompletion );
-	else
-		cut = keys[ PrevCompletionMatch ];
+    // Handles previous match
+    if ( keys[ PrevCompletionMatch ].isEmpty() )
+        cut = KStandardShortcut::shortcut( KStandardShortcut::PrevCompletion );
+    else
+        cut = keys[ PrevCompletionMatch ];
 
-	if ( cut.contains( e->key() ) ) {
-		rotateText( KCompletionBase::PrevCompletionMatch );
-		return ;
-	}
+    if ( cut.contains( e->key() ) ) {
+        rotateText( KCompletionBase::PrevCompletionMatch );
+        return ;
+    }
 
-	// Handles next match
-	if ( keys[ NextCompletionMatch ].isEmpty() )
-		cut = KStandardShortcut::shortcut( KStandardShortcut::NextCompletion );
-	else
-		cut = keys[ NextCompletionMatch ];
+    // Handles next match
+    if ( keys[ NextCompletionMatch ].isEmpty() )
+        cut = KStandardShortcut::shortcut( KStandardShortcut::NextCompletion );
+    else
+        cut = keys[ NextCompletionMatch ];
 
-	if ( cut.contains( e->key() ) ) {
-		rotateText( KCompletionBase::NextCompletionMatch );
-		return ;
-	}
+    if ( cut.contains( e->key() ) ) {
+        rotateText( KCompletionBase::NextCompletionMatch );
+        return ;
+    }
 
-	//any other key events will end any text completion execpt for modifiers
-	switch ( e->key() ) {
-	case Qt::Key_Shift:
-	case Qt::Key_Control:
-	case Qt::Key_Alt:
-	case Qt::Key_Meta:
-		break;
-	default:
-		completing = false;
-		break;
-	}
-
-	// Let KTextEdit handle any other keys events.
-	KTextEdit::keyPressEvent ( e );
+    //any other key events will end any text completion execpt for modifiers
+    switch ( e->key() ) {
+    case Qt::Key_Shift:
+    case Qt::Key_Control:
+    case Qt::Key_Alt:
+    case Qt::Key_Meta:
+        break;
+    default:
+        completing = false;
+        break;
+    }
+*/
+    // Let KTextEdit handle any other keys events.
+    KTextEdit::keyPressEvent ( e );
 }
 
 void KreTextEdit::setCompletedText( const QString &txt )
 {
     Q_UNUSED(txt);
 #if 0
-	int para, index;
-	getCursorPosition( &para, &index );
+    int para, index;
+    getCursorPosition( &para, &index );
 
-	QString para_text = text( para );
-	int word_length = index - completion_begin;
+    QString para_text = text( para );
+    int word_length = index - completion_begin;
 
-	insert( txt.right( txt.length() - word_length ) );
-	setSelection( para, index, para, completion_begin + txt.length() );
-	setCursorPosition( para, index );
+    insert( txt.right( txt.length() - word_length ) );
+    setSelection( para, index, para, completion_begin + txt.length() );
+    setCursorPosition( para, index );
 
-	completing = true;
+    completing = true;
 #endif
 }
 
@@ -174,59 +174,59 @@ void KreTextEdit::setCompletedItems( const QStringList &/*items*/ , bool)
 void KreTextEdit::tryCompletion()
 {
 #if 0
-	int para, index;
-	getCursorPosition( &para, &index );
+    int para, index;
+    getCursorPosition( &para, &index );
 
-	QString para_text = text( para );
-	if ( para_text.at( index ).isSpace() || completing ) {
-		if ( !completing )
-			completion_begin = para_text.lastIndexOf( ' ', index - 1 ) + 1;
+    QString para_text = text( para );
+    if ( para_text.at( index ).isSpace() || completing ) {
+        if ( !completing )
+            completion_begin = para_text.lastIndexOf( ' ', index - 1 ) + 1;
 
-		QString completing_word = para_text.mid( completion_begin, index - completion_begin );
+        QString completing_word = para_text.mid( completion_begin, index - completion_begin );
 
-		QString match = compObj() ->makeCompletion( completing_word );
+        QString match = compObj() ->makeCompletion( completing_word );
 
-		if ( !match.isNull() && match != completing_word )
-			setCompletedText( match );
-		else
-			completing = false;
-	}
+        if ( !match.isNull() && match != completing_word )
+            setCompletedText( match );
+        else
+            completing = false;
+    }
 #endif
 }
 
 void KreTextEdit::rotateText( KCompletionBase::KeyBindingType type )
 {
-	KCompletion * comp = compObj();
-	if ( comp && completing &&
-	( type == KCompletionBase::PrevCompletionMatch ||
-	type == KCompletionBase::NextCompletionMatch ) ) {
+    KCompletion * comp = compObj();
+    if ( comp && completing &&
+    ( type == KCompletionBase::PrevCompletionMatch ||
+    type == KCompletionBase::NextCompletionMatch ) ) {
 #if 0
-		QString input = ( type == KCompletionBase::PrevCompletionMatch ) ? comp->previousMatch() : comp->nextMatch();
+        QString input = ( type == KCompletionBase::PrevCompletionMatch ) ? comp->previousMatch() : comp->nextMatch();
 
-		// Skip rotation if previous/next match is null or the same text
-		int para, index;
-		getCursorPosition( &para, &index );
-		QString para_text = text( para );
-		QString complete_word = para_text.mid( completion_begin, index - completion_begin );
-		if ( input.isNull() || input == complete_word )
-			return ;
-		setCompletedText( input );
+        // Skip rotation if previous/next match is null or the same text
+        int para, index;
+        getCursorPosition( &para, &index );
+        QString para_text = text( para );
+        QString complete_word = para_text.mid( completion_begin, index - completion_begin );
+        if ( input.isNull() || input == complete_word )
+            return ;
+        setCompletedText( input );
 #endif
-	}
+    }
 }
 
 void KreTextEdit::addCompletionItem( const QString &name )
 {
-	compObj() ->addItem( name );
+    compObj() ->addItem( name );
 }
 
 void KreTextEdit::removeCompletionItem( const QString &name )
 {
-	compObj() ->removeItem( name );
+    compObj() ->removeItem( name );
 }
 
 void KreTextEdit::clearCompletionItems()
 {
-	compObj() ->clear();
+    compObj() ->clear();
 }
 

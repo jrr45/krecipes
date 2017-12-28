@@ -13,6 +13,8 @@
 
 #include "widgets/kregenericlistwidget.h"
 
+class Element;
+
 
 class KrePrepMethodListWidget : public KreGenericListWidget
 {
@@ -30,8 +32,8 @@ protected:
 	virtual int idColumn();
 
 protected slots:
-	void createPrepMethod( const Element & );
-	void removePrepMethod( int );
+    void createPrepMethod( const Element &el );
+    void removePrepMethod( int ed );
 
 };
 

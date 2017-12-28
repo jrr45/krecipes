@@ -15,7 +15,7 @@
 
 class TestMixedNumber : public QObject
 {
-	Q_OBJECT;
+    Q_OBJECT
 
 private slots:
 	void testFromString_data();

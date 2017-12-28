@@ -221,7 +221,7 @@ void DietWizardDialog::createDiet( void )
 		for ( int meal = 0;meal < mealNumber;meal++ )
 		{
 			int dishNo = ( ( MealInput* ) ( mealTabs->widget( meal ) ) ) ->dishNo();
-
+/* FIXME
 			for ( int dish = 0;dish < dishNo;dish++ ) {
 				bool found = false;
                 QList <RecipeList::Iterator> tempDishRList = tempRList;
@@ -241,7 +241,9 @@ void DietWizardDialog::createDiet( void )
 				}
 				if ( !found )
 					alert = true;
+
 			}
+            */
 		}
 	}
 
@@ -373,21 +375,21 @@ void DietWizardDialog::loadConstraints( int meal, int dish, ConstraintList *cons
 {
 	MealInput * mealTab = ( MealInput* ) ( mealTabs->widget( meal ) ); // Get the meal
 	DishInput* dishInput = mealTab->dishInputList[ dish ]; // Get the dish input
-	dishInput->loadConstraints( constraints ); //Load the constraints form the K3ListView
+    dishInput->loadConstraints( constraints ); //Load the constraints form the QListWidget
 }
 
 void DietWizardDialog::loadEnabledCategories( int meal, int dish, ElementList *categories )
 {
 	MealInput * mealTab = ( MealInput* ) ( mealTabs->widget( meal ) ); // Get the meal
 	DishInput* dishInput = mealTab->dishInputList[ dish ]; // Get the dish input
-	dishInput->loadEnabledCategories( categories ); //Load the categories that have been checked in the K3ListView
+    dishInput->loadEnabledCategories( categories ); //Load the categories that have been checked in the QListWidget
 }
 
 bool DietWizardDialog::categoryFiltering( int meal, int dish ) const
 {
 	MealInput * mealTab = ( MealInput* ) ( mealTabs->widget( meal ) ); // Get the meal
 	DishInput* dishInput = mealTab->dishInputList[ dish ]; // Get the dish input
-	return ( dishInput->isCategoryFilteringEnabled() ); //Load the categories that have been checked in the K3ListView
+    return ( dishInput->isCategoryFilteringEnabled() ); //Load the categories that have been checked in the QListWidget
 }
 
 bool DietWizardDialog::checkLimits( IngredientPropertyList &properties, ConstraintList &constraints )

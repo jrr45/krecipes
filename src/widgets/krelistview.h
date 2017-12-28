@@ -12,7 +12,7 @@
 
 #include <QLabel>
 
-#include <k3listview.h>
+#include <QListWidget>
 #include <QLineEdit>
 #include <kvbox.h>
 
@@ -29,12 +29,12 @@ public:
 
 	explicit KreListView( QWidget *parent, const QString &title = QString(), bool filter = false, int filterCol = 0, QWidget *embeddedWidget = 0 );
 	~KreListView();
-	K3ListView *listView()
+    QListWidget *listView()
 	{
 		return list;
 	}
 
-	void setListView( K3ListView *list_view )
+    void setListView( QListWidget *list_view )
 	{
 		delete list;
 		list = list_view;
@@ -57,7 +57,7 @@ private:
 	int filteredColumn;
 	QLabel *filterLabel;
 	QLineEdit *filterEdit;
-	K3ListView *list;
+    QListWidget *list;
 
 private slots:
 	void filter( const QString& s );

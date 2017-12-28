@@ -9,7 +9,7 @@
 
 #include "createingredientweightdialog.h"
 
-#include <q3groupbox.h>
+#include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
 
@@ -51,7 +51,7 @@ CreateIngredientWeightDialog::CreateIngredientWeightDialog( QWidget* parent, Rec
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
 
-	groupBox1 = new Q3GroupBox( page );
+	groupBox1 = new QGroupBox( page );
 	groupBox1->setColumnLayout(0, Qt::Vertical );
 	groupBox1->layout()->setSpacing( 6 );
 	groupBox1->layout()->setMargin( 11 );

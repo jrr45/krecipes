@@ -24,8 +24,8 @@ class QGridLayout;
 class QLabel;
 class KComboBox;
 class QPushButton;
-class Q3ListViewItem;
-class Q3TextEdit;
+class QTreeWidgetItem;
+class QTextEdit;
 class QLineEdit;
 class KRatingWidget;
 
@@ -51,7 +51,7 @@ public:
 	QPushButton* removeButton;
 	RatingCriteriaListView* criteriaListView;
 	QLabel* commentsLabel;
-	Q3TextEdit* commentsEdit;
+    QTextEdit* commentsEdit;
 	QLabel* raterLabel;
 	QLineEdit* raterEdit;
 
@@ -65,7 +65,7 @@ protected slots:
 	virtual void languageChange();
 	void slotAddRatingCriteria();
 	void slotRemoveRatingCriteria();
-	void itemRenamed(Q3ListViewItem* it, const QString &, int c);
+	void itemRenamed(QTreeWidgetItem* it, const QString &, int c);
 
 private:
 	void init(const ElementList &criteriaList);

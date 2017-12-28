@@ -20,11 +20,9 @@
 #include "datablocks/mixednumber.h"
 #include "actionshandlers/recipeactionshandler.h"
 
-#include <q3header.h>
 #include <QPainter>
-#include <q3groupbox.h>
+#include <QGroupBox>
 #include <QPointer>
-//Added by qt3to4:
 #include <QHBoxLayout>
 #include <QList>
 #include <QLabel>
@@ -175,7 +173,7 @@ void IngredientMatcherDialog::itemRenamed( QListWidgetItem* item, const QPoint &
 		mainLayout->addWidget(buttonBox);
 		buttonBox->button(QDialogButtonBox::Ok)->setDefault(true);
 		amountEditDialog->setModal( false );	
-		Q3GroupBox *box = new Q3GroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
+		QGroupBox *box = new QGroupBox( 1, Qt::Horizontal, i18nc("@title:group", "Amount"), amountEditDialog );
 		AmountUnitInput *amountEdit = new AmountUnitInput( box, database );
 		// Set the values from the item
 		if ( !item->text(1).isEmpty() ) {
@@ -236,7 +234,7 @@ void IngredientMatcherDialog::addIngredient()
 			}
 
 			if ( !dup ) {
-                QListWidgetItem * new_item = new Q3CheckListItem( ingListView->listView(), items[i]->text( 0 ), Q3CheckListItem::CheckBox );
+                QListWidgetItem * new_item = new QListWidgetItem( ingListView->listView(), items[i]->text( 0 ), QListWidgetItem::CheckBox );
 
 				ingListView->listView() ->setSelected( new_item, true );
 				ingListView->listView() ->ensureItemVisible( new_item );
@@ -325,7 +323,7 @@ void IngredientMatcherDialog::findRecipes( void )
 
 	IngredientList requiredIngredients;
     for ( QListWidgetItem *it = ingListView->listView()->firstChild(); it; it = it->nextSibling() ) {
-		if ( ((Q3CheckListItem*)it)->isOn() )
+        if ( ((QListWidgetItem*)it)->isOn() )
 			requiredIngredients << *m_item_ing_map[it];
 	}
 

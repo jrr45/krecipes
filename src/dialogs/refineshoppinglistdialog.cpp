@@ -12,15 +12,12 @@
 
 #include <QPushButton>
 #include <QLabel>
-#include <q3header.h>
 #include <QPointer>
-//Added by qt3to4:
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <KVBox>
 #include <klocale.h>
 #include <kapplication.h>
-#include <kcursor.h>
 #include <kglobal.h>
 #include <KConfigGroup>
 #include <QDialogButtonBox>
@@ -120,7 +117,7 @@ RefineShoppingListDialog::RefineShoppingListDialog( QWidget* parent, RecipeDB *d
 
 	connect( addButton, SIGNAL( clicked() ), this, SLOT( addIngredient() ) );
 	connect( removeButton, SIGNAL( clicked() ), this, SLOT( removeIngredient() ) );
-	connect( ingListView->listView(), SIGNAL( itemRenamed( Q3ListViewItem*, const QString &, int ) ), SLOT( itemRenamed( Q3ListViewItem*, const QString &, int ) ) );
+	connect( ingListView->listView(), SIGNAL( itemRenamed( QTreeWidgetItem*, const QString &, int ) ), SLOT( itemRenamed( QTreeWidgetItem*, const QString &, int ) ) );
 
 	KApplication::setOverrideCursor( Qt::WaitCursor );
 	calculateShopping( recipeList, &ingredientList, database );
@@ -164,16 +161,16 @@ void RefineShoppingListDialog::loadData()
 			amount_str = MixedNumber( ( *it ).amount ).toString( MixedNumber::AutoFormat, true);
 		}
 
-		Q3ListViewItem *new_item = new Q3ListViewItem( ingListView->listView(), ( *it ).name, amount_str, ( *it ).units.determineName( (*it ).amount, false ) );
+		QTreeWidgetItem *new_item = new QTreeWidgetItem( ingListView->listView(), ( *it ).name, amount_str, ( *it ).units.determineName( (*it ).amount, false ) );
 		item_ing_map.insert( new_item, it );
 	}
 }
 
 void RefineShoppingListDialog::addIngredient()
 {
-	Q3ListViewItem * item = allIngListView->listView() ->selectedItem();
+	QTreeWidgetItem * item = allIngListView->listView() ->selectedItem();
 	if ( item ) {
-		Q3ListViewItem * new_item = new Q3ListViewItem( ingListView->listView(), item->text( 0 ) );
+		QTreeWidgetItem * new_item = new QTreeWidgetItem( ingListView->listView(), item->text( 0 ) );
 		ingListView->listView() ->setSelected( new_item, true );
 		ingListView->listView() ->ensureItemVisible( new_item );
 		allIngListView->listView() ->setSelected( item, false );
@@ -185,7 +182,7 @@ void RefineShoppingListDialog::addIngredient()
 
 void RefineShoppingListDialog::removeIngredient()
 {
-	Q3ListViewItem * item = ingListView->listView() ->selectedItem();
+	QTreeWidgetItem * item = ingListView->listView() ->selectedItem();
 	if ( item ) {
 		for ( IngredientList::iterator it = ingredientList.begin(); it != ingredientList.end(); ++it ) {
 			if ( *item_ing_map.find( item ) == it ) {
@@ -198,7 +195,7 @@ void RefineShoppingListDialog::removeIngredient()
 	}
 }
 
-void RefineShoppingListDialog::itemRenamed( Q3ListViewItem* item, const QString &new_text, int col )
+void RefineShoppingListDialog::itemRenamed( QTreeWidgetItem* item, const QString &new_text, int col )
 {
 	if ( col == 1 ) {
 		IngredientList::iterator found_it = *item_ing_map.find( item );

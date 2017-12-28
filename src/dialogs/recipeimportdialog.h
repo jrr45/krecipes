@@ -13,13 +13,13 @@
 #define RECIPEIMPORTDIALOG_H
 
 #include <qmap.h>
-#include <q3listview.h>
+#include <QListWidget>
 
 #include <QDialog>
 
 #include "datablocks/recipelist.h"
 
-class K3ListView;
+class QListWidget;
 
 
 class Recipe;
@@ -42,7 +42,7 @@ protected slots:
 private:
 	void loadListView();
 
-	K3ListView* kListView;
+    QListWidget* kListView;
 
 	QMap<CustomCheckListItem*, RecipeList::const_iterator> *recipe_items;
 	const RecipeList list_copy;
@@ -52,18 +52,16 @@ private:
   * current state.
   * @author Jason Kivlighn
   */
-class CustomCheckListItem : public Q3CheckListItem
+class CustomCheckListItem : public QListWidgetItem
 {
 public:
-	CustomCheckListItem( Q3ListView *parent, const QString &, Type );
-	CustomCheckListItem( CustomCheckListItem *parent, const QString &, Type );
-	CustomCheckListItem( Q3CheckListItem *parent, Q3CheckListItem *after, const QString &, Type );
+    CustomCheckListItem( QListWidget *parent );
 
 protected:
 	virtual void stateChange( bool );
 	bool locked() const
 	{
-		return m_locked;
+        return m_locked;
 	}
 	void setLocked( bool b )
 	{

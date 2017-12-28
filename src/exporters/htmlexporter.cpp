@@ -30,6 +30,7 @@
 
 #include <cmath> //for ceil()
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 HTMLExporter::HTMLExporter( const QString& filename, const QString &format ) :
 		BaseExporter( filename, format )

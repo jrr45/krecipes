@@ -58,7 +58,7 @@ KreListView::KreListView( QWidget *parent, const QString &title, bool filter, in
 		connect( filterEdit, SIGNAL( clearButtonClicked() ), this, SLOT( clearSearch() ) );
 	}
 
-	list = new K3ListView( this );
+    list = new QListWidget( this );
 	list->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::MinimumExpanding );
 	setSizePolicy( QSizePolicy::Preferred, QSizePolicy::Ignored );
 	//setSpacing( 10 );
@@ -86,7 +86,7 @@ KreListView::~KreListView()
 void KreListView::filter( const QString& s )
 {
 /* FIXME needs RTTI removal
-	for ( Q3ListViewItem * it = list->firstChild();it;it = it->nextSibling() ) {
+	for ( QTreeWidgetItem * it = list->firstChild();it;it = it->nextSibling() ) {
 		if ( it->rtti() == NEXTLISTITEM_RTTI || it->rtti() == PREVLISTITEM_RTTI )
 			continue;
 

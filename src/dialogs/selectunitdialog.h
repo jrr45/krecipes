@@ -14,10 +14,10 @@
 
 #include <qwidget.h>
 #include <QPushButton>
-#include <q3groupbox.h>
+#include <QGroupBox>
 
 
-#include <k3listview.h>
+#include <QListWidget>
 #include <QDialog>
 #include <kvbox.h>
 
@@ -39,8 +39,8 @@ public:
 
 private:
 	//Widgets
-	Q3GroupBox *box;
-	K3ListView *unitChooseView;
+	QGroupBox *box;
+    QListWidget *unitChooseView;
 	OptionFlag m_showEmpty;
 
 	void loadUnits( const UnitList &unitList );

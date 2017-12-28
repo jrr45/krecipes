@@ -9,7 +9,7 @@
 
 #include "createunitconversiondialog.h"
 
-#include <q3buttongroup.h>
+#include <QButtonGroup>
 #include <QLabel>
 #include <kvbox.h>
 #include <QHBoxLayout>
@@ -42,7 +42,7 @@ CreateUnitConversionDialog::CreateUnitConversionDialog( const Element &fromUnit,
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
 
-	buttonGroup1 = new Q3ButtonGroup( page, "buttonGroup1" );
+	buttonGroup1 = new QButtonGroup( page, "buttonGroup1" );
 	buttonGroup1->setColumnLayout(0, Qt::Vertical );
 	buttonGroup1->layout()->setSpacing( 6 );
 	buttonGroup1->layout()->setMargin( 11 );

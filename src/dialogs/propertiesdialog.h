@@ -12,10 +12,7 @@
 #ifndef PROPERTIESDIALOG_H
 #define PROPERTIESDIALOG_H
 
-
-//Added by qt3to4:
 #include <QGridLayout>
-#include <k3listview.h>
 #include <kvbox.h>
 
 class QPushButton;

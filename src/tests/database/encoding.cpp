@@ -23,6 +23,8 @@
 
 #include <QDebug>
 #include <QStandardPaths>
+#include <QTextCodec>
+
 #include <KSharedConfig>
 
 

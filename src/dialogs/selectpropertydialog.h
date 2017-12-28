@@ -13,12 +13,12 @@
 #define SELECTPROPERTYDIALOG_H
 
 #include <qwidget.h>
-#include <q3groupbox.h>
+#include <QGroupBox>
 #include <QLabel>
 #include <QPushButton>
 
 
-#include <k3listview.h>
+#include <QListWidget>
 #include <kcombobox.h>
 #include <QDialog>
 #include <kvbox.h>
@@ -43,8 +43,8 @@ public:
 	int perUnitsID( void );
 private:
 	//Widgets
-	Q3GroupBox *box;
-	K3ListView *propertyChooseView;
+	QGroupBox *box;
+    QListWidget *propertyChooseView;
 	QLabel *perUnitsLabel;
 	KComboBox *perUnitsBox;
 	OptionFlag m_showEmpty;

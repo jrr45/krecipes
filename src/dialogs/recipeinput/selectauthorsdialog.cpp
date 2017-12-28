@@ -64,7 +64,7 @@ SelectAuthorsDialog::SelectAuthorsDialog( QWidget *parent, const ElementList &cu
 
 	authorsCombo = new KComboBox( true, topBox );
 	authorsCombo->setSizePolicy( QSizePolicy( QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding ) );
-	authorsCombo->completionObject() ->setCompletionMode( KGlobalSettings::CompletionPopupAuto );
+//	authorsCombo->completionObject() ->setCompletionMode( KGlobalSettings::CompletionPopupAuto );
 	authorsCombo->lineEdit() ->disconnect( authorsCombo ); //so hitting enter doesn't enter the item into the box
 
 	connect( authorsCombo->lineEdit(), SIGNAL( returnPressed() ),

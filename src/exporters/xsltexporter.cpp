@@ -34,6 +34,7 @@
 #include <cmath> //round
 #include <QStandardPaths>
 #include <KConfigGroup>
+#include <KSharedConfig>
 
 #include "backends/recipedb.h"
 #include "dialogs/setupdisplay.h"

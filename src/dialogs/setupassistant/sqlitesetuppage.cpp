@@ -15,7 +15,8 @@
 
 #include <QLineEdit>
 #include <KHBox>
-#include <KFileDialog>
+#include <QFileDialog>
+#include <KIconLoader>
 
 #include <QGridLayout>
 #include <QLabel>
@@ -91,12 +92,11 @@ QString SQLiteSetupPage::dbFile( void ) const
 
 void SQLiteSetupPage::selectFile()
 {
-    QPointer<QFileDialog> dialog = new QFileDialog(this, i18n( "Select SQLite database file"), QUrl(), "*.*|All Files");
-    dialog->setObjectName( "dialog" );
-	dialog->setModal( true );
-	if ( dialog->exec() == QDialog::Accepted ) {
-		fileEdit->setText( dialog->selectedFile() );
+    QFileDialog dialog(this, i18n( "Select SQLite database file" ), QUrl().path(), "All Files (*.*)");
+    dialog.setObjectName( "dialog" );
+    dialog.setModal( true );
+    if ( dialog.exec() == QDialog::Accepted ) {
+        fileEdit->setText( dialog.selectedFiles().first() );
 	}
-	delete dialog;
 }
 

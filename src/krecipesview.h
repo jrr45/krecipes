@@ -17,7 +17,6 @@
 #include <qwidget.h>
 #include <QList>
 
-#include <kstyle.h>
 #include <kvbox.h>
 
 #include "importers/baseimporter.h"

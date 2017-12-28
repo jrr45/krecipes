@@ -43,12 +43,12 @@ SelectUnitDialog::SelectUnitDialog( QWidget* parent, const UnitList &unitList, O
 //PORTING: Verify that widget was added to mainLayout: 	setMainWidget( page );
 // Add mainLayout->addWidget(page); if necessary
 
-	box = new Q3GroupBox( page );
+	box = new QGroupBox( page );
 	box->setTitle( i18nc( "@title:group", "Choose Unit" ) );
 	box->setColumnLayout( 0, Qt::Vertical );
 	QVBoxLayout *boxLayout = new QVBoxLayout( box->layout() );
 
-	unitChooseView = new K3ListView( box );
+    unitChooseView = new QListWidget( box );
 
 	KConfigGroup config( KSharedConfig::openConfig(), "Advanced" );
 	bool show_id = config.readEntry( "ShowID", false );
@@ -72,7 +72,7 @@ SelectUnitDialog::~SelectUnitDialog()
 int SelectUnitDialog::unitID( void )
 {
 
-	Q3ListViewItem * it;
+    QListWidgetItem * it;
 	if ( ( it = unitChooseView->selectedItem() ) ) {
 		return ( it->text( 0 ).toInt() );
 	}
@@ -91,7 +91,7 @@ void SelectUnitDialog::loadUnits( const UnitList &unitList )
 				continue;
 		}
 
-		( void ) new Q3ListViewItem( unitChooseView, QString::number( ( *unit_it ).id() ), unitName );
+        ( void ) new QListWidgetItem( unitChooseView, QString::number( ( *unit_it ).id() ), unitName );
 	}
 }
 

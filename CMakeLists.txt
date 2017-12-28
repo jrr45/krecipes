@@ -17,6 +17,7 @@ find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS
     Widgets
     Sql
     WebEngine
+    Test
     )
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     CoreAddons
@@ -25,6 +26,7 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     KDELibs4Support
     Config
     KHtml
+    Completion
     )
 
 include(KDEInstallDirs)

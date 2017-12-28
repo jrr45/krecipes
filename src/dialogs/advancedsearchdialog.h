@@ -13,7 +13,7 @@
 #include <QWidget>
 
 //FIXME: Port criteriaListView
-class K3ListView;
+class QTreeView;
 
 class QFormLayout;
 class QVBoxLayout;
@@ -113,7 +113,7 @@ protected:
 	FractionInput* starsWidget;
 	QPushButton* addCriteriaButton;
 	QPushButton* removeCriteriaButton;
-	K3ListView* criteriaListView;
+    QTreeView* criteriaListView;
 	QPushButton* ratingsButton;
 	QGroupBox *ratingButtonGroup;
 	QFrame *ratingAvgFrame;

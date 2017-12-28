@@ -95,8 +95,8 @@ SelectRecipeDialog::SelectRecipeDialog( QWidget *parent, RecipeDB* db )
 
 	tabWidget->insertTab( -1, basicSearchTab, i18nc( "@title:tab Basic search", "Basic" ) );
 
-	advancedSearch = new AdvancedSearchDialog( this, database );
-	tabWidget->insertTab( -1, advancedSearch, i18nc( "@title:tab Advanced search", "Advanced" ) );
+//	advancedSearch = new AdvancedSearchDialog( this, database );
+//	tabWidget->insertTab( -1, advancedSearch, i18nc( "@title:tab Advanced search", "Advanced" ) );
 
 	//Takes care of all recipe actions and provides a popup menu to 'recipeListWidget'
 	actionHandler = new KreRecipeActionsHandler( recipeListWidget, database );
@@ -116,9 +116,9 @@ SelectRecipeDialog::SelectRecipeDialog( QWidget *parent, RecipeDB* db )
 	connect( recipeListWidget, SIGNAL( elementSelected(const QList<int> &, const QList<int> &) ), 
 		this, SLOT( selectionChanged(const QList<int> &, const QList<int> &) ) );
 
-	connect( advancedSearch, SIGNAL( recipeSelected( bool ) ), SIGNAL( recipeSelected( bool ) ) );
-	connect( advancedSearch, SIGNAL( recipeSelected( int, int ) ), SIGNAL( recipeSelected( int, int ) ) );
-	connect( advancedSearch, SIGNAL( recipesSelected( const QList<int> &, int ) ), SIGNAL( recipesSelected( const QList<int> &, int ) ) );
+//	connect( advancedSearch, SIGNAL( recipeSelected( bool ) ), SIGNAL( recipeSelected( bool ) ) );
+//	connect( advancedSearch, SIGNAL( recipeSelected( int, int ) ), SIGNAL( recipeSelected( int, int ) ) );
+//	connect( advancedSearch, SIGNAL( recipesSelected( const QList<int> &, int ) ), SIGNAL( recipesSelected( const QList<int> &, int ) ) );
 
 	connect( actionHandler, SIGNAL( recipeSelected( bool ) ), SIGNAL( recipeSelected( bool ) ) );
 	connect( actionHandler, SIGNAL( recipeSelected( int, int ) ), SIGNAL( recipeSelected( int, int ) ) );

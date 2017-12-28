@@ -200,7 +200,7 @@
  </customwidgets>
  <includes>
   <include location="local">datablocks/rating.h</include>
-  <include location="local">k3listview.h</include>
+  <include location="local">QListWidget</include>
   <include location="local">kpushbutton.h</include>
   <include location="local">kpushbutton.h</include>
  </includes>

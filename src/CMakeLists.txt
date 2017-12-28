@@ -136,16 +136,16 @@ set(krecipeswidgets_SRCS
    widgets/thumbbar.cpp
 
    #FIXME: The classes below are deprecated and must be removed sooner or later.
-   widgets/dblistviewbase.cpp #replaced by kregenericlistwidget.cpp
-   widgets/categorylistview.cpp #replaced by krecategorieslistwidget.cpp
-   widgets/propertylistview.cpp #replaced by krepropertylistwidget.cpp
-   widgets/ingredientlistview.cpp #replaced by kreingredientlistwidget.cpp
+   #widgets/dblistviewbase.cpp #replaced by kregenericlistwidget.cpp
+   #widgets/categorylistview.cpp #replaced by krecategorieslistwidget.cpp
+   #widgets/propertylistview.cpp #replaced by krepropertylistwidget.cpp
+   #widgets/ingredientlistview.cpp #replaced by kreingredientlistwidget.cpp
 
 )
 
-qt5_wrap_ui(krecipeswidgets_SRCS
-   widgets/kregenericlistwidget.ui
-)
+#qt5_wrap_ui(krecipeswidgets_SRCS
+#   widgets/kregenericlistwidget.ui
+#)
 
 ############## dialogs ###############
 
@@ -162,7 +162,7 @@ set(krecipesdialogs_SRCS
    dialogs/setupassistant/datainitializepage.cpp
    dialogs/setupassistant/savepage.cpp
 
-   dialogs/advancedsearchdialog.cpp
+#   dialogs/advancedsearchdialog.cpp
    dialogs/recipeimportdialog.cpp
 
    #Diet wizard
@@ -232,14 +232,14 @@ set(krecipesdialogs_SRCS
    dialogs/preferences/spellcheckingprefs.cpp
    )
 
-qt5_wrap_ui(krecipesdialogs_SRCS
-   dialogs/recipeinput/recipegeneralinfoeditor.ui
-   dialogs/recipeinput/resizerecipedialog.ui
-   dialogs/recipeinput/ratingdisplaywidget.ui
-   dialogs/recipeinput/ingredientseditor.ui
-   dialogs/recipeinput/nutrientinfostatuswidget.ui
-   dialogs/recipeinput/nutrientinfodetailsdialog.ui
-   )
+#qt5_wrap_ui(krecipesdialogs_SRCS
+#   dialogs/recipeinput/recipegeneralinfoeditor.ui
+#   dialogs/recipeinput/resizerecipedialog.ui
+#   dialogs/recipeinput/ratingdisplaywidget.ui
+#   dialogs/recipeinput/ingredientseditor.ui
+#   dialogs/recipeinput/nutrientinfostatuswidget.ui
+#   dialogs/recipeinput/nutrientinfodetailsdialog.ui
+#   )
 
 qt5_add_resources(krecipesdialogs_SRCS
    ../pics/resources.qrc
@@ -312,9 +312,9 @@ add_library(krecipescommon STATIC
    ${krecipesimporters_SRCS} ${krecipesexporters_SRCS}
    ${datablocks_SRCS} ${krecipesthreadedqueries_SRCS}
    ${validators_SRCS}
-   ${krecipesactionshandlers_SRCS}
-   ${krecipeswidgets_SRCS}
-   ${krecipesdialogs_SRCS}
+#   ${krecipesactionshandlers_SRCS}
+#   ${krecipeswidgets_SRCS}
+#   ${krecipesdialogs_SRCS}
    klomanager.cpp propertycalculator.cpp)
 
 
@@ -324,10 +324,13 @@ target_link_libraries(krecipescommon
    KF5::KDELibs4Support
    KF5::Archive
    KF5::KHtml
+   KF5::Completion
+   KF5::ItemModels
 
    #${KDE5_KDECORE_LIBS} #${KDE4_KDE3SUPPORT_LIBS}
    Qt5::Sql
    Qt5::WebEngine
+   Qt5::Test
    ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES}
    ${QT_QTWEBKIT_LIBRARY} ${KDE5_KDEWEBKIT_LIBS}
    )
@@ -357,7 +360,7 @@ set(DATABASE_TESTS
     )
 
 set(UI_TESTS
-    ingredientseditor
+#    ingredientseditor
     )
 
 option(TESTS_MYSQL "Enable tests on MySQL" OFF)
@@ -459,10 +462,10 @@ endif(BUILD_NUKEDB)
 set(krecipes_SRCS
    main.cpp
    kresplashscreen.cpp
-   krecipes.cpp
-   krecipesview.cpp
+   #krecipes.cpp
+   #krecipesview.cpp
    #propertycalculator.cpp
-   shoppingcalculator.cpp
+   #shoppingcalculator.cpp
    convert_sqlite3.cpp
    #klomanager.cpp
 )

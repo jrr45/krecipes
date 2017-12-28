@@ -16,7 +16,7 @@
 #include "datablocks/unit.h"
 #include "datablocks/mixednumber.h"
 
-class Q3ListViewItem;
+class QListWidgetItem;
 
 class RecipeDB;
 class FractionInput;
@@ -34,10 +34,10 @@ public:
 
 	MixedNumber amount() const;
 	Unit unit() const;
-	Q3ListViewItem *item() const { return m_item; }
-	void setItem( Q3ListViewItem *it ){ m_item = it; }
+    QListWidgetItem *item() const { return m_item; }
+    void setItem( QListWidgetItem *it ){ m_item = it; }
 
-	void insertIntoListview( Q3ListViewItem *it, int col );
+    void insertIntoListview( QListWidgetItem *it, int col );
 	
 	bool isInputValid() const;
 
@@ -52,7 +52,7 @@ private:
 	FractionInput *amountInput;
 	UnitComboBox *unitBox;
 
-	Q3ListViewItem *m_item;
+    QListWidgetItem *m_item;
 
 	RecipeDB *m_database;
 };

@@ -23,6 +23,7 @@
 #include <QGridLayout>
 #include <QTimer>
 #include <KSharedConfig>
+#include <KConfigGroup>
 
 #include "backends/recipedb.h"
 
