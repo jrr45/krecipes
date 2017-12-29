@@ -23,7 +23,6 @@
 #include <QPushButton>
 
 #include <kstringhandler.h>
-#include <klocale.h>
 #include <kvbox.h>
 
 class KreListView;

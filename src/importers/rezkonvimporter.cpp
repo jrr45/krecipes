@@ -9,13 +9,11 @@
 
 #include "rezkonvimporter.h"
 
-#include <kapplication.h>
-#include <klocale.h>
-#include <kdebug.h>
-
+#include <QApplication>
 #include <QFile>
 #include <QRegExp>
 #include <QTextStream>
+#include <QDebug>
 
 #include "datablocks/mixednumber.h"
 
@@ -56,7 +54,7 @@ void RezkonvImporter::parseFile( const QString &filename )
 
 void RezkonvImporter::readRecipe( const QStringList &raw_recipe )
 {
-	kapp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
+    qApp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
 
 	Recipe recipe;
 
@@ -66,7 +64,7 @@ void RezkonvImporter::readRecipe( const QStringList &raw_recipe )
 	//title (Titel)
 	text_it++;
 	recipe.title = ( *text_it ).mid( ( *text_it ).indexOf( ":" ) + 1, ( *text_it ).length() ).trimmed();
-	kDebug() << "Found title: " << recipe.title ;
+	qDebug() << "Found title: " << recipe.title ;
 
 	//categories (Kategorien):
 	text_it++;
@@ -79,7 +77,7 @@ void RezkonvImporter::readRecipe( const QStringList &raw_recipe )
 	for ( QStringList::const_iterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
 		Element new_cat;
 		new_cat.name = QString( *it ).trimmed();
-		kDebug() << "Found category: " << new_cat.name ;
+		qDebug() << "Found category: " << new_cat.name ;
 		recipe.categoryList.append( new_cat );
 	}
 
@@ -95,7 +93,7 @@ void RezkonvImporter::readRecipe( const QStringList &raw_recipe )
 	readRange( yield_str.mid( 0, sep_index ), amount, amountOffset );
 	recipe.yield.setAmount(amount);
 	recipe.yield.setAmountOffset(amountOffset);
-	kDebug() << "Found yield: " << recipe.yield.amount();
+	qDebug() << "Found yield: " << recipe.yield.amount();
 
 	bool is_sub = false;
 	bool last_line_empty = false;
@@ -146,7 +144,7 @@ void RezkonvImporter::loadIngredient( const QString &string, Recipe &recipe, boo
 	if ( string.trimmed().contains( cont_test ) ) {
 		QString name = string.trimmed();
 		name.remove( cont_test );
-		kDebug() << "Appending to last ingredient: " << name ;
+		qDebug() << "Appending to last ingredient: " << name ;
 		if ( !recipe.ingList.isEmpty() )  //so it doesn't crash when the first ingredient appears to be a continuation of another
 			recipe.ingList.last().name += ' ' + name;
 
@@ -196,7 +194,7 @@ void RezkonvImporter::loadIngredientHeader( const QString &string, Recipe &/*rec
 	header.remove( QRegExp( "^=*" ) ).remove( QRegExp( "=*$" ) );
 	header = header.trimmed();
 
-	kDebug() << "found ingredient header: " << header ;
+	qDebug() << "found ingredient header: " << header ;
 
 	current_header = header;
 }
@@ -222,7 +220,7 @@ void RezkonvImporter::loadInstructions( QStringList::const_iterator &text_it, Re
 
 				text_it++;
 			}
-			kDebug() << "Found long title: " << recipe.title ;
+			qDebug() << "Found long title: " << recipe.title ;
 		}
 		else {
 			if ( line.trimmed().isEmpty() && ( (text_it+1) != m_end_it ) )
@@ -239,7 +237,7 @@ void RezkonvImporter::loadInstructions( QStringList::const_iterator &text_it, Re
 
 void RezkonvImporter::loadReferences( QStringList::const_iterator &text_it, Recipe &recipe )
 {
-	kDebug() << "Found source header" ;
+	qDebug() << "Found source header" ;
 
 	text_it++;
 	while ( text_it != m_end_it && !text_it->trimmed().isEmpty() ) {

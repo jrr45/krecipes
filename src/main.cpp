@@ -14,34 +14,25 @@
 
 #include <iostream>
 
-#include <kuniqueapplication.h>
-#include <K4AboutData>
-#include <kcmdlineargs.h>
-#include <klocale.h>
-#include <QLabel>
-
 #include "convert_sqlite3.h"
 #include "datablocks/elementlist.h"
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#ifdef Q_OS_ANDROID
-#include "./3rdparty/kirigami/src/kirigamiplugin.h"
-#endif
+#include <QCommandLineParser>
 
+#include <KLocalizedString>
 
-static KCmdLineOptions options;
 
 int main( int argc, char **argv )
 {
 
 	qRegisterMetaType<ElementList>();
 
-	options.add("convert-sqlite3", ki18n("Convert the current SQLite 2.x database to SQLite 3 and exit") , 0 );
-	options.add( 0, KLocalizedString(), 0 );    
-
-
-	K4AboutData about( "krecipes", 0, ki18n( "Krecipes" ), KRECIPES_VERSION, ki18n( "The KDE Cookbook" ), K4AboutData::License_GPL, ki18n( "(C) 2003 Unai Garro\n(C) 2004-2006 Jason Kivlighn"), ki18n("This product is RecipeML compatible.\nYou can get more information about this file format in:\nhttp://www.formatdata.com/recipeml" ), "http://krecipes.sourceforge.net/" );
+/*FIXME add to about later
+    K4AboutData about( "krecipes", 0, , , , K4AboutData::License_GPL, ki18n( "(C) 2003 Unai Garro\n(C) 2004-2006 Jason Kivlighn"),
+ki18n("This product is RecipeML compatible.\nYou can get more information about this file format in:\nhttp://www.formatdata.com/recipeml" ),
+"http://krecipes.sourceforge.net/" );
 	about.addAuthor( ki18n("Unai Garro"), KLocalizedString(), "ugarro@gmail.com", 0 );
 	about.addAuthor( ki18n("Jason Kivlighn"), KLocalizedString(), "jkivlighn@gmail.com", 0 );
 	about.addAuthor( ki18n("Cyril Bosselut"), KLocalizedString(), "bosselut@b1project.com", "http://b1project.com" );
@@ -64,29 +55,45 @@ int main( int argc, char **argv )
 	about.addCredit( ki18n("José Millán Soto"),
 		ki18n("He advised using WebKit to fix printing support during Akademy-es 2010."),
 		"", 0 );
+*/
 
-	KCmdLineArgs::init( argc, argv, &about );
-	KCmdLineArgs::addCmdLineOptions( options );
-	KUniqueApplication::addCmdLineOptions();
-
-	if ( !KUniqueApplication::start() ) {
+    /*if ( !QApplication::start() ) {
 		std::cerr << "Krecipes is already running!" << std::endl;
 		return 0;
-	}
+    }*/
 
-	KUniqueApplication app;
+    // set up application
+    QGuiApplication app(argc, argv );
 
-	// see if we are starting with session management
+    QCoreApplication::setApplicationName("Krecipes");
+    QCoreApplication::setApplicationVersion(KRECIPES_VERSION);
+    QCoreApplication::setOrganizationDomain("kde.org");
+    QGuiApplication::setApplicationDisplayName(i18n("Krecipes"));
+    QGuiApplication::setDesktopFileName("Krecipes");
+    //FIXME: QGuiApplication::setWindowIcon(QIcon::fromTheme("..."));
+
+    // Set up arguments
+    QCommandLineParser parser;
+    parser.addHelpOption();
+    parser.addVersionOption();
+    parser.setApplicationDescription(i18n( "The KDE Cookbook" ));
+
+    QCommandLineOption sqlconvert("convert-sqlite3", i18n("Convert the current SQLite 2.x database to SQLite 3 and exit"));
+    parser.addOption(sqlconvert);
+
+    // Process the actual command line arguments given by the user
+    parser.process(app);
+
+    // see if we are starting with session management
 	if ( app.isSessionRestored() ) {
 //		RESTORE( Krecipes );
 	}
 	else {
 		// no session.. just start up normally
-		KCmdLineArgs *args = KCmdLineArgs::parsedArgs();
 
-		QApplication::flush();
+        QGuiApplication::flush();
 
-		if ( args->isSet("convert-sqlite3") ) {
+        if (parser.isSet("convert-sqlite3")) {
 			ConvertSQLite3 sqliteConverter;
 			sqliteConverter.convert();
 			return 0;
@@ -95,8 +102,6 @@ int main( int argc, char **argv )
 //		Krecipes * widget = new Krecipes;
 //		app.setTopWidget( widget );
 //		widget->show();
-
-		args->clear();
 	}
 
 	return app.exec();

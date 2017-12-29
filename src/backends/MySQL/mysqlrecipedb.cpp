@@ -11,16 +11,14 @@
 
 #include "mysqlrecipedb.h"
 
-#include <kdebug.h>
+#include <KLocalizedString>
+#include <KConfigGroup>
+#include <KSharedConfig>
 
 #include <QTemporaryFile>
-#include <klocale.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kglobal.h>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <KSharedConfig>
+#include <QDebug>
 
 MySQLRecipeDB::MySQLRecipeDB( const QString &host, const QString &user, const QString &pass, const QString &DBname, int port ) : QSqlRecipeDB( host, user, pass, DBname, port )
 {}
@@ -40,12 +38,12 @@ void MySQLRecipeDB::createDB()
 		//FIXME: I've noticed certain characters cause this to fail (such as '-').  Somehow let the user know.
 		QSqlQuery query( QString( "CREATE DATABASE %1" ).arg( real_db_name ), *database );
 		if ( !query.isActive() )
-			kDebug() << "create query failed: " << database->lastError().databaseText() ;
+            qDebug() << "create query failed: " << database->lastError().databaseText() ;
 
 		database->close();
 	}
 	else
-		kDebug() << "create open failed: " << database->lastError().databaseText() ;
+        qDebug() << "create open failed: " << database->lastError().databaseText() ;
 
 	database->setDatabaseName( real_db_name );
 }
@@ -236,7 +234,7 @@ int MySQLRecipeDB::maxYieldTypeLength() const
 
 void MySQLRecipeDB::portOldDatabases( float version )
 {
-	kDebug() << "Current database version is..." << version;
+    qDebug() << "Current database version is..." << version;
 	QString command;
 
 	// Note that version no. means the version in which this DB structure
@@ -453,7 +451,7 @@ void MySQLRecipeDB::portOldDatabases( float version )
 		database->exec( "UPDATE db_info SET ver='0.83',generated_by='Krecipes SVN (20050909)';" );
 
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.83 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.83 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 84 ) {
@@ -468,7 +466,7 @@ void MySQLRecipeDB::portOldDatabases( float version )
 		database->exec( "UPDATE db_info SET ver='0.84',generated_by='Krecipes SVN (20050913)';" );
 
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.84 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.84 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 85 ) {
@@ -487,7 +485,7 @@ void MySQLRecipeDB::portOldDatabases( float version )
 
 		database->exec( "UPDATE db_info SET ver='0.85',generated_by='Krecipes SVN (20050926)';" );
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.85 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.85 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 86 ) {
@@ -519,12 +517,12 @@ void MySQLRecipeDB::portOldDatabases( float version )
 
 		database->exec( "UPDATE db_info SET ver='0.86',generated_by='Krecipes SVN (20050928)';" );
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.86 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.86 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 87 ) {
 		//Load this default data so the user knows what rating criteria is
-		database->exec( QString("INSERT INTO rating_criteria VALUES (1,'%1')").arg(i18nc("Overall rating", "Overall")) );
+        database->exec( QString("INSERT INTO rating_criteria VALUES (1,'%1')").arg(i18nc("Overall rating", "Overall")) );
 		database->exec( QString("INSERT INTO rating_criteria VALUES (2,'%1')").arg(i18n("Taste") ) );
 		database->exec( QString("INSERT INTO rating_criteria VALUES (3,'%1')").arg(i18n("Appearance") ) );
 		database->exec( QString("INSERT INTO rating_criteria VALUES (4,'%1')").arg(i18n("Originality") ) );
@@ -550,7 +548,7 @@ void MySQLRecipeDB::portOldDatabases( float version )
 
 		database->exec("UPDATE db_info SET ver='0.92',generated_by='Krecipes SVN (20060609)'");
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.92 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.92 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 93 ) {
@@ -560,7 +558,7 @@ void MySQLRecipeDB::portOldDatabases( float version )
 
 		database->exec("UPDATE db_info SET ver='0.93',generated_by='Krecipes SVN (20060615)'");
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.93 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.93 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 94 ) {
@@ -570,7 +568,7 @@ void MySQLRecipeDB::portOldDatabases( float version )
 
 		database->exec("UPDATE db_info SET ver='0.94',generated_by='Krecipes SVN (20060712)'");
 		if ( !database->commit() )
-			kDebug()<<"Update to 0.94 failed.  Maybe you should try again.";
+            qDebug()<<"Update to 0.94 failed.  Maybe you should try again.";
 	}
 
 	if ( qRound(version*100) < 95 ) {
@@ -613,7 +611,7 @@ void MySQLRecipeDB::givePermissions( const QString &dbName, const QString &usern
 	else
 		command = QString( "GRANT ALL ON %1.* TO '%2'@'%3';" ).arg( dbName ).arg( username ).arg( clientHost );
 
-	kDebug() << "I'm doing the query to setup permissions";
+    qDebug() << "I'm doing the query to setup permissions";
 
 	QSqlQuery permissionsToSet( command, *database );
 }

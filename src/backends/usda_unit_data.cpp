@@ -24,16 +24,16 @@ UnitDataList loadUnits()
 {
 	UnitDataList result;
 
-	QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/unit-data-" + KGlobal::locale() ->language() + ".txt" );
+	QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/unit-data-" + QLocale().uiLanguages().first() + ".txt" );
 	if ( dataFilename.isEmpty() ) {
-		kDebug() << "No localized unit data available for " << KGlobal::locale() ->language() ;
+		qDebug() << "No localized unit data available for " << QLocale().uiLanguages().first() ;
 
 		dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/unit-data-en_US.txt" ); //default to English
 	}
 
 	QFile dataFile( dataFilename );
 	if ( dataFile.open( QIODevice::ReadOnly ) ) {
-		kDebug() << "Loading: " << dataFilename ;
+		qDebug() << "Loading: " << dataFilename ;
 		QTextStream stream( &dataFile );
 
 		QString line;
@@ -59,7 +59,7 @@ UnitDataList loadUnits()
 		dataFile.close();
 	}
 	else
-		kDebug() << "Unable to find or open unit data file (unit-data-en_US.sql)" ;
+		qDebug() << "Unable to find or open unit data file (unit-data-en_US.sql)" ;
 
 	return result;
 }
@@ -68,16 +68,16 @@ PrepDataList loadPrepMethods()
 {
 	PrepDataList result;
 
-	QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/prep-data-" + KGlobal::locale() ->language() + ".txt" );
+	QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/prep-data-" + QLocale().uiLanguages().first() + ".txt" );
 	if ( dataFilename.isEmpty() ) {
-		kDebug() << "No localized prep data available for " << KGlobal::locale() ->language() ;
+		qDebug() << "No localized prep data available for " << QLocale().uiLanguages().first() ;
 
 		dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/prep-data-en_US.txt" ); //default to English
 	}
 
 	QFile dataFile( dataFilename );
 	if ( dataFile.open( QIODevice::ReadOnly ) ) {
-		kDebug() << "Loading: " << dataFilename ;
+		qDebug() << "Loading: " << dataFilename ;
 		QTextStream stream( &dataFile );
 
 		QString line;
@@ -97,7 +97,7 @@ PrepDataList loadPrepMethods()
 		dataFile.close();
 	}
 	else
-		kDebug() << "Unable to find or open prep data file (prep-data-en_US.sql)" ;
+		qDebug() << "Unable to find or open prep data file (prep-data-en_US.sql)" ;
 
 	return result;
 }

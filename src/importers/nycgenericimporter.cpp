@@ -9,14 +9,12 @@
 
 #include "nycgenericimporter.h"
 
-#include <kapplication.h>
-#include <klocale.h>
-#include <kdebug.h>
-
+#include <QApplication>
 #include <QFile>
 #include <QStringList>
 #include <QRegExp>
 #include <QTextStream>
+#include <QDebug>
 
 #include "datablocks/mixednumber.h"
 #include "datablocks/recipe.h"
@@ -51,7 +49,7 @@ NYCGenericImporter::~NYCGenericImporter()
 
 void NYCGenericImporter::importNYCGeneric( QTextStream &stream )
 {
-	kapp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
+    qApp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
 
 	QString current;
 
@@ -75,7 +73,7 @@ void NYCGenericImporter::importNYCGeneric( QTextStream &stream )
 
 		for ( QStringList::const_iterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
 			Element new_cat( QString( *it ).trimmed() );
-			kDebug() << "Found category: " << new_cat.name ;
+			qDebug() << "Found category: " << new_cat.name ;
 			m_recipe.categoryList.append( new_cat );
 		}
 	}
@@ -89,7 +87,7 @@ void NYCGenericImporter::importNYCGeneric( QTextStream &stream )
 	while ( !( found_next = ( current = stream.readLine() ).startsWith( "@@@@@" ) ) && !stream.atEnd() ) {
 		if ( current.startsWith( "Contributor:" ) ) {
 			Element new_author( current.mid( current.indexOf( ':' ) + 1, current.length() ).trimmed() );
-			kDebug() << "Found author: " << new_author.name ;
+			qDebug() << "Found author: " << new_author.name ;
 			m_recipe.authorList.append( new_author );
 		}
 		else if ( current.startsWith( "Preparation Time:" ) ) {
@@ -135,7 +133,7 @@ void NYCGenericImporter::loadIngredientLine( const QString &line )
 
 	if ( current.contains( "-----" ) ) {
 		current_header = current.trimmed();
-		kDebug() << "Found ingredient header: " << current_header ;
+		qDebug() << "Found ingredient header: " << current_header ;
 		return ;
 	}
 

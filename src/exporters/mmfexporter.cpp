@@ -11,12 +11,7 @@
 #include "mmfexporter.h"
 
 #include <QRegExp>
-
-#include <kconfig.h>
-#include <kdebug.h>
-#include <klocale.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <QDebug>
 
 #include "backends/recipedb.h"
 #include "datablocks/mixednumber.h"
@@ -153,8 +148,8 @@ void MMFExporter::writeSingleIngredient( QString &content, const Ingredient &ing
 		}
 	}
 	if ( !found_short_form ) {
-		kDebug() << "Warning: unable to find Meal-Master abbreviation for: " << ing.units.name() ;
-		kDebug() << "         This ingredient (" << ing.name << ") will be exported without a unit" ;
+        qDebug() << "Warning: unable to find Meal-Master abbreviation for: " << ing.units.name() ;
+        qDebug() << "         This ingredient (" << ing.name << ") will be exported without a unit" ;
 		content += "   ";
 	}
 

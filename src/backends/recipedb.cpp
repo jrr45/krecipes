@@ -25,15 +25,11 @@
 #include "datablocks/ingredientpropertylist.h"
 #include "datablocks/weight.h"
 
+#include <KSharedConfig>
 #include <KConfigGroup>
-
-#include <KGlobal>
-#include <KLocale>
-#include <K4AboutData>
 #include <KProcess>
 #include <KFilterDev>
 #include <KMessageBox>
-
 
 #include <QApplication>
 #include <QDebug>
@@ -44,10 +40,10 @@
 #include <QStringList>
 #include <QList>
 #include <QTextStream>
+#include <QStandardPaths>
 
 #include <map>
-#include <QStandardPaths>
-#include <KSharedConfig>
+
 
 #define DB_FILENAME "krecipes.krecdb"
 
@@ -423,9 +419,11 @@ void RecipeDB::initializeData( void )
 	// Populate with data
 
 	// Read the commands form the data file
-	QString dataFilename =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/data-" + KGlobal::locale() ->language() + ".sql" );
+    QString dataFilename =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/data-" + QLocale().uiLanguages().first() + ".sql" );
 	if ( dataFilename.isEmpty() ) {
-        qDebug() << "NOTICE: Sample data (categories, units, etc.) for the language \"" << KGlobal::locale() ->language() << "\" is not available.  However, if you would like samples data for this language included in future releases of Krecipes, we invite you to submit your own. Contact me at jkivlighn@gmail.com for details." ;
+        qDebug() << "NOTICE: Sample data (categories, units, etc.) for the language \"" << QLocale().uiLanguages().first()
+                 << "\" is not available.  However, if you would like samples data for this language included in future releases of Krecipes,"
+                 << " we invite you to submit your own. Contact me at jkivlighn@gmail.com for details." ;
 
 		dataFilename =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/data-en_US.sql" ); //default to English
 	}
@@ -642,10 +640,13 @@ int RecipeDB::ingredientGroupCount()
 void RecipeDB::importSamples()
 {
     qDebug();
-	QString sample_recipes =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/samples-" +  KGlobal::locale() ->language() + ".kreml" );
+    QString sample_recipes =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/samples-" + QLocale().uiLanguages().first() + ".kreml" );
 	if ( sample_recipes.isEmpty() ) {
 		//TODO: Make this a KMessageBox??
-        qDebug() << "NOTICE: Samples recipes for the language \"" << KGlobal::locale() ->language() << "\" are not available.  However, if you would like samples recipes for this language included in future releases of Krecipes, we invite you to submit your own.  Just save your favorite recipes in the kreml format and e-mail them to jkivlighn@gmail.com." ;
+        qDebug() << "NOTICE: Samples recipes for the language \"" << QLocale().uiLanguages().first()
+                 << "\" are not available.  However, if you would like samples recipes for this language included in future releases of"
+                 << " Krecipes, we invite you to submit your own.  Just save your favorite recipes in the kreml format and e-mail them "
+                 << "to jkivlighn@gmail.com." ;
 
 		sample_recipes =  QStandardPaths::locate(QStandardPaths::DataLocation, "data/samples-en_US.kreml" ); //default to English
 	}

@@ -13,10 +13,9 @@
 #include "datablocks/ingredient.h"
 
 #include <QStringList>
-#include <KGlobal>
-#include <KLocale>
-#include <KConfigGroup>
 #include <QDebug>
+
+#include <KConfigGroup>
 #include <KSharedConfig>
 
 #include "mixednumberrange.h"
@@ -88,7 +87,7 @@ void Ingredient::setAmount( const QString &range, bool *ok )
 	}
 	amount_max = amount_max.trimmed();
 
-	KLocale * locale = KGlobal::locale();
+    QLocale locale = QLocale();
 	double min, max=0;
 
 	if ( MixedNumber::isFraction( amount_min ) ) {
@@ -101,7 +100,7 @@ void Ingredient::setAmount( const QString &range, bool *ok )
 		}
 		min = mixed_min.toDouble();
 	} else {
-		min = locale->readNumber( amount_min, ok );
+        min = locale.toDouble( amount_min, ok );
 		if ( ok && *ok == false ) return;
 	}
 
@@ -116,7 +115,7 @@ void Ingredient::setAmount( const QString &range, bool *ok )
 			}
 			max = mixed_max.toDouble();
 		} else {
-			max = locale->readNumber( amount_max, ok );
+            max = locale.toDouble( amount_max, ok );
 			if ( ok && *ok == false ) return;
 		}
 	}
@@ -135,7 +134,7 @@ QString Ingredient::amountString( bool forceFloatFormat ) const
 		MixedNumber mixedNumber( amount );
 		result = mixedNumber.toString( MixedNumber::MixedNumberFormat );
 	} else {
-		result = KGlobal::locale()->formatNumber( amount );
+        result = QLocale().toString( amount );
 	}
 	if ( amount_offset > 0 ) {
 		result += " - ";
@@ -143,7 +142,7 @@ QString Ingredient::amountString( bool forceFloatFormat ) const
 			MixedNumber mixedNumber( amount + amount_offset );
 			result += mixedNumber.toString( MixedNumber::MixedNumberFormat );
 		} else {
-			result += KGlobal::locale()->formatNumber( amount + amount_offset );
+            result += QLocale().toString( amount + amount_offset );
 		}
 	}
 	return result;

@@ -8,10 +8,6 @@
 ***************************************************************************/
 
 #include "mx2exporter.h"
-
-#include <kdebug.h>
-#include <klocale.h>
-
 #include "backends/recipedb.h"
 
 MX2Exporter::MX2Exporter( const QString& filename, const QString& format ) :

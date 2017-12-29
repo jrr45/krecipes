@@ -29,7 +29,7 @@ class QSqlDatabase;
 class QSqlQuery;
 
 //macro with the debug output for SQL queries
-#define KRECIPES_SQL_DEBUG_OUTPUT kDebug()
+#define KRECIPES_SQL_DEBUG_OUTPUT qDebug()
 //macro to test that 'query' was executed succesfully, in
 //case something goes wrong, it executes 'abortCode'
 #define CHECK_QUERY(query,abortCode) \

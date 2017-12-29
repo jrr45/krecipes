@@ -12,10 +12,8 @@
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>
-
-#include <kapplication.h>
-#include <klocale.h>
-#include <kdebug.h>
+#include <QApplication>
+#include <QDebug>
 
 #include "datablocks/mixednumber.h"
 #include "datablocks/recipe.h"
@@ -36,15 +34,15 @@ void MXPImporter::parseFile( const QString &file )
 			line = stream.readLine().trimmed();
 
 			if ( line == "{ Exported from MasterCook Mac }" ) {
-				kDebug() << "detected Mac file";
+				qDebug() << "detected Mac file";
 				importMac( stream );
 			}
 			else if ( line == "@@@@@" ) {
-				kDebug() << "detected generic file";
+				qDebug() << "detected generic file";
 				importGeneric( stream );
 			}
 			else if ( line.simplified().contains( "Exported from MasterCook" ) ) {
-				kDebug() << "detected MasterCook normal file";
+				qDebug() << "detected MasterCook normal file";
 				importMXP( stream );
 			}
 
@@ -65,15 +63,15 @@ void MXPImporter::importMXP( QTextStream &stream )
 {
 	Recipe recipe;
 
-	kapp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
+    qApp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
 
-	//kDebug()<<"Found recipe MXP format: * Exported from MasterCook *";
+	//qDebug()<<"Found recipe MXP format: * Exported from MasterCook *";
 	QString current;
 
 	// title
 	stream.skipWhiteSpace();
 	recipe.title = stream.readLine().trimmed();
-	//kDebug()<<"Found title: "<<m_title;
+	//qDebug()<<"Found title: "<<m_title;
 
 	//author
 	stream.skipWhiteSpace();
@@ -81,7 +79,7 @@ void MXPImporter::importMXP( QTextStream &stream )
 	if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "recipe by" ) {
 		Element new_author( current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed() );
 		recipe.authorList.append( new_author );
-		//kDebug()<<"Found author: "<<new_author.name;
+		//qDebug()<<"Found author: "<<new_author.name;
 	}
 	else {
 		addWarningMsg( i18n( "While loading recipe \"%1\" "
@@ -101,7 +99,7 @@ void MXPImporter::importMXP( QTextStream &stream )
 
 		recipe.yield.setAmount(current.mid( current.indexOf( ":" ) + 1, end_index ).trimmed().toInt());
 		recipe.yield.setType(i18n("servings"));
-		//kDebug()<<"Found serving size: "<<recipe.yield.amount;
+		//qDebug()<<"Found serving size: "<<recipe.yield.amount;
 	}
 	else {
 		addWarningMsg( i18n( "While loading recipe \"%1\" "
@@ -112,7 +110,7 @@ void MXPImporter::importMXP( QTextStream &stream )
 		QString prep_time = current.mid( current.indexOf( ":", current.indexOf( "preparation time", 0, Qt::CaseInsensitive ) ) + 1,
 		                                 current.length() ).trimmed();
 		recipe.prepTime = QTime( prep_time.section( ':', 0, 0 ).toInt(), prep_time.section( ':', 1, 1 ).toInt() );
-		kDebug() << "Found preparation time: " << prep_time ;
+		qDebug() << "Found preparation time: " << prep_time ;
 	}
 	else {
 		addWarningMsg( i18n( "While loading recipe \"%1\" "
@@ -148,7 +146,7 @@ void MXPImporter::loadCategories( QTextStream &stream, Recipe &recipe )
 					Element new_cat( ( *it ).trimmed() );
 					recipe.categoryList.append( new_cat );
 
-					kDebug()<<"Found category: "<<new_cat.name;
+					qDebug()<<"Found category: "<<new_cat.name;
 				}
 			}
 
@@ -156,7 +154,7 @@ void MXPImporter::loadCategories( QTextStream &stream, Recipe &recipe )
 			tmp_str = current;
 		}
 		//else
-		//	kDebug()<<"No categories found.";
+		//	qDebug()<<"No categories found.";
 	}
 	else {
 		addWarningMsg(i18n( "While loading recipe \"%1\" "
@@ -215,7 +213,7 @@ void MXPImporter::loadIngredients( QTextStream &stream, Recipe &recipe )
 				new_ingredient.prepMethodList.append( Element(current.mid( dash_index + 2, current.length() ).trimmed()) );
 
 			recipe.ingList.append( new_ingredient );
-			//kDebug()<<"Found ingredient: amount="<<new_ingredient.amount
+			//qDebug()<<"Found ingredient: amount="<<new_ingredient.amount
 			//  <<", unit:"<<new_ingredient.units
 			//  <<", name:"<<new_ingredient.name
 			//  <<", prep_method:"<<prep_method;
@@ -224,7 +222,7 @@ void MXPImporter::loadIngredients( QTextStream &stream, Recipe &recipe )
 		}
 	}
 	//else
-	//	kDebug()<<"No ingredients found.";
+	//	qDebug()<<"No ingredients found.";
 }
 
 void MXPImporter::loadInstructions( QTextStream &stream, Recipe &recipe )
@@ -236,31 +234,31 @@ void MXPImporter::loadInstructions( QTextStream &stream, Recipe &recipe )
 		if ( current.trimmed() == "Source:" ) {
 			Element new_author( getNextQuotedString( stream ) );
 			recipe.authorList.append( new_author );
-			//kDebug()<<"Found source: "<<new_author.name<<" (adding as author)";
+			//qDebug()<<"Found source: "<<new_author.name<<" (adding as author)";
 		}
 		else if ( current.trimmed() == "Description:" ) {
 			QString description = getNextQuotedString( stream );
-			//kDebug()<<"Found description: "<<m_description<<" (adding to end of instructions)";
+			//qDebug()<<"Found description: "<<m_description<<" (adding to end of instructions)";
 			recipe.instructions += "\n\nDescription: " + description;
 		}
 		else if ( current.trimmed() == "S(Internet Address):" ) {
 			QString internet = getNextQuotedString( stream );
-			//kDebug()<<"Found internet address: "<<m_internet<<" (adding to end of instructions)";
+			//qDebug()<<"Found internet address: "<<m_internet<<" (adding to end of instructions)";
 			recipe.instructions += "\n\nInternet address: " + internet;
 		}
 		else if ( current.trimmed() == "Yield:" ) {
 			recipe.yield.setAmount(getNextQuotedString( stream ).trimmed().toInt());
 			recipe.yield.setType(i18n("servings"));
-			//kDebug()<<"Found yield: "<<recipe.yield.amount<<" (adding as servings)";
+			//qDebug()<<"Found yield: "<<recipe.yield.amount<<" (adding as servings)";
 		}
 		else if ( current.trimmed() == "T(Cook Time):" ) {
 			( void ) getNextQuotedString( stream ); //this would be prep time, but we don't use prep time at the moment
-			//kDebug()<<"Found cook time: "<<m_prep_time<<" (adding as prep time)";
+			//qDebug()<<"Found cook time: "<<m_prep_time<<" (adding as prep time)";
 		}
 		else if ( current.trimmed() == "Cuisine:" ) {
 			Element new_cat( getNextQuotedString( stream ) );
 			recipe.categoryList.append( new_cat );
-			//kDebug()<<"Found cuisine (adding as category): "<<new_cat.name;
+			//qDebug()<<"Found cuisine (adding as category): "<<new_cat.name;
 		}
 		else
 			recipe.instructions += current + '\n';
@@ -268,7 +266,7 @@ void MXPImporter::loadInstructions( QTextStream &stream, Recipe &recipe )
 		current = stream.readLine().trimmed();
 	}
 	recipe.instructions = recipe.instructions.trimmed();
-	//kDebug()<<"Found instructions: "<<m_instructions;
+	//qDebug()<<"Found instructions: "<<m_instructions;
 }
 
 void MXPImporter::loadOptionalFields( QTextStream &stream, Recipe &recipe )
@@ -285,38 +283,38 @@ void MXPImporter::loadOptionalFields( QTextStream &stream, Recipe &recipe )
 		//suggested wine
 		if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "suggested wine" ) {
 			QString wine = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-			//kDebug()<<"Found suggested wine: "<<m_wine<<" (adding to end of instructions)";
+			//qDebug()<<"Found suggested wine: "<<m_wine<<" (adding to end of instructions)";
 
 			recipe.instructions += "\n\nSuggested wine: " + wine;
 		}
 		//Nutr. Assoc.
 		if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "nutr. assoc." ) {
 			QString nutr_assoc = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-			//kDebug()<<"Found nutrient association: "<<nutr_assoc<<" (adding to end of instructions)";
+			//qDebug()<<"Found nutrient association: "<<nutr_assoc<<" (adding to end of instructions)";
 
 			recipe.instructions += "\n\nNutrient Association: " + nutr_assoc;
 		}
 		else if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "per serving (excluding unknown items)" ) { //per serving... maybe we can do something with this info later
 			QString per_serving_info = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-			//kDebug()<<"Found per serving (excluding unknown items): "<<per_serving_info<<" (adding to end of instructions)";
+			//qDebug()<<"Found per serving (excluding unknown items): "<<per_serving_info<<" (adding to end of instructions)";
 
 			recipe.instructions += "\n\nPer Serving (excluding unknown items): " + per_serving_info;
 		}
 		else if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "per serving" ) { //per serving... maybe we can do something with this info later
 			QString per_serving_info = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-			//kDebug()<<"Found per serving: "<<per_serving_info<<" (adding to end of instructions)";
+			//qDebug()<<"Found per serving: "<<per_serving_info<<" (adding to end of instructions)";
 
 			recipe.instructions += "\n\nPer Serving: " + per_serving_info;
 		}
 		else if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "food exchanges" ) { //food exchanges... maybe we can do something with this info later
 			QString food_exchange_info = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-			//kDebug()<<"Found food exchanges: "<<food_exchange_info<<" (adding to end of instructions)";
+			//qDebug()<<"Found food exchanges: "<<food_exchange_info<<" (adding to end of instructions)";
 
 			recipe.instructions += "\n\nFood Exchanges: " + food_exchange_info;
 		}
 		else if ( current.mid( 0, current.indexOf( ":" ) ).simplified().toLower() == "serving ideas" ) { //serving ideas
 			QString serving_ideas = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-			//kDebug()<<"Found serving ideas: "<<m_serving_ideas<<" (adding to end of instructions)";
+			//qDebug()<<"Found serving ideas: "<<m_serving_ideas<<" (adding to end of instructions)";
 
 			recipe.instructions += "\n\nServing ideas: " + serving_ideas;
 		}
@@ -344,7 +342,7 @@ void MXPImporter::loadOptionalFields( QTextStream &stream, Recipe &recipe )
 
 	*/
 	if ( !notes.isEmpty() ) {
-		//kDebug()<<"Found notes:" << m_notes << "(adding to end of instructions)";
+		//qDebug()<<"Found notes:" << m_notes << "(adding to end of instructions)";
 		recipe.instructions += "\n\nNotes: " + notes.trimmed();
 	}
 }

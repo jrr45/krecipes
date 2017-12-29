@@ -11,15 +11,11 @@
 
 #include "usda_property_data.h"
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kglobal.h>
-
-
 #include <QFile>
 #include <QString>
 #include <QTextStream>
 #include <QStandardPaths>
+#include <QDebug>
 
 namespace USDA {
 
@@ -27,16 +23,16 @@ QList<PropertyData> loadProperties()
 {
 	QList<PropertyData> result;
 
-	QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/property-data-" + KGlobal::locale() ->language() + ".txt" );
+    QString dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/property-data-" + QLocale().uiLanguages().first() + ".txt" );
 	if ( dataFilename.isEmpty() ) {
-		kDebug() << "No localized property data available for " << KGlobal::locale() ->language() ;
+        qDebug() << "No localized property data available for " << QLocale().uiLanguages().first() ;
 
 		dataFilename = QStandardPaths::locate(QStandardPaths::DataLocation, "data/property-data-en_US.txt" ); //default to English
 	}
 
 	QFile dataFile( dataFilename );
 	if ( dataFile.open( QIODevice::ReadOnly ) ) {
-		kDebug() << "Loading: " << dataFilename ;
+        qDebug() << "Loading: " << dataFilename ;
 		QTextStream stream( &dataFile );
 
 		QString line;
@@ -54,7 +50,7 @@ QList<PropertyData> loadProperties()
 		dataFile.close();
 	}
 	else
-		kDebug() << "Unable to find or open property data file (property-data-en_US.sql)" ;
+        qDebug() << "Unable to find or open property data file (property-data-en_US.sql)" ;
 
 	return result;
 }

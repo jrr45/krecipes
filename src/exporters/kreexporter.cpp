@@ -16,10 +16,7 @@
 #include <QImageWriter>
 #include <QTextDocument>
 
-#include <kdebug.h>
-#include <klocale.h>
-#include <kcodecs.h>
-#include <kglobal.h>
+#include <KCodecs>
 #include <KConfigGroup>
 #include <KSharedConfig>
 
@@ -66,7 +63,8 @@ QString KreExporter::createHeader( const RecipeList& recipes )
 	QString xml;
 
 	xml += "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n";
-	xml += "<krecipes version=\"" + krecipes_version() + "\" lang=\"" + ( KGlobal::locale() )->language() + "\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"krecipes.xsd\">\n";
+    xml += "<krecipes version=\"" + krecipes_version() + "\" lang=\"" + QLocale().uiLanguages().first()
+            + "\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xsi:noNamespaceSchemaLocation=\"krecipes.xsd\">\n";
 
 	createCategoryStructure( xml, recipes );
 
@@ -131,7 +129,7 @@ QString KreExporter::createContent( const RecipeList& recipes )
 			
 			//( *recipe_it ).photo.save( &buffer, "JPEG" ); don't need QImageIO in QT 3.2
 
-			xml += KCodecs::base64Encode( data, true );
+            xml += KCodecs::base64Encode( data );
 
 			xml += "]]></pic>\n";
 		}
@@ -210,7 +208,7 @@ QString KreExporter::createContent( const RecipeList& recipes )
 				if ( prop_amount > 0 ) { //TODO: make the precision configuratble
 					prop_amount = double( qRound( prop_amount * 10.0 ) ) / 10.0; //not a "chemistry experiment" ;)  Let's only have one decimal place
 					if ( m_locale_aware_numbers ) {
-						amount_str = beautify( KGlobal::locale() ->formatNumber( prop_amount, 5 ) );
+                        amount_str = beautify( QLocale().toString( prop_amount, 'f', 5 ) );
 					} else {
 						amount_str = beautify( QString::number(prop_amount) );
 					}

@@ -9,10 +9,6 @@
 
 #include "kredbimporter.h"
 
-#include <kapplication.h>
-#include <kconfig.h>
-#include <kdebug.h>
-
 #include "datablocks/recipelist.h"
 #include "datablocks/categorytree.h"
 #include "backends/recipedb.h"

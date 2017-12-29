@@ -12,21 +12,17 @@
 #include "mixednumber.h"
 
 #include <QRegExp>
-
-#include <kglobal.h>
-#include <klocale.h>
-#include <kdebug.h>
-#include <KConfigGroup>
-
 #include <QIntValidator>
 #include <QDoubleValidator>
+
 #include <KSharedConfig>
+#include <KConfigGroup>
 
 
 QString beautify( const QString &num )
 {
 	QString copy( num );
-	copy.remove( QRegExp( QString( "(%1){0,1}0+$" ).arg( QRegExp::escape( KGlobal::locale() ->decimalSymbol() ) ) ) );
+    copy.remove( QRegExp( QString( "(%1){0,1}0+$" ).arg( QRegExp::escape( QLocale().decimalPoint() ) ) ) );
 	return copy;
 }
 
@@ -35,19 +31,19 @@ MixedNumber::MixedNumber() :
 		m_whole( 0 ),
 		m_numerator( 0 ),
 		m_denominator( 1 ),
-		locale( KGlobal::locale() )
+        locale( QLocale() )
 {}
 
 MixedNumber::MixedNumber( int whole, int numerator, int denominator ) :
 		m_whole( whole ),
 		m_numerator( numerator ),
-		locale( KGlobal::locale() )
+        locale( QLocale() )
 {
 	setDenominator( denominator );
 }
 
 MixedNumber::MixedNumber( double decimal, double precision ) :
-		locale( KGlobal::locale() )
+        locale( QLocale() )
 {
 	// find nearest fraction
 	int intPart = static_cast<int>( decimal );
@@ -258,8 +254,8 @@ QValidator::State MixedNumber::fromString( const QString &str, MixedNumber &resu
 		}
 
 	} else if ( (space_index != -1) && (slash_index == -1) ) {  //input contains an incomplete mixed number
-		whole = input.mid( 0, space_index ).toInt( &num_ok );
-		if ( !num_ok ) {
+        input.mid( 0, space_index ).toInt( &num_ok );
+        if ( !num_ok ) {
 			result.m_isValid = false;
 			return QValidator::Invalid;
 		} else {
@@ -333,7 +329,7 @@ QString MixedNumber::toString( Format format, bool locale_aware ) const
 
 	if ( format == DecimalFormat ) {
 		if ( locale_aware )
-			return beautify( locale->formatNumber( toDouble(), 5 ) );
+            return beautify( locale.toString( toDouble(), 'f', 5 ) );
 		else
 			return QString::number( toDouble() );
 	}

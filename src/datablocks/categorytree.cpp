@@ -86,7 +86,7 @@ void CategoryTree::takeItem( CategoryTree *tree )
 	if ( tree != m_last )
 		m_child->m_last = lastItem;
 	else //FIXME: unstable behavior if this is the case
-		kDebug()<<"CategoryTree::takeItem: warning - unstable behavior expected";
+		qDebug()<<"CategoryTree::takeItem: warning - unstable behavior expected";
 	m_count--;
 }
 

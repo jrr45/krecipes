@@ -19,14 +19,9 @@ include_directories( ${KDE5_INCLUDES} ${KDE5_INCLUDE_DIR} ${QT_INCLUDES}
    ${CMAKE_CURRENT_SOURCE_DIR}/tests
 )
 
-########### QT3Support ###############
-
-add_definitions (-DQT3_SUPPORT)
-
 ########### Deprecated warnings ###############
 
-add_definitions (-DQT3_SUPPORT_WARNINGS)
-#add_definitions (-DKRECIPES_DEPRECATED_WARNINGS)
+add_definitions (-DKRECIPES_DEPRECATED_WARNINGS)
 
 ############### dtos #################
 
@@ -321,11 +316,11 @@ add_library(krecipescommon STATIC
 target_link_libraries(krecipescommon
    KF5::CoreAddons
    KF5::ConfigCore
-   KF5::KDELibs4Support
    KF5::Archive
    KF5::KHtml
    KF5::Completion
    KF5::ItemModels
+   KF5::IconThemes
 
    #${KDE5_KDECORE_LIBS} #${KDE4_KDE3SUPPORT_LIBS}
    Qt5::Sql

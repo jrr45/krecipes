@@ -12,15 +12,10 @@
 #include <QBuffer>
 #include <qdom.h>
 #include <QImage>
-#include <qimagewriter.h>
-
-#include <kconfig.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <QImageWriter>
 #include <QTemporaryFile>
-#include <kcodecs.h>
-#include <kglobal.h>
 
+#include <KCodecs>
 
 #include "backends/recipedb.h"
 
@@ -58,7 +53,7 @@ QString CookMLExporter::createContent( const RecipeList& recipes )
 	RecipeList::const_iterator recipe_it;
 	for ( recipe_it = recipes.begin(); recipe_it != recipes.end(); ++recipe_it ) {
 		QDomElement recipe_tag = doc.createElement( "recipe" );
-		recipe_tag.setAttribute( "lang", ( KGlobal::locale() ) ->language() );
+        recipe_tag.setAttribute( "lang", QLocale().uiLanguages().first() );
 
 		//cookml_tag.appendChild( recipe_tag );
 
@@ -89,7 +84,6 @@ QString CookMLExporter::createContent( const RecipeList& recipes )
 		buffer.open( QIODevice::WriteOnly );
 		QImageWriter iio( &buffer, "JPEG" );
 		iio.write( ( *recipe_it ).photo.toImage() );
-		//( *recipe_it ).photo.save( &buffer, "JPEG" ); don't need QImageIO in QT 3.2
 
 		picbin_tag.appendChild( doc.createTextNode( KCodecs::base64Encode( data, true ) ) );
 		head_tag.appendChild( picbin_tag );

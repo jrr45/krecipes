@@ -13,15 +13,10 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QDir>
+#include <QDebug>
 
-#include <K4AboutData>
-#include <kdebug.h>
-#include <klocale.h>
-#include <kglobal.h>
-#include <kmessagebox.h>
-#include <ktar.h>
-
-#include <KComponentData>
+#include <KMessageBox>
+#include <KTar>
 
 #include "backends/recipedb.h"
 
@@ -61,7 +56,7 @@ void BaseExporter::exporter( const QList<int> &ids, RecipeDB *database, QProgres
 	if ( createFile() )
 		saveToFile( ids, database );
 	else
-		kDebug() << "no output file has been selected for export." ;
+        qDebug() << "no output file has been selected for export." ;
 }
 
 void BaseExporter::exporter( int id, RecipeDB *database, QProgressDialog *progress_dlg )
@@ -141,7 +136,7 @@ void BaseExporter::saveToFile( const QList<int> &ids, RecipeDB *database )
 
 			if ( m_progress_dlg ) {
                 m_progress_dlg->setValue(m_progress_dlg->value() + progressInterval() );
-				kapp->processEvents();
+                qApp->processEvents();
 			}
 		}
 

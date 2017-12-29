@@ -13,8 +13,6 @@
 
 #include <QTextStream>
 #include <QList>
-
-#include <kapplication.h>
 #include <QProgressDialog>
 
 #include "datablocks/recipelist.h"

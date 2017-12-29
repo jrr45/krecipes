@@ -10,8 +10,6 @@
 #ifndef USDA_UNIT_DATA_H
 #define USDA_UNIT_DATA_H
 
-#include <klocale.h>
-
 #include <QString>
 #include <QList>
 

@@ -12,19 +12,15 @@
 
 #include <QApplication>
 #include <QFile>
-
-#include <kdebug.h>
-#include <kglobal.h>
-#include <kconfig.h>
-#include <kconfiggroup.h>
-#include <kmessagebox.h>
-#include <KProcess>
 #include <QEventLoop>
-#include <KLocale>
 #include <QPointer>
+#include <QDebug>
 
-#include <kglobalsettings.h>
+#include <KConfigGroup>
 #include <KSharedConfig>
+#include <KMessageBox>
+#include <KProcess>
+#include <KLocalizedString>
 
 #include "dialogs/preferences/krecipespreferences.h"
 
@@ -39,7 +35,7 @@ ConvertSQLite3::ConvertSQLite3( const QString &db_file ):
 
 void ConvertSQLite3::convert()
 {
-	kDebug() << "converting";
+    qDebug() << "converting";
 	QString file = db_file;
 	KConfigGroup config = KSharedConfig::openConfig()->group("Server");
 	if ( file.isEmpty() ) {
@@ -134,7 +130,7 @@ void ConvertSQLite3::convert()
 		"A successfully converted SQLite 3 file is available at %1.new.", file) );
 	}
 	else {
-		kDebug()<<"SQLite 2 database backed up to "<<backup_file;
+        qDebug()<<"SQLite 2 database backed up to "<<backup_file;
 		if ( !copyFile( file+".new", file ) ) {
 			KMessageBox::error( 0, i18n("Unable to copy the new SQLite 3 database to %1."
 			"You may manually move %1.new to %1", file) );

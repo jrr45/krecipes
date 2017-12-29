@@ -19,9 +19,6 @@
 #include <QTextDocument>
 #include <dom/dom_element.h>
 
-#include <kdebug.h>
-#include <klocale.h>
-
 #include <kiconloader.h>
 
 #include "datablocks/mixednumber.h"
@@ -362,7 +359,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 		double prop_amount = (*prop_it).amount;
 		if ( prop_amount > 0 ) { //TODO: make the precision configuratble
 			prop_amount = double( qRound( prop_amount * 10.0 ) ) / 10.0; //not a "chemistry experiment" ;)  Let's only have one decimal place
-            amount_str = beautify( QLocale().toString(prop_amount, 'g', 5) );
+            amount_str = beautify( QLocale().toString(prop_amount, 'f', 5) );
 		}
 		else
 			amount_str = '0';
@@ -406,7 +403,7 @@ void HTMLExporter::populateTemplate( const Recipe &recipe, QString &content )
 			if ( !QFile::exists( fi.absolutePath() + '/' + image_url ) ) {
 				QPixmap starPixmap = Rating::starsPixmap(rc.stars());
 				starPixmap.save( fi.absolutePath() + '/' + image_url, "PNG" );
-				kDebug() << "saving: " << fi.absolutePath() + '/' + image_url ;
+                qDebug() << "saving: " << fi.absolutePath() + '/' + image_url ;
 			}
 		}
 		if ( (*rating_it).hasRatingCriterias() )

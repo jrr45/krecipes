@@ -9,13 +9,10 @@
 
 #include "baseimporter.h"
 
-#include <kapplication.h>
-#include <kconfig.h>
-#include <kdebug.h>
-#include <klocale.h>
+#include <QApplication>
 #include <QProgressDialog>
-#include <kmessagebox.h>
-#include <kglobal.h>
+
+#include <KMessageBox>
 #include <KConfigGroup>
 #include <KSharedConfig>
 
@@ -96,7 +93,7 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 	if ( direct ) {
 		m_database = db;
 
-        m_progress_dialog = new QProgressDialog( kapp->activeWindow());
+        m_progress_dialog = new QProgressDialog( qApp->activeWindow());
         m_progress_dialog->setWindowTitle(i18n( "Importing selected recipes" ));
         m_progress_dialog->setLabelText(QString());
         m_progress_dialog->setModal( true );
@@ -121,7 +118,7 @@ void BaseImporter::import( RecipeDB *db, bool /*automatic*/ )
 		m_recipe_list->empty();
 		//db->blockSignals(true);
 
-        m_progress_dialog = new QProgressDialog( kapp->activeWindow());
+        m_progress_dialog = new QProgressDialog( qApp->activeWindow());
         m_progress_dialog->setWindowTitle(i18n( "Importing selected recipes" ));
         m_progress_dialog->setLabelText(QString());
 		m_progress_dialog->setModal( true );
@@ -148,7 +145,7 @@ void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, QProgres
 
 	if ( direct ) {
         progress_dialog->setValue(progress_dialog->value()+1);
-		kapp->processEvents();
+        qApp->processEvents();
 	}
 
 	//create ingredient groups
@@ -167,7 +164,7 @@ void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, QProgres
 
 	if ( direct ) {
         progress_dialog->setValue(progress_dialog->value()+1);
-		kapp->processEvents();
+        qApp->processEvents();
 	}
 
 	Unit real_unit( ing.units.name().left( max_units_length ), ing.units.plural().left( max_units_length ) );
@@ -183,7 +180,7 @@ void BaseImporter::importIngredient( IngredientData &ing, RecipeDB *db, QProgres
 
 	if ( direct ) {
         progress_dialog->setValue(progress_dialog->value()+1);
-		kapp->processEvents();
+        qApp->processEvents();
 	}
 
 	if ( ing.prepMethodList.count() > 0 ) {
@@ -218,7 +215,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QP
 	for ( recipe_it = selected_recipes.begin(); recipe_it != recipe_list_end; ++recipe_it ) {
 		if ( !direct ) {
             if ( progress_dialog->wasCanceled() ) {
-                KMessageBox::information( kapp->activeWindow(), i18n( "All recipes up unto this point have been successfully imported." ) );
+                KMessageBox::information( qApp->activeWindow(), i18n( "All recipes up unto this point have been successfully imported." ) );
 				//db->blockSignals(false);
 				db->enableTransactions();
 				db->commit();
@@ -232,7 +229,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QP
 
 		progress_dialog->setLabelText( i18n( "Importing recipe: %1" ,( *recipe_it ).title ));
         progress_dialog->setValue(progress_dialog->value()+1);
-		kapp->processEvents();
+        qApp->processEvents();
 
 		//add all recipe items (authors, ingredients, etc. to the database if they aren't already
 		IngredientList::iterator ing_list_end( ( *recipe_it ).ingList.end() );
@@ -248,7 +245,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QP
 		for ( ElementList::iterator author_it = ( *recipe_it ).authorList.begin(); author_it != author_list_end; ++author_it ) {
 			if ( direct ) {
                 progress_dialog->setValue(progress_dialog->value()+1);
-				kapp->processEvents();
+                qApp->processEvents();
 			}
 
 			int new_author_id = db->findExistingAuthorByName(( *author_it ).name);
@@ -263,7 +260,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QP
 		for ( ElementList::iterator cat_it = ( *recipe_it ).categoryList.begin(); cat_it != cat_list_end; ++cat_it ) {
 			if ( direct ) {
                 progress_dialog->setValue(progress_dialog->value()+1);
-				kapp->processEvents();
+                qApp->processEvents();
 			}
 
 			int new_cat_id = db->findExistingCategoryByName(( *cat_it ).name);
@@ -286,7 +283,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QP
 		for ( RatingList::iterator rating_it = ( *recipe_it ).ratingList.begin(); rating_it != rating_list_end; ++rating_it ) {
 			if ( direct ) {
                 progress_dialog->setValue(progress_dialog->value()+1);
-				kapp->processEvents();
+                qApp->processEvents();
 			}
 
 			foreach (RatingCriteria rc, (*rating_it).ratingCriterias()) {
@@ -306,7 +303,7 @@ void BaseImporter::importRecipes( RecipeList &selected_recipes, RecipeDB *db, QP
 
 		if ( direct ) {
             progress_dialog->setValue(progress_dialog->value()+1);
-			kapp->processEvents();
+            qApp->processEvents();
 		}
 
 		//save into the database

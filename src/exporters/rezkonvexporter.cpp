@@ -11,11 +11,7 @@
 #include "rezkonvexporter.h"
 
 #include <QRegExp>
-
-#include <kdebug.h>
-#include <klocale.h>
-#include <kapplication.h>
-#include <kglobal.h>
+#include <QDebug>
 
 #include "backends/recipedb.h"
 #include "datablocks/mixednumber.h"
@@ -232,7 +228,7 @@ void RezkonvExporter::writeSingleIngredient( QString &content, const IngredientD
 
 			if (new_amount_str.length() > 7) { //still too long, use original formatting, but truncate it
 				amount_str = amount_str.left(7);
-				kDebug()<<"Warning: Amount text too long, truncating";
+                qDebug()<<"Warning: Amount text too long, truncating";
 			}
 		}
 		content += amount_str.rightJustified( 7, ' ', true ) + ' ';
@@ -255,8 +251,8 @@ void RezkonvExporter::writeSingleIngredient( QString &content, const IngredientD
 		}
 	}
 	if ( !found_translation ) {
-		kDebug() << "Warning: unable to find German translation for: " << ing.units.name() ;
-		kDebug() << "         This ingredient (" << ing.name << ") will be exported without a unit" ;
+        qDebug() << "Warning: unable to find German translation for: " << ing.units.name() ;
+        qDebug() << "         This ingredient (" << ing.name << ") will be exported without a unit" ;
 		content += QString().fill(' ',9+1);
 	}
 

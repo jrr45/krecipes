@@ -16,13 +16,11 @@
 #include <QSqlField>
 #include <QImageWriter>
 #include <QDebug>
-
-#include <kglobal.h>
-#include <klocale.h>
-#include <kconfiggroup.h>
-#include <kcodecs.h>
 #include <QStandardPaths>
+
+#include <KConfigGroup>
 #include <KSharedConfig>
+#include <KLocalizedString>
 
 //keep this around for porting old databases
 int sqlite_decode_binary( const unsigned char *in, unsigned char *out );

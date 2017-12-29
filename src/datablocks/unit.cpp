@@ -11,7 +11,7 @@
 
 #include "unit.h"
 
-#include <KLocale>
+#include <KLocalizedString>
 
 class Unit::Private
 {

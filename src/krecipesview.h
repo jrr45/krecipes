@@ -13,11 +13,8 @@
 #define KRECIPESVIEW_H
 
 #include <QPushButton>
-
-#include <qwidget.h>
+#include <QWidget>
 #include <QList>
-
-#include <kvbox.h>
 
 #include "importers/baseimporter.h"
 #include "backends/recipedb.h"
@@ -149,7 +146,6 @@ private:
 
 
 	// Widgets
-	KHBox *splitter;
 	QFrame *leftPanelFrame;
 	KreMenu *leftPanel;
 	MenuId dataMenu;

@@ -13,11 +13,10 @@
 
 #include <QValidator>
 #include <QString>
+#include <QLocale>
 
 /** remove any extra zeros on the end of the string and the decimal if a whole number */
 QString beautify( const QString &num );
-
-class KLocale;
 
 /** A class to hold and manipulate a mixed number.
   * @author Jason Kivlighn
@@ -102,7 +101,7 @@ private:
 	int m_numerator;
 	int m_denominator;
 
-	KLocale *locale;
+    QLocale locale;
 };
 
 inline const MixedNumber operator+( const MixedNumber &mn1, const MixedNumber &mn2 )

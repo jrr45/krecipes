@@ -35,7 +35,7 @@ void LoadingAuthorsThread::setOffset(int offset)
 
 void LoadingAuthorsThread::run()
 {
-	kDebug() << "Running query in a separate thread.";
+	qDebug() << "Running query in a separate thread.";
 
 	// Connect to the database reading the settings from krecipesrc.
 	m_database = RecipeDB::createDatabase();

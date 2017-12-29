@@ -9,14 +9,12 @@
 
 #include "mmfimporter.h"
 
-#include <kapplication.h>
-#include <klocale.h>
-#include <kdebug.h>
-
+#include <QApplication>
 #include <QFile>
 #include <QRegExp>
 #include <QStringList>
 #include <QTextStream>
+#include <QDebug>
 
 #include "datablocks/mixednumber.h"
 #include "datablocks/recipe.h"
@@ -74,7 +72,7 @@ void MMFImporter::parseFile( const QString &file )
 
 void MMFImporter::importMMF( QTextStream &stream )
 {
-	kapp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
+    qApp->processEvents(); //don't want the user to think its frozen... especially for files with thousands of recipes
 
 	QString current;
 
@@ -87,7 +85,7 @@ void MMFImporter::importMMF( QTextStream &stream )
 	stream.skipWhiteSpace();
 	current = stream.readLine();
 	m_title = current.mid( current.indexOf( ":" ) + 1, current.length() ).trimmed();
-	kDebug() << "Found title: " << m_title ;
+	qDebug() << "Found title: " << m_title ;
 
 	//categories
 	stream.skipWhiteSpace();
@@ -102,7 +100,7 @@ void MMFImporter::importMMF( QTextStream &stream )
 	for ( QStringList::const_iterator it = categories.constBegin(); it != categories.constEnd(); ++it ) {
 		Element new_cat;
 		new_cat.name = QString( *it ).trimmed();
-		kDebug() << "Found category: " << new_cat.name ;
+		qDebug() << "Found category: " << new_cat.name ;
 		m_categories.append( new_cat );
 	}
 
@@ -113,12 +111,12 @@ void MMFImporter::importMMF( QTextStream &stream )
 		//get the number between the ":" and the next space after it
 		m_servings = current.mid( current.indexOf( ":" ) + 1,
 		                          current.indexOf( " ", current.indexOf( ":" ) + 2 ) - current.indexOf( ":" ) ).toInt();
-		kDebug() << "Found yield: " << m_servings ;
+		qDebug() << "Found yield: " << m_servings ;
 	}
 	else if ( current.startsWith( "Servings:" ) )  //from database version
 	{
 		m_servings = current.mid( current.indexOf( ":" , 0, Qt::CaseSensitive ) + 1, current.length() ).toInt();
-		kDebug() << "Found servings: " << m_servings ;
+		qDebug() << "Found servings: " << m_servings ;
 	}
 
 	//=======================VARIABLE FORMAT===================//
@@ -149,13 +147,13 @@ void MMFImporter::importMMF( QTextStream &stream )
 			if ( !current.trimmed().isEmpty() )
 				instruction_found = true;
 			m_instructions += current.trimmed() + '\n';
-			//kDebug()<<"Found instruction line: "<<current.trimmed();
+			//qDebug()<<"Found instruction line: "<<current.trimmed();
 		}
 
 		current = stream.readLine();
 	}
 	m_instructions = m_instructions.trimmed();
-	//kDebug()<<"Found instructions: "<<m_instructions;
+	//qDebug()<<"Found instructions: "<<m_instructions;
 
 	putDataInRecipe();
 }
@@ -171,7 +169,7 @@ bool MMFImporter::loadIngredientLine( const QString &string, IngredientList &lis
 
 	if ( string.length() > 11 && string.at( 11 ) == '-' && string.mid( 0, 11 ).trimmed().isEmpty() && !list.isEmpty() )  //continuation of previous ingredient
 	{
-		//kDebug()<<"Appending to last ingredient in column: "<<string.trimmed().mid(1,string.length());
+		//qDebug()<<"Appending to last ingredient in column: "<<string.trimmed().mid(1,string.length());
 		list.last().name += ' ' + string.trimmed().mid( 1, string.length() );
 		QString name = list.last().name;
 
@@ -268,7 +266,7 @@ bool MMFImporter::loadIngredientHeader( const QString &string )
 		header.remove( QRegExp( "^MMMMM" ) );
 		header.remove( QRegExp( "^-*" ) ).remove( QRegExp( "-*$" ) );
 
-		kDebug() << "found ingredient header: " << header ;
+		qDebug() << "found ingredient header: " << header ;
 
 		//merge all columns before appending to full ingredient list to maintain the ingredient order
 		for ( IngredientList::iterator ing_it = m_left_col_ing.begin(); ing_it != m_left_col_ing.end(); ++ing_it ) {

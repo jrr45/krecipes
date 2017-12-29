@@ -7,11 +7,9 @@
 *   (at your option) any later version.                                   *
 ***************************************************************************/
 
+#include <KLocalizedString>
+
 #include "recipemlexporter.h"
-
-#include <kdebug.h>
-#include <klocale.h>
-
 #include "backends/recipedb.h"
 
 RecipeMLExporter::RecipeMLExporter( const QString& filename, const QString& format ) :

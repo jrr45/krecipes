@@ -10,10 +10,9 @@
 
 #include "plaintextexporter.h"
 
-#include <kglobal.h>
-#include <klocale.h>
 #include <KConfigGroup>
 #include <KSharedConfig>
+#include <KLocalizedString>
 
 #include "backends/recipedb.h"
 

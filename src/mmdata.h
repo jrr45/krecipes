@@ -10,6 +10,8 @@
 #ifndef MMDATA_H
 #define MMDATA_H
 
+#include <KLocalizedString>
+
 /** This file contains each of the Meal-Master unit abbreviations,
   * and their cooresponding expansions.
   */
