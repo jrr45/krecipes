@@ -28,7 +28,7 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 #include <KProcess>
-#include <KFilterDev>
+#include <KCompressionDevice>
 #include <KMessageBox>
 
 #include <QApplication>
@@ -273,7 +273,7 @@ bool RecipeDB::backup( const QString &backup_file, QString *errMsg )
 
 	process = new KProcess;
 
-	m_dumpFile = KFilterDev::deviceForFile(backup_file,"application/x-gzip");
+    m_dumpFile = new KCompressionDevice(backup_file, KCompressionDevice::GZip);
 	if ( !m_dumpFile->open( QIODevice::WriteOnly ) ) {
         qDebug()<<"Couldn't open "<<backup_file;
 		return false;
@@ -442,7 +442,7 @@ void RecipeDB::initializeData( void )
 bool RecipeDB::restore( const QString &file, QString *errMsg )
 {
     qDebug();
-	m_dumpFile = KFilterDev::deviceForFile(file,"application/x-gzip");
+    m_dumpFile = new KCompressionDevice(file, KCompressionDevice::GZip);
 	if ( m_dumpFile->open( QIODevice::ReadOnly ) ) {
 
 		m_dumpFile->setTextModeEnabled( true );

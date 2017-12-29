@@ -85,7 +85,7 @@ QString CookMLExporter::createContent( const RecipeList& recipes )
 		QImageWriter iio( &buffer, "JPEG" );
 		iio.write( ( *recipe_it ).photo.toImage() );
 
-		picbin_tag.appendChild( doc.createTextNode( KCodecs::base64Encode( data, true ) ) );
+        picbin_tag.appendChild( doc.createTextNode( KCodecs::base64Encode( data ) ) );
 		head_tag.appendChild( picbin_tag );
 
 		QDomElement part_tag = doc.createElement( "part" );

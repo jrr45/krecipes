@@ -2344,11 +2344,14 @@ bool QSqlRecipeDB::checkIntegrity( void )
 		"previous versions of Krecipes.</p>"
 		"<p>Cancelling this operation may result in corrupting the database.</p>"
 		"</warning>" ) ) ) {
+        case KMessageBox::Ok:
+        case KMessageBox::Continue:
 		case KMessageBox::Yes:
 			emit progressBegin(0,QString(),i18n("Porting database structure..."),50);
 			portOldDatabases( version );
 			emit progressDone();
 			break;
+        case KMessageBox::Cancel:
 		case KMessageBox::No:
 			return false;
 		}

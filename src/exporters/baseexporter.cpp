@@ -149,7 +149,7 @@ void BaseExporter::saveToFile( const QList<int> &ids, RecipeDB *database )
 
 			QFileInfo fi( file->fileName() );
 			QByteArray data = file->readAll();
-			tar_file->writeFile( fi.fileName(), fi.owner(), fi.group(), data, data.size() );
+            tar_file->writeFile( fi.fileName(), data, 0100644, fi.owner(), fi.group() );
 			tar_file->close();
 		}
 
