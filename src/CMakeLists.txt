@@ -334,7 +334,13 @@ target_link_libraries(krecipescommon
 
 
 set(IMPORT_EXPORT_TESTS
-    kretest mmftest mx2test mxptest nyctest recipemltest rezkonvtest
+    kretest
+    mmftest
+    mx2test
+    mxptest
+    nyctest
+    recipemltest
+    rezkonvtest
     )
 
 set(DATABLOCKS_TESTS
@@ -370,24 +376,23 @@ endif()
 
 macro(add_import_export_test _TEST)
     if(KDE5_BUILD_TESTS)
-        kde5_add_executable(krecipes-import-export-${_TEST} tests/import-export/${_TEST}.cpp)
-        target_link_libraries(krecipes-import-export-${_TEST} ${UNIT_TEST_LIBRARIES})
+        kde5_add_executable(krecipes-import-export-${_TEST}-test tests/import-export/${_TEST}.cpp)
+        target_link_libraries(krecipes-import-export-${_TEST}-test ${UNIT_TEST_LIBRARIES})
 
         set(_TEST_DATA
             ${CMAKE_CURRENT_SOURCE_DIR}/tests/import-export/${_TEST}.txt
             ${CMAKE_CURRENT_SOURCE_DIR}/tests/import-export/test_photo.jpg)
 
-        add_test(NAME krecipes-import-export-${_TEST}
-            COMMAND $<TARGET_FILE:krecipes-import-export-${_TEST}> ${_TEST_DATA})
+        add_test(NAME krecipes-import-export-${_TEST}-test
+            COMMAND $<TARGET_FILE:krecipes-import-export-${_TEST}-test> ${_TEST_DATA})
     endif(KDE5_BUILD_TESTS)
 endmacro(add_import_export_test)
 
 macro(add_datablocks_test _TEST)
-    #kde4_add_unit_test(krecipes-datablocks-${_TEST} tests/datablocks/${_TEST}.cpp)
-    add_executable(krecipes-datablocks-${_TEST} tests/datablocks/${_TEST}.cpp)
-    add_test(krecipes-datablocks krecipes-datablocks-${_TEST})
-    ecm_mark_as_test(krecipes-datablocks-${_TEST})
-    target_link_libraries(krecipes-datablocks-${_TEST} ${UNIT_TEST_LIBRARIES})
+    add_executable(krecipes-datablocks-${_TEST}-test tests/datablocks/${_TEST}.cpp)
+    add_test(krecipes-datablocks krecipes-datablocks-${_TEST}-test)
+    ecm_mark_as_test(krecipes-datablocks-${_TEST}-test)
+    target_link_libraries(krecipes-datablocks-${_TEST}-test ${UNIT_TEST_LIBRARIES})
 endmacro(add_datablocks_test)
 
 macro(add_database_test _TEST)
@@ -395,25 +400,22 @@ macro(add_database_test _TEST)
         tests/database/${_TEST}.cpp)
     qt5_add_resources(krecipes-database-${_TEST}_SRCS
         tests/database/dbconfigs.qrc)
-    #kde4_add_unit_test(krecipes-database-${_TEST}
-    #     ${krecipes-database-${_TEST}_SRCS})
-    add_executable(krecipes-database-${_TEST} ${krecipes-database-${_TEST}_SRCS})
-    add_test(krecipes-database krecipes-database-${_TEST})
-    ecm_mark_as_test(krecipes-database-${_TEST})
-    target_link_libraries(krecipes-database-${_TEST} ${UNIT_TEST_LIBRARIES})
+    add_executable(krecipes-database-${_TEST}-test ${krecipes-database-${_TEST}_SRCS})
+    add_test(krecipes-database krecipes-database-${_TEST}-test)
+    ecm_mark_as_test(krecipes-database-${_TEST}-test)
+    target_link_libraries(krecipes-database-${_TEST}-test ${UNIT_TEST_LIBRARIES})
 endmacro(add_database_test)
 
 macro(add_ui_test _TEST)
-    add_executable(krecipes-ui-${_TEST} tests/ui/${_TEST}.cpp)
-    add_test(krecipes-ui krecipes-ui-${_TEST})
-    ecm_mark_as_test(krecipes-ui-${_TEST})
+    add_executable(krecipes-ui-${_TEST}-test tests/ui/${_TEST}.cpp)
+    add_test(krecipes-ui krecipes-ui-${_TEST}-test)
+    ecm_mark_as_test(krecipes-ui-${_TEST}-test)
 
-    #kde4_add_unit_test(krecipes-ui-${_TEST} tests/ui/${_TEST}.cpp)
-    target_link_libraries(krecipes-ui-${_TEST} ${UNIT_TEST_LIBRARIES})
+    target_link_libraries(krecipes-ui-${_TEST}-test ${UNIT_TEST_LIBRARIES})
 endmacro(add_ui_test)
 
 set(UNIT_TEST_LIBRARIES krecipescommon
-    KF5::KDELibs4Support
+#    KF5::KDELibs4Support
     ${QT_QTSQL_LIBRARY}  ${QT_QTTEST_LIBRARY}
     ${LIBXSLT_LIBRARIES} ${LIBXML2_LIBRARIES}
     )

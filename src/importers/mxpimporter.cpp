@@ -15,6 +15,8 @@
 #include <QApplication>
 #include <QDebug>
 
+#include <KLocalizedString>
+
 #include "datablocks/mixednumber.h"
 #include "datablocks/recipe.h"
 

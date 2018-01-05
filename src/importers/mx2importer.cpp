@@ -18,9 +18,9 @@ License along with this library.  If not, see <http://www.gnu.org/licenses/>
 
 #include "mx2importer.h"
 
-#include <klocale.h>
-#include <kdebug.h>
+#include <KLocalizedString>
 
+#include <QDebug>
 #include <QFile>
 #include <QStringList>
 #include <QTextStream>

@@ -65,6 +65,7 @@ ki18n("This product is RecipeML compatible.\nYou can get more information about 
     // set up application
     QGuiApplication app(argc, argv );
 
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setApplicationName("Krecipes");
     QCoreApplication::setApplicationVersion(KRECIPES_VERSION);
     QCoreApplication::setOrganizationDomain("kde.org");
@@ -100,8 +101,8 @@ ki18n("This product is RecipeML compatible.\nYou can get more information about 
 		}
 
 //		Krecipes * widget = new Krecipes;
-//		app.setTopWidget( widget );
-//		widget->show();
+//        app.setTopWidget( widget );
+//        widget->show();
 	}
 
 	return app.exec();

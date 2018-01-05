@@ -9,7 +9,7 @@
 
 #include "categorytree.h"
 
-#include <kdebug.h>
+#include <QDebug>
 
 #include "element.h"
 
@@ -60,7 +60,7 @@ void CategoryTree::insertItem( CategoryTree *newChild )
 
 void CategoryTree::takeItem( CategoryTree *tree )
 {
-	kError()<< "Both these methods seem to be broken... don't use this function!" ;
+    qCritical()<< "Both these methods seem to be broken... don't use this function!" ;
 
 	CategoryTree *lastItem = m_child->m_last;
 #if 0

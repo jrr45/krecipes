@@ -18,6 +18,7 @@
 #include <KSharedConfig>
 #include <KConfigGroup>
 
+#include <QDebug>
 
 QString beautify( const QString &num )
 {
@@ -218,7 +219,12 @@ QValidator::State MixedNumber::fromString( const QString &str, MixedNumber &resu
 
 		//If the string input is fine, read the number
 		if ( state == QValidator::Acceptable ) {
-			double value = input.toDouble( &num_ok );
+            double value = QLocale().toDouble( input, &num_ok );
+            // fallback to default locale
+            if ( !num_ok ) {
+                value = QLocale(QLocale::C).toDouble( input, &num_ok );
+            }
+            // still failed to parse
 			if ( !num_ok ) {
 				result.m_isValid = false;
 				return QValidator::Invalid;
@@ -328,7 +334,7 @@ QString MixedNumber::toString( Format format, bool locale_aware ) const
 	}
 
 	if ( format == DecimalFormat ) {
-		if ( locale_aware )
+        if ( locale_aware )
             return beautify( locale.toString( toDouble(), 'f', 5 ) );
 		else
 			return QString::number( toDouble() );

@@ -15,6 +15,8 @@
 #include <QTextStream>
 #include <QDebug>
 
+#include <KLocalizedString>
+
 #include "datablocks/mixednumber.h"
 
 RezkonvImporter::RezkonvImporter() : BaseImporter()

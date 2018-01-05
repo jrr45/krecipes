@@ -16,6 +16,8 @@
 #include <QWidget>
 #include <QList>
 
+#include <KConfigGroup>
+
 #include "importers/baseimporter.h"
 #include "backends/recipedb.h"
 #include "actionshandlers/recipeactionshandler.h"

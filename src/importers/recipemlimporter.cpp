@@ -11,9 +11,9 @@
 #include "recipemlimporter.h"
 
 #include <QFile>
+#include <QDebug>
 
-#include <klocale.h>
-#include <kdebug.h>
+#include <KLocalizedString>
 
 #include "datablocks/recipe.h"
 #include "datablocks/mixednumber.h"

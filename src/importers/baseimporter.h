@@ -12,8 +12,6 @@
 #ifndef BASEIMPORTER_H
 #define BASEIMPORTER_H
 
-#include <klocale.h>
-
 #include <QString>
 #include <QStringList>
 

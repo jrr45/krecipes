@@ -211,7 +211,7 @@ void TestMixedNumber::testFromString_data()
 
 	QTest::newRow("thousand separator") /* This shouldn't be taken as one thousand */
 	/* Number string		locales		validator state		isValid?*/
-	<< "1.000"			<< ANY_LOCALE	<< ACC		<< true
+    << "1.000"			<< "C"	<< ACC		<< true
 	/* whole	numerator	denominator	value		is fraction? */
 	<< 1		<< 0		<< 1		<< 1.0		<< false;
 
@@ -239,21 +239,22 @@ void TestMixedNumber::testFromString()
 		//Convert to MixedNumber
 		MixedNumber number;
 		QValidator::State state;
-		state = MixedNumber::fromString( numberString, number );
+        state = MixedNumber::fromString( numberString, number );
 
-		//Check the results
-		qDebug() << "String:" << numberString << "Locale:" << locale 
-			<< "Validator state: " << state;
+        //Check the results
+        qDebug() << "String:" << numberString << "Locale:" << locale
+            << "Validator state: " << state;
+
 		QCOMPARE( state, validatorState );
-		QCOMPARE( number.isValid(), isValid );
-		if ( isValid ) {
-			QCOMPARE( number.whole(), whole );
-			QCOMPARE( number.numerator(), numerator );
-			QCOMPARE( number.denominator(), denominator );
-			QCOMPARE( number.toDouble(), value );
-			QCOMPARE( MixedNumber::isFraction(numberString), isFraction );
-		}
+        QCOMPARE( number.isValid(), isValid );
 
+		if ( isValid ) {
+            QCOMPARE( number.whole(), whole );
+            QCOMPARE( number.numerator(), numerator );
+            QCOMPARE( number.denominator(), denominator );
+            QCOMPARE( number.toDouble(), value );
+			QCOMPARE( MixedNumber::isFraction(numberString), isFraction );
+        }
 	}
 }
 
@@ -305,7 +306,7 @@ void TestMixedNumber::testToString_data()
 
 	QTest::newRow("valid3_es")
 	/* whole	numerator	denominator	fraction	decimal */
-	<< 1000		<< 0		<< 1		<< "1000"	<< "1000"
+    << 1000		<< 0		<< 1		<< "1000"	<< "1.000"
 	/* locale aware?	locale */
 	<< true		<< "es";
 

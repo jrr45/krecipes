@@ -12,16 +12,12 @@
 
 #include "backends/recipedb.h"
 
-#include <KApplication>
-#include <KGlobal>
-
 #include <KConfigGroup>
-#include <KSharedConfigPtr>
+#include <KSharedConfig>
 
 #include <QtTest/QTest>
 #include <QDebug>
 #include <QStandardPaths>
-#include <KSharedConfig>
 
 
 RecipeDB * TestDatabaseAuthors::createDatabase(const QString & configFilename )

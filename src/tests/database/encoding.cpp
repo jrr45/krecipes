@@ -13,20 +13,14 @@
 
 #include "backends/recipedb.h"
 
-#include <KApplication>
-#include <KGlobal>
 
 #include <KConfigGroup>
-#include <KSharedConfigPtr>
+#include <KSharedConfig>
 
 #include <QtTest/QTest>
-
 #include <QDebug>
 #include <QStandardPaths>
 #include <QTextCodec>
-
-#include <KSharedConfig>
-
 
 RecipeDB * TestDatabaseEncoding::createDatabase(const QString & configFilename )
 {

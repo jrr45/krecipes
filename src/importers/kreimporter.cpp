@@ -10,13 +10,11 @@
 
 #include "kreimporter.h"
 
-#include <klocale.h>
-#include <kdebug.h>
-
 #include <QFile>
 #include <QStringList>
 #include <QPixmap>
 #include <QDir>
+#include <QDebug>
 
 #include "datablocks/recipe.h"
 #include "datablocks/categorytree.h"
